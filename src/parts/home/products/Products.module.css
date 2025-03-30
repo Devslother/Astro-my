@@ -20,7 +20,7 @@
   flex-wrap: wrap; /* Позволяет переносить карточки */
   justify-content: center; /* Центрируем карточки */
   gap: 20px; /* Отступы между карточками */
-  background: url("home_page/products/bg.png");
+  background: url("/home_page/products/bg.png");
   padding-top: 60px;
 }
 
