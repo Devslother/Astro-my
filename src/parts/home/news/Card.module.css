@@ -1,0 +1,69 @@
+.card {
+  width: calc(33.33% - 20px);
+  max-width: 386px;
+  height: 550px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: var(--main-color);
+  text-align: left;
+  padding: 24px;
+  box-shadow: 0 0 10px #d9d9d9;
+  position: relative; /* Чтобы можно было позиционировать кнопку */
+}
+
+.img {
+  width: 100%;
+  height: 200px;
+  border-radius: 4px;
+}
+
+.content {
+  height: 260px; /* Ограничиваем высоту текстового блока */
+  overflow: hidden; /* Скрываем лишний текст */
+}
+
+.newsname {
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #1c76fd;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 115%;
+  color: var(--secondary-color);
+  margin-bottom: 12px;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  color: var(--grey-color);
+}
+
+.btn {
+  background: var(--main-color);
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 24px; /* Прижимаем к нижнему краю */
+  left: 24px; /* Прижимаем к левому краю */
+}
+
+.btn a {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 375px) {
+  .card {
+    width: 100%; /* Карточки в столбик */
+  }
+}

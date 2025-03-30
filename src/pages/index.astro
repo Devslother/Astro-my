@@ -1,11 +1,19 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Benefits from '../parts/home/benefits/Benefits.astro';
+import Cta from '../parts/home/cta/Cta.astro';
+import Hero from '../parts/home/hero/Hero.astro';
+import News from '../parts/home/news/News.astro';
+import Products from '../parts/home/products/Products.astro';
+import Trusted from '../parts/home/trusted/Trusted.astro';
+const pageTitle = "Home Page";
 ---
 
-<Layout>
-	<Welcome />
+<Layout pageTitle={pageTitle}>
+	<Hero />
+	<News />
+	<Trusted />
+	<Benefits />
+	<Products />
+	<Cta />
 </Layout>

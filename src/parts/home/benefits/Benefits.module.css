@@ -1,0 +1,119 @@
+.benefits {
+  display: flex;
+  flex-direction: column; /* Строим элементы сверху вниз */
+  align-items: center; /* Центрируем контент */
+  width: 100%;
+  min-height: auto; /* Вместо фиксированной высоты */
+  padding: 180px 0 80px;
+  background-color: var(--light-grey-color);
+  gap: 18px;
+}
+
+.headling {
+  text-align: center;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 110%;
+  color: var(--secondary-color);
+}
+
+.orange {
+  color: var(--orange-color);
+}
+
+.container {
+  max-width: 1205px; /* Ограничиваем ширину контейнера */
+  display: flex;
+  flex-wrap: wrap; /* Разрешаем перенос элементов */
+  justify-content: space-between; /* Равномерно распределяем карточки */
+  gap: 20px; /* Добавляем равномерный отступ между карточками */
+  margin: 0 auto; /* Центрируем контейнер */
+}
+
+.card1,
+.card2,
+.card3,
+.card4 {
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px #d9d9d9;
+}
+
+.card1 {
+  width: 696px;
+  height: 436px;
+  background: url("/home_page/benefits/card1.png") no-repeat center/cover;
+}
+
+.card2 {
+  width: 486px;
+  height: 436px;
+  background: url("/home_page/benefits/card2.png") no-repeat center/cover;
+}
+
+.card3 {
+  width: 506px;
+  height: 456px;
+  background: url("/home_page/benefits/card3.png") no-repeat center/cover;
+}
+
+.card4 {
+  width: 676px;
+  height: 456px;
+  background: url("/home_page/benefits/card4.png") no-repeat center/cover;
+}
+
+.cardname {
+  font-weight: 500;
+  font-size: clamp(
+    1rem,
+    2vw,
+    1.5rem
+  ); /* Минимальный, динамический и максимальный размер */
+  line-height: 115%;
+  color: var(--secondary-color);
+}
+
+.text {
+  font-weight: 400;
+  font-size: clamp(0.8rem, 1.5vw, 1rem); /* Адаптивный размер */
+  line-height: 150%;
+  color: var(--secondary-color);
+}
+
+/* Адаптация для планшетов */
+@media (max-width: 1200px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Две гибкие колонки */
+    grid-template-areas:
+      "card1 card2"
+      "card3 card4"; /* Размещаем карточки в два ряда */
+  }
+  .card1,
+  .card2,
+  .card3,
+  .card4 {
+    width: 100%; /* Делаем карточки адаптивными */
+    padding: 20px;
+  }
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 375px) {
+  .container {
+    grid-template-columns: 1fr; /* Одна колонка */
+    grid-template-areas:
+      "card1"
+      "card2"
+      "card3"
+      "card4";
+  }
+  .card1,
+  .card2,
+  .card3,
+  .card4 {
+    width: 335px;
+    height: 372px;
+  }
+}

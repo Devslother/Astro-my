@@ -1,0 +1,203 @@
+.footer {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  background-color: var(--main-color);
+  padding: 44px 20px 30px;
+  gap: 60px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto; /* Центрируем контейнер */
+}
+
+.column {
+  flex: 1;
+  max-width: 200px;
+  text-align: left;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+  line-height: 150%;
+  text-transform: uppercase;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.linkItem {
+  margin-bottom: 16px;
+}
+
+.linkItem a {
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  transition: color 0.3s ease;
+}
+
+.linkItem a:hover {
+  color: var(--grey-color);
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+  flex-diorection: raw;
+}
+
+.follow {
+  display: flex;
+  flex-diorection: raw;
+  gap: 20px;
+  align-item: center;
+}
+
+.h3 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  align-item: center;
+  white-space: nowrap;
+}
+
+.btn {
+  border-radius: 24px;
+  border: 1px solid #cecfcf;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Расстояние между иконкой и текстом */
+  justify-content: center;
+  height: 40px;
+  padding: 16px 20px;
+  margin-top: auto;
+  background-color: var(--main-color);
+}
+
+.btn a {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 135%;
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-diorection: raw;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.copyright_container,
+.links_container {
+  display: flex;
+  flex-diorection: raw;
+  gap: 40px;
+}
+
+.copyright_container span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.links_container a {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 135%;
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.links_container a:hover {
+  color: var(--grey-color);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 60px 30px 30px;
+  }
+
+  .info img {
+    width: 132px; /* Уменьшаем размер logo tetrate */
+    height: 30px;
+  }
+
+  .btn {
+    width: 60px; /* Уменьшаем размер кнопок */
+    height: 40px;
+  }
+
+  .btn img {
+    width: 20px; /* Уменьшаем размер иконок */
+    height: 20px;
+  }
+
+  .btn a {
+    display: none; /* Скрываем текст внутри кнопок */
+  }
+
+  .container {
+    flex-direction: column-reverse;
+    gap: 20px;
+    align-items: flex-start; /* Выравниваем контейнеры влево */
+  }
+}
+
+@media (max-width: 375px) {
+  .footer {
+    padding: 60px 20px 30px;
+    align-items: flex-start; /* Выровнять весь контент футера влево */
+  }
+
+  .list {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .info {
+    flex-direction: column; /* Делаем колонки вместо рядов */
+    gap: 24px;
+  }
+
+  .follow {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .h3 {
+    display: none; /* Убираем заголовок */
+  }
+
+  .copyright_container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .copyright_container p {
+    order: 1; /* Переносим p в самый низ */
+  }
+
+  .copyright_container span {
+    order: 0; /* Оставляем span между p и links_container */
+  }
+}

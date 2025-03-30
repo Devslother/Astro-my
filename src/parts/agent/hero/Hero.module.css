@@ -1,0 +1,55 @@
+.hero {
+  height: 635px;
+  background-image: url("/agent_page/hero.png");
+  background-size: cover; /* Фон покрывает всю область */
+  background-repeat: no-repeat; /* Запрещаем повторение */
+  display: flex;
+  align-items: center; /* Центрируем контент вертикально */
+  justify-content: flex-start; /* Смещаем контент влево */
+  padding-left: 360px; /* Отступ от левого края */
+}
+.content {
+  max-width: 539px; /* Ограничиваем ширину, чтобы контент не растягивался */
+  text-align: left; /* Текст остается слева */
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  font-size: 62px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 400;
+  max-width: 467px;
+  margin: 30px 0 42px 0;
+}
+
+/* Адаптация для планшетов (768px) */
+@media (max-width: 768px) {
+  .hero {
+    justify-content: center; /* Центрируем по горизонтали */
+    padding-left: 0; /* Убираем отступ слева */
+    text-align: center; /* Выравниваем текст по центру */
+    align-items: flex-start; /* Прижимаем контент к верху */
+    background-image: url("/agent_page/hero-small.png");
+    background-size: cover;
+    background-position: center bottom; /* Если фон должен быть внизу */
+  }
+
+  .content {
+    align-items: center; /* Центрируем элементы */
+    text-align: center; /* Выравниваем текст по центру */
+  }
+
+  .header {
+    font-size: 40px; /* Уменьшаем заголовок */
+  }
+
+  .text {
+    font-size: 16px;
+  }
+}

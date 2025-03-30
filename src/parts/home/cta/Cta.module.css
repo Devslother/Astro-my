@@ -1,0 +1,70 @@
+.cta {
+  height: 646px;
+  display: flex;
+  flex-direction: column;
+  background-image: url("/cta/ctabg.png");
+  background-size: cover;
+  background-position: center;
+  align-items: center; /* Центрируем контент вертикально */
+  justify-content: center; /* Центрируем контент горизонтально */
+  text-align: center; /* Центрируем текст */
+  gap: 45px;
+}
+.img {
+  text-align: center; /* Центрируем текст */
+}
+.headling {
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--secondary-color);
+}
+
+.orange {
+  color: var(--orange-color);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.btn_demo,
+.btn_pricing {
+  border-radius: 24px;
+  cursor: pointer;
+  padding: 16px 32px;
+  max-width: 197px;
+}
+
+.btn_demo a,
+.btn_pricing a {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 135%;
+  text-decoration: none;
+}
+
+.btn_demo {
+  border: 1px solid var(--secondary-color);
+  background-color: var(--main-color);
+}
+
+.btn_pricing {
+  border: 1px solid var(--main-color);
+  background-color: var(--orange-color);
+}
+
+.btn_demo a {
+  color: var(--secondary-color);
+}
+
+.btn_pricing a {
+  color: var(--main-color);
+}
+
+@media (max-width: 375px) {
+  .container {
+    flex-direction: column;
+  }
+}

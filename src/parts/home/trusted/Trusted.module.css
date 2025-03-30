@@ -1,0 +1,57 @@
+.trust {
+  height: 240px;
+  width: 100%;
+  background-image: linear-gradient(
+    to left,
+    #114798 0%,
+    #0a0d0f 50%,
+    #114798 100%
+  );
+  padding: 60px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрируем контент по горизонтали */
+  gap: 32px;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--main-color);
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Равномерно распределяет элементы */
+  max-width: 1140px; /* Задаем максимальную ширину */
+  width: 100%; /* Чтобы не выходило за пределы контейнера */
+  margin: 0 auto; /* Центрируем логотипы */
+  flex-wrap: wrap; /* Позволяем перенос логотипов при маленьком экране */
+}
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+  .trust {
+    padding: 60px 30px;
+    gap: 24px;
+  }
+  .heading {
+    font-size: 18px;
+  }
+  .logo img {
+    max-width: 124px; /* Уменьшаем логотипы */
+  }
+}
+
+@media (max-width: 375px) {
+  .trust {
+    padding: 44px 5px;
+  }
+  .heading {
+    font-size: 16px;
+  }
+  .logo img {
+    max-width: 115px;
+  }
+}

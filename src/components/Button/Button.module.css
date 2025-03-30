@@ -1,0 +1,29 @@
+.button {
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  color: var(--main-color);
+  background-color: var(--orange-color);
+}
+
+.accent {
+  background-color: var(--orange-color);
+}
+
+.small {
+  padding: 12px 20px;
+  font-size: 16px;
+  max-width: 165px;
+  max-height: 40px;
+}
+
+.big {
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  max-width: 197px;
+}

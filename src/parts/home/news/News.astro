@@ -1,0 +1,24 @@
+---
+import Card from "./Card.astro";
+import styles from './News.module.css'
+
+const postsImport = import.meta.glob("/src/pages/posts/*.md", { eager: true });
+
+const posts = Object.values(postsImport).map((post: any) => ({
+  ...post.frontmatter,  
+  Content: post.default // Основное содержимое Markdown
+}));
+---
+
+<div class={styles.news}>
+  {posts.map((post) => (
+    <Card 
+      image={post.image}
+      newsname={post.newsname}
+      title={post.title}
+      buttonLink={post.buttonLink}
+    >
+      <post.Content />
+    </Card>
+  ))}
+</div>

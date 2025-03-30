@@ -1,0 +1,33 @@
+:root {
+  --font-primary: "Poppins", sans-serif;
+
+  --main-color: #ffffff;
+  --secondary-color: #0a0d0f;
+  --orange-color: #ff5500;
+  --grey-color: #6c6e6f;
+  --light-grey-color: #f5f5f5;
+
+  font-family: Poppins, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}

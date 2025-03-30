@@ -1,0 +1,131 @@
+---
+import styles from './Footer.module.css'
+
+interface ILink {
+  name: string;
+  url: string;
+  external: boolean;
+}
+
+interface IList {
+  title: string;
+  link: ILink[];
+}
+
+const list: IList[]  = [
+	{ 
+    title: 'Products',
+    link: [
+      { name: "Tetrate Istio Subscription – Commercial Istio Support", url: "#", external: false },
+      { name: "Tetrate Istio Distro", url: "#", external: false },
+      { name: "Tetrate Enterprise Gateway for Envoy", url: "#", external: false },
+      { name: "Tetrate Service Express", url: "#", external: false },
+      { name: "Tetrate Service Bridge", url: "#", external: false },
+    ], 
+  },
+  { 
+    title: 'Solutions',
+    link: [
+      { name: "Financial Services", url: "#", external: false },
+      { name: "FIPS", url: "#", external: false },
+      { name: "Government", url: "#", external: false },
+      { name: "Kubernetes", url: "#", external: false },
+      { name: "Kubernetes Ingress", url: "#", external: false },
+      { name: "Zero Trust", url: "#", external: false },
+    ], 
+  },
+    { 
+    title: 'Learn',
+    link: [
+      { name: "Blog", url: "#", external: false },
+      { name: "Resources for Kubernetes Ingress and Enterprise Istio Support", url: "#", external: false },
+      { name: "Learning Center", url: "#", external: false },
+      { name: "Tetrate Academy", url: "#", external: false },
+      { name: "Documentation", url: "#", external: false },
+    ], 
+  },
+    { 
+    title: 'Events',
+    link: [
+      { name: "What’s New in Envoy Gateway 1.1", url: "#", external: false },
+      { name: "Best Practices For Platform Owners and App Developers", url: "#", external: false },
+    ], 
+  },
+    { 
+    title: 'Company',
+    link: [
+      { name: "About", url: "#", external: false },
+      { name: "Leadership", url: "#", external: false },
+      { name: "Investors", url: "#", external: false },
+      { name: "Partners", url: "#", external: false },
+      { name: "Newsroom", url: "#", external: false },
+      { name: "Careers", url: "#", external: false },
+      { name: "Get Support", url: "#", external: false },
+      { name: "Contact Us", url: "#", external: false },
+      { name: "Legal", url: "#", external: false },
+      { name: "Sitemap", url: "#", external: false },
+    ], 
+  },
+]
+---
+
+<div class={styles.footer}>
+  <div class={styles.list}>
+    {list.map((item, index) => (
+      <div class={styles.column}>
+        <h3 class={styles.title}>{item.title}</h3>
+        <ul class={styles.links}>
+          {item.link.map((link) => (
+            <li class={styles.linkItem}>
+              <a href={link.url} target={link.external ? "_blank" : "_self"} rel="noopener noreferrer">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <div class={styles.info}>
+     <img src="/tetrate-logo-light.svg" alt="Tetrate Logo"/>
+     <div class={styles.follow}>
+      <h3 class={styles.h3}>Follow us</h3>
+      <button class={styles.btn}>
+        <img src="/footer/x.svg" alt="X">
+        <a href='#'>X</a>
+      </button>
+      <button class={styles.btn}>
+        <img src="/footer/youtube.svg" alt="YouTube">
+        <a href='#'>YouTube</a>
+      </button>
+      <button class={styles.btn}>
+        <img src="/footer/linkedin.svg" alt="LinkedIn">
+        <a href='#'>LinkedIn</a>
+      </button>
+      <button class={styles.btn}>
+        <img src="/footer/github.svg" alt="GitHub">
+        <a href='#'>GitHub</a>
+      </button>
+      <button class={styles.btn}>
+        <img src="/footer/slack.svg" alt="Slack">
+        <a href='#'>Slack</a>
+      </button>
+     </div>
+  </div> 
+
+  <div class={styles.container}>
+    <div class={styles.copyright_container}>
+      <p>Copyright © Tetrate 2025. All rights reserved.</p>
+        <span>Designed by
+          <a href="#">
+            <img src="/footer/peppermint.svg" alt="Logo Peppermint">
+          </a>
+        </span>
+    </div>
+    <div class={styles.links_container}>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+    </div>
+  </div>
+</div>

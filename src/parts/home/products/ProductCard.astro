@@ -1,0 +1,25 @@
+---
+import styles from './ProductCard.module.css'
+const { image, title, description, item, buttonLink } = Astro.props;
+---
+<div class={styles.card}>
+  <img class={styles.img} src={image} alt={title} />
+  <div class={styles.content}>
+    <h1 class={styles.title}>
+      {Array.isArray(title) ? title.map(line => <span>{line}</span>) : title}
+    </h1>
+    <p class={styles.description}>{description}</p>
+    <div class={styles.itemList}>
+      {item.map((text: string) => (
+        <div class={styles.item}>
+          <img src="home_page/drop.svg" alt="drop icon" class={styles.icon} />
+          <span>{text}</span>
+        </div>
+      ))}
+    </div>
+    <button class={styles.btn}>
+      <a href={buttonLink} >Learn more</a>
+      <img src="/arrow-white.svg" alt="arrow">
+    </button>
+  </div>
+</div>

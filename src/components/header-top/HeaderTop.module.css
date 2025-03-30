@@ -1,0 +1,89 @@
+.headertop {
+  position: relative; /* Позволяет позиционировать closebtn */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Центрируем container */
+  width: 100%;
+  padding: 7px 20px; /* Отступы сверху и снизу по 7px */
+  background-color: var(--secondary-color);
+  font-size: 14px;
+  line-height: 150%;
+  color: var(--main-color);
+}
+
+.headertop.hidden {
+  display: none;
+}
+
+.container {
+  display: flex;
+  align-items: center; /* Выравниваем элементы по центру по вертикали */
+  gap: 40px; /* Задаём расстояние между <p> и <button> */
+}
+
+.text,
+.btntop a {
+  /* Применяем стили к p и ссылке */
+  font-family: "Poppins", sans-serif;
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  color: var(--main-color);
+}
+
+.btntop {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.btntop a {
+  text-decoration: none; /* Убираем подчеркивание */
+}
+
+.closebtn {
+  background-color: var(--main-color);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 20px; /* Отступ справа 20px */
+  top: 50%;
+  transform: translateY(-50%); /* Центрируем кнопку по вертикали */
+}
+
+/* Адаптация для планшетов (768px) */
+@media (max-width: 768px) {
+  .container {
+    flex-wrap: wrap; /* Разрешает перенос элементов */
+    justify-content: flex-start; /* Выравнивание по левому краю */
+  }
+
+  .text {
+    white-space: normal; /* Разрешаем перенос строк */
+    max-width: 70%; /* Чтобы текст не занимал всю ширину */
+  }
+
+  .btntop {
+    width: auto;
+    flex: 0 1 auto; /* Чтобы кнопка не сжималась и не мешала */
+  }
+}
+
+/* Адаптация для мобильных устройств (375px) */
+@media (max-width: 375px) {
+  .container {
+    flex-direction: column; /* Элементы идут в колонку */
+    align-items: flex-start; /* Выравнивание текста и кнопки */
+    gap: 10px; /* Уменьшаем отступ */
+  }
+
+  .text {
+    max-width: 90%; /* Текст растягивается на всю ширину */
+    white-space: normal; /* Позволяет перенос строк */
+    text-align: left; /* Выравнивание по центру */
+  }
+
+  .btntop {
+    text-align: left; /* Выравнивание ссылки */
+  }
+}

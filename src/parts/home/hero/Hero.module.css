@@ -1,0 +1,59 @@
+.hero {
+  height: 635px;
+  min-height: 635px; /* Гарантируем, что блок не уменьшится */
+  background-image: url("/home_page/hero.png");
+  background-size: cover;
+  background-position: center; /* Центрируем фон */
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center; /* Центрируем контент вертикально */
+  justify-content: center; /* Центрируем контент горизонтально */
+  text-align: center; /* Центрируем текст */
+}
+
+.content {
+  max-width: 539px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрируем кнопку */
+}
+
+.header {
+  font-size: 62px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.text {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 40px 0 42px 0;
+}
+
+.btn {
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  background-color: var(--orange-color);
+  padding: 16px 32px;
+  max-width: 197px;
+}
+
+.btn a {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 135%;
+  color: var(--main-color);
+  text-decoration: none;
+}
+
+/* Адаптация для планшетов (768px) */
+@media (max-width: 768px) {
+  .header {
+    font-size: 40px; /* Уменьшаем заголовок */
+  }
+
+  .text {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,31 @@
+.products {
+  min-height: auto; /* Вместо фиксированной высоты */
+  width: 100%;
+  background-image: linear-gradient(to bottom, #165eca 0%, #061833 100%);
+  padding: 120px 0 18px;
+}
+
+.headling {
+  margin: 0;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--main-color);
+}
+
+.container {
+  width: 100%;
+  margin-bottom: 80px;
+  display: flex;
+  flex-wrap: wrap; /* Позволяет переносить карточки */
+  justify-content: center; /* Центрируем карточки */
+  gap: 20px; /* Отступы между карточками */
+  background: url("home_page/products/bg.png");
+  padding-top: 60px;
+}
+
+@media (max-width: 768px) {
+  .products {
+    height: auto;
+  }
+}

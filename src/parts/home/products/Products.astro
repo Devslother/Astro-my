@@ -1,0 +1,52 @@
+---
+import ProductCard from './ProductCard.astro'
+import styles from './Products.module.css'
+
+interface ICard {
+  image: string;
+  title: string | string[];
+  description: string;
+  item: string[];
+  buttonLink: string;
+}
+
+const cards: ICard[]  = [
+	{
+		image: '/home_page/products/product1.svg', 
+    title: 'Agent Operations Director',
+    description: 'Seamless visibility and cost management for ML infrastructure teams to maximize GenAI ROI', 
+    item: ['Seamlessly discovery of GenAI usage ownership and patterns', 'Real-time visibility and cost accounting at transaction granularity', 'Proactive governance for cost optimization'],
+    buttonLink: '#', 
+  },
+  {
+    image: '/home_page/products/product2.svg', 
+    title: 'Tetrate Istio Subscription',
+    description: 'Stable releases, production support, powerful troubleshooting tools for seamless and sustainable Istio day 2 operations for app and platform team.', 
+    item: ['100% upstream Istio', 'FIPS-verified Istio and Envoy builds', 'Istio installation and lifecycle management', '24/7 production support'],
+    buttonLink: '#', 
+  },
+  {
+    image: '/home_page/products/product3.svg', 
+    title: ['Tetrate Enterprise', 'Gateway for Envoy'],
+    description: 'Enterprise support and enablement for FIPS- verified and CVE-protected Envoy Gateway built by Tetrate.', 
+    item: ['100% upstream Envoy Gateway', 'FIPS-verified Envoy Gateway builds', '24/7 production support and CVE protection'],
+    buttonLink: '#', 
+  }
+]
+---
+
+<div class={styles.products}>
+  <h1 class={styles.headling}>Flexible Starting Use Case</h1>
+  <div class={styles.container}>
+    {cards.map((card) => (
+    <ProductCard 
+      image={card.image}
+      title={card.title}
+      description={card.description}
+      item={card.item}
+      buttonLink={card.buttonLink}
+    >
+    </ProductCard>
+    ))}
+  </div>
+</div>
