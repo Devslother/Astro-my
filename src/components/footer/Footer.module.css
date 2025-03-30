@@ -3,7 +3,7 @@
   text-align: center;
   flex-direction: column;
   background-color: var(--main-color);
-  padding: 44px 20px 30px;
+  padding: 44px 20px 30px 20px;
   gap: 60px;
 }
 
@@ -134,7 +134,7 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 60px 30px 30px;
+    padding: 60px 30px 30px 30px;
   }
 
   .info img {
@@ -165,7 +165,7 @@
 
 @media (max-width: 375px) {
   .footer {
-    padding: 60px 20px 30px;
+    padding: 60px 20px 30px 20px;
     align-items: flex-start; /* Выровнять весь контент футера влево */
   }
 
