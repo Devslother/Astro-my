@@ -3,7 +3,7 @@
   text-align: center;
   flex-direction: column;
   background-color: var(--main-color);
-  padding: 44px 20px 30px 20px;
+  padding: 44px 20px 30px;
   gap: 60px;
 }
 
@@ -132,24 +132,32 @@
   color: var(--grey-color);
 }
 
-@media (max-width: 768px) {
-  .footer {
-    padding: 60px 30px 30px 30px;
-  }
-
+@media (max-width: 855px) {
   .info img {
     width: 132px; /* Уменьшаем размер logo tetrate */
     height: 30px;
   }
 
   .btn {
-    width: 60px; /* Уменьшаем размер кнопок */
+    width: 85px; /* Уменьшаем размер кнопок */
     height: 40px;
+    gap: 6px;
   }
 
   .btn img {
     width: 20px; /* Уменьшаем размер иконок */
     height: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 60px 30px 30px;
+  }
+
+  .btn {
+    width: 60px; /* Уменьшаем размер кнопок */
+    height: 40px;
   }
 
   .btn a {
@@ -163,17 +171,7 @@
   }
 }
 
-@media (max-width: 375px) {
-  .footer {
-    padding: 60px 20px 30px 20px;
-    align-items: flex-start; /* Выровнять весь контент футера влево */
-  }
-
-  .list {
-    width: 100%;
-    flex-direction: column;
-  }
-
+@media (max-width: 620px) {
   .info {
     flex-direction: column; /* Делаем колонки вместо рядов */
     gap: 24px;
@@ -182,6 +180,18 @@
   .follow {
     justify-content: center;
     gap: 10px;
+  }
+}
+
+@media (max-width: 375px) {
+  .footer {
+    padding: 60px 20px 30px;
+    align-items: flex-start; /* Выровнять весь контент футера влево */
+  }
+
+  .list {
+    width: 100%;
+    flex-direction: column;
   }
 
   .h3 {
