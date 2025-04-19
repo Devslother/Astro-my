@@ -1,7 +1,7 @@
 ---
 import Footer from '../components/footer/Footer.astro';
-import Header from '../components/header/Header.astro';
 import HeaderTop from '../components/header-top/HeaderTop.astro';
+import Header from '../components/header/Header';
 import "../styles/global.css";
 ---
 
@@ -22,18 +22,9 @@ import "../styles/global.css";
 	</head>
 	<body>
 		<HeaderTop />
-		<Header />
+		<Header client:only="react" />
 		<slot />
 		<Footer />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		font-family: var(--font-primary);
-	}
-</style>

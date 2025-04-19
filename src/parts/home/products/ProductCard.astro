@@ -1,25 +1,32 @@
 ---
+import Button from '../../../components/Button/Button';
+import { Icon } from '../../../components/icon/Icon';
 import styles from './ProductCard.module.css'
 const { image, title, description, item, buttonLink } = Astro.props;
 ---
 <div class={styles.card}>
   <img class={styles.img} src={image} alt={title} />
   <div class={styles.content}>
-    <h1 class={styles.title}>
-      {Array.isArray(title) ? title.map(line => <span>{line}</span>) : title}
-    </h1>
-    <p class={styles.description}>{description}</p>
+    <div class={styles.header}>
+       <h5 class={`text__heading--h5 ${styles.title}`}>
+        {Array.isArray(title) ? title.map(line => <span style={{ display: 'block' }}>{line}</span>) : title}
+      </h5>
+      <p class={`text__body--14 ${styles.description}`}> 
+        {description}
+      </p>
+    </div>
+   
     <div class={styles.itemList}>
       {item.map((text: string) => (
-        <div class={styles.item}>
-          <img src="home_page/drop.svg" alt="drop icon" class={styles.icon} />
+        <div class={`text__body--14 ${styles.item}`}>
+           <Icon name="bulletbg" width={13} height={13} />
           <span>{text}</span>
         </div>
       ))}
     </div>
-    <button class={styles.btn}>
-      <a href={buttonLink} >Learn more</a>
-      <img src="/arrow-white.svg" alt="arrow">
-    </button>
+      <Button variant="primary" size="lg" href={buttonLink}  className={styles.productbtn}>
+        <span class="text__body--16-semibold">Learn more</span>
+         <Icon name="arrow" width={24} height={24} />
+      </Button>
   </div>
 </div>

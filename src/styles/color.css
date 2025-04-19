@@ -1,0 +1,54 @@
+:root {
+  /* Primary Colors */
+  --color-white: #ffffff;
+  --color-black: #0a0d0f;
+
+  /*  Gray Shades */
+  --color-gray-100: #ffffff;
+  --color-gray-200: #f5f5f5;
+  --color-gray-300: #ebecec;
+  --color-gray-400: #e2e2e2;
+  --color-gray-500: #d8d9d9;
+  --color-gray-600: #cecfcf;
+  --color-gray-700: #9d9e9f;
+  --color-gray-800: #6c6e6f;
+  --color-gray-900: #3b3d3f;
+
+  /*  Orange Shades */
+  --color-orange-100: #ffddcc;
+  --color-orange-200: #ffbb99;
+  --color-orange-300: #ff9966;
+  --color-orange-400: #ff7733;
+  --color-orange-500: #ff5500;
+  --color-orange-600: #cc4400;
+  --color-orange-700: #993300;
+  --color-orange-800: #662200;
+  --color-orange-900: #331100;
+
+  /*  Purple Shades  */
+  --color-purple-100: #ddd3fc;
+  --color-purple-200: #bca6f9;
+  --color-purple-300: #9a7af6;
+  --color-purple-400: #794df3;
+  --color-purple-500: #5721f0;
+  --color-purple-600: #461ac0;
+  --color-purple-700: #341490;
+  --color-purple-800: #230d60;
+  --color-purple-900: #110730;
+
+  /*  Blue Shades */
+  --color-blue-100: #d2e4ff;
+  --color-blue-200: #a4c8fe;
+  --color-blue-300: #77adfe;
+  --color-blue-400: #4991fd;
+  --color-blue-500: #1c76fd;
+  --color-blue-600: #165eca;
+  --color-blue-700: #114798;
+  --color-blue-800: #0b2f65;
+  --color-blue-900: #061833;
+
+  /*  Black Shades */
+  --color-black-700: #1a202c;
+  --color-black-800: #161c20;
+  --color-black-900: #0a0d0f;
+}

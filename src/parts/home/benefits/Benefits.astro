@@ -1,37 +1,40 @@
 ---
+import CardFrame from '../../../components/CardFrame/CardFrame.astro'
 import styles from './Benefits.module.css'
 ---
 
 <div class={styles.benefits}>
-  <h1 class={styles.headling}>
-    Full Lifecycle <span class={styles.orange}
+  <h2 class={`text__heading--h2 ${styles.heading}`} data-benefits--heading>
+    Full Lifecycle <span style={{ color: 'var(--color-orange-500)' }}
 				>Network <br /> Management</span
 			> for Dynamic <br /> and Heterogenous Microservices
-  </h1>
-  <div class={styles.container}>
-    <div class={styles.card1}>
-      <h1 class={styles.cardname}>Discover</h1>
-      <p class={styles.text}>
-        Global service ownership registry for Kubernetes, VMs, Cloud APIs.
-      </p>
+  </h2>
+  <CardFrame withMargin>
+    <div class={styles.card}>
+      <div class={styles.card1}>
+        <h5 class="text__heading--h5" data-card--heading>Discover</h5>
+        <p class="text__body--16" data-card--body style={{color: 'var(--color-gray-900)'}}>
+          Global service ownership registry for Kubernetes, VMs, Cloud APIs.
+        </p>
+      </div>
+      <div class={styles.card2}>
+        <h5 class="text__heading--h5" data-card--heading>Connect</h5>
+        <p class="text__body--16" data-card--body style={{color: 'var(--color-gray-900)'}}>
+          North-south and east-west traffic load balancing and visibility to achieve SLO targets.
+        </p>
+      </div>
+      <div class={styles.card3}>
+        <h5 class="text__heading--h5" data-card--heading>Secure</h5>
+        <p class="text__body--16" data-card--body style={{color: 'var(--color-gray-900)'}}>
+          Zero trust application access with zero application developer toil.
+        </p>
+      </div>
+      <div class={styles.card4}>
+        <h5 class="text__heading--h5" data-card--heading>Optimage</h5>
+        <p class="text__body--16" data-card--body style={{color: 'var(--color-gray-900)'}}>
+          Infrastructure cost and ROI management with granular usage tracking and proactive traffic shaping.
+        </p>
+      </div>
     </div>
-    <div class={styles.card2}>
-      <h1 class={styles.cardname}>Connect</h1>
-      <p class={styles.text}>
-        North-south and east-west traffic load balancing and visibility to achieve SLO targets.
-      </p>
-    </div>
-    <div class={styles.card3}>
-      <h1 class={styles.cardname}>Secure</h1>
-      <p class={styles.text}>
-        Zero trust application access with zero application developer toil.
-      </p>
-    </div>
-    <div class={styles.card4}>
-      <h1 class={styles.cardname}>Optimage</h1>
-      <p class={styles.text}>
-        Infrastructure cost and ROI management with granular usage tracking and proactive traffic shaping.
-      </p>
-    </div>
-  </div>
+  </CardFrame>    
 </div>

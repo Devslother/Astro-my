@@ -1,13 +1,21 @@
 ---
+import { GlowButton } from '../../../components/Button/GlowButton';
 import styles from './Hero.module.css';
 ---
 
 <div class={styles.hero}>
   <div class={styles.content}>
-    <h1 class={styles.header}>Dynamic Gateways</h1>
-    <h2 class={styles.text}>For Autonomous Traffic Orchestration.</h2>
-    <button class={styles.btn}>
-      <a href='#'>Request a demo</a>
-    </button>
+    <h1 class="text__heading--h1" data-hero--heading>Dynamic Gateways</h1>
+    <h2 class="text__body--18" data-hero--subheading>
+      For Autonomous Traffic Orchestration.
+    </h2>
+    <GlowButton
+      variant="primary"
+      size="lg"
+      buttonClassName="text__body--16-semibold"
+      href="https://tetrate.io/contact/demo-request/"
+    >
+      Request a demo
+    </GlowButton>
   </div>
 </div>

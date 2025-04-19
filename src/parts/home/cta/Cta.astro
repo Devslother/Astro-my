@@ -1,18 +1,101 @@
 ---
+import Pattern from '../../../components/pattern/Pattern.astro'
 import styles from './Cta.module.css'
+import cardFrameStyles from '../../../components/CardFrame/CardFrame.module.css';
+import Button from '../../../components/Button/Button';
+import CardFrame from '../../../components/CardFrame/CardFrame.astro';
+import { GlowButton } from '../../../components/Button/GlowButton';
 ---
 <div class={styles.cta}>
-  <img src="/cta/logo.svg" alt="logo" class={styles.img}>
-  <h1>Ready to 
-    <span class={styles.orange}>enhance your network</span> <br /> 
-    with more intelligence?
-  </h1>
-  <div class={styles.container}>
-    <button class={styles.btn_demo}>
-      <a href='#'>Request a demo</a>
-    </button>
-    <button class={styles.btn_pricing}>
-      <a href='#'>Pricing Request</a>
-    </button>
-  </div>
+
+    <!-- Верхняя рамка -->
+  <div class={`${cardFrameStyles.cardContainer} ${styles.topBorder}`}></div>
+
+  <!-- Основной блок -->
+  <CardFrame>
+    <!-- Боковые паттерны (вне cardContainer) -->
+    <Pattern slot="left" variant="gray-light" size="large" />
+    <Pattern slot="right" variant="gray-light" size="large" />
+
+    <!-- Контент внутри cardContainer -->
+    <div class={styles.content}>
+    
+      <!--TopLeft -->
+      <img
+        src="/cta/cta-TopLeft.png"
+        width="562"
+        height="232"
+        alt=""
+        loading="lazy"
+        class={`${styles.TopLeft} ${styles.visibleLg}`}
+      />
+
+      <img
+        src="/cta/cta-TopLeft-md.png"
+        width="298"
+        height="174"
+        alt=""
+        loading="lazy"
+        class={`${styles.TopLeftTablet} ${styles.visibleMd}`}
+      />
+
+      <img
+        src="/cta/cta-TopLeft-sm.png"
+        width="316"
+        height="130"
+        alt=""
+        loading="lazy"
+        class={`${styles.TopLeftMobile} ${styles.visibleSm}`}
+      />
+
+      <!--BottomRight -->
+      <img
+        src="/cta/cta-BottomRight.png"
+        width="397"
+        height="232"
+        alt=""
+        loading="lazy"
+        class={`${styles.BottomRight} ${styles.visibleLg}`}
+      />
+
+      <img
+        src="/cta/cta-BottomRight-md.png"
+        width="298"
+        height="174"
+        alt=""
+        loading="lazy"
+        class={`${styles.BottomRightTablet} ${styles.visibleMd}`}
+      />
+
+      <img
+        src="/cta/cta-BottomRight-sm.png"
+        width="223"
+        height="130"
+        alt=""
+        loading="lazy"
+        class={`${styles.BottomRightMobile} ${styles.visibleSm}`}
+      />
+
+      <img src="/cta/logo.svg" alt="logo" class={styles.logo}>
+      <h2 class="text__heading--h2" data-ct--heading>
+          Ready to 
+        <span style={{ color: 'var(--color-orange-500)' }}>
+          enhance your network
+        </span><br /> 
+        with more intelligence?
+      </h2>
+      <div class={styles.btncontainer}>
+        <Button variant="secondary" size="lg" 
+        className="text__body--16-semibold" 
+        href='https://tetrate.io/contact/demo-request/'>
+          Request a demo
+        </Button>
+        
+        <GlowButton variant="primary" size="lg" buttonClassName="text__body--16-semibold" 
+        href='https://tetrate.io/contact/pricing-request/'>
+          Pricing Request
+        </GlowButton>
+      </div>
+    </div>
+  </CardFrame>
 </div>

@@ -1,4 +1,5 @@
 ---
+import Pattern from '../components/pattern/Pattern.astro';
 import Layout from '../layouts/Layout.astro';
 import Benefits from '../parts/home/benefits/Benefits.astro';
 import Cta from '../parts/home/cta/Cta.astro';
@@ -12,8 +13,10 @@ const pageTitle = "Home Page";
 <Layout pageTitle={pageTitle}>
 	<Hero />
 	<News />
+	<Pattern variant="gray" size="default" />
 	<Trusted />
 	<Benefits />
+	<Pattern variant="gray" size="default" />
 	<Products />
 	<Cta />
 </Layout>

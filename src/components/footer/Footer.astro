@@ -1,4 +1,7 @@
 ---
+import Button from '../Button/Button';
+import CardFrame from '../CardFrame/CardFrame.astro';
+import { Icon, type IconType } from '../icon/Icon';
 import styles from './Footer.module.css'
 
 interface ILink {
@@ -12,11 +15,19 @@ interface IList {
   link: ILink[];
 }
 
+interface ISocials {
+  name: string;
+  icon: IconType; 
+  href: string;
+}
+
 const list: IList[]  = [
 	{ 
     title: 'Products',
     link: [
-      { name: "Tetrate Istio Subscription – Commercial Istio Support", url: "#", external: false },
+      { name: "Tetrate Istio Subscription – Commercial Istio Support", 
+        url: "https://tetrate.io/products/tetrate-istio-subscription/", 
+        external: false },
       { name: "Tetrate Istio Distro", url: "#", external: false },
       { name: "Tetrate Enterprise Gateway for Envoy", url: "#", external: false },
       { name: "Tetrate Service Express", url: "#", external: false },
@@ -67,17 +78,35 @@ const list: IList[]  = [
     ], 
   },
 ]
+
+const socials: ISocials[] = [
+  { name: "X", icon: "x", href: "https://x.com/tetrateio" },
+  { name: "YouTube", icon: "youtube", 
+    href: "https://www.youtube.com/channel/UCtV2o3OvEH6U3DQ0-_7chNw" },
+  { name: "LinkedIn", icon: "linkedin", 
+    href: "https://www.linkedin.com/company/tetrate/about/" },
+  { name: "GitHub", icon: "github", href: "https://github.com/tetratelabs" },
+  { name: "Slack", icon: "slack", 
+    href: "https://tetrate-community.slack.com/join/shared_invite/zt-30pdbaw86-w~ny6j4g5s9nR5mA5dVn0Q#/shared-invite/email" },
+];
 ---
 
 <div class={styles.footer}>
-  <div class={styles.list}>
+  <CardFrame withMargin>
+    <div class={styles.list}>
     {list.map((item, index) => (
       <div class={styles.column}>
-        <h3 class={styles.title}>{item.title}</h3>
+        <h3 class="text__body--14-medium-uppercase" style={{color: 'var( --color-black)'}} data-footer--heading>{item.title}</h3>
         <ul class={styles.links}>
           {item.link.map((link) => (
             <li class={styles.linkItem}>
-              <a href={link.url} target={link.external ? "_blank" : "_self"} rel="noopener noreferrer">
+              <a
+                href={link.url}
+                target={link.external ? "_blank" : "_self"}
+                rel="noopener noreferrer"
+                class="text__body--14"
+                data-footer--text
+              >
                 {link.name}
               </a>
             </li>
@@ -86,46 +115,37 @@ const list: IList[]  = [
       </div>
     ))}
   </div>
-
+  
   <div class={styles.info}>
-     <img src="/tetrate-logo-light.svg" alt="Tetrate Logo"/>
-     <div class={styles.follow}>
-      <h3 class={styles.h3}>Follow us</h3>
-      <button class={styles.btn}>
-        <img src="/footer/x.svg" alt="X">
-        <a href='#'>X</a>
-      </button>
-      <button class={styles.btn}>
-        <img src="/footer/youtube.svg" alt="YouTube">
-        <a href='#'>YouTube</a>
-      </button>
-      <button class={styles.btn}>
-        <img src="/footer/linkedin.svg" alt="LinkedIn">
-        <a href='#'>LinkedIn</a>
-      </button>
-      <button class={styles.btn}>
-        <img src="/footer/github.svg" alt="GitHub">
-        <a href='#'>GitHub</a>
-      </button>
-      <button class={styles.btn}>
-        <img src="/footer/slack.svg" alt="Slack">
-        <a href='#'>Slack</a>
-      </button>
-     </div>
-  </div> 
+     <a href="/" class={styles.logo}>
+      <img src="/tetrate-logo.svg" alt="Tetrate Logo" />
+    </a>
+    <div class={styles.follow}>
+      <p class={`text__body--14 ${styles.h3}`}>Follow us</p>
+      <div class={styles.containerbtn}>
+        {socials.map((item) => (
+          <Button variant="secondary" size="md" href={item.href} className={styles.btn}>
+            <Icon name={item.icon} width={18} height={18} />
+            <span class={`text__body--14-medium ${styles.socialText}`}>{item.name}</span>
+          </Button>
+        ))}
+      </div>
+    </div>
+  </div>
+</CardFrame>
 
-  <div class={styles.container}>
+  <div class={`text__body--14 ${styles.container}`}>
     <div class={styles.copyright_container}>
       <p>Copyright © Tetrate 2025. All rights reserved.</p>
-        <span>Designed by
-          <a href="#">
+        <div class={styles.ppmint}>Designed by
+          <a href="https://peppermint.id/">
             <img src="/footer/peppermint.svg" alt="Logo Peppermint">
           </a>
-        </span>
+        </div>
     </div>
     <div class={styles.links_container}>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms & Conditions</a>
+      <a href="https://tetrate.io/privacy">Privacy Policy</a>
+      <a href="https://tetrate.io/legal/service-terms-and-conditions-eula/">Terms & Conditions</a>
     </div>
   </div>
 </div>

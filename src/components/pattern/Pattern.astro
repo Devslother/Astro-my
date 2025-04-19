@@ -1,0 +1,25 @@
+---
+// Pattern.astro
+import styles from './Pattern.module.css';
+import cardFrameStyles from '../CardFrame/CardFrame.module.css';
+
+interface PatternProps {
+  variant?: "gray" | "gray-light" | "blue";
+  size?: "default" | "large";
+  withContainer?: boolean;
+}
+
+const { variant = 'gray', size = 'default', withContainer = false } = Astro.props as PatternProps;
+const variantClass = styles[variant];
+const sizeClass = styles[size]; 
+---
+<div class={`${styles.pattern} ${variantClass} ${sizeClass} ${withContainer ? styles.patternWithContainer : ''}`}>
+  {withContainer ? (
+    <div class={`${cardFrameStyles.cardContainer} cardContainerGlobal`}>
+      <slot />
+    </div>
+  ) : (
+    <slot />
+  )}
+</div>
+

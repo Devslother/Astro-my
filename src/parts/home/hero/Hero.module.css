@@ -1,59 +1,63 @@
 .hero {
-  height: 635px;
-  min-height: 635px; /* Гарантируем, что блок не уменьшится */
-  background-image: url("/home_page/hero.png");
-  background-size: cover;
-  background-position: center; /* Центрируем фон */
-  background-repeat: no-repeat;
+  position: relative;
   display: flex;
-  align-items: center; /* Центрируем контент вертикально */
-  justify-content: center; /* Центрируем контент горизонтально */
-  text-align: center; /* Центрируем текст */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 637px;
+  min-height: 637px;
+  background-image: url("/home_page/hero_big.svg");
+  background-size: cover;
+  background-position: center -70px; /* Сдвигаем фон вверх */
 }
 
 .content {
-  max-width: 539px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрируем кнопку */
+  justify-content: flex-start;
+  align-items: center;
+  gap: 42px;
+  padding: 0px;
 }
 
-.header {
-  font-size: 62px;
-  font-weight: 500;
-  margin: 0;
-}
-
-.text {
-  font-size: 18px;
-  font-weight: 400;
-  margin: 40px 0 42px 0;
-}
-
-.btn {
-  border-radius: 24px;
-  border: none;
-  cursor: pointer;
-  background-color: var(--orange-color);
-  padding: 16px 32px;
-  max-width: 197px;
-}
-
-.btn a {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 135%;
-  color: var(--main-color);
-  text-decoration: none;
-}
-
-/* Адаптация для планшетов (768px) */
-@media (max-width: 768px) {
-  .header {
-    font-size: 40px; /* Уменьшаем заголовок */
+@media (max-width: 1024px) {
+  .hero {
+    background-image: url("/home_page/hero.png");
+    background-size: cover; /* растягивает картинку */
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* растягивает по высоте экрана */
   }
 
-  .text {
+  :global([data-hero--heading].text__heading--h1) {
+    font-size: 40px;
+    letter-spacing: -1.5px;
+  }
+
+  :global([data-hero--subheading].text__body--18) {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    background-image: url("/home_page/hero_small.png");
+    height: 637px;
+    min-height: 637px;
+  }
+
+  .content {
+    gap: 30px;
+  }
+
+  :global([data-hero--heading].text__heading--h1) {
+    font-size: 28px;
+    letter-spacing: -1px;
+  }
+
+  /* Уменьшаем горизонтальный padding кнопки */
+  .hero :global(button) {
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }

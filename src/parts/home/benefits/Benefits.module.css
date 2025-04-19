@@ -4,116 +4,112 @@
   align-items: center; /* Центрируем контент */
   width: 100%;
   min-height: auto; /* Вместо фиксированной высоты */
-  padding: 180px 0 80px;
-  background-color: var(--light-grey-color);
-  gap: 18px;
+  padding-top: 180px;
+  background-color: var(--color-gray-200);
+  gap: 60px;
 }
 
-.headling {
+.heading {
   text-align: center;
-  font-weight: 500;
-  font-size: 48px;
-  line-height: 110%;
-  color: var(--secondary-color);
+  color: var(--color-black);
 }
 
-.orange {
-  color: var(--orange-color);
-}
-
-.container {
-  max-width: 1205px; /* Ограничиваем ширину контейнера */
+.card {
+  width: 100%;
+  max-width: 1200px;
   display: flex;
-  flex-wrap: wrap; /* Разрешаем перенос элементов */
-  justify-content: space-between; /* Равномерно распределяем карточки */
-  gap: 20px; /* Добавляем равномерный отступ между карточками */
-  margin: 0 auto; /* Центрируем контейнер */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0 auto;
+  background-color: var(--color-gray-200);
+  position: relative;
+  box-sizing: border-box;
 }
 
 .card1,
 .card2,
 .card3,
 .card4 {
+  flex-grow: 0; /* Не растягиваем карточки */
+  flex-shrink: 1;
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 0 10px #d9d9d9;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-sizing: border-box;
 }
 
+/* Уникальные размеры и пропорции */
 .card1 {
-  width: 696px;
-  height: 436px;
-  background: url("/home_page/benefits/card1.png") no-repeat center/cover;
+  aspect-ratio: 696 / 436; /* Сохраняем пропорции */
+  background-image: url("/home_page/benefits/card1.png");
+  flex-basis: 57%;
 }
 
 .card2 {
-  width: 486px;
-  height: 436px;
-  background: url("/home_page/benefits/card2.png") no-repeat center/cover;
+  aspect-ratio: 486 / 436;
+  background-image: url("/home_page/benefits/card2.png");
+  flex-basis: 39%;
 }
 
 .card3 {
-  width: 506px;
-  height: 456px;
-  background: url("/home_page/benefits/card3.png") no-repeat center/cover;
+  aspect-ratio: 506 / 456;
+  background-image: url("/home_page/benefits/card3.png");
+  flex-basis: 41%;
 }
 
 .card4 {
-  width: 676px;
-  height: 456px;
-  background: url("/home_page/benefits/card4.png") no-repeat center/cover;
+  aspect-ratio: 676 / 456;
+  background-image: url("/home_page/benefits/card4.png");
+  flex-basis: 55%;
 }
 
-.cardname {
-  font-weight: 500;
-  font-size: clamp(
-    1rem,
-    2vw,
-    1.5rem
-  ); /* Минимальный, динамический и максимальный размер */
-  line-height: 115%;
-  color: var(--secondary-color);
-}
-
-.text {
-  font-weight: 400;
-  font-size: clamp(0.8rem, 1.5vw, 1rem); /* Адаптивный размер */
-  line-height: 150%;
-  color: var(--secondary-color);
-}
-
-/* Адаптация для планшетов */
-@media (max-width: 1200px) {
-  .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Две гибкие колонки */
-    grid-template-areas:
-      "card1 card2"
-      "card3 card4"; /* Размещаем карточки в два ряда */
-  }
-  .card1,
-  .card2,
-  .card3,
-  .card4 {
-    width: 100%; /* Делаем карточки адаптивными */
-    padding: 20px;
+@media (max-width: 1024px) {
+  .benefits {
+    padding-top: 100px;
   }
 }
 
-/* Адаптация для мобильных устройств */
-@media (max-width: 375px) {
-  .container {
+@media (max-width: 767px) {
+  .benefits {
+    padding-top: 80px;
+  }
+
+  .card {
     grid-template-columns: 1fr; /* Одна колонка */
     grid-template-areas:
       "card1"
       "card2"
       "card3"
       "card4";
+    gap: 12px;
   }
+
   .card1,
   .card2,
   .card3,
   .card4 {
-    width: 335px;
+    width: 100%;
     height: 372px;
+    padding: 20px;
+    flex-basis: 100%;
+  }
+
+  :global([data-benefits--heading].text__heading--h2) {
+    font-size: 28px;
+    letter-spacing: -1px;
+  }
+
+  :global([data-card--heading].text__heading--h5) {
+    font-size: 18px;
+    line-height: 135%;
+  }
+
+  :global([data-card--body].text__body--16) {
+    font-size: 12px;
+    line-height: 130%;
   }
 }

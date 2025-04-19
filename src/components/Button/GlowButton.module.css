@@ -1,0 +1,61 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.button {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--color-white);
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--color-orange-500);
+}
+
+.button:active {
+  background-color: #ff671b;
+}
+
+.layer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease, filter 0.3s ease, width 0.3s ease,
+    height 0.3s ease;
+  border-radius: 100px;
+}
+
+.orange {
+  opacity: 0.35;
+  filter: blur(50px);
+  background-color: var(--color-orange-500);
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  will-change: filter, transform;
+}
+
+.white {
+  filter: blur(6px);
+  background-color: var(--color-white);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+}
+
+.container:hover .orange {
+  opacity: 0.5;
+  filter: blur(50px);
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+}
+
+.container:hover .white {
+  filter: blur(4px);
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+}
