@@ -12,81 +12,58 @@
   overflow: hidden; /* прячет всё, что вылезает */
 }
 
-.topBorder {
-  height: 80px;
-  /* Убираем влияние флекса и паддингов */
-  display: block;
-  padding: 0;
-  gap: 0;
-  flex: none;
-  margin: 0 auto;
-
-  /* Чтобы рамка выглядела как у .cardContainer */
-  box-sizing: border-box;
-}
-
-.ctaCardFrame :global(.cardContainer) {
-  margin: 0 !important;
-}
-
 .content {
   width: 100%;
-  height: 564px;
-  margin: 0;
+  height: 526px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center; /* Горизонтальное центрирование */
-  padding-top: 40px;
-  gap: 45px; /* Расстояние между блоками */
+  padding-top: 80px;
+  gap: 32px; /* Расстояние между блоками */
   box-sizing: border-box;
   position: relative;
   z-index: 1;
 }
 
-.visibleLg {
+.visibleLg,
+.visibleMd {
+  display: none;
+}
+.visibleSm {
   display: block;
 }
 
-.visibleMd,
-.visibleSm {
-  display: none;
-}
-
-.TopLeft,
-.BottomRight {
+.TopLeftMobile,
+.BottomRightMobile {
   position: absolute;
   z-index: 0;
   pointer-events: none;
 }
 
-.TopLeft {
-  top: -50px;
-  left: -98px;
+.TopLeftMobile {
+  top: -20px;
+  left: -133px;
 }
 
-.BottomRight {
-  bottom: -10px;
-  right: -72px;
-}
-
-.logo {
-  max-width: 110px;
+.BottomRightMobile {
+  bottom: 10px;
+  right: -52px;
 }
 
 .btncontainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 12px;
 }
 
-@media (max-width: 1024px) {
-  .topBorder {
-    margin: 0;
-  }
+.logo {
+  width: 82px;
+}
 
+@media (width >= 768px) {
   .content {
-    height: 442px;
-    gap: 32px;
+    height: 480px;
   }
 
   .visibleLg {
@@ -116,56 +93,47 @@
     right: -13px;
   }
 
-  .logo {
-    max-width: 82px;
-  }
-
-  :global([data-ct--heading].text__heading--h2) {
-    font-size: 28px;
-    letter-spacing: -1px;
+  .btncontainer {
+    display: flex;
+    flex-direction: row;
   }
 }
 
-@media (max-width: 767px) {
-  .topBorder {
-    height: 40px;
-  }
-
+@media (width >= 1024px) {
   .content {
-    height: 526px;
+    height: 564px;
+    margin-top: 80px;
+    gap: 45px;
+    padding-top: 66px;
   }
 
-  .visibleLg,
-  .visibleMd {
-    display: none;
-  }
-  .visibleSm {
+  .visibleLg {
     display: block;
   }
 
-  .TopLeftMobile,
-  .BottomRightMobile {
+  .visibleMd,
+  .visibleSm {
+    display: none;
+  }
+
+  .TopLeft,
+  .BottomRight {
     position: absolute;
     z-index: 0;
     pointer-events: none;
   }
 
-  .TopLeftMobile {
-    top: -20px;
-    left: -133px;
+  .TopLeft {
+    top: -50px;
+    left: -98px;
   }
 
-  .BottomRightMobile {
-    bottom: 10px;
-    right: -52px;
+  .BottomRight {
+    bottom: -10px;
+    right: -72px;
   }
 
-  :global([data-ct--heading].text__heading--h2) {
-    font-size: 24px;
-    line-height: 115%;
-  }
-
-  .btncontainer {
-    flex-direction: column;
+  .logo {
+    width: 110px;
   }
 }

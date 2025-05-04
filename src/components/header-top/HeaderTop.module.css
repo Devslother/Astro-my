@@ -4,8 +4,9 @@
   align-items: center;
   justify-content: center; /* Центрируем container */
   width: 100%;
-  padding: 7px 20px; /* Отступы сверху и снизу по 7px */
-  background-color: var(--color-black-700);
+  padding: 10px 20px; /* Отступы сверху и снизу по 7px */
+  background-image: url("/bg_headertop.svg");
+  background-color: var(--color-black);
 }
 
 .container {
@@ -21,36 +22,43 @@ span {
 }
 
 .closebtn {
-  background-color: var(--main-color);
   background: transparent;
   border: none;
   cursor: pointer;
   position: absolute;
-  right: 20px; /* Отступ справа 20px */
+  right: 65px; /* Отступ справа */
   top: 50%;
   transform: translateY(-50%); /* Центрируем кнопку по вертикали */
 }
 
 /* Адаптация для планшетов */
 @media (max-width: 1024px) {
+  .headertop {
+    justify-content: space-between;
+  }
+
   .container {
-    flex-wrap: wrap; /* Разрешает перенос элементов */
-    justify-content: flex-start; /* Выравнивание по левому краю */
+    justify-content: space-between;
   }
 
   .text {
     white-space: normal; /* Разрешаем перенос строк */
-    max-width: 70%; /* Чтобы текст не занимал всю ширину */
   }
 
   .btntop {
     width: auto;
     flex: 0 1 auto; /* Чтобы кнопка не сжималась и не мешала */
   }
+
+  .closebtn {
+    position: static;
+    transform: none;
+    margin-left: auto; /* ← обязательно для выравнивания вправо */
+  }
 }
 
 /* Адаптация для мобильных устройств */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .container {
     flex-direction: column; /* Элементы идут в колонку */
     align-items: flex-start; /* Выравнивание текста и кнопки */
@@ -61,6 +69,10 @@ span {
     max-width: 90%; /* Текст растягивается на всю ширину */
     white-space: normal; /* Позволяет перенос строк */
     text-align: left; /* Выравнивание */
+  }
+
+  :global([data-headertop--text].text__body--14-medium) {
+    font-size: 12px;
   }
 
   .btntop {

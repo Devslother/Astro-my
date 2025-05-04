@@ -2,14 +2,12 @@ import type { SVGProps } from "react";
 const Bullet = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
     fill="none"
     viewBox="0 0 28 23"
     {...props}
   >
     <g filter="url(#Black_bg_=No_svg__a)">
-      <circle cx={14} cy={11} r={5} fill="#fff" />
+      <circle cx={14} cy={11} r={5} fill="#9d9e9f" />
     </g>
     <circle cx={14} cy={11.001} r={1.667} fill="#0A0D0F" />
     <defs>

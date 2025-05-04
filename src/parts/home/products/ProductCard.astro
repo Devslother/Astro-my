@@ -2,37 +2,66 @@
 import Button from '../../../components/Button/Button';
 import { Icon } from '../../../components/icon/Icon';
 import styles from './ProductCard.module.css'
+import clsx from 'clsx';
+
 const { image, title, description, item, buttonLink } = Astro.props;
 ---
 <div class={styles.card}>
   <img class={styles.img} src={image} alt={title} />
-  <div class={styles.content}>
-    <div class={styles.header}>
-      <h5 class={`text__heading--h5 ${styles.title}`}>
-        {Array.isArray(title) ? (
-          <div class={styles.titleLines}>
-            {title.map(line => <span>{line}</span>)}
+  <div class={styles.container}>
+    <div class={styles.content}>
+      <div class={styles.header}>
+        <h5 class={clsx(
+          'text__heading--h5',
+          'text__heading--h5-lg',
+          'text__heading--h6-md',
+          styles.heading
+        )}>
+          {Array.isArray(title) ? (
+            <div class={styles.titleLines}>
+              {title.map(line => <span>{line}</span>)}
+            </div>
+          ) : (
+            title
+          )}
+        </h5>
+        <p class={clsx(
+          'text__body--14',
+          'text__body--14-lg',
+          'text__caption--md',
+          styles.description
+        )}>
+          {description}
+        </p>
+      </div>
+    
+      <div class={styles.itemList}>
+        {item.map((text: string) => (
+          <div class={styles.item}>
+            <div class="wrapper">
+              <Icon name="bullet" width={24} height={24} />
+            </div>
+            <span class={clsx(
+              'text__body--14',
+              'text__body--14-lg',
+              'text__caption--md',
+              styles.text
+            )}>
+              {text}
+            </span>
           </div>
-        ) : (
-          title
-        )}
-      </h5>
-      <p class={`text__body--14 ${styles.description}`}> 
-        {description}
-      </p>
+        ))}
+      </div>
     </div>
-   
-    <div class={styles.itemList}>
-      {item.map((text: string) => (
-        <div class={`text__body--14 ${styles.item}`}>
-           <Icon name="bulletbg" width={13} height={13} />
-          <span>{text}</span>
-        </div>
-      ))}
-    </div>
-      <Button variant="primary" size="lg" href={buttonLink}  className={styles.productbtn}>
-        <span class="text__body--16-semibold">Learn more</span>
-         <Icon name="arrow" width={24} height={24} />
-      </Button>
+    <Button variant="primary" size="lg" href={buttonLink}  className={styles.productbtn}>
+      <span class={clsx(
+        'text__body--16-medium',
+        'text__body--16-semibold-lg',
+        'text__body--16-medium-md',
+      )}>
+        Learn more
+      </span>
+        <Icon name="arrow" width={20} height={20} />
+    </Button>
   </div>
 </div>

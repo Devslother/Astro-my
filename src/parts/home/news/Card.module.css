@@ -1,51 +1,77 @@
 .card {
-  width: calc(33.33% - 20px);
-  max-width: 386px;
-  height: 550px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid var(--color-gray-300);
+  box-shadow: 0 6px 40px 0 #cecece99;
+  background-color: var(--color-white);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.card__image {
+  aspect-ratio: 338 / 200;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__content {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  text-align: left;
-  gap: 24px;
-  padding: 24px;
-  border-radius: 16px;
-  box-sizing: border-box;
-
-  /* Внешняя тень и внутренняя псевдо-рамка */
-  box-shadow: inset 0 0 0 1px #e7e7e7, 0px 6px 40px 0px #cecece99;
-
-  /* Градиент-фон */
-  background-image: linear-gradient(
-    to left,
-    var(--color-white) 100%,
-    var(--color-white) 10%
-  );
-}
-
-.img {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  box-sizing: border-box;
-  border: 1px solid var(--color-gray-300);
-}
-
-.content {
-  margin: 12px 0;
   gap: 12px;
-  overflow: hidden; /* Скрываем лишний текст */
+  padding-top: 24px;
+  flex-grow: 1;
+  text-align: left;
+  text-wrap: balance;
 }
 
-.btn {
-  height: 36px;
+.card__newsname {
+  color: var(--color-blue-500);
+}
+
+.card__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  color: var(--color-gray-800);
+  white-space: normal;
+}
+
+.card__btn {
   margin-top: auto;
 }
 
-/* Адаптация для мобильных */
-@media (max-width: 767px) {
+@media (width >= 768px) {
   .card {
-    width: 100%; /* Карточки в столбик */
-    max-width: 100%; /* Карточки растягиваются на всю ширину экрана*/
+    padding: 12px;
+  }
+}
+
+@media (width >= 1024px) {
+  .card__image {
+    height: 200px;
+  }
+}
+
+@media (width >= 1240px) {
+  .card {
+    padding: 20px 24px;
+  }
+}
+
+@media (width >= 1440px) {
+  .card {
+    padding: 24px;
   }
 }

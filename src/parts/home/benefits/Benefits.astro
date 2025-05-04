@@ -1,40 +1,92 @@
 ---
-import CardFrame from '../../../components/CardFrame/CardFrame.astro'
+import clsx from 'clsx';
 import styles from './Benefits.module.css'
+import Grid from '../../../components/Grid/Grid.astro';
 ---
 
 <div class={styles.benefits}>
-  <h2 class={`text__heading--h2 ${styles.heading}`} data-benefits--heading>
+  <h5 class={clsx(
+        'text__heading--h5',
+        'text__heading--h2-lg',
+        'text__heading--h4-md',
+        'text--center',
+        styles.benefits__heading
+      )}>
     Full Lifecycle <span style={{ color: 'var(--color-orange-500)' }}
 				>Network <br /> Management</span
 			> for Dynamic <br /> and Heterogenous Microservices
-  </h2>
-  <CardFrame withMargin>
-    <div class={styles.card}>
-      <div class={styles.card1}>
-        <h5 class="text__heading--h5" data-card--heading>Discover</h5>
-        <p class="text__body--16" data-card--body style={{color: 'var(--color-gray-900)'}}>
-          Global service ownership registry for Kubernetes, VMs, Cloud APIs.
-        </p>
-      </div>
-      <div class={styles.card2}>
-        <h5 class="text__heading--h5" data-card--heading>Connect</h5>
-        <p class="text__body--16" data-card--body style={{color: 'var(--color-gray-900)'}}>
-          North-south and east-west traffic load balancing and visibility to achieve SLO targets.
-        </p>
-      </div>
-      <div class={styles.card3}>
-        <h5 class="text__heading--h5" data-card--heading>Secure</h5>
-        <p class="text__body--16" data-card--body style={{color: 'var(--color-gray-900)'}}>
-          Zero trust application access with zero application developer toil.
-        </p>
-      </div>
-      <div class={styles.card4}>
-        <h5 class="text__heading--h5" data-card--heading>Optimage</h5>
-        <p class="text__body--16" data-card--body style={{color: 'var(--color-gray-900)'}}>
-          Infrastructure cost and ROI management with granular usage tracking and proactive traffic shaping.
-        </p>
-      </div>
+  </h5>
+  <Grid>
+    <div class={styles.card__container}>
+        <div class={styles.card1}>
+          <h6 class={clsx(
+            'text__heading--h6',
+            'text__heading--h5-lg',
+            'text__body--18-medium-md',
+          )}>
+            Discover
+          </h6>
+          <p class={clsx(
+            'text__body--14',
+            'text__body--16-lg',
+            'text__caption--md',
+            styles.card__text,
+          )}>
+            Global service ownership registry for Kubernetes, VMs, Cloud APIs.
+          </p>
+        </div>
+        <div class={styles.card2}>
+          <h6 class={clsx(
+            'text__heading--h6',
+            'text__heading--h5-lg',
+            'text__body--18-medium-md',
+          )}>
+            Connect
+          </h6>
+          <p class={clsx(
+            'text__body--14',
+            'text__body--16-lg',
+            'text__caption--md',
+            styles.card__text,
+          )}>
+            North-south and east-west traffic load balancing and visibility to achieve SLO targets.
+          </p>
+        </div>
+  
+        <div class={styles.card3}>
+          <h6 class={clsx(
+            'text__heading--h6',
+            'text__heading--h5-lg',
+            'text__body--18-medium-md',
+          )}>
+            Secure
+          </h6>
+          <p class={clsx(
+            'text__body--14',
+            'text__body--16-lg',
+            'text__caption--md',
+            styles.card__text,
+          )}>
+            Zero trust application access with zero application developer toil.
+          </p>
+        </div>
+        <div class={styles.card4}>
+          <h6 class={clsx(
+            'text__heading--h6',
+            'text__heading--h5-lg',
+            'text__body--18-medium-md',
+          )}>
+            Optimaze
+          </h6>
+          <p class={clsx(
+            'text__body--14',
+            'text__body--16-lg',
+            'text__caption--md',
+            styles.card__text,
+          )}>
+            Infrastructure cost and ROI management with granular usage tracking and proactive traffic shaping.
+          </p>
+        </div>
     </div>
-  </CardFrame>    
+  </Grid>    
 </div>

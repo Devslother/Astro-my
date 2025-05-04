@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import styles from "./Header.module.css";
 import { Icon } from "../icon/Icon";
+import clsx from "clsx";
 
 const navItems = [
   { id: 1, title: "Products", link: "/", hasSubmenu: true },
@@ -58,7 +59,12 @@ export default function Header() {
           <a
             key={nav.id}
             href={nav.link}
-            className={`text__body--16 ${styles.navItem}`}
+            className={clsx(
+              "text__body--16",
+              "text__body--16-lg",
+              "text__body--16-md",
+              styles.navItem
+            )}
           >
             {nav.title}
             {nav.hasSubmenu && <Icon name="statedown" width={20} height={20} />}

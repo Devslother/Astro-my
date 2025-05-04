@@ -1,28 +1,20 @@
 ---
-import Pattern from '../../../components/pattern/Pattern.astro'
+import clsx from 'clsx';
 import styles from './Cta.module.css'
-import cardFrameStyles from '../../../components/CardFrame/CardFrame.module.css';
 import Button from '../../../components/Button/Button';
-import CardFrame from '../../../components/CardFrame/CardFrame.astro';
 import { GlowButton } from '../../../components/Button/GlowButton';
+import Grid from '../../../components/Grid/Grid.astro';
 ---
 <div class={styles.cta}>
 
-    <!-- Верхняя рамка -->
-  <div class={`${cardFrameStyles.cardContainer} ${styles.topBorder}`}></div>
-
   <!-- Основной блок -->
-  <CardFrame>
-    <!-- Боковые паттерны (вне cardContainer) -->
-    <Pattern slot="left" variant="gray-light" size="large" />
-    <Pattern slot="right" variant="gray-light" size="large" />
-
-    <!-- Контент внутри cardContainer -->
+  <Grid variant="default-offset">
+    <!-- Контент внутри cta -->
     <div class={styles.content}>
     
       <!--TopLeft -->
       <img
-        src="/cta/cta-TopLeft.png"
+        src="home_page/cta/cta-TopLeft.png"
         width="562"
         height="232"
         alt=""
@@ -31,7 +23,7 @@ import { GlowButton } from '../../../components/Button/GlowButton';
       />
 
       <img
-        src="/cta/cta-TopLeft-md.png"
+        src="home_page/cta/cta-TopLeft-md.png"
         width="298"
         height="174"
         alt=""
@@ -40,7 +32,7 @@ import { GlowButton } from '../../../components/Button/GlowButton';
       />
 
       <img
-        src="/cta/cta-TopLeft-sm.png"
+        src="home_page/cta/cta-TopLeft-sm.png"
         width="316"
         height="130"
         alt=""
@@ -50,7 +42,7 @@ import { GlowButton } from '../../../components/Button/GlowButton';
 
       <!--BottomRight -->
       <img
-        src="/cta/cta-BottomRight.png"
+        src="home_page/cta/cta-BottomRight.png"
         width="397"
         height="232"
         alt=""
@@ -59,7 +51,7 @@ import { GlowButton } from '../../../components/Button/GlowButton';
       />
 
       <img
-        src="/cta/cta-BottomRight-md.png"
+        src="home_page/cta/cta-BottomRight-md.png"
         width="298"
         height="174"
         alt=""
@@ -68,7 +60,7 @@ import { GlowButton } from '../../../components/Button/GlowButton';
       />
 
       <img
-        src="/cta/cta-BottomRight-sm.png"
+        src="home_page/cta/cta-BottomRight-sm.png"
         width="223"
         height="130"
         alt=""
@@ -76,14 +68,18 @@ import { GlowButton } from '../../../components/Button/GlowButton';
         class={`${styles.BottomRightMobile} ${styles.visibleSm}`}
       />
 
-      <img src="/cta/logo.svg" alt="logo" class={styles.logo}>
-      <h2 class="text__heading--h2" data-ct--heading>
+      <img src="home_page/cta/logo.svg" alt="logo" class={styles.logo}>
+      <h5 class={clsx(
+        'text__heading--h5',
+        'text__heading--h2-lg',
+        'text__heading--h4-md',
+      )}>
           Ready to 
         <span style={{ color: 'var(--color-orange-500)' }}>
           enhance your network
         </span><br /> 
         with more intelligence?
-      </h2>
+      </h5>
       <div class={styles.btncontainer}>
         <Button variant="secondary" size="lg" 
         className="text__body--16-semibold" 
@@ -97,5 +93,5 @@ import { GlowButton } from '../../../components/Button/GlowButton';
         </GlowButton>
       </div>
     </div>
-  </CardFrame>
+  </Grid>
 </div>

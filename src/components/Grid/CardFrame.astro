@@ -1,0 +1,33 @@
+---
+import styles from './CardFrame.module.css';
+
+interface Props {
+  class?: string;
+  withMargin?: boolean;
+}
+
+const { class: className = '', withMargin = false } = Astro.props;
+
+const cardContainerClass = [
+  styles.cardContainer,
+  withMargin ? styles.withMargin : '',
+  className
+].join(' ');
+---
+
+<div class={styles.container}>
+  <div class={styles.outerWrapper}>
+    <slot name="left" />
+
+  <div class={cardContainerClass}>
+    <div class={`${styles.circle} ${styles.circleTopLeft}`}></div>
+    <div class={`${styles.circle} ${styles.circleTopRight}`}></div>
+    <div class={`${styles.circle} ${styles.circleBottomLeft}`}></div>
+    <div class={`${styles.circle} ${styles.circleBottomRight}`}></div>
+
+    <slot /> <!-- сюда пойдут карточки -->
+  </div>
+
+    <slot name="right" />
+  </div>
+</div>

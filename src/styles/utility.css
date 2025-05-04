@@ -1,0 +1,228 @@
+/* Always hidden */
+.u-hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Hidden on medium (md) screens and larger */
+@media (width >= 768px) {
+  .u-hidden--md {
+    display: none !important;
+  }
+
+  .u-visible--md {
+    display: block !important;
+  }
+}
+
+/* Hidden on large (lg) screens and larger */
+@media (width >= 1024px) {
+  .u-hidden--lg {
+    display: none !important;
+  }
+
+  .u-visible--lg {
+    display: block !important;
+  }
+}
+
+/* ========== Utility: Grid Background ========== */
+.u-grid-bg {
+  position: absolute;
+}
+
+.u-grid-bg--primary {
+  background-color: var(--color-white);
+}
+
+.u-grid-bg--secondary {
+  background-color: var(--color-gray-500);
+}
+
+/* Custom Colors */
+.u-grid-bg--blue-primary {
+  background-color: #195cc0;
+}
+
+.u-grid-bg--blue-secondary {
+  background-color: #0d4597;
+}
+
+.u-grid-bg--navy-primary {
+  background-color: #12264e;
+}
+
+.u-grid-bg--navy-secondary {
+  background-color: #05142b;
+}
+
+/* ========== Horizontal Grid Background ========== */
+.u-grid-bg--top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  transform: translateY(-50%);
+}
+
+.u-grid-bg--top-thin {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.u-grid-bg--bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  transform: translateY(50%);
+}
+
+.u-grid-bg--bottom-thin {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(50%);
+}
+
+/* ========== Vertical Grid Background ========== */
+.u-grid-bg--left {
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.u-grid-bg--left-thin {
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.u-grid-bg--right {
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  transform: translateX(50%);
+}
+
+.u-grid-bg--right-thin {
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(50%);
+}
+
+/* ========== Grid Dots ========== */
+.u-grid-bg-dot {
+  position: absolute;
+  z-index: 2;
+  border-radius: 50%;
+}
+
+/* Small Grid Dots */
+.u-grid-bg-dot--small {
+  width: 5px;
+  height: 5px;
+}
+
+.u-grid-bg-dot--medium {
+  width: 6px;
+  height: 6px;
+}
+
+/* Large Grid Dots */
+.u-grid-bg-dot--large {
+  width: 7px;
+  height: 7px;
+}
+
+/* Positioning */
+.u-grid-bg-dot--top-left {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.u-grid-bg-dot--top-right {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.u-grid-bg-dot--bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+}
+
+.u-grid-bg-dot--bottom-right {
+  right: 0;
+  bottom: 0;
+  transform: translate(50%, 50%);
+}
+
+.u-grid-bg--top-40 {
+  top: 40px;
+}
+
+/* ========== Linear Gradient Grid Borders ========== */
+.u-grid-bg--gradient-border {
+  background: linear-gradient(180deg, #195cc0 0%, #0c264e 87.88%);
+}
+
+/* Thin Version */
+.u-grid-bg--gradient {
+  background: linear-gradient(180deg, #0d4597 0%, #04132a 200%);
+}
+
+.u-grid-bg--extended {
+  height: calc(100% + 40px);
+}
+
+@media (width >= 1024px) {
+  .u-grid-bg--extended {
+    height: calc(100% + 80px);
+  }
+
+  .u-grid-bg--top-80-lg {
+    top: 80px;
+  }
+}
+
+.u-box-shadow {
+  box-shadow: 0 6px 40px 0 #cecece99;
+}
+
+.u-relative {
+  position: relative;
+}
+
+.u-whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.u-translate-x-300 {
+  transform: translateX(-300px) !important;
+}

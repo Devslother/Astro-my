@@ -1,0 +1,167 @@
+---
+import styles from './Grid.module.css';
+import clsx from 'clsx';
+
+interface GridProps {
+  variant?: "default" | "default-offset" | "blue"; // новые варианты сетки
+}
+
+const { variant = "default" } = Astro.props;
+---
+
+<!-- outside grid -->
+<div class={styles.grid}>
+  <!-- top & bottom -->
+  <div class={clsx(
+		'u-grid-bg', 
+		'u-grid-bg--top', 
+		variant === 'blue' && 'u-grid-bg--blue-primary u-grid-bg--top-0',
+		variant ==='default' && 'u-grid-bg--primary u-grid-bg--top-0',
+		variant === 'default-offset' && 'u-grid-bg--primary u-grid-bg--top-40 u-grid-bg--top-80-lg'  
+	)}>
+	</div>
+	<div class={clsx(
+		'u-grid-bg',
+		'u-grid-bg--top-thin',
+		variant === 'blue' && 'u-grid-bg--blue-secondary u-grid-bg--top-0',
+		variant === 'default' && 'u-grid-bg--secondary u-grid-bg--top-0',
+		variant === 'default-offset' && 'u-grid-bg--secondary u-grid-bg--top-40 u-grid-bg--top-80-lg'
+	)}>
+	</div>
+  <div class={clsx(
+		'u-grid-bg', 
+		'u-grid-bg--bottom', 
+		variant === 'blue' && 'u-grid-bg--navy-primary',
+		variant === 'default' && 'u-grid-bg--primary',
+		variant === 'default-offset' && 'u-grid-bg--primary'
+	)}>
+	</div>
+	<div class={clsx(
+		'u-grid-bg', 
+		'u-grid-bg--bottom-thin', 
+		variant === 'blue' && 'u-grid-bg--navy-secondary',
+		variant === 'default' && 'u-grid-bg--secondary',
+		variant === 'default-offset' && 'u-grid-bg--secondary'
+	)}>
+	</div>
+
+  <!-- inside grid -->
+  <div class={styles.inside__grid}>
+    <!-- left & right -->
+    <div class={clsx(
+			'u-grid-bg', 
+			'u-grid-bg--left', 
+			variant === 'blue' && 'u-grid-bg--gradient-border u-grid-bg--extended',
+			variant === 'default' && 'u-grid-bg--primary',
+			variant === 'default-offset' && 'u-grid-bg--primary'
+		)}>
+		</div>
+		<div class={clsx(
+			'u-grid-bg', 
+			'u-grid-bg--left-thin', 
+			variant === 'blue' && 'u-grid-bg--gradient-border u-grid-bg--extended',
+			variant === 'default' && 'u-grid-bg--secondary',
+			variant === 'default-offset' && 'u-grid-bg--secondary'
+		)}>
+		</div>
+		<div class={clsx(
+			'u-grid-bg', 
+			'u-grid-bg--right', 
+			variant === 'blue' && 'u-grid-bg--gradient-border u-grid-bg--extended',
+			variant === 'default' && 'u-grid-bg--primary',
+			variant === 'default-offset' && 'u-grid-bg--primary'
+		)}>
+		</div>
+		<div class={clsx(
+			'u-grid-bg', 
+			'u-grid-bg--right-thin', 
+			variant === 'blue' && 'u-grid-bg--gradient-border u-grid-bg--extended',
+			variant === 'default' && 'u-grid-bg--secondary',
+			variant === 'default-offset' && 'u-grid-bg--secondary'
+		)}>
+		</div>
+
+    <!-- dots -->
+     <!-- top-left -->
+    <div class={clsx(
+			'u-grid-bg-dot', 
+			'u-grid-bg-dot--large', 
+			'u-grid-bg-dot--top-left', 
+			variant === 'blue' && 'u-grid-bg--blue-primary u-grid-bg--top-0',
+			variant === 'default' && 'u-grid-bg--primary u-grid-bg--top-0',
+			variant === 'default-offset' && 'u-grid-bg--primary u-grid-bg--top-40 u-grid-bg--top-80-lg'
+		)}>
+		</div>
+		<div class={clsx(
+			'u-grid-bg-dot', 
+			'u-grid-bg-dot--small', 
+			'u-grid-bg-dot--top-left', 
+			variant === 'blue' && 'u-grid-bg--blue-secondary u-grid-bg--top-0',
+			variant === 'default' && 'u-grid-bg--secondary u-grid-bg--top-0',
+			variant === 'default-offset' && 'u-grid-bg--secondary u-grid-bg--top-40 u-grid-bg--top-80-lg'
+		)}>
+		</div>
+
+    <!-- top-right -->
+	  <div class={clsx(
+			'u-grid-bg-dot', 
+			'u-grid-bg-dot--large', 
+			'u-grid-bg-dot--top-right', 
+			variant === 'blue' && 'u-grid-bg--blue-primary u-grid-bg--top-0',
+			variant === 'default' && 'u-grid-bg--primary u-grid-bg--top-0',
+			variant === 'default-offset' && 'u-grid-bg--primary u-grid-bg--top-40 u-grid-bg--top-80-lg'
+		)}>
+		</div>
+		<div class={clsx(
+			'u-grid-bg-dot', 
+			'u-grid-bg-dot--small ',
+			'u-grid-bg-dot--top-right', 
+			variant === 'blue' && 'u-grid-bg--blue-secondary u-grid-bg--top-0',
+			variant === 'default' && 'u-grid-bg--secondary u-grid-bg--top-0',
+			variant === 'default-offset' && 'u-grid-bg--secondary u-grid-bg--top-40 u-grid-bg--top-80-lg'
+		)}>
+		</div>
+
+    <!-- bottom-left -->
+    <div class={clsx(
+			'u-grid-bg-dot', 
+			'u-grid-bg-dot--large', 
+			'u-grid-bg-dot--bottom-left',
+			variant === 'blue' && 'u-grid-bg--navy-primary',
+			variant === 'default' && 'u-grid-bg--primary',
+			variant === 'default-offset' && 'u-grid-bg--primary'
+		)}>
+		</div>
+		<div class={clsx(
+			'u-grid-bg-dot', 
+			'u-grid-bg-dot--small', 
+			'u-grid-bg-dot--bottom-left', 
+			variant === 'blue' && 'u-grid-bg--navy-secondary',
+			variant === 'default' && 'u-grid-bg--secondary',
+			variant === 'default-offset' && 'u-grid-bg--secondary'
+		)}>
+		</div>
+
+    <!-- bottom-right -->
+    <div class={clsx(
+			'u-grid-bg-dot', 
+			'u-grid-bg-dot--large', 
+			'u-grid-bg-dot--bottom-right', 
+			variant === 'blue' && 'u-grid-bg--navy-primary',
+			variant === 'default' && 'u-grid-bg--primary',
+			variant === 'default-offset' && 'u-grid-bg--primary'
+		)}>
+		</div>
+		<div class={clsx(
+			'u-grid-bg-dot', 
+			'u-grid-bg-dot--small', 
+			'u-grid-bg-dot--bottom-right', 
+			variant === 'blue' && 'u-grid-bg--navy-secondary',
+			variant === 'default' && 'u-grid-bg--secondary',
+			variant === 'default-offset' && 'u-grid-bg--secondary'
+		)}>
+		</div>
+    
+    <slot /> <!-- сюда пойдут карточки -->
+  </div>
+</div>

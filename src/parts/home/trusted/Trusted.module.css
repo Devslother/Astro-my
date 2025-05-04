@@ -6,55 +6,58 @@
     #0a0d0f 50%,
     #114798 100%
   );
-  padding: 60px 30px;
+  padding: 44px 10px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрируем контент по горизонтали */
+  align-items: center;
   gap: 32px;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Равномерно распределяет элементы */
-  max-width: 1140px; /* Задаем максимальную ширину */
-  width: 100%; /* Чтобы не выходило за пределы контейнера */
-  margin: 0 auto; /* Центрируем логотипы */
-  flex-wrap: wrap; /* Позволяем перенос логотипов при маленьком экране */
+.trust__heading {
+  color: var(--color-white);
 }
 
-/* Адаптация для мобильных устройств */
-@media (max-width: 1024px) {
+.logo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 23px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 355px;
+  margin: auto;
+}
+
+.logo img {
+  max-width: 100px;
+}
+
+@media (width >= 768px) {
   .trust {
+    padding: 45px 30px;
     gap: 24px;
   }
 
-  :global([data-heading--h6].text__heading--h6) {
-    font-size: 18px;
-  }
-
-  .logo img {
-    max-width: 125px; /* Уменьшаем логотипы */
+  .logo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: none;
   }
 }
 
-@media (max-width: 767px) {
+@media (width >= 1024px) {
   .trust {
-    padding: 44px 10px;
-    gap: 32px;
+    padding: 60px 30px;
   }
 
-  :global([data-trust-heading].text__heading--h6) {
-    font-size: 16px;
-  }
-
-  /* в одном ряду три изображения */
   .logo {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    gap: 23px;
+    max-width: 1140px;
   }
 
   .logo img {
-    max-width: 110px;
+    max-width: none;
   }
 }

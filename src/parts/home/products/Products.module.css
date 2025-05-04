@@ -1,6 +1,6 @@
 .products {
-  display: flex; /* или display: grid */
-  flex-direction: column; /* если нужно вертикально */
+  display: flex;
+  flex-direction: column;
 
   width: 100%;
   padding-top: 120px;
@@ -13,31 +13,26 @@
 
   /* смещаем ТОЛЬКО изображение вверх, градиент остаётся по центру */
   background-position: center -125px, center top;
+  overflow: hidden;
 }
 
-.heading {
+.products__heading {
   text-align: center;
   color: var(--color-white);
   margin-bottom: 60px;
 }
 
-/* Стили, применяемые только к CardFrame для адаптации */
-.cardFrame {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
+.card__container {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(1, 1fr);
+  justify-content: space-between;
 }
 
-/* Адаптация для 1024px */
-@media (max-width: 1024px) {
-  .cardFrame {
-    flex-direction: column; /* Карточки становятся в колонку */
-  }
-}
-
-@media (max-width: 768px) {
-  .products {
-    height: auto;
+@media (width >= 1024px) {
+  .card__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
   }
 }

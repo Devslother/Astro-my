@@ -76,7 +76,7 @@
 
 /*  Sizes */
 .btn--lg {
-  padding: 16px 32px;
+  padding: 13px 32px;
 }
 
 .btn--md {
@@ -84,5 +84,5 @@
 }
 
 .btn--sm {
-  padding: 6px 0;
+  padding: 6px 0px;
 }

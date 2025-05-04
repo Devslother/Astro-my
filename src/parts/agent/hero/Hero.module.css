@@ -1,6 +1,6 @@
 .hero {
   height: 635px;
-  background-image: url("/agent_page/hero.png");
+  background-image: url("/agent_page/hero.svg");
   background-size: cover; /* Фон покрывает всю область */
   background-repeat: no-repeat; /* Запрещаем повторение */
   display: flex;

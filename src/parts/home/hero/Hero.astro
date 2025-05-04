@@ -1,18 +1,34 @@
 ---
+import clsx from 'clsx';
 import { GlowButton } from '../../../components/Button/GlowButton';
 import styles from './Hero.module.css';
 ---
 
 <div class={styles.hero}>
-  <div class={styles.content}>
-    <h1 class="text__heading--h1" data-hero--heading>Dynamic Gateways</h1>
-    <h2 class="text__body--18" data-hero--subheading>
+  <div class={styles.hero__bg}></div>
+  <div class={styles.hero__figure}></div>
+  <div class={styles.hero__content}>
+    <h1 class={clsx(
+      'text__heading--h4',
+      'text__heading--h1-lg',
+      'text__heading--h3-md',
+      styles.hero__title
+    )}>
+      Dynamic Gateways
+    </h1>
+    <h2 class={clsx(
+      'text__body--16',
+      'text__body--18-lg',
+      'text__body--16-md',
+      styles.hero__subtitle
+    )}>
       For Autonomous Traffic Orchestration.
     </h2>
     <GlowButton
       variant="primary"
-      size="lg"
+      size="md"
       buttonClassName="text__body--16-semibold"
+      containerClassName="my-glow-margin"
       href="https://tetrate.io/contact/demo-request/"
     >
       Request a demo

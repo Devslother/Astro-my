@@ -1,15 +1,31 @@
 ---
+import clsx from 'clsx';
 import styles from './Trusted.module.css'
+
+const logos = [
+  { name: 'ui-path', alt: 'Ui Path' },
+  { name: 'micro', alt: 'MicroStrategy' },
+  { name: 'merc', alt: 'Mercedes Benz' },
+  { name: 'alaska', alt: 'Alaska airlines' },
+  { name: 'bank', alt: 'TD Bank' },
+  {name: 'ory', alt: 'ORY'},
+];
 ---
 
 <div class={styles.trust}>
-  <h6 class="text__heading--h6" data-trust-heading style={{ color: 'var(--color-white)' }}>Trusted by Innovators Everywhere</h6>
+  <h6 class= {clsx(
+      'text__body--16-medium',
+      'text__heading--h6-lg',
+      'text__body--18-medium--md',
+      styles.trust__heading,
+  )}>
+    Trusted by Innovators Everywhere
+  </h6>
   <div class={styles.logo}>
-    <img src="home_page/logo/ui-path.svg" alt="Ui Path" loading="lazy">
-    <img src="home_page/logo/micro.svg" alt="MicroStrategy" loading="lazy">
-    <img src="home_page/logo/merc.svg" alt="Mercedes Benz" loading="lazy">
-    <img src="home_page/logo/alaska.svg" alt="Alaska airlines" loading="lazy">
-    <img src="home_page/logo/bank.svg" alt="TD Bank" loading="lazy">
-    <img src="home_page/logo/ory.svg" alt="ORY" loading="lazy">
+     {logos.map(logo => (
+      <picture>
+        <img src={`/home_page/logo/${logo.name}.svg`} alt={logo.alt} loading="lazy" />
+      </picture>
+    ))}
   </div>
 </div>

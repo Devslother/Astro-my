@@ -1,63 +1,138 @@
 .hero {
   position: relative;
+  width: 100%;
+  padding: 0 10px;
+  height: 619px;
+  margin-top: -80px;
+  overflow: hidden;
+}
+
+.hero__bg {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 934px * 0.5);
+  width: 934px;
+  background-image: url("/home_page/hero/hero-bg-mobile.svg");
+  height: 619px;
+}
+
+.hero__figure {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 488px * 0.5);
+  width: 488px;
+  background-image: image-set(
+    url("/home_page/hero/hero-figure-mobile.png") 1x,
+    url("/home_page/hero/hero-figure-mobile@2x.png") 2x
+  );
+  height: 610px;
+}
+
+.hero__content {
+  position: relative;
   display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 230px 0;
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: 637px;
-  min-height: 637px;
-  background-image: url("/home_page/hero_big.svg");
-  background-size: cover;
-  background-position: center -70px; /* Сдвигаем фон вверх */
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 42px;
-  padding: 0px;
+.hero__title {
+  max-width: 80%;
+  text-wrap: balance;
 }
 
-@media (max-width: 1024px) {
+.hero__subtitle {
+  margin: 16px 0 0;
+  max-width: 90%;
+  text-wrap: balance;
+}
+
+@media (width >= 700px) {
+  .hero__bg {
+    left: calc(50% - 1246px * 0.5);
+    width: 1246px;
+    background-image: url("/home_page/hero/hero-bg-tablet.svg");
+    height: 717px;
+  }
+}
+
+@media (width >= 768px) {
   .hero {
-    background-image: url("/home_page/hero.png");
-    background-size: cover; /* растягивает картинку */
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 100vh; /* растягивает по высоте экрана */
+    height: 716px;
   }
 
-  :global([data-hero--heading].text__heading--h1) {
-    font-size: 40px;
-    letter-spacing: -1.5px;
+  .hero__figure {
+    left: calc(50% - 854px * 0.5);
+    width: 854px;
+    background-image: image-set(
+      url("/home_page/hero/hero-figure-tablet.png") 1x,
+      url("/home_page/hero/hero-figure-tablet@2x.png") 2x
+    );
+    height: 717px;
   }
 
-  :global([data-hero--subheading].text__body--18) {
-    font-size: 16px;
+  .hero__subtitle {
+    margin: 30px 0 0;
+  }
+
+  .hero__content {
+    padding: 271px 0;
   }
 }
 
-@media (max-width: 767px) {
-  .hero {
-    background-image: url("/home_page/hero_small.png");
-    height: 637px;
-    min-height: 637px;
+@media (width >= 930px) {
+  .hero__bg {
+    left: calc(50% - 2220px * 0.5);
+    width: 2220px;
+    background-image: url("/home_page/hero/hero-bg.svg");
+    height: 717px;
+  }
+}
+
+@media (width >= 1024px) {
+  .hero__figure {
+    left: calc(50% - 1500px * 0.5);
+    width: 1500px;
+    background-image: image-set(
+      url("/home_page/hero/hero-figure.png") 1x,
+      url("/home_page/hero/hero-figure@2x.png") 2x
+    );
+    height: 717px;
   }
 
-  .content {
-    gap: 30px;
+  .hero__bg::before,
+  .hero__bg::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: block;
+    background: linear-gradient(270deg, rgb(245 245 245 / 0%) 0%, #f5f5f5 100%);
+    content: "";
   }
 
-  :global([data-hero--heading].text__heading--h1) {
-    font-size: 28px;
-    letter-spacing: -1px;
+  .hero__bg::before {
+    left: 0;
+    width: 650px;
   }
 
-  /* Уменьшаем горизонтальный padding кнопки */
-  .hero :global(button) {
-    padding-left: 24px;
-    padding-right: 24px;
+  .hero__bg::after {
+    right: 0;
+    width: 650px;
+    transform: rotate(-180deg);
   }
+
+  .hero__content {
+    padding: 310px 0;
+  }
+
+  .hero :global(.my-glow-margin) {
+    margin-top: 42px;
+  }
+}
+
+.hero :global(.my-glow-margin) {
+  margin-top: 30px;
 }
