@@ -213,20 +213,8 @@
     transition-duration: 0.3s;
   }
 
-  .mega_menu__item:hover {
-    background-color: var(--color-gray-200);
-    fill: var(--color-orange-500);
-    stroke: var(--color-orange-500);
-  }
-
   .item_icon {
     box-shadow: 0 3px 12px 0 #cecece99;
-  }
-
-  .mega_menu__item_description {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
   }
 
   .item_description {

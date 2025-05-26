@@ -186,6 +186,7 @@
 @media (width >= 768px) {
   .legal {
     max-width: 1260px;
+    margin: 0 auto;
   }
 
   .copyright__container {

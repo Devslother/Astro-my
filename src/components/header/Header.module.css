@@ -100,14 +100,6 @@
   margin-bottom: 60px;
 }
 
-/* Адаптивность */
-@media (width >= 376px) {
-  .pricing_request__btn {
-    padding: 5px 16px;
-    height: 40px !important;
-  }
-}
-
 @media (width >= 1024px) {
   .container {
     padding: 20px 48px;
