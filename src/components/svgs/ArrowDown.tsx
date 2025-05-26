@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { SVGProps } from "react";
-const SvgStateUp = (props: SVGProps<SVGSVGElement>) => (
+const Arrowdown = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -13,8 +13,8 @@ const SvgStateUp = (props: SVGProps<SVGSVGElement>) => (
       stroke="#9D9E9F"
       strokeLinecap="round"
       strokeLinejoin="round"
-      d="m7 12.5 3-3 3 3"
+      d="m7 9.5 3 3 3-3"
     />
   </svg>
 );
-export default SvgStateUp;
+export default Arrowdown;

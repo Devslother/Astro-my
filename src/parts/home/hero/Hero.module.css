@@ -50,6 +50,10 @@
   text-wrap: balance;
 }
 
+.hero :global(.my-glow-margin) {
+  margin-top: 30px;
+}
+
 @media (width >= 700px) {
   .hero__bg {
     left: calc(50% - 1246px * 0.5);
@@ -131,8 +135,4 @@
   .hero :global(.my-glow-margin) {
     margin-top: 42px;
   }
-}
-
-.hero :global(.my-glow-margin) {
-  margin-top: 30px;
 }

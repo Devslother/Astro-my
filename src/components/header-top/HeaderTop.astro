@@ -8,7 +8,7 @@ import styles from './HeaderTop.module.css';
     <p class={`text__body--14-medium ${styles.text}`} data-headertop--text>Announcing TEG 1.2—Enterprise support and FedRAMP-ready FIPS builds for Envoy Gateway 1.2</p>
     <Button variant="tertiary" size="sm" className={styles.btntop} href="https://tetrate.io/blog/announcing-tetrate-enterprise-gateway-for-envoy-v1-2/"> 
       <span class={`text__body--14-medium ${styles.span}`}>Learn more</span>
-      <Icon name="arrow" className="arrow" width={24} height={24} fill="var(--color-orange-500)" />
+      <Icon name="arrow" width={24} height={24} fill="var(--color-orange-500)" />
     </Button>
   </div>
   <button class={styles.closebtn} id="closeBtn">
@@ -16,7 +16,7 @@ import styles from './HeaderTop.module.css';
   </button>
 </div>
 
-<script is:inline>
+<script>
   document.addEventListener("DOMContentLoaded", () => {
     const closeBtn = document.getElementById("closeBtn");
     const headerTop = document.getElementById("headertop");

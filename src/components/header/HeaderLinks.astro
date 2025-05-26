@@ -1,0 +1,132 @@
+---
+import { headerNavigation } from './headerNavigation';
+import Button from "../Button/Button";
+import { Icon, type IconType } from "../icon/Icon";
+import clsx from "clsx";
+import styles from "./HeaderLinks.module.css";
+
+const { className = '' } = Astro.props;
+---
+
+<div class={clsx(styles.links, className)}>
+  {headerNavigation.map((item) => (
+    <div class={clsx("u-relative", styles.link__wrapper)} 
+    data-link-wrapper 
+    data-open="false">
+      <a href={item.url} 
+        class={clsx(
+          "text__body--16", 
+          "text__body--16-lg",
+          "text__body--16-md",
+          styles.link
+      )}>
+        {item.title}
+        {item.categories && (
+          <>
+            <Icon name="arrowdown" className={styles.arrowdown} />
+            <Icon name="arrowup" className={styles.arrowup} />
+          </>
+        )}
+      </a>
+
+      {item.categories && (
+        <div class={styles.mega_menu}>
+          {item.categories.map((category) => (
+            <div class={clsx(
+              styles.mega_menu__column,
+              !category.items[0].description && styles.mega_menu__column__no_gap
+            )}>
+              {category.title && (
+                category.url ? (
+                  <a class={clsx("text__caption", 
+                  styles.content_a)} 
+                  href={category.url}>
+                    {category.title}
+                    <Icon name="arrow" width={20} height={20} />
+                  </a>
+                ) : (
+                  <p class={clsx("text__caption", 
+                  styles.content)}>
+                    {category.title}
+                  </p>
+                )
+              )}
+
+              {category.items.map((item) =>
+                item.icon === "button" ? (
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    href={item.url}
+                  >
+                    Tetrate Academy
+                    <Icon name="arrow" width={20} height={20} />
+                  </Button>
+                ) : (
+                  <a
+                    class={clsx(
+                      styles.mega_menu__item,
+                      !item.description && styles.mega_menu__item__center
+                    )}
+                    href={item.url}
+                  >
+                    {item.icon && (
+                      <div class={styles.item_icon}>
+                        <Icon name={item.icon as IconType} />
+                      </div>
+                    )}
+                    <div class={styles.mega_menu__item_description}>
+                      <p class={clsx(
+                        "text__body--16-medium",
+                         "u-whitespace-nowrap",
+                         styles.item_name)}
+                      >
+                        {item.name}
+                      </p>
+                      {item.description && (
+                        <p class={clsx(
+                          "text__body--14",  
+                          styles.item_description)}
+                        >
+                          {item.description}
+                        </p>
+                      )}
+                    </div>
+                  </a>
+                )
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  ))}
+
+<div class={styles.mobile__buttons}>
+  <Button 
+    href="/contact/demo-request/" 
+    variant="secondary" 
+    size="md"
+    className={styles.mobile__button}>
+      Request a demo
+  </Button>
+  <Button 
+    href="/contact/pricing-request/" 
+    variant="primary" 
+    size="md"
+    className={styles.mobile__button}>
+      Pricing Request
+  </Button>
+</div>
+</div>
+
+<script>
+ 
+  document.querySelectorAll("[data-link-wrapper]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const isOpen = link.getAttribute('data-open') === 'true';
+      link.setAttribute('data-open', String(!isOpen));
+    });
+  });
+
+</script>

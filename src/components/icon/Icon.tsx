@@ -9,7 +9,35 @@ import {
   Slack,
   X,
   Youtube,
-  StateDown,
+  ArrowDown,
+  ArrowUp,
+  AgentOperationsDirector,
+  TetrateServiceBridge,
+  TetrateIstioSubscription,
+  TetrateIstioSubscriptionPlus,
+  TetrateEnterpriseEnvoyGateway,
+  FinancialServices,
+  Fips,
+  Government,
+  Kubernetes,
+  ZeroTrust,
+  Blog,
+  ZeroTrustCenter,
+  Documentation,
+  Faq,
+  EbooksReports,
+  WhitePapers,
+  Video,
+  All,
+  TetrateIcon,
+  Leadership,
+  Investors,
+  Partners,
+  Newsroom,
+  Careers,
+  GetSupport,
+  ContactUs,
+  TetrateAppGateway,
 } from "../svgs";
 
 export const icons = {
@@ -23,7 +51,35 @@ export const icons = {
   youtube: Youtube,
   github: GitHub,
   linkedin: LinkedIn,
-  statedown: StateDown,
+  arrowdown: ArrowDown,
+  arrowup: ArrowUp,
+  agentoperationsdirector: AgentOperationsDirector,
+  tetrateservicebridge: TetrateServiceBridge,
+  tetrateistiosubscription: TetrateIstioSubscription,
+  tetrateistiosubscriptionplus: TetrateIstioSubscriptionPlus,
+  tetrateenterpriseenvoygateway: TetrateEnterpriseEnvoyGateway,
+  tetrateappgateway: TetrateAppGateway,
+  financialservices: FinancialServices,
+  fips: Fips,
+  government: Government,
+  kubernetes: Kubernetes,
+  zerotrust: ZeroTrust,
+  blog: Blog,
+  zerotrustcenter: ZeroTrustCenter,
+  documentation: Documentation,
+  faq: Faq,
+  ebooksandreports: EbooksReports,
+  whitepapers: WhitePapers,
+  video: Video,
+  all: All,
+  aboutus: TetrateIcon,
+  leadership: Leadership,
+  investors: Investors,
+  partners: Partners,
+  newsroom: Newsroom,
+  careers: Careers,
+  getsupport: GetSupport,
+  contactus: ContactUs,
 };
 
 export type IconType = keyof typeof icons;
@@ -46,6 +102,7 @@ export const Icon = ({
   fill,
   stroke,
   onClick,
+  ...rest
 }: IconProps) => {
   if (!icons[name]) return null;
 
@@ -59,6 +116,7 @@ export const Icon = ({
       fill={fill}
       stroke={stroke}
       onClick={onClick}
+      {...rest}
     />
   );
 };

@@ -67,7 +67,7 @@ export default function Header() {
             )}
           >
             {nav.title}
-            {nav.hasSubmenu && <Icon name="statedown" width={20} height={20} />}
+            {nav.hasSubmenu && <Icon name="arrowdown" width={20} height={20} />}
           </a>
         ))}
       </nav>

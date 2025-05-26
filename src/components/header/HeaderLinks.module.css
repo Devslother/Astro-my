@@ -1,0 +1,244 @@
+.links {
+  display: none;
+}
+
+.link__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.link {
+  display: flex;
+  color: var(--color-black);
+  align-items: center;
+  cursor: pointer;
+  stroke: var(--color-black);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link svg {
+  width: 20px;
+  height: 20px;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: var(--color-gray-800);
+  stroke: var(--color-gray-800);
+}
+
+.arrowup {
+  display: none;
+}
+
+.link__wrapper:hover .arrowup {
+  display: block;
+}
+
+.link__wrapper:hover .arrowdown {
+  display: none;
+}
+
+/* Mega Menu */
+
+.mega_menu {
+  display: none;
+  flex-direction: column;
+  gap: 32px;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s linear;
+}
+
+[data-open="true"] .mega_menu {
+  display: flex;
+}
+
+.mega_menu__column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content,
+.content_a {
+  display: flex;
+  gap: 8px;
+  color: var(--color-gray-800);
+  align-items: center;
+  letter-spacing: 1px;
+  min-height: 44px;
+  text-transform: uppercase;
+}
+
+.content_a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.content_a svg {
+  --icon-fill: var(--color-orange-500);
+}
+
+.content_a:hover {
+  color: var(--color-black);
+}
+
+.mega_menu__item {
+  display: flex;
+  color: var(--color-gray-800);
+  gap: 16px;
+  cursor: pointer;
+  fill: var(--color-gray-800);
+  stroke: var(--color-gray-800);
+  transition: all;
+  transition-duration: 0.3s;
+  text-decoration: none;
+}
+
+.mega_menu__item__center {
+  align-items: center;
+}
+
+.mega_menu__item:hover {
+  background-color: var(--color-gray-200);
+  fill: var(--color-orange-500);
+  stroke: var(--color-orange-500);
+}
+
+.item_icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid var(--color-gray-300);
+  box-shadow: 0 5px 33.33px 0 #cecece99;
+}
+
+.item_icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.mega_menu__item:hover .item_icon svg {
+  --icon-fill: var(--color-orange-500);
+}
+
+.mega_menu__item_description {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.item_name {
+  color: var(--color-black);
+}
+
+.mobile__buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+}
+
+@media (width >= 1024px) {
+  .links {
+    display: flex;
+    gap: 32px;
+  }
+
+  .mega_menu {
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 18px;
+    box-shadow: 0 6px 40px 0 #cecece99;
+    background-color: white;
+    border-radius: 16px;
+    opacity: 0;
+    transform: translateX(-50%);
+    visibility: hidden;
+  }
+
+  .link__wrapper:hover .mega_menu {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .link__wrapper:first-of-type .mega_menu {
+    position: fixed;
+    top: 126px;
+  }
+
+  .mega_menu__column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .content,
+  .content_a {
+    display: flex;
+    padding: 12px;
+    color: var(--color-gray-800);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .mega_menu__item {
+    display: flex;
+    gap: 16px;
+    padding: 12px;
+    background-color: var(--color-white);
+    border-radius: 12px;
+    cursor: pointer;
+    fill: var(--color-gray-800);
+    overflow: visible;
+    stroke: var(--color-gray-800);
+    transition: all;
+    transition-duration: 0.3s;
+  }
+
+  .mega_menu__item:hover {
+    background-color: var(--color-gray-200);
+    fill: var(--color-orange-500);
+    stroke: var(--color-orange-500);
+  }
+
+  .item_icon {
+    display: flex;
+    border: 1px solid var(--color-gray-300);
+    box-shadow: 0 3px 12px 0 #cecece99;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    height: 40px;
+    justify-content: center;
+    min-width: 40px;
+  }
+
+  .mega_menu__item_description {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .item_description {
+    width: 374px;
+  }
+
+  .mega_menu__column__no_gap {
+    gap: 0 !important;
+  }
+
+  .mobile__buttons {
+    display: none;
+  }
+}

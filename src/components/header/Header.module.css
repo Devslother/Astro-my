@@ -1,63 +1,107 @@
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Равномерно распределяет элементы */
-  padding: 24px 20px;
-  background-color: var(--color-gray-200);
-}
-
-.fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+:global(.no-scroll) {
+  overflow: hidden;
 }
 
 .nav {
-  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: transform 0.3s ease-in-out;
+  isolation: isolate;
 }
 
-.burger {
-  display: block;
-  background: none;
-  border: none;
-  cursor: pointer;
+:global(.hidden) {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+:global(.nav__with__bg) {
+  background-color: var(--color-gray-200);
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  width: 100px;
+  height: 28px;
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 16px;
+}
+
+.nav__mobile {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  display: none;
+  width: 100%;
+  background-color: var(--color-gray-200);
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.menu__button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+:global(.nav__mobile).open {
+  display: block;
+}
+
+:global(.nav__mobile).open {
+  display: block;
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 20px 24px 20px;
+}
+
+.nav__close {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav__close svg {
+  --icon-fill: var(--color-black);
 }
 
 /* Адаптивность */
-
-@media (width >= 768px) {
-  .actions {
-    gap: 16px;
+@media (width >= 376px) {
+  .pricing_request__btn {
+    padding: 5px 16px;
+    height: 40px !important;
   }
 }
 
 @media (width >= 1024px) {
-  .header {
-    padding: 24px 60px;
+  .container {
+    padding: 20px 48px;
   }
 
-  .nav {
-    display: flex;
-    gap: 32px; /* Отступы между ссылками */
-  }
-
-  .navItem {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--color-black-900);
-  }
-
-  .burger {
+  .menu__button {
     display: none;
   }
 }

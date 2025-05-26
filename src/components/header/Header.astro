@@ -1,0 +1,93 @@
+---
+import Button from "../Button/Button";
+import styles from "./Header.module.css";
+import { Icon, type IconType } from "../icon/Icon";
+import clsx from "clsx";
+import HeaderLinks from './HeaderLinks.astro';
+---
+<header class={clsx('nav', styles.nav)}>
+  <div class={styles.container}>
+   <!-- Логотип -->
+    <picture>
+      <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
+      <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
+    </picture>
+
+    <!-- Desktop navigation -->
+      <HeaderLinks />
+    
+    <div class={styles.actions}>
+      <Button
+        variant="primary"
+        size="md"
+        className="text__body--16-medium"
+        href="https://tetrate.io/contact/pricing-request/"
+      >
+        Pricing Request
+      </Button>
+
+      {/* Бургер-меню (появляется на мобилке) */}
+      <button class={clsx(styles.menu__button, 'menu__button')}>
+        <Icon name="menu" width={24} height={24} />
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Mobile Navigation -->
+    <div class={clsx(styles.nav__mobile, 'nav__mobile')}>
+      <div class={styles.heading}>
+        <picture>
+          <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
+          <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
+        </picture>
+    
+        <button class={clsx(styles.nav__close, 'nav__close')}>
+          <Icon name="close" className="close" width={24} height={24} />
+        </button>
+      </div>
+      <HeaderLinks />
+    </div>
+</header>
+
+<script>
+let lastScrollY = window.scrollY;
+  const nav = document.querySelector(".nav");
+
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY >= lastScrollY && currentScrollY > 100) {
+      nav?.classList.add("hidden");
+    } else {
+      nav?.classList.remove("hidden");
+    }
+
+    if (currentScrollY > 100) {
+			nav?.classList.add("nav__with__bg");
+		} else {
+			nav?.classList.remove("nav__with__bg");
+		}
+
+    lastScrollY = currentScrollY;
+  };
+
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
+
+  const nav_mobile = document.querySelector(".nav__mobile");
+
+  document.querySelector(".menu__button")
+    ?.addEventListener("click", () => {
+      // nav?.classList.remove("visible");
+      nav_mobile?.classList.add("open");
+      document.body.classList.add("no-scroll");
+    });
+
+  document.querySelector(".nav__close")?.addEventListener("click", () => {
+    // nav?.classList.add("visible");
+    nav_mobile?.classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  });
+
+</script>
