@@ -120,6 +120,7 @@
 
 .item_icon {
   min-width: 40px;
+  max-width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
