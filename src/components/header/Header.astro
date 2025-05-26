@@ -36,17 +36,37 @@ import HeaderLinks from './HeaderLinks.astro';
 
   <!-- Mobile Navigation -->
     <div class={clsx(styles.nav__mobile, 'nav__mobile')}>
-      <div class={styles.heading}>
-        <picture>
-          <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
-          <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
-        </picture>
-    
-        <button class={clsx(styles.nav__close, 'nav__close')}>
-          <Icon name="close" className="close" width={24} height={24} />
-        </button>
+      <div class={styles.mobile__container}>
+        <div class={styles.mobile__heading}>
+          <picture>
+            <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
+            <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
+          </picture>
+      
+          <button class={clsx(styles.nav__close, 'nav__close')}>
+            <Icon name="close" className="close" width={24} height={24} />
+          </button>
+        </div>
+     
+        <HeaderLinks />
       </div>
-      <HeaderLinks />
+
+      <div class={styles.mobile__buttons}>
+        <Button 
+          href="/contact/demo-request/" 
+          variant="secondary" 
+          size="sm"
+          className={styles.mobile__button}>
+            Request a demo
+        </Button>
+        <Button 
+          href="/contact/pricing-request/" 
+          variant="primary" 
+          size="sm"
+          className={styles.mobile__button}>
+            Pricing Request
+        </Button>
+      </div>
     </div>
 </header>
 

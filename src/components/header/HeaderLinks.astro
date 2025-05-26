@@ -56,8 +56,9 @@ const { className = '' } = Astro.props;
                 item.icon === "button" ? (
                   <Button
                     variant="primary"
-                    size="lg"
+                    size="md"
                     href={item.url}
+                    className={styles.mega_menu__button}
                   >
                     Tetrate Academy
                     <Icon name="arrow" width={20} height={20} />
@@ -102,31 +103,23 @@ const { className = '' } = Astro.props;
     </div>
   ))}
 
-<div class={styles.mobile__buttons}>
-  <Button 
-    href="/contact/demo-request/" 
-    variant="secondary" 
-    size="md"
-    className={styles.mobile__button}>
-      Request a demo
-  </Button>
-  <Button 
-    href="/contact/pricing-request/" 
-    variant="primary" 
-    size="md"
-    className={styles.mobile__button}>
-      Pricing Request
-  </Button>
-</div>
+
 </div>
 
 <script>
- 
-  document.querySelectorAll("[data-link-wrapper]").forEach((link) => {
-    link.addEventListener("click", () => {
-      const isOpen = link.getAttribute('data-open') === 'true';
-      link.setAttribute('data-open', String(!isOpen));
-    });
-  });
+  const isMobile = window.matchMedia("(max-width: 1023px)").matches;
 
+  if (isMobile) {
+  document.querySelectorAll("[data-link-wrapper]").forEach((link) => {
+    const linkAnchor = link.querySelector("a");
+
+    if (!linkAnchor) return;
+
+      linkAnchor.addEventListener("click", (e) => {
+        e.preventDefault(); 
+        const isOpen = link.getAttribute("data-open") === "true";
+        link.setAttribute("data-open", String(!isOpen));
+      });
+  });
+}
 </script>

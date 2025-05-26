@@ -61,15 +61,12 @@
   cursor: pointer;
 }
 
-:global(.nav__mobile).open {
-  display: block;
+:global(.nav__mobile.open) {
+  display: flex;
+  flex-direction: column;
 }
 
-:global(.nav__mobile).open {
-  display: block;
-}
-
-.heading {
+.mobile__heading {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -86,6 +83,21 @@
 
 .nav__close svg {
   --icon-fill: var(--color-black);
+}
+
+.mobile__container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.mobile__buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 0 30px;
+  margin-bottom: 60px;
 }
 
 /* Адаптивность */
