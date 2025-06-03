@@ -1,22 +1,43 @@
 .grid {
   position: relative;
   width: 100%;
-  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 .inside__grid {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.leftPadding,
+.rightPadding {
+  width: 10px;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.main {
+  flex: 1;
   position: relative;
-  margin: 0 auto;
   padding: 10px;
-  max-width: 1240px;
+}
+
+@media (width >= 768px) {
+  .leftPadding,
+  .rightPadding {
+    width: 20px;
+  }
 }
 
 @media (width >= 1024px) {
-  .grid {
-    padding: 0 20px;
+  .leftPadding,
+  .rightPadding {
+    width: 100px;
   }
 
-  .inside__grid {
+  .main {
     padding: 20px;
   }
 }

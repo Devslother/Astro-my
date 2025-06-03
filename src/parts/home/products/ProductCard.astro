@@ -7,7 +7,7 @@ import clsx from 'clsx';
 const { image, title, description, item, buttonLink } = Astro.props;
 ---
 <div class={styles.card}>
-  <img class={styles.img} src={image} alt={title} />
+    <img class={styles.img} src={image} alt={title} />
   <div class={styles.container}>
     <div class={styles.content}>
       <div class={styles.header}>
@@ -18,9 +18,11 @@ const { image, title, description, item, buttonLink } = Astro.props;
           styles.heading
         )}>
           {Array.isArray(title) ? (
-            <div class={styles.titleLines}>
-              {title.map(line => <span>{line}</span>)}
-            </div>
+             <span class={styles.titleLines}>
+              {title.map(line => (
+                <span>{line}</span> 
+              ))}
+            </span>
           ) : (
             title
           )}

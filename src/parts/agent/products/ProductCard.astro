@@ -1,0 +1,29 @@
+---
+import styles from './ProductCard.module.css'
+import clsx from 'clsx';
+
+const { image, title, text } = Astro.props;
+---
+<div class={styles.card}>
+  <div class={styles.card__image}>
+    <img class={styles.img} src={image} alt={title} />
+  </div>
+  <div class={styles.content}>
+    <h5 class={clsx(
+      'text__heading--h5',
+      'text__heading--h5-lg',
+      'text__body--16-medium-md',
+      styles.heading
+    )}>
+       {title}
+    </h5>
+    <p class={clsx(
+      'text__body--14',
+      'text__body--16-lg',
+      'text__body--12-md',
+      styles.text
+    )}>
+      {text}
+    </p> 
+  </div>
+</div>

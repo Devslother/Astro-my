@@ -26,13 +26,12 @@ const list: IList[]  = [
 	{ 
     title: 'Products',
     link: [
-      { name: "Tetrate Istio Subscription – Commercial Istio Support", 
-        url: "https://tetrate.io/products/tetrate-istio-subscription/", 
-        external: false },
-      { name: "Tetrate Istio Distro", url: "#", external: false },
-      { name: "Tetrate Enterprise Gateway for Envoy", url: "#", external: false },
-      { name: "Tetrate Service Express", url: "#", external: false },
+      { name: "Agent Operations Director", url: "/agent", external: false },
+      { name: "Tetrate Application Gateway", url: "/app", external: false },
       { name: "Tetrate Service Bridge", url: "#", external: false },
+      { name: "Tetrate Istio Subscription", url: "#", external: false },
+      { name: "Tetrate Istio Subscription+", url: "#", external: false },
+      { name: "Tetrate Enterprise Gateway", url: "#", external: false },
     ], 
   },
   { 
@@ -43,39 +42,32 @@ const list: IList[]  = [
       { name: "Government", url: "#", external: false },
       { name: "Kubernetes", url: "#", external: false },
       { name: "Kubernetes Ingress", url: "#", external: false },
-      { name: "Zero Trust", url: "#", external: false },
+      { name: "Zero Trust Security", url: "#", external: false },
     ], 
-  },
+  }, 
     { 
     title: 'Learn',
     link: [
-      { name: "Blog", url: "#", external: false },
-      { name: "Resources for Kubernetes Ingress and Enterprise Istio Support", url: "#", external: false },
+      { name: "Resources", url: "#", external: false },
       { name: "Learning Center", url: "#", external: false },
-      { name: "Tetrate Academy", url: "#", external: false },
+      { name: "Blog", url: "#", external: false },
       { name: "Documentation", url: "#", external: false },
-    ], 
-  },
-    { 
-    title: 'Events',
-    link: [
-      { name: "What’s New in Envoy Gateway 1.1", url: "#", external: false },
-      { name: "Best Practices For Platform Owners and App Developers", url: "#", external: false },
+      { name: "FAQ", url: "#", external: false },
+      { name: "Tetrate Academy", url: "#", external: false },
     ], 
   },
     { 
     title: 'Company',
     link: [
-      { name: "About", url: "#", external: false },
+      { name: "About Tetrate", url: "#", external: false },
       { name: "Leadership", url: "#", external: false },
       { name: "Investors", url: "#", external: false },
       { name: "Partners", url: "#", external: false },
+      { name: "Events", url: "#", external: false },
       { name: "Newsroom", url: "#", external: false },
       { name: "Careers", url: "#", external: false },
-      { name: "Get Support", url: "#", external: false },
       { name: "Contact Us", url: "#", external: false },
-      { name: "Legal", url: "#", external: false },
-      { name: "Sitemap", url: "#", external: false },
+      { name: "Get Support", url: "#", external: false },
     ], 
   },
 ]
@@ -93,7 +85,7 @@ const socials: ISocials[] = [
 ---
 
 <div class={styles.footer}>
-  <Grid>
+
     <div class={styles.container}>
       <div class={styles.list}>
         {list.map((item) => (
@@ -156,7 +148,7 @@ const socials: ISocials[] = [
         </div>
       </div>
     </div>
-  </Grid>
+
 
   <div class={clsx(
     'text__body--14',

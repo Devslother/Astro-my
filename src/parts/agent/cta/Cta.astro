@@ -1,0 +1,82 @@
+---
+import clsx from 'clsx';
+import styles from './Cta.module.css'
+import Button from '../../../components/Button/Button';
+import { GlowButton } from '../../../components/Button/GlowButton';
+import Grid from '../../../components/Grid/Grid.astro';
+import Pattern from '../../../components/pattern/Pattern.astro';
+---
+<div class={styles.cta}>
+  <picture>
+    <img
+      src="/agent_page/cta/cta-top-left.svg"
+      width={350}
+      height={264}
+      class={styles.TopLeft}
+      loading="lazy"
+      alt="Top left pattern in CTA section"
+    />
+  </picture>
+  
+  <picture>
+    <img
+      src="/agent_page/cta/cta-top-right.svg"
+      width={364}
+      height={146}
+      class={styles.TopRight}
+      loading="lazy"
+      alt="Top right pattern in CTA section"
+    />
+  </picture>
+  
+  <picture>
+    <img
+      src="/agent_page/cta/cta-bottom-left.svg"
+      width={282}
+      height={146}
+      class={styles.BottomLeft}
+      loading="lazy"
+      alt="Bottom left pattern in CTA section"
+    />
+  </picture>
+  
+  <picture>
+    <img
+      src="/agent_page/cta/cta-bottom-right.svg"
+      width={281}
+      height={378}
+      class={styles.BottomRight}
+      loading="lazy"
+      alt="Bottom right pattern in CTA section"
+    />
+  </picture>
+      
+  <Grid withPattern={true}>
+    <div class={styles.content}>
+      <img src="agent_page/cta/logo.svg" alt="logo" class={styles.logo}>
+      <h5 class={clsx(
+        'text__heading--h5',
+        'text__heading--h2-lg',
+        'text__heading--h2-md',
+        styles.text
+      )}>
+          Ready to manage 
+          <br /> 
+          your LLM traffic?
+      </h5>
+      <div class={styles.btncontainer}>
+        <Button variant="secondary" size="lg" 
+        className="text__body--16-semibold" 
+        href='https://tetrate.io/contact/demo-request/'>
+          Request a demo
+        </Button>
+        
+        <GlowButton variant="primary" size="lg" buttonClassName="text__body--16-semibold" 
+        href='https://tetrate.io/contact/pricing-request/'>
+          Pricing Request
+        </GlowButton>
+      </div>
+    </div>
+  </Grid>
+ 
+</div>

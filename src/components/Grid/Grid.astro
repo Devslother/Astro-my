@@ -1,17 +1,26 @@
 ---
+import Pattern from '../pattern/Pattern.astro';
 import styles from './Grid.module.css';
 import clsx from 'clsx';
 
 interface GridProps {
-  variant?: "default" | "default-offset" | "blue"; // новые варианты сетки
+  variant?: "default" | "default-offset" | "blue"; // варианты сетки
+	withPattern?: boolean;
+  stopPatternAtTop?: boolean;
 }
 
-const { variant = "default" } = Astro.props;
+const {
+  variant = "default",
+  withPattern = false,
+  stopPatternAtTop = false
+} = Astro.props;
 ---
 
 <!-- outside grid -->
+ 
 <div class={styles.grid}>
   <!-- top & bottom -->
+	
   <div class={clsx(
 		'u-grid-bg', 
 		'u-grid-bg--top', 
@@ -20,6 +29,7 @@ const { variant = "default" } = Astro.props;
 		variant === 'default-offset' && 'u-grid-bg--primary u-grid-bg--top-40 u-grid-bg--top-80-lg'  
 	)}>
 	</div>
+	
 	<div class={clsx(
 		'u-grid-bg',
 		'u-grid-bg--top-thin',
@@ -46,7 +56,21 @@ const { variant = "default" } = Astro.props;
 	</div>
 
   <!-- inside grid -->
-  <div class={styles.inside__grid}>
+	<div class={styles.inside__grid}>
+		 <!-- LEFT PADDING -->
+		 <div class={styles.leftPadding}>
+      {withPattern && (
+        <Pattern
+          variant="gray"
+          size="vertical"
+          stopAtTop={stopPatternAtTop}
+        />
+      )}
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class={styles.main}>
+
     <!-- left & right -->
     <div class={clsx(
 			'u-grid-bg', 
@@ -160,8 +184,19 @@ const { variant = "default" } = Astro.props;
 			variant === 'default' && 'u-grid-bg--secondary',
 			variant === 'default-offset' && 'u-grid-bg--secondary'
 		)}>
+		</div> 
+			<slot /> <!-- сюда пойдут карточки -->
 		</div>
-    
-    <slot /> <!-- сюда пойдут карточки -->
+			   <!-- RIGHT PADDING -->
+				 <div class={styles.rightPadding}>
+					{withPattern && (
+						<Pattern
+							variant="gray"
+							size="vertical"
+							stopAtTop={stopPatternAtTop}
+						/>
+					)}
+				</div>
   </div>
 </div>
+

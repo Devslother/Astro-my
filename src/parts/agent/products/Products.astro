@@ -1,0 +1,56 @@
+---
+import Grid from '../../../components/Grid/Grid.astro';
+import Pattern from '../../../components/pattern/Pattern.astro';
+import ProductCard from './ProductCard.astro'
+import styles from './Products.module.css'
+import clsx from 'clsx';
+
+interface ICard {
+  image: string;
+  title: string | string[];
+  text: string;
+}
+
+const cards: ICard[]  = [
+	{
+		image: '/agent_page/products/product1.svg', 
+    title: 'Frictionless Onboarding',
+    text: 'Seamlessly discover and manage GenAI usage without disruption.', 
+  },
+  {
+    image: '/agent_page/products/product2.svg', 
+    title: 'Proactive, Granular and Dynamic Controls',
+    text: 'Analyze usage real-time, set budget by app, and correlate with ownership.', 
+  },
+  {
+    image: '/agent_page/products/product3.svg', 
+    title: 'Production Scale',
+    text: 'Built on Envoy AI Gateway on top of proven enterprise technology.', 
+  }
+]
+---
+
+<div class={styles.products}>
+  <h5 class={clsx(
+      'text__heading--h5',
+      'text__heading--h2-lg',
+      'text__heading--h4-md',
+      styles.products__heading
+  )}>
+    Dynamic Visibility and Control at Scale
+  </h5>
+  <Grid variant="blue">
+    <div class={styles.card__container}>
+      {cards.map((card) => (
+        <ProductCard 
+          image={card.image}
+          title={card.title}
+          text={card.text}
+        >
+        </ProductCard>
+      ))}
+    </div>
+  </Grid>
+  
+  <Pattern variant="blue" size="default" />
+</div>

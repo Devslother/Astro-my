@@ -1,0 +1,69 @@
+---
+import Grid from '../../../components/Grid/Grid.astro';
+import styles from './Solves.module.css';
+
+interface ISolves {
+  image: string;
+  title: string;
+  text: string;
+}
+
+const items: ISolves[]  = [
+	{
+		image: '/agent_page/solves/icon1.svg', 
+    title: 'Showback and chargeback',
+    text: 'Discovery of GenAI usage and map activity to owners.'
+  },
+  {
+		image: '/agent_page/solves/icon2.svg', 
+    title: 'Cost analysis and forecasting',
+    text: 'Identify historical usage patterns and cost drivers.'
+  },
+  {
+		image: '/agent_page/solves/icon3.svg', 
+    title: 'Cost and Risk Governance',
+    text: 'Detect unsanctioned model usage, set budgets by owner and provider.'
+  }
+]
+---
+<Grid>
+  <div class={styles.solves}>
+    <div class={styles.hero__bg}></div>
+    <h5 class=
+    'text__heading--h5
+      text__heading--h3-lg
+      text__heading--h4-md'
+    >
+      GenAI ROI Management Use Cases
+    </h5>
+    <div class={styles.container}>
+      {items.map((item) => (
+        <div class={styles.item}>
+          <div class={styles.image}>
+            <img src={item.image} alt={item.title} loading="lazy" />
+          </div>
+          <div class={styles.content}>
+            <h6 class=
+              'text__body--18-medium
+              text__heading--h6-lg
+              text__body--18-medium-md'
+            >
+              {item.title}
+            </h6>
+            <p class=
+              'text__body--14
+              text__body--16-lg
+              text__body--14-md'
+             >
+              {item.text} 
+            </p>
+          </div>
+       
+        </div>    
+      ))}
+    </div>
+  </div>
+</Grid>
+		
+    
+  

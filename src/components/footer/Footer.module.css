@@ -1,6 +1,7 @@
 /* ========== Footer Block ========== */
 .footer {
   width: 100%;
+  padding: 0 10px;
 }
 
 .container {
@@ -13,12 +14,20 @@
 }
 
 @media (width >= 768px) {
+  .footer {
+    padding: 0 20px;
+  }
+
   .container {
     padding-bottom: 60px;
   }
 }
 
 @media (width >= 1024px) {
+  .footer {
+    padding: 0 100px;
+  }
+
   .container {
     max-width: 1240px;
   }

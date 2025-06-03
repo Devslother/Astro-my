@@ -1,0 +1,134 @@
+.cta {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-gray-200);
+  text-align: center;
+  overflow: hidden;
+}
+
+.content {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 0 auto;
+  padding: 80px 0 125px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.TopLeft {
+  position: absolute;
+  top: 0px;
+  left: 10px;
+  z-index: 2;
+  width: 176px;
+  height: auto;
+}
+
+.TopRight {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  z-index: 2;
+  width: 173px;
+  height: auto;
+}
+
+.BottomLeft {
+  position: absolute;
+  top: 420px;
+  left: 20px;
+  z-index: 2;
+  width: 60px;
+  height: auto;
+}
+
+.BottomRight {
+  position: absolute;
+  top: 515px;
+  right: 3px;
+  z-index: 2;
+  width: 95px;
+  height: auto;
+}
+
+.btncontainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logo {
+  width: 82px;
+}
+
+@media (width >= 768px) {
+  .TopLeft {
+    width: 234px;
+    left: 5px;
+  }
+
+  .TopRight {
+    width: 234px;
+    top: 30px;
+    right: 5px;
+  }
+
+  .BottomLeft {
+    width: 75px;
+    top: 385px;
+    left: 15px;
+  }
+
+  .BottomRight {
+    width: 129px;
+    right: 0px;
+  }
+
+  .cta__text br {
+    display: block;
+  }
+  .btncontainer {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (width >= 1024px) {
+  .content {
+    gap: 45px;
+    padding-top: 66px;
+  }
+
+  .TopLeft {
+    width: 334px;
+    top: 0px;
+    left: 110px;
+  }
+
+  .TopRight {
+    width: 364px;
+    top: 70px;
+    right: 110px;
+  }
+
+  .BottomLeft {
+    width: 80px;
+    top: 430px;
+    left: 115px;
+  }
+
+  .BottomRight {
+    width: 150px;
+    top: 550px;
+    right: 100px;
+  }
+
+  .logo {
+    width: 110px;
+  }
+}

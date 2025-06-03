@@ -1,15 +1,14 @@
 ---
-import clsx from 'clsx';
+import Pattern from '../../../components/pattern/Pattern.astro'
 import styles from './Cta.module.css'
 import Button from '../../../components/Button/Button';
 import { GlowButton } from '../../../components/Button/GlowButton';
 import Grid from '../../../components/Grid/Grid.astro';
+import clsx from 'clsx';
 ---
 <div class={styles.cta}>
-
-  <!-- Основной блок -->
-  <Grid variant="default-offset">
-    <!-- Контент внутри cta -->
+  
+  <Grid withPattern={true} stopPatternAtTop={true} variant="default-offset">
     <div class={styles.content}>
     
       <!--TopLeft -->
@@ -69,11 +68,11 @@ import Grid from '../../../components/Grid/Grid.astro';
       />
 
       <img src="home_page/cta/logo.svg" alt="logo" class={styles.logo}>
-      <h5 class={clsx(
-        'text__heading--h5',
-        'text__heading--h2-lg',
-        'text__heading--h4-md',
-      )}>
+	     <h5 class={clsx(
+	        'text__heading--h5',
+	        'text__heading--h2-lg',
+	        'text__heading--h4-md',
+	      )}>
           Ready to 
         <span style={{ color: 'var(--color-orange-500)' }}>
           enhance your network
@@ -94,4 +93,5 @@ import Grid from '../../../components/Grid/Grid.astro';
       </div>
     </div>
   </Grid>
+
 </div>

@@ -8,10 +8,12 @@ import HeaderLinks from './HeaderLinks.astro';
 <header class={clsx('nav', styles.nav)}>
   <div class={styles.container}>
    <!-- Логотип -->
+   <a href="/" aria-label="Go to homepage">
     <picture>
       <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
       <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
     </picture>
+  </a>
 
     <!-- Desktop navigation -->
       <HeaderLinks />
@@ -38,11 +40,12 @@ import HeaderLinks from './HeaderLinks.astro';
     <div class={clsx(styles.nav__mobile, 'nav__mobile')}>
       <div class={styles.mobile__container}>
         <div class={styles.mobile__heading}>
-          <picture>
-            <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
-            <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
-          </picture>
-      
+          <a href="/" aria-label="Go to homepage">
+            <picture>
+              <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
+              <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
+            </picture>
+          </a>
           <button class={clsx(styles.nav__close, 'nav__close')}>
             <Icon name="close" className="close" width={24} height={24} />
           </button>

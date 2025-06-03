@@ -1,0 +1,25 @@
+---
+import Grid from '../../../components/Grid/Grid.astro';
+import styles from './Work.module.css';
+import WorkCard from './WorkCard.astro';
+import { workNavigation } from './workNavigation';
+import clsx from 'clsx';
+---
+<div class={styles.work}>
+  <h5 class={clsx(
+    'text__heading--h5',
+    'text__heading--h2-lg',
+    'text__heading--h4-md',
+    styles.heading
+  )}>
+      Explore Agent Operations Director
+  </h5>
+    
+  <Grid>
+    <div class={styles.card__container}>
+      {workNavigation.map((card) => <WorkCard data={card} />)}
+    </div>
+  </Grid>
+</div>	
+    
+  

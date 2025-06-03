@@ -29,14 +29,14 @@ export const headerNavigation: THeaderMenu[] = [
             name: "Agent Operations Director",
             description:
               "Runtime visibility and governance for ML infrastructure teams to maximize GenAI ROI",
-            url: "/products/agent-operations-director/",
+            url: "/agent",
           },
           {
             icon: "tetrateappgateway",
             name: "Tetrate Application Gateway",
             description:
               "Intent-driven ingress traffic orchestration across clouds, on-prem environments, K8s, and VMs",
-            url: "/products/tetrate-application-gateway/",
+            url: "/app",
           },
           {
             icon: "tetrateservicebridge",
@@ -59,7 +59,7 @@ export const headerNavigation: THeaderMenu[] = [
           },
           {
             icon: "tetrateistiosubscriptionplus",
-            name: "Tetrate Istio Subscription Plus",
+            name: "Tetrate Istio Subscription+",
             description:
               "Powerful multi-cluster Istio troubleshooting for platform teams, safe self-service diagnostics for app",
             url: "/products/tetrate-istio-subscription-plus/",
@@ -110,8 +110,15 @@ export const headerNavigation: THeaderMenu[] = [
             url: "/solutions/manage-kubernetes-complexity/",
           },
           {
+            icon: "kubernetes",
+            name: "Kubernetes Ingress",
+            description:
+              "HTTP/S traffic routing mechanism for exposing servises within a Kubernetes cluster",
+            url: "/solutions/manage-kubernetes-ingress-complexity/",
+          },
+          {
             icon: "zerotrust",
-            name: "Zero Trust",
+            name: "Zero Trust Security",
             description:
               "Secure multi-cloud microservices with Zero Trust to protect apps, users, and business",
             url: "/solutions/zero-trust-security/",

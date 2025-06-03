@@ -1,14 +1,11 @@
 .pattern {
   display: flex;
+  z-index: 1;
+  position: relative;
 }
 
 .gray {
   background-image: url("/gray-pattern.png");
-}
-
-.gray-light {
-  background-image: url("/gray-pattern.png");
-  filter: brightness(1.1);
 }
 
 .blue {
@@ -17,32 +14,53 @@
 
 .default {
   width: 100%;
-  height: 80px;
+  height: 40px;
   background-size: cover;
 }
 
 .large {
-  width: 340px;
+  display: none;
+}
+
+.vertical {
+  width: 10px;
   height: auto;
 }
 
-.patternWithContainer :global(.cardContainerGlobal) {
-  margin: 0 auto;
+.patternStopAtTop {
+  max-height: calc(100% - 40px);
+  margin-top: 40px; /* чтобы не заезжал наверх */
 }
 
-@media (max-width: 1024px) {
+@media (width >= 768px) {
   .large {
     width: 100px;
     height: auto;
   }
+
+  .vertical {
+    width: 20px;
+    height: auto;
+  }
 }
 
-@media (max-width: 767px) {
+@media (width >= 1024px) {
   .default {
-    height: 40px;
+    height: 80px;
   }
 
   .large {
-    display: none;
+    width: 340px;
+    height: auto;
+  }
+
+  .vertical {
+    width: 130px;
+    height: 100%;
+  }
+
+  .patternStopAtTop {
+    margin-top: 80px;
+    max-height: calc(100% - 80px);
   }
 }
