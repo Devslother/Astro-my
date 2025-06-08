@@ -1,0 +1,72 @@
+import type { SvgProps } from "@/types";
+
+export const Empathy = ({ ...props }: SvgProps) => {
+	const { width = 48, height = 48, className = "" } = props;
+
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width={width}
+			height={height}
+			viewBox="0 0 48 48"
+			fill="none"
+			className={className}
+		>
+			<rect
+				x="0.4"
+				y="0.4"
+				width="47.2"
+				height="47.2"
+				rx="23.6"
+				fill="#1C76FD"
+				stroke="url(#paint0_linear_97_25404)"
+				stroke-width="0.8"
+			/>
+			<circle
+				cx="23.5998"
+				cy="23.6037"
+				r="6.68182"
+				stroke="#0A0D0F"
+				stroke-width="1.6"
+				stroke-linecap="round"
+			/>
+			<path
+				d="M23.5977 9.60156L23.5977 13.1016M23.5977 37.6016V34.4016"
+				stroke="#0A0D0F"
+				stroke-width="1.6"
+				stroke-linecap="round"
+			/>
+			<path
+				d="M37.5977 23.6016L34.0977 23.6016M9.59766 23.6016L12.7977 23.6016"
+				stroke="#0A0D0F"
+				stroke-width="1.6"
+				stroke-linecap="round"
+			/>
+			<path
+				d="M33.4961 13.7031L31.0212 16.178M13.6971 33.5021L15.9598 31.2394"
+				stroke="#0A0D0F"
+				stroke-width="1.6"
+				stroke-linecap="round"
+			/>
+			<path
+				d="M33.4961 33.5L31.0212 31.0251M13.6971 13.701L15.9598 15.9638"
+				stroke="#0A0D0F"
+				stroke-width="1.6"
+				stroke-linecap="round"
+			/>
+			<defs>
+				<linearGradient
+					id="paint0_linear_97_25404"
+					x1="24"
+					y1="0"
+					x2="24"
+					y2="48"
+					gradientUnits="userSpaceOnUse"
+				>
+					<stop stop-color="#3B3D3F" stop-opacity="0.2" />
+					<stop offset="1" stop-color="#3B3D3F" stop-opacity="0.4" />
+				</linearGradient>
+			</defs>
+		</svg>
+	);
+};

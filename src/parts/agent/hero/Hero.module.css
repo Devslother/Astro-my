@@ -10,7 +10,7 @@
   position: absolute;
   width: 100%;
   margin: auto;
-  background-image: url("/agent_page/hero/hero-small.png");
+  background-image: url("/agent_page/hero/hero-mobile.svg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: auto;
@@ -40,7 +40,7 @@
 
   .hero__bg {
     height: 716px;
-    background-image: url("/agent_page/hero/hero-tablet.png");
+    background-image: url("/agent_page/hero/hero-tablet.svg");
   }
 
   .hero__content {
@@ -51,7 +51,7 @@
 
 @media (width >= 1024px) {
   .hero__bg {
-    background-image: url("/agent_page/hero/hero.png");
+    background-image: url("/agent_page/hero/hero.svg");
   }
 
   .hero__content {

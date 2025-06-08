@@ -1,12 +1,35 @@
 ---
-import Button from '../../../components/Button/Button';
+import GlowButton from '../../../components/Button/GlowButton.astro';
 import styles from './Hero.module.css';
 ---
 
 <div class={styles.hero}>
-  <div class={styles.content}>
-    <h1 class={styles.header}>Tetrate App Gateway</h1>
-    <h2 class={styles.text}>Autonomous ingress traffic orchestration across clouds, on-prem environments, Kubernetes clusters, and VMs.</h2>
-    <Button appearance="big">Request a demo</Button>
+  <div class={styles.hero__bg}></div>
+  <div class={styles.hero__content}>
+    <h1 class='text__heading--h4
+      text__heading--h1-lg
+      text__heading--h3-md'
+      >
+      Tetrate Application 
+      <br />
+      Gateway
+    </h1>
+    <p class='text__body--16
+      text__body--18-lg
+      text__body--16-md'
+    >
+    Intent-driven ingress traffic orchestration across clouds, 
+    <br class="u-hidden u-visible--md u-visible--lg" /> 
+    on-prem environments, Kubernetes clusters, and VMs.
+    </p>
+    <GlowButton
+      variant="primary"
+      size="lg"
+      buttonClassName="text__body--16-semibold"
+      containerClassName="my-glow-margin"
+      href="https://tetrate.io/contact/demo-request/"
+    >
+      Request a demo
+    </GlowButton>
   </div>
 </div>

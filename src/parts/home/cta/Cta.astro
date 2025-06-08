@@ -1,13 +1,12 @@
 ---
 import Pattern from '../../../components/pattern/Pattern.astro'
 import styles from './Cta.module.css'
-import Button from '../../../components/Button/Button';
-import { GlowButton } from '../../../components/Button/GlowButton';
+import Button from '../../../components/Button/Button.astro';
+import GlowButton from '../../../components/Button/GlowButton.astro';
 import Grid from '../../../components/Grid/Grid.astro';
 import clsx from 'clsx';
 ---
 <div class={styles.cta}>
-  
   <Grid withPattern={true} stopPatternAtTop={true} variant="default-offset">
     <div class={styles.content}>
     
@@ -80,18 +79,24 @@ import clsx from 'clsx';
         with more intelligence?
       </h5>
       <div class={styles.btncontainer}>
-        <Button variant="secondary" size="lg" 
-        className="text__body--16-semibold" 
-        href='https://tetrate.io/contact/demo-request/'>
+        <Button 
+          variant="secondary" 
+          size="lg" 
+          class="text__body--16-semibold" 
+          href='https://tetrate.io/contact/demo-request/'
+        >
           Request a demo
         </Button>
         
-        <GlowButton variant="primary" size="lg" buttonClassName="text__body--16-semibold" 
-        href='https://tetrate.io/contact/pricing-request/'>
+        <GlowButton 
+          variant="primary" 
+          size="lg" 
+          buttonClassName="text__body--16-semibold" 
+          href='https://tetrate.io/contact/pricing-request/'
+        >
           Pricing Request
         </GlowButton>
       </div>
     </div>
   </Grid>
-
 </div>

@@ -45,6 +45,8 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex-shrink: 0;
+  min-width: auto;
 }
 
 .heading {
@@ -64,6 +66,7 @@
   text-decoration: none;
   color: var(--color-black);
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .linkItem a:hover {
@@ -73,6 +76,7 @@
 @media (width >= 768px) {
   .list {
     flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .column {
@@ -82,12 +86,6 @@
 
   .links {
     gap: 11px;
-  }
-}
-
-@media (width >= 1024px) {
-  .list {
-    padding-right: 40px;
   }
 }
 

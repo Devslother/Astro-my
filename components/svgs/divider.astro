@@ -1,0 +1,14 @@
+---
+const { class: className = "", width = 213, height = 2, color = "inherit", ...props } = Astro.props;
+---
+<svg
+	width={width}
+	height={height}
+	class={`fill-current ${className}`}
+	viewBox="0 0 213 2"
+	fill="none"
+	xmlns="http://www.w3.org/2000/svg"
+	{...props}
+>
+	<path d="M1 1H212" stroke="#EBECEC" stroke-linecap="round" />
+</svg>

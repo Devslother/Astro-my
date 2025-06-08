@@ -56,6 +56,10 @@
   height: auto;
 }
 
+.mobileOnly {
+  display: inline;
+}
+
 .btncontainer {
   display: flex;
   flex-direction: column;
@@ -89,9 +93,10 @@
     right: 0px;
   }
 
-  .cta__text br {
-    display: block;
+  .mobileOnly {
+    display: none;
   }
+
   .btncontainer {
     display: flex;
     flex-direction: row;

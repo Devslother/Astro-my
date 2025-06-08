@@ -1,6 +1,6 @@
 ---
-import Button from '../../../components/Button/Button';
-import { Icon } from '../../../components/icon/Icon';
+import Button from '../../../components/Button/Button.astro';
+import Icon from '../../../components/icon/Icon.astro';
 import styles from './ProductCard.module.css'
 import clsx from 'clsx';
 
@@ -41,7 +41,7 @@ const { image, title, description, item, buttonLink } = Astro.props;
         {item.map((text: string) => (
           <div class={styles.item}>
             <div class="wrapper">
-              <Icon name="bullet" width={24} height={24} />
+              <Icon name="bullet" />
             </div>
             <span class={clsx(
               'text__body--14',
@@ -55,7 +55,12 @@ const { image, title, description, item, buttonLink } = Astro.props;
         ))}
       </div>
     </div>
-    <Button variant="primary" size="lg" href={buttonLink}  className={styles.productbtn}>
+    <Button 
+      variant="primary" 
+      size="lg" 
+      href={buttonLink}  
+      class={styles.productbtn}
+    >
       <span class={clsx(
         'text__body--16-medium',
         'text__body--16-semibold-lg',
@@ -63,7 +68,12 @@ const { image, title, description, item, buttonLink } = Astro.props;
       )}>
         Learn more
       </span>
-        <Icon name="arrow" width={20} height={20} />
+        <Icon 
+        name="arrow-right" 
+        width={24} 
+        height={24}
+        color="var(--color-white)" 
+         />
     </Button>
   </div>
 </div>

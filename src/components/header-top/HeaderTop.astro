@@ -1,18 +1,21 @@
 ---
-import Button from '../Button/Button.tsx';
-import { Icon } from '../icon/Icon';
+import Button from '../Button/Button.astro';
+import Icon from '../icon/Icon.astro';
 import styles from './HeaderTop.module.css';
 ---
 <div class={styles.headertop} id="headertop">
   <div class={styles.container}>
     <p class={`text__body--14-medium ${styles.text}`} data-headertop--text>Announcing TEG 1.2—Enterprise support and FedRAMP-ready FIPS builds for Envoy Gateway 1.2</p>
-    <Button variant="tertiary" size="sm" className={styles.btntop} href="https://tetrate.io/blog/announcing-tetrate-enterprise-gateway-for-envoy-v1-2/"> 
+    <Button variant="tertiary" size="sm" class={styles.btntop} href="https://tetrate.io/blog/announcing-tetrate-enterprise-gateway-for-envoy-v1-2/"> 
       <span class={`text__body--14-medium ${styles.span}`}>Learn more</span>
-      <Icon name="arrow" width={24} height={24} fill="var(--color-orange-500)" />
+      <Icon 
+      name="arrow-right" 
+      width={24} height={24} 
+      color="var(--color-orange-500)" />
     </Button>
   </div>
   <button class={styles.closebtn} id="closeBtn">
-    <Icon name="close" className="close" width={24} height={24} />
+    <Icon name="close" width={24} height={24} color="var(--color-white)" />
   </button>
 </div>
 

@@ -1,7 +1,7 @@
 ---
-import Button from "../Button/Button";
+import Button from "../Button/Button.astro";
 import styles from "./Header.module.css";
-import { Icon, type IconType } from "../icon/Icon";
+import Icon from '../icon/Icon.astro';
 import clsx from "clsx";
 import HeaderLinks from './HeaderLinks.astro';
 ---
@@ -22,13 +22,12 @@ import HeaderLinks from './HeaderLinks.astro';
       <Button
         variant="primary"
         size="md"
-        className="text__body--16-medium"
+        class="text__body--16-medium"
         href="https://tetrate.io/contact/pricing-request/"
       >
         Pricing Request
       </Button>
 
-      {/* Бургер-меню (появляется на мобилке) */}
       <button class={clsx(styles.menu__button, 'menu__button')}>
         <Icon name="menu" width={24} height={24} />
       </button>
@@ -47,7 +46,8 @@ import HeaderLinks from './HeaderLinks.astro';
             </picture>
           </a>
           <button class={clsx(styles.nav__close, 'nav__close')}>
-            <Icon name="close" className="close" width={24} height={24} />
+            <Icon name="close" class="close" width={24} height={24} 
+            color="var(--color-black)" />
           </button>
         </div>
      
@@ -59,14 +59,14 @@ import HeaderLinks from './HeaderLinks.astro';
           href="/contact/demo-request/" 
           variant="secondary" 
           size="sm"
-          className={styles.mobile__button}>
+          class={styles.mobile__button}>
             Request a demo
         </Button>
         <Button 
           href="/contact/pricing-request/" 
           variant="primary" 
           size="sm"
-          className={styles.mobile__button}>
+          class={styles.mobile__button}>
             Pricing Request
         </Button>
       </div>

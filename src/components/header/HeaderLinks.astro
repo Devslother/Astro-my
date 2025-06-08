@@ -1,7 +1,8 @@
 ---
 import { headerNavigation } from './headerNavigation';
-import Button from "../Button/Button";
-import { Icon, type IconType } from "../icon/Icon";
+import Button from "../Button/Button.astro";
+import type { IconType } from '../icon/Icon.astro';
+import Icon from '../icon/Icon.astro';
 import clsx from "clsx";
 import styles from "./HeaderLinks.module.css";
 
@@ -23,8 +24,8 @@ const { className = '' } = Astro.props;
         {item.title}
         {item.categories && (
           <>
-            <Icon name="arrowdown" className={styles.arrowdown} />
-            <Icon name="arrowup" className={styles.arrowup} />
+            <Icon name="arrow" class={styles.arrowdown} />
+            <Icon name="arrow-up" class={styles.arrowup} />
           </>
         )}
       </a>
@@ -58,7 +59,7 @@ const { className = '' } = Astro.props;
                     variant="primary"
                     size="md"
                     href={item.url}
-                    className={styles.mega_menu__button}
+                    class={styles.mega_menu__button}
                   >
                     Tetrate Academy
                     <Icon name="arrow" width={20} height={20} />

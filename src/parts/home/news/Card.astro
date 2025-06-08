@@ -1,7 +1,7 @@
 ---
 import clsx from 'clsx';
-import Button from '../../../components/Button/Button';
-import { Icon } from '../../../components/icon/Icon';
+import Button from '../../../components/Button/Button.astro';
+import Icon from '../../../components/icon/Icon.astro';
 import styles from './Card.module.css'
 const { image, newsname, title, buttonLink } = Astro.props;
 ---
@@ -43,8 +43,8 @@ const { image, newsname, title, buttonLink } = Astro.props;
       </div>
     </div>
   
-    <Button variant="tertiary" size="sm" href={buttonLink} className={styles.card__btn}>
+    <Button variant="tertiary" size="sm" href={buttonLink} class={styles.card__btn}>
       <span class="text__body--16-semibold" style={{ color: 'var(--color-black)' }}>Start now</span>
-      <Icon name="arrow" width={24} height={24} />
+      <Icon name="arrow-right" width={24} height={24} var(--color-orange-500) />
     </Button>
 </div>

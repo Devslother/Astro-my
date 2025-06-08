@@ -1,10 +1,9 @@
 ---
 import clsx from 'clsx';
 import styles from './Cta.module.css'
-import Button from '../../../components/Button/Button';
-import { GlowButton } from '../../../components/Button/GlowButton';
+import Button from '../../../components/Button/Button.astro';
+import GlowButton from '../../../components/Button/GlowButton.astro';
 import Grid from '../../../components/Grid/Grid.astro';
-import Pattern from '../../../components/pattern/Pattern.astro';
 ---
 <div class={styles.cta}>
   <picture>
@@ -54,25 +53,31 @@ import Pattern from '../../../components/pattern/Pattern.astro';
   <Grid withPattern={true}>
     <div class={styles.content}>
       <img src="agent_page/cta/logo.svg" alt="logo" class={styles.logo}>
-      <h5 class={clsx(
-        'text__heading--h5',
-        'text__heading--h2-lg',
-        'text__heading--h2-md',
-        styles.text
-      )}>
+      <h5 class="
+        text__heading--h5
+        text__heading--h2-lg
+        text__heading--h2-md
+      ">
           Ready to manage 
-          <br /> 
+          <br class={styles.mobileOnly} />
           your LLM traffic?
       </h5>
       <div class={styles.btncontainer}>
-        <Button variant="secondary" size="lg" 
-        className="text__body--16-semibold" 
-        href='https://tetrate.io/contact/demo-request/'>
+        <Button 
+          variant="secondary" 
+          size="lg" 
+          class="text__body--16-semibold" 
+          href='https://tetrate.io/contact/demo-request/'
+        >
           Request a demo
         </Button>
         
-        <GlowButton variant="primary" size="lg" buttonClassName="text__body--16-semibold" 
-        href='https://tetrate.io/contact/pricing-request/'>
+        <GlowButton 
+          variant="primary" 
+          size="lg" 
+          buttonClassName="text__body--16-semibold" 
+          href='https://tetrate.io/contact/pricing-request/'
+        >
           Pricing Request
         </GlowButton>
       </div>

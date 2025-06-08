@@ -1,0 +1,21 @@
+---
+import clsx from "clsx";
+import styles from "./GlowButton.module.css";
+import Button from "./Button.astro";
+
+const {
+  containerClassName = '',
+  buttonClassName = '',
+  ...rest
+} = Astro.props
+
+---
+<div class={clsx(styles.container, containerClassName)}>
+  <div class={clsx(styles.layer, styles.orange)} />
+  <div class={clsx(styles.layer, styles.white)} />
+  <Button class={clsx(styles.button, buttonClassName)} {...rest}>
+    <slot />
+  </Button>
+</div>
+
+  

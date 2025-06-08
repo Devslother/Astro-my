@@ -25,21 +25,21 @@ export const headerNavigation: THeaderMenu[] = [
         title: "Enterprise Solutions for Regulated Workloads",
         items: [
           {
-            icon: "agentoperationsdirector",
+            icon: "products-agent-operations-director",
             name: "Agent Operations Director",
             description:
               "Runtime visibility and governance for ML infrastructure teams to maximize GenAI ROI",
             url: "/agent",
           },
           {
-            icon: "tetrateappgateway",
+            icon: "products-app-gateway",
             name: "Tetrate Application Gateway",
             description:
               "Intent-driven ingress traffic orchestration across clouds, on-prem environments, K8s, and VMs",
             url: "/app",
           },
           {
-            icon: "tetrateservicebridge",
+            icon: "products-tetrate-service-bridge",
             name: "Tetrate Service Bridge",
             description:
               "Service mesh management for multi-cluster, multi-tenant developer platforms at massive scale",
@@ -51,21 +51,21 @@ export const headerNavigation: THeaderMenu[] = [
         title: "Open Source Solutions for Kubernetes Networking",
         items: [
           {
-            icon: "tetrateistiosubscription",
+            icon: "products-tetrate-istio-subscription",
             name: "Tetrate Istio Subscription",
             description:
               "Stable releases, production support, CVE scanner, and configuration analysis in one package",
             url: "/products/tetrate-istio-subscription/",
           },
           {
-            icon: "tetrateistiosubscriptionplus",
+            icon: "products-tetrate-istio-subscription-plus",
             name: "Tetrate Istio Subscription+",
             description:
               "Powerful multi-cluster Istio troubleshooting for platform teams, safe self-service diagnostics for app",
             url: "/products/tetrate-istio-subscription-plus/",
           },
           {
-            icon: "tetrateenterpriseenvoygateway",
+            icon: "products-tetrate-enterprise-envoy-gateway",
             name: "Tetrate Enterprise Gateway",
             description:
               "Stable releases, expert migration guidance, and production support for Envoy Gateway adopters",
@@ -82,42 +82,42 @@ export const headerNavigation: THeaderMenu[] = [
       {
         items: [
           {
-            icon: "financialservices",
+            icon: "solutions-financial-services",
             name: "Financial Services",
             description:
               "Build secure, scalable cloud-native applications and innovate faster with the service mesh",
             url: "/solutions/financial-services/",
           },
           {
-            icon: "fips",
+            icon: "solutions-fips",
             name: "FIPS",
             description:
               "FIPS-compliant Istio for compliance, faster FedRAMP approval, and security",
             url: "/solutions/fips-140-2-validated-service-mesh/",
           },
           {
-            icon: "government",
+            icon: "solutions-government",
             name: "Government",
             description:
               "Tetrate’s FIPS-validated mesh ensures modernization, risk mitigation, and compliance",
             url: "/solutions/government/",
           },
           {
-            icon: "kubernetes",
+            icon: "solutions-kubernetes",
             name: "Kubernetes",
             description:
               "Seamlessly implement policies for security, identity, traffic management",
             url: "/solutions/manage-kubernetes-complexity/",
           },
           {
-            icon: "kubernetes",
+            icon: "solutions-kubernetes-ingress",
             name: "Kubernetes Ingress",
             description:
               "HTTP/S traffic routing mechanism for exposing servises within a Kubernetes cluster",
             url: "/solutions/manage-kubernetes-ingress-complexity/",
           },
           {
-            icon: "zerotrust",
+            icon: "solutions-zero-trust",
             name: "Zero Trust Security",
             description:
               "Secure multi-cloud microservices with Zero Trust to protect apps, users, and business",
@@ -136,47 +136,47 @@ export const headerNavigation: THeaderMenu[] = [
         url: "/resources/",
         items: [
           {
-            icon: "blog",
+            icon: "learn-blog",
             name: "Blog",
             url: "/blog/",
           },
           {
-            icon: "zerotrustcenter",
+            icon: "learn-zero-trust-center",
             name: "Zero Trust Center",
             url: "/resources/",
           },
           {
-            icon: "documentation",
+            icon: "learn-documentation",
             name: "Documentation",
             url: "https://docs.tetrate.io/",
           },
           {
-            icon: "faq",
+            icon: "learn-faq",
             name: "FAQ",
             url: "/faq/whats-the-difference-between-tetrate-products-and-istio",
           },
           {
-            icon: "ebooksandreports",
+            icon: "learn-ebooks-and-reports",
             name: "Ebooks & Reports",
             url: "/resources/?fwp_resource_categories=ebooks-reports",
           },
           {
-            icon: "whitepapers",
+            icon: "learn-white-papers",
             name: "White papers",
             url: "/resources/?fwp_resource_categories=whitepapers",
           },
           {
-            icon: "video",
+            icon: "learn-video",
             name: "Video",
             url: "/resources/?fwp_resource_categories=video",
           },
           {
-            icon: "all",
+            icon: "learn-all",
             name: "All Resources",
             url: "/resources/",
           },
           {
-            icon: "button",
+            icon: "company-about-us",
             name: "Tetrate Academy",
             url: "https://academy.tetrate.io/",
           },
@@ -279,42 +279,42 @@ export const headerNavigation: THeaderMenu[] = [
       {
         items: [
           {
-            icon: "aboutus",
+            icon: "company-about-us",
             name: "About Us",
             url: "/about",
           },
           {
-            icon: "leadership",
+            icon: "company-leadership",
             name: "Leadership",
             url: "/about#leadership",
           },
           {
-            icon: "investors",
+            icon: "company-investors",
             name: "Investors",
             url: "/about#investors",
           },
           {
-            icon: "partners",
+            icon: "company-partners",
             name: "Partners",
             url: "/partners-and-integrations",
           },
           {
-            icon: "newsroom",
+            icon: "company-newsroom",
             name: "Newsroom",
             url: "/press",
           },
           {
-            icon: "careers",
+            icon: "company-careers",
             name: "Careers",
             url: "/about#careers",
           },
           {
-            icon: "getsupport",
+            icon: "company-get-support",
             name: "Get Support",
             url: "/about#support",
           },
           {
-            icon: "contactus",
+            icon: "company-contact-us",
             name: "Contact Us",
             url: "/about#support",
           },

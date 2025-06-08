@@ -187,16 +187,16 @@ const {
 		</div> 
 			<slot /> <!-- сюда пойдут карточки -->
 		</div>
-			   <!-- RIGHT PADDING -->
-				 <div class={styles.rightPadding}>
-					{withPattern && (
-						<Pattern
-							variant="gray"
-							size="vertical"
-							stopAtTop={stopPatternAtTop}
-						/>
-					)}
-				</div>
+		<!-- RIGHT PADDING -->
+		<div class={styles.rightPadding}>
+			{withPattern && (
+				<Pattern
+					variant="gray"
+					size="vertical"
+					stopAtTop={stopPatternAtTop}
+				/>
+			)}
+		</div>
   </div>
 </div>
 

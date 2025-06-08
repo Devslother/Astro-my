@@ -24,7 +24,7 @@ export const workNavigation: TWorkCard[] = [
       urlTablet: "/agent_page/work/card1/card1-tablet.svg",
       url: "/agent_page/work/card1/card1.svg",
     },
-    header: "Non-intrusive discovery of GenAI Usage",
+    header: "Non-intrusive discovery <br> of GenAI Usage",
     description:
       "Capture GenAI API calls passively, without change to your applications.",
     items: [

@@ -1,0 +1,29 @@
+---
+import clsx from "clsx";
+import styles from "./Button.module.css";
+
+const {
+  variant = "primary",
+  size = "md",
+  href,
+  class: className = "",
+  ...props
+} = Astro.props as Record<string, any>;
+
+const classes = clsx(
+  styles.btn,
+  styles[`btn--${variant}`],
+  styles[`btn--${size}`],
+  className
+);
+---
+
+{href ? (
+  <a href={href} class={classes} {...props}>
+    <slot />
+  </a>
+) : (
+  <button class={classes} {...props}>
+    <slot />
+  </button>
+)}

@@ -1,0 +1,27 @@
+import type { SvgProps } from "@/types";
+
+export const SquareX = ({ ...props }: SvgProps) => {
+	const {
+		width = 32,
+		height = 32,
+		color = "currentColor",
+		className = "",
+	} = props;
+
+	return (
+		<svg
+			width={width}
+			height={height}
+			viewBox="0 0 32 32"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+			className={className}
+		>
+			<rect width={width} height={height} rx="4" fill="#EBECEC" />
+			<path
+				d="M21.6992 7.29883H24.6434L18.2113 14.754L25.7781 24.8988H19.8534L15.2129 18.746L9.90317 24.8988H6.95727L13.837 16.9247L6.57812 7.29883H12.6533L16.8479 12.9227L21.6992 7.29883ZM20.666 23.1118H22.2973L11.7668 8.99204H10.0162L20.666 23.1118Z"
+				fill={color}
+			/>
+		</svg>
+	);
+};

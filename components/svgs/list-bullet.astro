@@ -1,0 +1,16 @@
+---
+const { class: className = "", width = 10, height = 10, color = "inherit", ...props } = Astro.props;
+---
+	<svg
+		width={width}
+		height={height}
+		class={className}
+		viewBox="0 0 10 10"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+
+		{...props}
+	>
+		<circle cx="5" cy="5" r="5" fill={color} />
+		<circle cx="4.99967" cy="5.00065" r="1.66667" fill="#0A0D0F" />
+	</svg>

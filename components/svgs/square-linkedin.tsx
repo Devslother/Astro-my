@@ -1,0 +1,34 @@
+import type { SvgProps } from "@/types";
+
+export const SquareLinkedin = ({ ...props }: SvgProps) => {
+	const {
+		width = 17,
+		height = 18,
+		color = "currentColor",
+		className = "",
+	} = props;
+
+	return (
+		<svg
+			width={width}
+			height={height}
+			viewBox="0 0 17 18"
+			className={className}
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<path
+				d="M0.300773 17.8435H3.91168V5.94781H0.300773V17.8435Z"
+				fill={color}
+			/>
+			<path
+				d="M0 2.19127C0 3.28694 0.902727 4.3826 2.10623 4.3826C3.15954 4.3826 4.06186 3.28694 4.21245 2.19127C4.21245 0.939094 3.30973 0 2.10623 0C0.902727 0 0 0.939094 0 2.19127Z"
+				fill={color}
+			/>
+			<path
+				d="M13.5401 17.8435H17V11.2696C17 8.13914 16.3985 5.63478 12.7875 5.63478C11.1327 5.63478 9.92918 6.57393 9.47782 7.51302V5.94781H6.01791V18H9.62841V12.0522C9.62841 10.487 9.92918 8.92172 11.7346 8.92172C13.5401 8.92172 13.5401 10.6435 13.5401 12.0522V17.8435Z"
+				fill={color}
+			/>
+		</svg>
+	);
+};

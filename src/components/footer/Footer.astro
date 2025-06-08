@@ -1,9 +1,9 @@
 ---
-import Button from '../Button/Button';
-import Grid from '../Grid/Grid.astro';
-import { Icon, type IconType } from '../icon/Icon';
+import Button from '../Button/Button.astro';
 import styles from './Footer.module.css'
 import clsx from 'clsx';
+import type { IconType } from '../icon/Icon.astro';
+import Icon from '../icon/Icon.astro';
 
 interface ILink {
   name: string;
@@ -31,7 +31,7 @@ const list: IList[]  = [
       { name: "Tetrate Service Bridge", url: "#", external: false },
       { name: "Tetrate Istio Subscription", url: "#", external: false },
       { name: "Tetrate Istio Subscription+", url: "#", external: false },
-      { name: "Tetrate Enterprise Gateway", url: "#", external: false },
+      { name: "Tetrate Enterprise Gateway for Envoy", url: "#", external: false },
     ], 
   },
   { 
@@ -75,7 +75,7 @@ const list: IList[]  = [
 const socials: ISocials[] = [
   { name: "X", icon: "x", href: "https://x.com/tetrateio" },
   { name: "YouTube", icon: "youtube", 
-    href: "https://www.youtube.com/channel/UCtV2o3OvEH6U3DQ0-_7chNw" },
+    href: "https://www.youtube.com/@Tetrate" },
   { name: "LinkedIn", icon: "linkedin", 
     href: "https://www.linkedin.com/company/tetrate/about/" },
   { name: "GitHub", icon: "github", href: "https://github.com/tetratelabs" },
@@ -132,7 +132,12 @@ const socials: ISocials[] = [
           </span>
           <div class={styles.social__icons}>
             {socials.map((item) => (
-              <Button variant="secondary" size="md" href={item.href} className={styles.btn}>
+              <Button 
+                variant="secondary" 
+                size="md" 
+                href={item.href} 
+                class={styles.btn}
+              >
                 <Icon name={item.icon} width={18} height={18} />
                 <span class={clsx(
                   'text__body--14-medium',
