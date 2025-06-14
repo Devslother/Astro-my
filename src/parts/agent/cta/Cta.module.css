@@ -23,7 +23,7 @@
 .TopLeft {
   position: absolute;
   top: 0px;
-  left: 10px;
+  left: 0px;
   z-index: 2;
   width: 176px;
   height: auto;
@@ -32,7 +32,7 @@
 .TopRight {
   position: absolute;
   top: 15px;
-  right: 10px;
+  right: 0px;
   z-index: 2;
   width: 173px;
   height: auto;
@@ -40,8 +40,8 @@
 
 .BottomLeft {
   position: absolute;
-  top: 420px;
-  left: 20px;
+  top: 445px;
+  left: 10px;
   z-index: 2;
   width: 60px;
   height: auto;
@@ -49,15 +49,11 @@
 
 .BottomRight {
   position: absolute;
-  top: 515px;
-  right: 3px;
+  top: 535px;
+  right: -9px;
   z-index: 2;
   width: 95px;
   height: auto;
-}
-
-.mobileOnly {
-  display: inline;
 }
 
 .btncontainer {
@@ -73,28 +69,25 @@
 @media (width >= 768px) {
   .TopLeft {
     width: 234px;
-    left: 5px;
+    left: 0px;
   }
 
   .TopRight {
     width: 234px;
     top: 30px;
-    right: 5px;
+    right: 0px;
   }
 
   .BottomLeft {
     width: 75px;
-    top: 385px;
-    left: 15px;
+    top: 415px;
+    left: 10px;
   }
 
   .BottomRight {
-    width: 129px;
-    right: 0px;
-  }
-
-  .mobileOnly {
-    display: none;
+    width: 190px;
+    top: 528px;
+    right: -18px;
   }
 
   .btncontainer {
@@ -110,27 +103,27 @@
   }
 
   .TopLeft {
-    width: 334px;
+    width: 314px;
     top: 0px;
-    left: 110px;
+    left: 0px;
   }
 
   .TopRight {
     width: 364px;
-    top: 70px;
-    right: 110px;
+    top: 65px;
+    right: 0px;
   }
 
   .BottomLeft {
-    width: 80px;
-    top: 430px;
-    left: 115px;
+    width: 100px;
+    top: 370px;
+    left: 20px;
   }
 
   .BottomRight {
-    width: 150px;
-    top: 550px;
-    right: 100px;
+    width: 171px;
+    top: 490px;
+    right: -16px;
   }
 
   .logo {

@@ -1,26 +1,28 @@
 ---
 import Grid from '../../../components/Grid/Grid.astro';
 import styles from './Solves.module.css';
+import clsx from 'clsx';
+import Icon1 from '../../../assets/agent/solves/icon1.svg';
+import Icon2 from '../../../assets/agent/solves/icon2.svg';
+import Icon3 from '../../../assets/agent/solves/icon3.svg';
+import imageMobile from '../../../assets/agent/solves/solves-bg-mobile.svg';
+import imageTablet from '../../../assets/agent/solves/solves-bg-tablet.svg';
+import imageDesktop from '../../../assets/agent/solves/solves-bg-desktop.svg';
+import Picture from '../../../components/Picture.astro';
 
-interface ISolves {
-  image: string;
-  title: string;
-  text: string;
-}
-
-const items: ISolves[]  = [
+const items  = [
 	{
-		image: '/agent_page/solves/icon1.svg', 
+		image: Icon1, 
     title: 'Showback and chargeback',
     text: 'Discovery of GenAI usage and map activity to owners.'
   },
   {
-		image: '/agent_page/solves/icon2.svg', 
+		image: Icon2, 
     title: 'Cost analysis and forecasting',
     text: 'Identify historical usage patterns and cost drivers.'
   },
   {
-		image: '/agent_page/solves/icon3.svg', 
+		image: Icon3, 
     title: 'Cost and Risk Governance',
     text: 'Detect unsanctioned model usage, set budgets by owner and provider.'
   }
@@ -28,19 +30,29 @@ const items: ISolves[]  = [
 ---
 <Grid>
   <div class={styles.solves}>
-    <div class={styles.hero__bg}></div>
-    <h5 class=
-    'text__heading--h5
-      text__heading--h3-lg
-      text__heading--h4-md'
+    <Picture 
+    alt="bg" 
+    srcMobile={imageMobile.src}
+    srcTablet={imageTablet.src}
+    srcDesktop={imageDesktop.src}
+    class={styles.solves__bg}
+     />
+    <h5 class={clsx(
+      'text__heading--h5',
+      'text__heading--h3-lg',
+      'text__heading--h4-md',
+      styles.heading
+      )}
     >
-      GenAI ROI Management Use Cases
+      GenAI ROI Management  
+      <br class="u-visible u-hidden--md u-hidden--lg" /> 
+      Use Cases
     </h5>
     <div class={styles.container}>
       {items.map((item) => (
         <div class={styles.item}>
           <div class={styles.image}>
-            <img src={item.image} alt={item.title} loading="lazy" />
+            {<item.image class={styles.img} />}
           </div>
           <div class={styles.content}>
             <h6 class=

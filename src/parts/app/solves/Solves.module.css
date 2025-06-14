@@ -1,0 +1,159 @@
+.solves {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 40px 20px 40px 20px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  box-shadow: 0px 6px 40px 0px rgba(206, 206, 206, 0.6);
+  background: linear-gradient(
+    180deg,
+    rgb(255, 255, 255),
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  overflow: hidden;
+}
+
+.solves__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  height: 260px;
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: contain;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heading {
+  text-align: start;
+}
+
+.container,
+.item {
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 0px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 15px;
+}
+
+.image {
+  height: 71px;
+  width: auto;
+  margin-left: -10px;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (width >= 768px) {
+  .solves {
+    padding: 40px 40px 60px 40px;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .image {
+    height: 61px;
+    width: auto;
+    flex-shrink: 0;
+    margin-left: 0;
+    margin-top: 5px;
+  }
+
+  .img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+@media (width >= 1024px) {
+  .solves {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 60px;
+    padding: 60px 40px 80px 40px;
+    margin: 20px 10px;
+  }
+
+  .heading {
+    text-align: center;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    padding: 0px;
+  }
+
+  .image {
+    height: 84px;
+    width: 100%;
+    margin: 0;
+  }
+
+  .img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+
+  .content p {
+    max-width: 310px;
+  }
+}

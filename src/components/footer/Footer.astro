@@ -4,6 +4,8 @@ import styles from './Footer.module.css'
 import clsx from 'clsx';
 import type { IconType } from '../icon/Icon.astro';
 import Icon from '../icon/Icon.astro';
+import TetrateLogo from '../../assets/tetrate-logo.svg'
+import Peppermint from '../../assets/peppermint.svg'
 
 interface ILink {
   name: string;
@@ -118,8 +120,8 @@ const socials: ISocials[] = [
       </div>
     
       <div class={styles.info}>
-        <a href="/" class={styles.logo}>
-          <img src="/tetrate-logo.svg" alt="Tetrate Logo" loading="lazy" />
+        <a href="/">
+          <TetrateLogo class={styles.logo} />
         </a>
         <div class={styles.social}>
           <span class={clsx(
@@ -165,7 +167,7 @@ const socials: ISocials[] = [
       <p>Copyright © Tetrate 2025. All rights reserved.</p>
         <div class={styles.ppmint}>Designed by
           <a href="https://peppermint.id/">
-            <img src="/footer/peppermint.svg" alt="Logo Peppermint">
+            <Peppermint />
           </a>
         </div>
     </div>
@@ -173,7 +175,10 @@ const socials: ISocials[] = [
       <a href="https://tetrate.io/privacy" class={styles.legal__link}>
         Privacy Policy
       </a>
-      <a href="https://tetrate.io/legal/service-terms-and-conditions-eula/" class={styles.legal__link}>
+      <a 
+        href="https://tetrate.io/legal/service-terms-and-conditions-eula/" 
+        class={styles.legal__link}
+      >
         Terms & Conditions
       </a>
     </div>

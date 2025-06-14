@@ -1,20 +1,29 @@
 .products {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   width: 100%;
   padding-top: 80px;
-  min-height: auto; /* Вместо фиксированной высоты */
-  background-image: url("/agent_page/products/bg.png"),
-    linear-gradient(180deg, rgb(22, 94, 202), rgb(6, 24, 51) 100%);
-
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, cover;
-
-  background-position: center, center top;
+  background: linear-gradient(
+    180deg,
+    var(--color-blue-600) 0%,
+    var(--color-blue-900) 100%
+  );
   overflow: hidden;
 }
 
+.products__bg {
+  position: absolute;
+  inset: 0; /* заменяет top/left/right/bottom: 0 */
+  pointer-events: none;
+}
+
+.products__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .products__heading {
+  position: relative;
   text-align: center;
   color: var(--color-white);
   padding: 0 20px 24px;

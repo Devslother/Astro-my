@@ -30,6 +30,7 @@
 .card2,
 .card3,
 .card4 {
+  position: relative;
   width: 100%;
   height: 372px;
   padding: 20px;
@@ -37,29 +38,23 @@
   background-color: var(--color-white);
   border-radius: 16px;
   box-shadow: 0 0 10px #d9d9d9;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  box-sizing: border-box;
+  overflow: hidden;
 }
 
-.card1 {
-  background-image: url("/home_page/benefits/card1-mobile.png");
+.card__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.card2 {
-  background-image: url("/home_page/benefits/card2-mobile.png");
-}
-
-.card3 {
-  background-image: url("/home_page/benefits/card3-mobile.png");
-}
-
-.card4 {
-  background-image: url("/home_page/benefits/card4-mobile.png");
+.card__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .card__text {
+  position: relative;
   padding-top: 8px;
   color: var(--color-gray-900);
 }
@@ -89,25 +84,21 @@
   /* Уникальные размеры и пропорции */
   .card1 {
     aspect-ratio: 410 / 280; /* Сохраняем пропорции */
-    background-image: url("/home_page/benefits/card1-tablet.png");
     flex-basis: 56%;
   }
 
   .card2 {
     aspect-ratio: 286 / 280;
-    background-image: url("/home_page/benefits/card2-tablet.png");
     flex-basis: 38%;
   }
 
   .card3 {
     aspect-ratio: 296 / 280;
-    background-image: url("/home_page/benefits/card3-tablet.png");
     flex-basis: 39%;
   }
 
   .card4 {
     aspect-ratio: 400 / 280;
-    background-image: url("/home_page/benefits/card4-tablet.png");
     flex-basis: 54%;
   }
 }
@@ -125,22 +116,18 @@
 
   .card1 {
     aspect-ratio: 578 / 363;
-    background-image: url("/home_page/benefits/card1.png");
   }
 
   .card2 {
     aspect-ratio: 405 / 363;
-    background-image: url("/home_page/benefits/card2.png");
   }
 
   .card3 {
     aspect-ratio: 496 / 414;
-    background-image: url("/home_page/benefits/card3.png");
   }
 
   .card4 {
     aspect-ratio: 562 / 414;
-    background-image: url("/home_page/benefits/card4.png");
   }
 }
 
@@ -158,21 +145,17 @@
 
   .card1 {
     aspect-ratio: 694 / 436;
-    background-image: url("/home_page/benefits/card1.png");
   }
 
   .card2 {
     aspect-ratio: 486 / 436;
-    background-image: url("/home_page/benefits/card2.png");
   }
 
   .card3 {
     aspect-ratio: 506 / 456;
-    background-image: url("/home_page/benefits/card3.png");
   }
 
   .card4 {
     aspect-ratio: 674 / 456;
-    background-image: url("/home_page/benefits/card4.png");
   }
 }

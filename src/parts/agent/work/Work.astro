@@ -2,9 +2,113 @@
 import Grid from '../../../components/Grid/Grid.astro';
 import styles from './Work.module.css';
 import WorkCard from './WorkCard.astro';
-import { workNavigation } from './workNavigation';
 import clsx from 'clsx';
+import Icon1 from '../../../assets/agent/work/card1/icon1.svg';
+import Icon2 from '../../../assets/agent/work/card1/icon2.svg';
+import Icon3 from '../../../assets/agent/work/card1/icon3.svg';
+import Icon4 from '../../../assets/agent/work/card2/icon4.svg';
+import Icon5 from '../../../assets/agent/work/card2/icon5.svg';
+import Icon6 from '../../../assets/agent/work/card2/icon6.svg';
+import Icon7 from '../../../assets/agent/work/card3/icon7.svg';
+import Icon8 from '../../../assets/agent/work/card3/icon8.svg';
+import Icon9 from '../../../assets/agent/work/card3/icon9.svg';
+import imageMobile1 from '../../../assets/agent/work/card1/card1-mobile.svg?url';
+import imageTablet1 from '../../../assets/agent/work/card1/card1-tablet.svg?url';
+import imageDesktop1 from '../../../assets/agent/work/card1/card1-desktop.svg?url';
+import imageMobile2 from '../../../assets/agent/work/card2/card2-mobile.svg?url';
+import imageTablet2 from '../../../assets/agent/work/card2/card2-tablet.svg?url';
+import imageDesktop2 from '../../../assets/agent/work/card2/card2-desktop.svg?url';
+import imageMobile3 from '../../../assets/agent/work/card3/card3-mobile.svg?url';
+import imageTablet3 from '../../../assets/agent/work/card3/card3-tablet.svg?url';
+import imageDesktop3 from '../../../assets/agent/work/card3/card3-desktop.svg?url';
+
+const workNavigation = [
+  {
+    id: 1,
+    image: {
+      imageMobile: imageMobile1,
+      imageTablet: imageTablet1,
+      imageDesktop: imageDesktop1,
+    },
+    header: "Non-intrusive discovery <br> of GenAI Usage",
+    description:
+      "Capture GenAI API calls passively, without change to your applications.",
+    items: [
+      {
+        icon: Icon1,
+        title: "Intercept",
+        text: "Lightweight agent inventory GenAI traffic in the traffic path.",
+      },
+      {
+        icon: Icon2,
+        title: "Parse",
+        text: "Requests decoded and transformed into contextual data.",
+      },
+      {
+        icon: Icon3,
+        title: "Aggregate",
+        text: "Data centralized in management console for analysis.",
+      },
+    ],
+  },
+  {
+    id: 2,
+    image: {
+      imageMobile: imageMobile2,
+      imageTablet: imageTablet2,
+      imageDesktop: imageDesktop2,
+    },
+    header: "Resolve Ownership",
+    description: "Map discovered GenAI transactions as owners.",
+    items: [
+      {
+        icon: Icon4,
+        title: "Assisted Mapping",
+        text: "Discovered metadata assisted ownership resolution process.",
+      },
+      {
+        icon: Icon5,
+        title: "Powerful Analysis",
+        text: "Analyze usage trends and cost drivers by owner or provider.",
+      },
+      {
+        icon: Icon6,
+        title: "Flexible Organization",
+        text: "Ownership can be defined as teams, applications or constructs of your choice.",
+      },
+    ],
+  },
+  {
+    id: 3,
+    image: {
+      imageMobile: imageMobile3,
+      imageTablet: imageTablet3,
+      imageDesktop: imageDesktop3,
+    },
+    header: "Govern with Ease",
+    description:
+      "Set policies to stop unsanctioned traffic, rate limit by budget, fallback to lower-cost defaults.",
+    items: [
+      {
+        icon: Icon7,
+        title: "Stop",
+        text: "Identify and block unsanctioned models.",
+      },
+      {
+        icon: Icon8,
+        title: "Rate limit",
+        text: "Set budget by tokens or dollars.",
+      },
+      {
+        icon: Icon9,
+        title: "Fallback",
+        text: "Re-direct requests to lower-cost alternatives.",
+      },
+    ],
+  },
+];
 ---
+
 <div class={styles.work}>
   <h5 class={clsx(
     'text__heading--h5',
@@ -12,7 +116,9 @@ import clsx from 'clsx';
     'text__heading--h4-md',
     styles.heading
   )}>
-      Explore Agent Operations Director
+      Explore Agent  
+      <br class="u-visible u-hidden--md u-hidden--lg" />  
+      Operations Director
   </h5>
     
   <Grid>

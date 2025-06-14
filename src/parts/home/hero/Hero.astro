@@ -2,28 +2,35 @@
 import clsx from 'clsx';
 import GlowButton from '../../../components/Button/GlowButton.astro';
 import styles from './Hero.module.css';
+import imageMobile from '../../../assets/home/hero/hero-mobile.svg';
+import imageTablet from '../../../assets/home/hero/hero-tablet.svg';
+import imageDesktop from '../../../assets/home/hero/hero-desktop.svg';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <div class={styles.hero}>
-  <div class={styles.hero__bg}></div>
-  <div class={styles.hero__figure}></div>
-  <div class={styles.hero__content}>
-    <h1 class={clsx(
-      'text__heading--h4',
-      'text__heading--h1-lg',
-      'text__heading--h3-md',
-      styles.hero__title
-    )}>
+  <Picture 
+  alt="bg" 
+  srcMobile={imageMobile.src}
+  srcTablet={imageTablet.src}
+  srcDesktop={imageDesktop.src}
+  class={styles.hero__bg}
+   />
+   <div class={styles.hero__content}>
+    <h1 class='text__heading--h4
+      text__heading--h1-lg
+      text__heading--h3-md'
+      >
       Dynamic Gateways
     </h1>
-    <h2 class={clsx(
-      'text__body--16',
-      'text__body--18-lg',
-      'text__body--16-md',
-      styles.hero__subtitle
-    )}>
-      For Autonomous Traffic Orchestration.
-    </h2>
+    <p class='text__body--16
+      text__body--18-lg
+      text__body--16-md'
+    >
+    For AI, Application Delivery, 
+    <br class="u-visible u-hidden--md u-hidden--lg" /> 
+    and Service Mesh
+    </p>
     <GlowButton
       variant="primary"
       size="lg"

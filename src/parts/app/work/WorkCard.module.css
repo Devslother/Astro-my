@@ -1,0 +1,123 @@
+.workcard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 0;
+}
+
+.workcard__image > picture > img {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Контент карточки */
+.workcard__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 8px;
+}
+
+/* Заголовок + описание */
+.workcard__description {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Контейнер с текстовыми карточками */
+.textcard__container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Одна карточка: иконка + текст */
+.textcard {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--color-gray-300);
+}
+
+/* Текст внутри одной карточки */
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+@media (max-width: 364px) {
+  .workcard__image > picture > img {
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+@media (width >= 768px) {
+  .workcard {
+    flex-direction: row;
+  }
+
+  .workcardEven {
+    flex-direction: row;
+  }
+
+  .workcardOdd {
+    flex-direction: row-reverse;
+  }
+
+  .workcard__content {
+    padding: 0;
+  }
+}
+
+@media (width >= 1024px) {
+  .workcard {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    padding: 40px 0;
+  }
+
+  .workcardEven {
+    flex-direction: row;
+  }
+
+  .workcardOdd {
+    flex-direction: row-reverse;
+  }
+
+  .workcard__content {
+    width: 50%;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .workcard__image {
+    flex: 1; /* займет оставшуюся ширину, с учетом gap */
+  }
+
+  .workcard__image > picture > img {
+    width: 100%;
+    height: auto;
+  }
+
+  .textcard__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* две колонки */
+  }
+
+  /* последняя карточка занимает всю ширину второго ряда */
+  .textcard:last-child {
+    grid-column: 1 / -1;
+  }
+  /* иконка сверху */
+  .textcard {
+    flex-direction: column;
+  }
+}

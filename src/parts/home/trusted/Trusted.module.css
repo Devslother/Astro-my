@@ -28,7 +28,7 @@
   margin: auto;
 }
 
-.logo img {
+.img {
   max-width: 100px;
 }
 
@@ -57,7 +57,7 @@
     max-width: 1140px;
   }
 
-  .logo img {
+  .img {
     max-width: none;
   }
 }

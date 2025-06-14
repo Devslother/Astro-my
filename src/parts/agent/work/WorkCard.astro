@@ -1,6 +1,7 @@
 ---
 import clsx from "clsx";
 import styles from "./WorkCard.module.css";
+import Picture from '../../../components/Picture.astro';
 
 const { data } = Astro.props;
 
@@ -10,12 +11,12 @@ const directionClass = isEven ? styles.workcardEven : styles.workcardOdd;
 
 <div class={clsx(styles.workcard, directionClass)}>
   <div class={styles.workcard__image}>
-    <picture>
-      <source srcset={data.image.urlMobile} media="(max-width: 767px)" />
-      <source srcset={data.image.urlTablet} media="(max-width: 1023px)" />
-      <source srcset={data.image.url} media="(min-width: 1024px)" />
-      <img src={data.image.url} alt={data.header} loading="lazy" />
-    </picture>
+    <Picture 
+      alt="img" 
+      srcMobile={data.image.imageMobile}
+      srcTablet={data.image.imageTablet}
+      srcDesktop={data.image.imageDesktop}
+   />
   </div>
   <div class={styles.workcard__content}>
     <div class={styles.workcard__description}>
@@ -37,7 +38,7 @@ const directionClass = isEven ? styles.workcardEven : styles.workcardOdd;
       {data.items.map((item) => (
         <div class={styles.textcard}>
           <div>
-            <img src={item.icon} alt={item.icon} loading="lazy" />
+            {<item.icon />}
           </div>
           <div class={styles.text}>
             <h6 class=

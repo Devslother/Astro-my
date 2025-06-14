@@ -4,15 +4,13 @@ import styles from "./Header.module.css";
 import Icon from '../icon/Icon.astro';
 import clsx from "clsx";
 import HeaderLinks from './HeaderLinks.astro';
+import TetrateLogo from '../../assets/tetrate-logo.svg'
 ---
 <header class={clsx('nav', styles.nav)}>
   <div class={styles.container}>
    <!-- Логотип -->
    <a href="/" aria-label="Go to homepage">
-    <picture>
-      <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
-      <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
-    </picture>
+      <TetrateLogo class={styles.logo} />
   </a>
 
     <!-- Desktop navigation -->
@@ -40,10 +38,7 @@ import HeaderLinks from './HeaderLinks.astro';
       <div class={styles.mobile__container}>
         <div class={styles.mobile__heading}>
           <a href="/" aria-label="Go to homepage">
-            <picture>
-              <source srcset="/tetrate-logo-light-small.svg" media="(max-width: 767px)" />
-              <img class="teatrate-logo-light" src="/tetrate-logo-light.svg" alt="Tetrate Logo" loading="lazy" />
-            </picture>
+            <TetrateLogo class={styles.logo} />
           </a>
           <button class={clsx(styles.nav__close, 'nav__close')}>
             <Icon name="close" class="close" width={24} height={24} 

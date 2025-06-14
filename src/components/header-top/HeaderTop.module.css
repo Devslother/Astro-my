@@ -1,22 +1,37 @@
 .headertop {
   position: relative; /* Позволяет позиционировать closebtn */
   display: flex;
-  align-items: center;
-  justify-content: center; /* Центрируем container */
-  width: 100%;
-  padding: 10px 20px; /* Отступы сверху и снизу по 7px */
-  background-image: url("/bg_headertop.svg");
+  flex-direction: row;
+  align-items: flex-start;
   background-color: var(--color-black);
+}
+
+.headertop__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.headertop__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .container {
   display: flex;
-  align-items: center; /* Выравниваем элементы по центру по вертикали */
-  gap: 40px; /* Задаём расстояние между <p> и <button> */
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 12px 44px 12px 20px;
+}
+
+.btntop {
+  padding: 0;
 }
 
 .text,
-span {
+.span {
   color: var(--color-white);
   text-align: left;
 }
@@ -26,56 +41,39 @@ span {
   border: none;
   cursor: pointer;
   position: absolute;
-  right: 65px; /* Отступ справа */
-  top: 50%;
+  right: 12px;
+  top: 40%;
   transform: translateY(-50%); /* Центрируем кнопку по вертикали */
 }
 
-/* Адаптация для планшетов */
-@media (max-width: 1024px) {
-  .headertop {
-    justify-content: space-between;
-  }
-
+@media (width >= 768px) {
   .container {
-    justify-content: space-between;
-  }
-
-  .text {
-    white-space: normal; /* Разрешаем перенос строк */
-  }
-
-  .btntop {
-    width: auto;
-    flex: 0 1 auto; /* Чтобы кнопка не сжималась и не мешала */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 9px 30px;
+    gap: 173px;
   }
 
   .closebtn {
-    position: static;
-    transform: none;
-    margin-left: auto; /* ← обязательно для выравнивания вправо */
+    right: 25px;
+    top: 50%;
   }
 }
 
-/* Адаптация для мобильных устройств */
-@media (max-width: 768px) {
+@media (width >= 1024px) {
+  .headertop {
+    align-items: center;
+    justify-content: center;
+  }
+
   .container {
-    flex-direction: column; /* Элементы идут в колонку */
-    align-items: flex-start; /* Выравнивание текста и кнопки */
-    gap: 10px; /* Уменьшаем отступ */
+    padding: 13px 30px;
+    gap: 40px;
   }
 
-  .text {
-    max-width: 90%; /* Текст растягивается на всю ширину */
-    white-space: normal; /* Позволяет перенос строк */
-    text-align: left; /* Выравнивание */
-  }
-
-  :global([data-headertop--text].text__body--14-medium) {
-    font-size: 12px;
-  }
-
-  .btntop {
-    text-align: left; /* Выравнивание ссылки */
+  .closebtn {
+    right: 60px;
+    top: 55%;
   }
 }

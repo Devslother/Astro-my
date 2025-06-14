@@ -1,0 +1,62 @@
+---
+import clsx from "clsx";
+import styles from "./WorkCard.module.css";
+import Picture from '../../../components/Picture.astro';
+
+const { data } = Astro.props;
+
+const isEven = data?.id % 2 === 0;
+const directionClass = isEven ? styles.workcardEven : styles.workcardOdd;
+---
+
+<div class={clsx(styles.workcard, directionClass)}>
+  <div class={styles.workcard__image}>
+    <Picture 
+      alt="img" 
+      srcMobile={data.image.imageMobile}
+      srcTablet={data.image.imageTablet}
+      srcDesktop={data.image.imageDesktop}
+     />
+  </div>
+  <div class={styles.workcard__content}>
+    <div class={styles.workcard__description}>
+      <h6 class=
+        'text__heading--h6
+        text__heading--h4-lg
+        text__heading--h6-md'
+        set:html={data.header}
+      />
+      <p class=
+        'text__body--14
+        text__body--14-lg
+        text__body--14-md'
+        >
+        {data.description} 
+      </p>
+  </div>
+    <div class={styles.textcard__container}>
+      {data.items.map((item) => (
+        <div class={styles.textcard}>
+          <div>
+            {<item.icon />}
+          </div>
+          <div class={styles.text}>
+            <h6 class=
+              'text__body--14-semibold
+              text__body--14-semibold-lg
+              text__body--14-semibold-md'
+            >
+              {item.title}
+            </h6>
+            <p class=
+              'text__body--14
+              text__body--14-lg
+              text__body--14-md'
+              set:html={item.text} 
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  </div> 
+</div>

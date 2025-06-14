@@ -1,14 +1,22 @@
 ---
 import clsx from 'clsx';
 import styles from './Trusted.module.css'
+import UiPath from '../../../assets/home/logo/ui-path.svg';
+import Micro from '../../../assets/home/logo/micro.svg';
+import Merc from '../../../assets/home/logo/merc.svg';
+import Alaska from '../../../assets/home/logo/alaska.svg';
+import Bank from '../../../assets/home/logo/bank.svg';
+import Ory from '../../../assets/home/logo/ory.svg';
+
+
 
 const logos = [
-  { name: 'ui-path', alt: 'Ui Path' },
-  { name: 'micro', alt: 'MicroStrategy' },
-  { name: 'merc', alt: 'Mercedes Benz' },
-  { name: 'alaska', alt: 'Alaska airlines' },
-  { name: 'bank', alt: 'TD Bank' },
-  { name: 'ory', alt: 'ORY' },
+  { image: UiPath},
+  { image: Micro},
+  { image: Merc },
+  { image: Alaska },
+  { image: Bank },
+  { image: Ory },
 ];
 ---
 
@@ -23,9 +31,9 @@ const logos = [
   </h6>
   <div class={styles.logo}>
      {logos.map(logo => (
-      <picture>
-        <img src={`/home_page/logo/${logo.name}.svg`} alt={logo.alt} loading="lazy" />
-      </picture>
-    ))}
+      <div>
+         {<logo.image class={styles.img} />}
+      </div>
+     ))}
   </div>
 </div>

@@ -13,12 +13,7 @@ const posts = Object.values(postsImport).map((post: any) => ({
 <Grid>
   <div class={styles.news}>
   {posts.map((post) => (
-    <Card 
-      image={post.image}
-      newsname={post.newsname}
-      title={post.title}
-      buttonLink={post.buttonLink}
-    >
+    <Card data={post}>
       <post.Content />
     </Card>
   ))}

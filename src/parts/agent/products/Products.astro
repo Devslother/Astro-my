@@ -4,26 +4,27 @@ import Pattern from '../../../components/pattern/Pattern.astro';
 import ProductCard from './ProductCard.astro'
 import styles from './Products.module.css'
 import clsx from 'clsx';
+import Product1 from '../../../assets/agent/products/product1.svg';
+import Product2 from '../../../assets/agent/products/product2.svg';
+import Product3 from '../../../assets/agent/products/product3.svg';
+import imageMobile from '../../../assets/agent/products/products-bg-mobile.svg';
+import imageTablet from '../../../assets/agent/products/products-bg-tablet.svg';
+import imageDesktop from '../../../assets/agent/products/products-bg-desktop.svg';
+import Picture from '../../../components/Picture.astro';
 
-interface ICard {
-  image: string;
-  title: string | string[];
-  text: string;
-}
-
-const cards: ICard[]  = [
+const cards  = [
 	{
-		image: '/agent_page/products/product1.svg', 
+		image: Product1, 
     title: 'Frictionless Onboarding',
     text: 'Seamlessly discover and manage GenAI usage without disruption.', 
   },
   {
-    image: '/agent_page/products/product2.svg', 
+    image: Product2, 
     title: 'Proactive, Granular and Dynamic Controls',
     text: 'Analyze usage real-time, set budget by app, and correlate with ownership.', 
   },
   {
-    image: '/agent_page/products/product3.svg', 
+    image: Product3, 
     title: 'Production Scale',
     text: 'Built on Envoy AI Gateway on top of proven enterprise technology.', 
   }
@@ -31,6 +32,13 @@ const cards: ICard[]  = [
 ---
 
 <div class={styles.products}>
+  <Picture 
+  alt="bg" 
+  srcMobile={imageMobile.src}
+  srcTablet={imageTablet.src}
+  srcDesktop={imageDesktop.src}
+  class={styles.products__bg}
+   />
   <h5 class={clsx(
       'text__heading--h5',
       'text__heading--h2-lg',
@@ -42,12 +50,7 @@ const cards: ICard[]  = [
   <Grid variant="blue">
     <div class={styles.card__container}>
       {cards.map((card) => (
-        <ProductCard 
-          image={card.image}
-          title={card.title}
-          text={card.text}
-        >
-        </ProductCard>
+        <ProductCard data={card} />
       ))}
     </div>
   </Grid>

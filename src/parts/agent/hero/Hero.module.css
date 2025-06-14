@@ -1,20 +1,21 @@
 .hero {
   background-image: linear-gradient(var(--color-white), #edeeee);
-  margin-top: -80px;
-  height: 620px;
+  height: 700px;
   position: relative;
   width: 100%;
+  margin-top: -80px;
 }
 
 .hero__bg {
   position: absolute;
+  inset: 0; /* заменяет top/left/right/bottom: 0 */
+  pointer-events: none;
+}
+
+.hero__bg img {
   width: 100%;
-  margin: auto;
-  background-image: url("/agent_page/hero/hero-mobile.svg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: auto;
-  height: 620px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero__content {
@@ -23,7 +24,7 @@
   flex-direction: column;
   gap: 16px;
   margin: 0 auto;
-  padding: 90px 20px 0 20px;
+  padding: 120px 20px 0 20px;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -36,11 +37,7 @@
 @media (width >= 768px) {
   .hero {
     height: 716px;
-  }
-
-  .hero__bg {
-    height: 716px;
-    background-image: url("/agent_page/hero/hero-tablet.svg");
+    margin-top: -80px;
   }
 
   .hero__content {
@@ -50,10 +47,6 @@
 }
 
 @media (width >= 1024px) {
-  .hero__bg {
-    background-image: url("/agent_page/hero/hero.svg");
-  }
-
   .hero__content {
     gap: 30px;
     padding: 210px 120px;

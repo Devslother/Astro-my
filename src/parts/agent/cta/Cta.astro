@@ -4,62 +4,30 @@ import styles from './Cta.module.css'
 import Button from '../../../components/Button/Button.astro';
 import GlowButton from '../../../components/Button/GlowButton.astro';
 import Grid from '../../../components/Grid/Grid.astro';
+import TopLeft from '../../../assets/agent/cta/topleft.svg';
+import TopRight from '../../../assets/agent/cta/topright.svg';
+import BottomLeft from '../../../assets/agent/cta/bottomleft.svg';
+import BottomRight from '../../../assets/agent/cta/bottomright.svg';
+import Image from '../../../assets/agent/cta/logo.svg';
 ---
+
 <div class={styles.cta}>
-  <picture>
-    <img
-      src="/agent_page/cta/cta-top-left.svg"
-      width={350}
-      height={264}
-      class={styles.TopLeft}
-      loading="lazy"
-      alt="Top left pattern in CTA section"
-    />
-  </picture>
-  
-  <picture>
-    <img
-      src="/agent_page/cta/cta-top-right.svg"
-      width={364}
-      height={146}
-      class={styles.TopRight}
-      loading="lazy"
-      alt="Top right pattern in CTA section"
-    />
-  </picture>
-  
-  <picture>
-    <img
-      src="/agent_page/cta/cta-bottom-left.svg"
-      width={282}
-      height={146}
-      class={styles.BottomLeft}
-      loading="lazy"
-      alt="Bottom left pattern in CTA section"
-    />
-  </picture>
-  
-  <picture>
-    <img
-      src="/agent_page/cta/cta-bottom-right.svg"
-      width={281}
-      height={378}
-      class={styles.BottomRight}
-      loading="lazy"
-      alt="Bottom right pattern in CTA section"
-    />
-  </picture>
-      
   <Grid withPattern={true}>
+    
+    <TopLeft class={styles.TopLeft} />
+    <BottomLeft class={styles.BottomLeft} />
+    <TopRight class={styles.TopRight} />
+    <BottomRight class={styles.BottomRight} />
+
     <div class={styles.content}>
-      <img src="agent_page/cta/logo.svg" alt="logo" class={styles.logo}>
+      <Image class={styles.logo} />
       <h5 class="
         text__heading--h5
         text__heading--h2-lg
         text__heading--h2-md
       ">
           Ready to manage 
-          <br class={styles.mobileOnly} />
+          <br class="u-visible u-hidden--md u-hidden--lg" />  
           your LLM traffic?
       </h5>
       <div class={styles.btncontainer}>

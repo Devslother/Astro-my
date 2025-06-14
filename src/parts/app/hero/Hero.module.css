@@ -8,13 +8,14 @@
 
 .hero__bg {
   position: absolute;
+  inset: 0; /* заменяет top/left/right/bottom: 0 */
+  pointer-events: none;
+}
+
+.hero__bg img {
   width: 100%;
-  margin: auto;
-  background-image: url("/app_page/hero/hero-mobile.svg");
-  background-position: center 22px; /* сдвиг фона вниз */
-  background-repeat: no-repeat;
-  background-size: auto;
-  height: 694px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero__content {
@@ -38,12 +39,6 @@
     height: 716px;
   }
 
-  .hero__bg {
-    height: 716px;
-    background-image: url("/app_page/hero/hero-tablet.svg");
-    background-position: center 62px;
-  }
-
   .hero__content {
     gap: 20px;
     padding: 130px 20px 0 20px;
@@ -51,11 +46,6 @@
 }
 
 @media (width >= 1024px) {
-  .hero__bg {
-    background-image: url("/app_page/hero/hero.svg");
-    background-position: center 22px;
-  }
-
   .hero__content {
     gap: 30px;
     padding: 254px 120px 0;

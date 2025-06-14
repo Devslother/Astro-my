@@ -3,18 +3,17 @@ import clsx from 'clsx';
 import Button from '../../../components/Button/Button.astro';
 import Icon from '../../../components/icon/Icon.astro';
 import styles from './Card.module.css'
-const { image, newsname, title, buttonLink } = Astro.props;
+
+const { data } = Astro.props;
 ---
 
 <div class={styles.card}>
-    <div class={styles.card__image}>
-      <picture>
-        <img
-          src={image}
-          loading="lazy"
-          alt={title}
-        />
-      </picture>
+    <div class={styles.card__image}>     
+      <img
+        src={data.image}
+        loading="lazy"
+        alt={data.title}
+      />
     </div>
     <div class={styles.card__content}>
       <h3 class={clsx(
@@ -23,7 +22,7 @@ const { image, newsname, title, buttonLink } = Astro.props;
         'text__body--12-medium-uppercase-md',
         styles.card__newsname
       )}>
-        {newsname}
+        {data.newsname}
       </h3>
       
       <h5 class=
@@ -31,7 +30,7 @@ const { image, newsname, title, buttonLink } = Astro.props;
         text__heading--h5-lg
         text__heading--h6-md',
       >
-        {title}
+        {data.title}
       </h5>
       <div class={clsx(
         'text__body--14',
@@ -43,8 +42,23 @@ const { image, newsname, title, buttonLink } = Astro.props;
       </div>
     </div>
   
-    <Button variant="tertiary" size="sm" href={buttonLink} class={styles.card__btn}>
-      <span class="text__body--16-semibold" style={{ color: 'var(--color-black)' }}>Start now</span>
-      <Icon name="arrow-right" width={24} height={24} var(--color-orange-500) />
+    <Button 
+      variant="tertiary" 
+      size="sm" 
+      href={data.buttonLink} 
+      class={styles.card__btn}
+    >
+      <span 
+      class="text__body--16-semibold" 
+      style={{ color: 'var(--color-black)' }}
+      >
+        Start now
+      </span>
+      <Icon 
+        name="arrow-right" 
+        width={24} 
+        height={24} 
+        var(--color-orange-500)
+       />
     </Button>
 </div>

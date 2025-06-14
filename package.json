@@ -9,18 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/preact": "^4.0.6",
-    "@astrojs/react": "^4.2.1",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
-    "astro": "^5.5.4",
-    "classnames": "^2.5.1",
-    "preact": "^10.26.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "astro": "^5.9.2",
+    "classnames": "^2.5.1"
   },
   "devDependencies": {
-    "@svgr/cli": "^8.1.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   }
 }

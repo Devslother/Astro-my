@@ -1,17 +1,28 @@
 ---
 import GlowButton from '../../../components/Button/GlowButton.astro';
 import styles from './Hero.module.css';
+import imageMobile from '../../../assets/app/hero/hero-mobile.svg';
+import imageTablet from '../../../assets/app/hero/hero-tablet.svg';
+import imageDesktop from '../../../assets/app/hero/hero-desktop.svg';
+import Picture from '../../../components/Picture.astro';
 ---
 
 <div class={styles.hero}>
-  <div class={styles.hero__bg}></div>
+  <Picture 
+  alt="bg" 
+  srcMobile={imageMobile.src}
+  srcTablet={imageTablet.src}
+  srcDesktop={imageDesktop.src}
+  class={styles.hero__bg}
+   />
+
   <div class={styles.hero__content}>
     <h1 class='text__heading--h4
       text__heading--h1-lg
       text__heading--h3-md'
       >
       Tetrate Application 
-      <br />
+      <br class="u-hidden u-hidden--md u-visible--lg" /> 
       Gateway
     </h1>
     <p class='text__body--16

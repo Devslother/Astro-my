@@ -4,10 +4,12 @@ import Icon from '../../../components/icon/Icon.astro';
 import styles from './ProductCard.module.css'
 import clsx from 'clsx';
 
-const { image, title, description, item, buttonLink } = Astro.props;
+const { data } = Astro.props;
 ---
 <div class={styles.card}>
-    <img class={styles.img} src={image} alt={title} />
+  <div class={styles.card__image}>
+    {<data.image class={styles.img} />}
+  </div>
   <div class={styles.container}>
     <div class={styles.content}>
       <div class={styles.header}>
@@ -17,15 +19,7 @@ const { image, title, description, item, buttonLink } = Astro.props;
           'text__heading--h6-md',
           styles.heading
         )}>
-          {Array.isArray(title) ? (
-             <span class={styles.titleLines}>
-              {title.map(line => (
-                <span>{line}</span> 
-              ))}
-            </span>
-          ) : (
-            title
-          )}
+          {data.title}
         </h5>
         <p class={clsx(
           'text__body--14',
@@ -33,12 +27,12 @@ const { image, title, description, item, buttonLink } = Astro.props;
           'text__caption--md',
           styles.description
         )}>
-          {description}
+          {data.description}
         </p>
       </div>
     
       <div class={styles.itemList}>
-        {item.map((text: string) => (
+        {data.item.map((text: string) => (
           <div class={styles.item}>
             <div class="wrapper">
               <Icon name="bullet" />
@@ -58,7 +52,7 @@ const { image, title, description, item, buttonLink } = Astro.props;
     <Button 
       variant="primary" 
       size="lg" 
-      href={buttonLink}  
+      href={data.buttonLink}  
       class={styles.productbtn}
     >
       <span class={clsx(

@@ -1,72 +1,38 @@
 ---
-import Pattern from '../../../components/pattern/Pattern.astro'
 import styles from './Cta.module.css'
 import Button from '../../../components/Button/Button.astro';
 import GlowButton from '../../../components/Button/GlowButton.astro';
 import Grid from '../../../components/Grid/Grid.astro';
 import clsx from 'clsx';
+import TopLeftMobile from '../../../assets/home/cta/topleft-mobile.svg';
+import TopLeftTablet from '../../../assets/home/cta/topleft-tablet.svg';
+import TopLeftDesktop from '../../../assets/home/cta/topleft-desktop.svg';
+import BottomRightMobile from '../../../assets/home/cta/bottomright-mobile.svg';
+import BottomRightTablet from '../../../assets/home/cta/bottomright-tablet.svg';
+import BottomRighttDesktop from '../../../assets/home/cta/bottomright-desktop.svg';
+import Image from '../../../assets/home/cta/logo.svg';
+import Picture from '../../../components/Picture.astro';
 ---
 <div class={styles.cta}>
   <Grid withPattern={true} stopPatternAtTop={true} variant="default-offset">
-    <div class={styles.content}>
+    <Picture 
+    alt="top-left" 
+    srcMobile={TopLeftMobile.src}
+    srcTablet={TopLeftTablet.src}
+    srcDesktop={TopLeftDesktop.src}
+    class={styles.TopLeft}
+     />
+
+     <Picture 
+     alt="bottom-right" 
+     srcMobile={BottomRightMobile.src}
+     srcTablet={BottomRightTablet.src}
+     srcDesktop={BottomRighttDesktop.src}
+     class={styles.BottomRight}
+      />
     
-      <!--TopLeft -->
-      <img
-        src="home_page/cta/cta-TopLeft.png"
-        width="562"
-        height="232"
-        alt=""
-        loading="lazy"
-        class={`${styles.TopLeft} ${styles.visibleLg}`}
-      />
-
-      <img
-        src="home_page/cta/cta-TopLeft-md.png"
-        width="298"
-        height="174"
-        alt=""
-        loading="lazy"
-        class={`${styles.TopLeftTablet} ${styles.visibleMd}`}
-      />
-
-      <img
-        src="home_page/cta/cta-TopLeft-sm.png"
-        width="316"
-        height="130"
-        alt=""
-        loading="lazy"
-        class={`${styles.TopLeftMobile} ${styles.visibleSm}`}
-      />
-
-      <!--BottomRight -->
-      <img
-        src="home_page/cta/cta-BottomRight.png"
-        width="397"
-        height="232"
-        alt=""
-        loading="lazy"
-        class={`${styles.BottomRight} ${styles.visibleLg}`}
-      />
-
-      <img
-        src="home_page/cta/cta-BottomRight-md.png"
-        width="298"
-        height="174"
-        alt=""
-        loading="lazy"
-        class={`${styles.BottomRightTablet} ${styles.visibleMd}`}
-      />
-
-      <img
-        src="home_page/cta/cta-BottomRight-sm.png"
-        width="223"
-        height="130"
-        alt=""
-        loading="lazy"
-        class={`${styles.BottomRightMobile} ${styles.visibleSm}`}
-      />
-
-      <img src="home_page/cta/logo.svg" alt="logo" class={styles.logo}>
+    <div class={styles.content}>
+      <Image class={styles.logo} />
 	     <h5 class={clsx(
 	        'text__heading--h5',
 	        'text__heading--h2-lg',
@@ -75,7 +41,8 @@ import clsx from 'clsx';
           Ready to 
         <span style={{ color: 'var(--color-orange-500)' }}>
           enhance your network
-        </span><br /> 
+        </span>
+        <br class="u-hidden u-visible--md u-visible--lg" /> 
         with more intelligence?
       </h5>
       <div class={styles.btncontainer}>

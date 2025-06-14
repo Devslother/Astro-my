@@ -1,0 +1,28 @@
+---
+interface Props {
+  alt: string;
+  srcMobile: string;
+  srcTablet: string;
+  srcDesktop: string;
+  width?: number | string;
+  height?: number | string;
+  class?: string;
+}
+
+const {
+  alt,
+  srcMobile,
+  srcTablet,
+  srcDesktop,
+  width,
+  height,
+  class: className
+} = Astro.props as Props;
+---
+
+<picture class={className}>
+  <source srcset={srcMobile} media="(max-width: 767px)" />
+  <source srcset={srcTablet} media="(min-width: 768px) and (max-width: 1023px)" />
+  <source srcset={srcDesktop} media="(min-width: 1024px)" />
+  <img src={srcDesktop} alt={alt} width={width} height={height} loading="lazy" />
+</picture>

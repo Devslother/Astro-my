@@ -1,5 +1,5 @@
 ---
-import { headerNavigation } from './headerNavigation';
+import { headerNavigation } from './headerNavigation.ts';
 import Button from "../Button/Button.astro";
 import type { IconType } from '../icon/Icon.astro';
 import Icon from '../icon/Icon.astro';
@@ -39,15 +39,15 @@ const { className = '' } = Astro.props;
             )}>
               {category.title && (
                 category.url ? (
-                  <a class={clsx("text__caption", 
-                  styles.content_a)} 
-                  href={category.url}>
+                  <a 
+                    class={clsx("text__caption", styles.content_a)} 
+                    href={category.url}
+                  >
                     {category.title}
                     <Icon name="arrow" width={20} height={20} />
                   </a>
                 ) : (
-                  <p class={clsx("text__caption", 
-                  styles.content)}>
+                  <p class={clsx("text__caption", styles.content)}>
                     {category.title}
                   </p>
                 )
@@ -103,8 +103,6 @@ const { className = '' } = Astro.props;
       )}
     </div>
   ))}
-
-
 </div>
 
 <script>

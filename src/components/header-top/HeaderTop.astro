@@ -2,12 +2,47 @@
 import Button from '../Button/Button.astro';
 import Icon from '../icon/Icon.astro';
 import styles from './HeaderTop.module.css';
+import clsx from 'clsx';
+import imageMobile from '../../assets/header-top/header-mobile.svg';
+import imageTablet from '../../assets/header-top/header-tablet.svg';
+import imageDesktop from '../../assets/header-top/hesder-desktop.svg';
+import Picture from '../Picture.astro';
 ---
 <div class={styles.headertop} id="headertop">
+  <Picture 
+    alt="bg" 
+    srcMobile={imageMobile.src}
+    srcTablet={imageTablet.src}
+    srcDesktop={imageDesktop.src}
+    class={styles.headertop__bg}
+   />
   <div class={styles.container}>
-    <p class={`text__body--14-medium ${styles.text}`} data-headertop--text>Announcing TEG 1.2—Enterprise support and FedRAMP-ready FIPS builds for Envoy Gateway 1.2</p>
-    <Button variant="tertiary" size="sm" class={styles.btntop} href="https://tetrate.io/blog/announcing-tetrate-enterprise-gateway-for-envoy-v1-2/"> 
-      <span class={`text__body--14-medium ${styles.span}`}>Learn more</span>
+    <p class={clsx(
+      'text__body--12-medium',
+      'text__body--14-medium-lg',
+      'text__body--14-medium-md',
+      styles.text
+      )}
+      data-headertop--text
+    >
+      Announcing Tetrate Agent Operations Director 
+      <br class="u-visible u-visible--md u-hidden--lg" />  
+      for GenAI Runtime Visibility and Governance
+    </p>
+    <Button 
+      variant="tertiary" 
+      size="sm" 
+      class={styles.btntop} 
+      href="https://tetrate.io/blog/announcing-tetrate-enterprise-gateway-for-envoy-v1-2/"
+    > 
+      <span class={clsx(
+        'text__body--14-medium',
+        'text__body--14-medium-lg',
+        'text__body--14-medium-md',
+        styles.span
+      )}>
+        Learn more
+      </span>
       <Icon 
       name="arrow-right" 
       width={24} height={24} 
