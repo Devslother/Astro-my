@@ -1,0 +1,85 @@
+---
+import clsx from "clsx";
+import styles from "./WorkCard.module.css";
+import Picture from '../../../components/Picture.astro';
+import Button from '../../../components/Button/Button.astro';
+import Icon from '../../../components/icon/Icon.astro';
+
+const { data } = Astro.props;
+
+const isEven = data?.id % 2 === 0;
+const directionClass = isEven ? styles.workcardEven : styles.workcardOdd;
+---
+
+<div class={clsx(styles.workcard, directionClass)} data-id={data.id}>
+  <div class={styles.workcard__image}>
+    <Picture 
+      alt="img" 
+      srcMobile={data.image.imageMobile}
+      srcTablet={data.image.imageTablet}
+      srcDesktop={data.image.imageDesktop}
+     />
+  </div>
+  <div class={styles.workcard__content}>
+    <div class={styles.workcard__description}>
+      <h6 class=
+        'text__heading--h6
+        text__heading--h4-lg
+        text__heading--h6-md'
+        set:html={data.header}
+      />
+      <p class=
+        'text__body--14
+        text__body--14-lg
+        text__body--14-md'
+        >
+        {data.description} 
+      </p>
+    </div>
+    <div class={styles.textcard__container}>
+      {data.items.map((item) => (
+        <div class={styles.textcard}>
+          <div>
+            {<item.icon />}
+          </div>
+          <div class={styles.text}>
+            <h6 class=
+              'text__body--14-semibold
+              text__body--14-semibold-lg
+              text__body--14-semibold-md'
+            >
+              {item.title}
+            </h6>
+            <p class=
+              'text__body--14
+              text__body--14-lg
+              text__body--14-md'
+              set:html={item.text} 
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+    {data.buttonLink && (
+      <Button 
+        variant="tertiary" 
+        size="sm" 
+        href={data.buttonLink} 
+        class={styles.card__btn}
+      >
+        <span 
+          class="text__body--16-semibold" 
+          style={{ color: 'var(--color-black)' }}
+        >
+          Learn More
+        </span>
+        <Icon 
+          name="arrow-right" 
+          width={24} 
+          height={24} 
+          var(--color-orange-500)
+        />
+      </Button>
+    )}
+  </div> 
+</div>

@@ -1,0 +1,48 @@
+---
+import GlowButton from '../../../components/Button/GlowButton.astro';
+import styles from './Hero.module.css';
+import imageMobile from '../../../assets/istio/hero/hero-mobile.svg';
+import imageTablet from '../../../assets/istio/hero/hero-tablet.svg';
+import imageDesktop from '../../../assets/istio/hero/hero-desktop.svg';
+import Picture from '../../../components/Picture.astro';
+---
+
+<div class={styles.hero}>
+  <Picture 
+    alt="bg" 
+    srcMobile={imageMobile.src}
+    srcTablet={imageTablet.src}
+    srcDesktop={imageDesktop.src}
+    class={styles.hero__bg}
+   />
+
+  <div class={styles.hero__content}>
+    <h1 class='text__heading--h4
+      text__heading--h1-lg
+      text__heading--h3-md'
+      >
+      Tetrate Istio 
+      <br class="u-visible u-hidden--md u-visible--lg" /> 
+      Subscription
+    </h1>
+    <p class='text__body--16
+      text__body--18-lg
+      text__body--16-md'
+    >
+      Effortlessly deploy and scale Istio with enterprise-grade 
+      <br class="u-hidden u-visible--md u-visible--lg" /> 
+      support, extended CVE protection, advanced diagnostics,
+      <br> 
+      and seamless troubleshooting
+    </p>
+    <GlowButton
+      variant="primary"
+      size="lg"
+      buttonClassName="text__body--16-semibold"
+      containerClassName="my-glow-margin"
+      href="https://tetrate.io/contact/demo-request/"
+    >
+      Request a demo
+    </GlowButton>
+  </div>
+</div>

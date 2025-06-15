@@ -29,14 +29,14 @@ export const headerNavigation: THeaderMenu[] = [
             name: "Agent Operations Director",
             description:
               "Runtime visibility and governance for ML infrastructure teams to maximize GenAI ROI",
-            url: "/agent",
+            url: "/products/agent-operations-director",
           },
           {
             icon: "products-app-gateway",
             name: "Tetrate Application Gateway",
             description:
               "Intent-driven ingress traffic orchestration across clouds, on-prem environments, K8s, and VMs",
-            url: "/app",
+            url: "/products/tetrate-application-gateway",
           },
           {
             icon: "products-tetrate-service-bridge",
@@ -55,7 +55,7 @@ export const headerNavigation: THeaderMenu[] = [
             name: "Tetrate Istio Subscription",
             description:
               "Stable releases, production support, CVE scanner, and configuration analysis in one package",
-            url: "/products/tetrate-istio-subscription/",
+            url: "/products/tetrate-istio-subscription",
           },
           {
             icon: "products-tetrate-istio-subscription-plus",

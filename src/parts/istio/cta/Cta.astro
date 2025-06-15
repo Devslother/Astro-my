@@ -1,0 +1,54 @@
+---
+import styles from './Cta.module.css'
+import Button from '../../../components/Button/Button.astro';
+import GlowButton from '../../../components/Button/GlowButton.astro';
+import Grid from '../../../components/Grid/Grid.astro';
+import TopLeft from '../../../assets/istio/cta/topleft.svg';
+import BottomLeft from '../../../assets/istio/cta/bottomleft.svg';
+import BottomRight from '../../../assets/istio/cta/bottomright.svg';
+import Image from '../../../assets/istio/cta/logo.svg';
+---
+<div class={styles.cta}>
+  <Grid withPattern={true}>
+
+    <TopLeft class={styles.TopLeft} />
+    <BottomLeft class={styles.BottomLeft} />
+    <BottomRight class={styles.BottomRight} />
+    
+    <div class={styles.content}>
+      <Image class={styles.logo} />
+      <h5 class="
+        text__heading--h5
+        text__heading--h2-lg
+        text__heading--h4-md
+      ">
+      Let us 
+      <span style={{ color: 'var(--color-orange-500)' }}>
+        show you
+      </span> 
+      how 
+      <br class="u-visible u-hidden--md u-hidden--lg" />  
+      we can help
+      </h5>
+      <div class={styles.btncontainer}>
+        <Button 
+          variant="secondary" 
+          size="lg" 
+          class="text__body--16-semibold" 
+          href='https://tetrate.io/contact/demo-request/'
+        >
+          Request a demo
+        </Button>
+        
+        <GlowButton 
+          variant="primary" 
+          size="lg" 
+          buttonClassName="text__body--16-semibold" 
+          href='https://tetrate.io/contact/pricing-request/'
+        >
+          Pricing Request
+        </GlowButton>
+      </div>
+    </div>
+  </Grid>
+</div>

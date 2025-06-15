@@ -1,0 +1,59 @@
+---
+import Grid from '../../../components/Grid/Grid.astro';
+import Pattern from '../../../components/pattern/Pattern.astro';
+import ProductCard from './ProductCard.astro'
+import styles from './Products.module.css'
+import clsx from 'clsx';
+import Product1 from '../../../assets/istio/products/product1.svg';
+import Product2 from '../../../assets/istio/products/product2.svg';
+import Product3 from '../../../assets/istio/products/product3.svg';
+import imageMobile from '../../../assets/agent/products/products-bg-mobile.svg';
+import imageTablet from '../../../assets/agent/products/products-bg-tablet.svg';
+import imageDesktop from '../../../assets/agent/products/products-bg-desktop.svg';
+import Picture from '../../../components/Picture.astro';
+
+const cards  = [
+	{
+		image: Product1, 
+    title: 'Enterprise <br> Support & Security',
+    text: 'Get expert production support, simplified upgrades, and extended CVE protection for enterprise resilience.', 
+  },
+  {
+    image: Product2, 
+    title: 'Diagnostics & <br> Troubleshooting',
+    text: 'Gain deep insights with aggregated traces, logs, metrics correlation, and historical views.', 
+  },
+  {
+    image: Product3, 
+    title: 'Automated, <br> Proactive Validation',
+    text: 'Automate Istio configuration checks with Tetrate Config Analyzer & GitHub Actions, detecting Istio config issues.', 
+  }
+]
+---
+
+<div class={styles.products}>
+  <Picture 
+  alt="bg" 
+  srcMobile={imageMobile.src}
+  srcTablet={imageTablet.src}
+  srcDesktop={imageDesktop.src}
+  class={styles.products__bg}
+   />
+  <h5 class={clsx(
+      'text__heading--h5',
+      'text__heading--h2-lg',
+      'text__heading--h4-md',
+      styles.products__heading
+  )}>
+    Smarter. Easier. Faster.
+  </h5>
+  <Grid variant="blue">
+    <div class={styles.card__container}>
+      {cards.map((card) => 
+        <ProductCard data={card} />
+      )}
+    </div>
+  </Grid>
+  
+  <Pattern variant="blue" size="default" />
+</div>

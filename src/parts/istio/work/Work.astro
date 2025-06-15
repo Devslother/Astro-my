@@ -1,0 +1,100 @@
+---
+import Grid from '../../../components/Grid/Grid.astro';
+import styles from './Work.module.css';
+import WorkCard from './WorkCard.astro';
+import clsx from 'clsx';
+import Icon1 from '../../../assets/istio/work/card1/icon1.svg';
+import Icon2 from '../../../assets/istio/work/card1/icon2.svg';
+import Icon3 from '../../../assets/istio/work/card1/icon3.svg';
+import Icon4 from '../../../assets/istio/work/card1/icon4.svg';
+import Icon5 from '../../../assets/istio/work/card2/icon5.svg';
+import Icon6 from '../../../assets/istio/work/card2/icon6.svg';
+import Icon7 from '../../../assets/istio/work/card2/icon7.svg';
+import imageMobile1 from '../../../assets/istio/work/card1/card1-mobile.svg?url';
+import imageTablet1 from '../../../assets/istio/work/card1/card1-tablet.svg?url';
+import imageDesktop1 from '../../../assets/istio/work/card1/card1-desktop.svg?url';
+import imageMobile2 from '../../../assets/istio/work/card2/card2-mobile.svg?url';
+import imageTablet2 from '../../../assets/istio/work/card2/card2-tablet.svg?url';
+import imageDesktop2 from '../../../assets/istio/work/card2/card2-desktop.svg?url';
+
+const workNavigation = [
+  {
+    id: 1,
+    image: {
+    imageMobile: imageMobile1,
+    imageTablet: imageTablet1,
+    imageDesktop: imageDesktop1,
+  },
+    header: 'Tetrate Istio <br class="u-visible u-hidden--md u-hidden--lg" /> Subscription — Base',
+    description: "Run secure, compliant Istio and Envoy with enterprise support and extended CVE protection.",
+    items: [
+      {
+        icon: Icon1,
+        title: "FIPS-Verified Istio",
+        text: "Instant access to Istio builds using unforked BoringCrypto module.",
+      },
+      {
+        icon: Icon2,
+        title: "Expert enterprise production support ",
+        text: "And best practices consultation.",
+      },
+      {
+        icon: Icon3,
+        title: "Extended CVE protection",
+        text: "75% longer Istio shelf life (14 months total vs. 8 months base).",
+      },
+      {
+        icon: Icon4,
+        title: "Tetrate Config Analyzer",
+        text: "Automatically detect Istio configuration issues based on best practices.",
+      },
+    ],
+  },
+  {
+    id: 2,
+    image: {
+      imageMobile: imageMobile2,
+      imageTablet: imageTablet2,
+      imageDesktop: imageDesktop2,
+    },
+    header: 'Tetrate Istio <br class="u-visible u-hidden--md u-hidden--lg" /> Subscription — Plus',
+    description: "Improve MTTR with real-time evidence-based issue triage and resolution. ",
+    items: [
+      {
+        icon: Icon5,
+        title: "Live status & diagnostic console",
+        text: "Quickly correlate metrics, tracing, logs, and service ownership with time-travel historical view.",
+      },
+      {
+        icon: Icon6,
+        title: "Service Inventory & Dependency",
+        text: "Aggregated real time inventory across cloud accounts, regions, on-prem and cloud APIs.",
+      },
+      {
+        icon: Icon7,
+        title: "Enable Developer Self Service",
+        text: "Each app team can access a view of their infrastructure safely to troubleshoot, develop, and optimize their own applications.",
+      },
+    ],
+    buttonLink: 'https://tetrate.io/products/tetrate-istio-subscription-plus', 
+  },
+];
+---
+<div class={styles.work}>
+  <h5 class={clsx(
+    'text__heading--h5',
+    'text__heading--h2-lg',
+    'text__heading--h4-md',
+    styles.heading
+  )}>
+      Explore Tetrate Istio Subscription    
+  </h5>
+    
+  <Grid>
+    <div class={styles.card__container}>
+      {workNavigation.map((card) => <WorkCard data={card} />)}
+    </div>
+  </Grid>
+</div>	
+    
+  
