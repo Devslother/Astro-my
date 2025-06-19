@@ -3,18 +3,37 @@
   height: 619px;
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 .hero__bg {
   position: absolute;
-  inset: 0; /* заменяет top/left/right/bottom: 0 */
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 0;
   pointer-events: none;
 }
 
-.hero__bg img {
+.hero__figure {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%);
   width: 100%;
-  height: 619px;
-  margin-top: 30px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__bg svg {
+  width: 100%;
+  height: 600px;
+}
+
+.hero__figure svg {
+  width: 100%;
+  height: 550px;
 }
 
 .hero__content {
@@ -38,10 +57,34 @@
     height: 716px;
   }
 
-  .hero__bg img {
+  .hero__bg {
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero__figure {
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero__bg svg {
     width: 100%;
     height: 716px;
-    margin-top: 0px;
+  }
+
+  .hero__figure svg {
+    width: 100%;
+    height: 670px;
   }
 
   .hero__content {
@@ -51,6 +94,14 @@
 }
 
 @media (width >= 1024px) {
+  .hero__figure {
+    top: 3px;
+  }
+  .hero__figure svg {
+    width: 100%;
+    height: 700px;
+  }
+
   .hero__content {
     gap: 30px;
     padding-top: 310px;

@@ -2,20 +2,26 @@
 import clsx from 'clsx';
 import GlowButton from '../../../components/Button/GlowButton.astro';
 import styles from './Hero.module.css';
-import imageMobile from '../../../assets/home/hero/hero-mobile.svg';
-import imageTablet from '../../../assets/home/hero/hero-tablet.svg';
-import imageDesktop from '../../../assets/home/hero/hero-desktop.svg';
-import Picture from '../../../components/Picture.astro';
+import HeroBgMobile from '../../../assets/home/hero/hero-bg-mobile.svg';
+import HeroBgTablet from '../../../assets/home/hero/hero-bg-tablet.svg';
+import HeroBgDesktop from '../../../assets/home/hero/hero-bg.svg';
+import HeroFigureMobile from '../../../assets/home/hero/hero-figure-mobile.svg';
+import HeroFigureTablet from '../../../assets/home/hero/hero-figure-tablet.svg';
+import HeroFigureDesktop from '../../../assets/home/hero/hero-figure.svg';
 ---
 
 <div class={styles.hero}>
-  <Picture 
-  alt="bg" 
-  srcMobile={imageMobile.src}
-  srcTablet={imageTablet.src}
-  srcDesktop={imageDesktop.src}
-  class={styles.hero__bg}
-   />
+  <div class={styles.hero__bg}>
+    <HeroBgMobile class="u-visible u-hidden--md u-hidden--lg" />
+    <HeroBgTablet class="u-hidden u-visible--md u-hidden--lg" />
+    <HeroBgDesktop class="u-hidden u-hidden--md u-visible--lg" />
+  </div>
+
+   <div class={styles.hero__figure}>
+    <HeroFigureMobile class="u-visible u-hidden--md u-hidden--lg" />
+    <HeroFigureTablet class="u-hidden u-visible--md u-hidden--lg" />
+    <HeroFigureDesktop class="u-hidden u-hidden--md u-visible--lg" />
+  </div>
    <div class={styles.hero__content}>
     <h1 class='text__heading--h4
       text__heading--h1-lg
