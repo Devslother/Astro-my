@@ -9,6 +9,7 @@ import imageMobile from '../../../assets/agent/solves/solves-bg-mobile.svg';
 import imageTablet from '../../../assets/agent/solves/solves-bg-tablet.svg';
 import imageDesktop from '../../../assets/agent/solves/solves-bg-desktop.svg';
 import Picture from '../../../components/Picture.astro';
+import BgIcon from '../../../assets/app/solves/bg-icon.svg';
 
 const items  = [
 	{
@@ -50,7 +51,10 @@ const items  = [
       {items.map((item) => (
         <div class={styles.item}>
           <div class={styles.image}>
-            {<item.image class={styles.img}  />}
+            {<item.image />}
+            <div class={styles.image__bg}>
+              <BgIcon />
+            </div>
           </div>
           <div class={styles.content}>
             <h6 class=

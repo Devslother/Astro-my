@@ -1,8 +1,9 @@
 .hero {
-  margin-top: -80px;
+  margin-top: -78px;
   height: 694px;
   position: relative;
   width: 100%;
+  overflow: hidden;
 }
 
 .hero__bg {

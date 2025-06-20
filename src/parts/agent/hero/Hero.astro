@@ -1,18 +1,20 @@
 ---
 import GlowButton from '../../../components/Button/GlowButton.astro';
 import styles from './Hero.module.css';
-import HeroBgMobile from '../../../assets/agent/hero/hero-mobile.svg';
-import HeroBgTablet from '../../../assets/agent/hero/hero-tablet.svg';
-import HeroBgDesktop from '../../../assets/agent/hero/hero-desktop.svg';
+import imageMobile from '../../../assets/agent/hero/hero-mobile.png';
+import imageTablet from '../../../assets/agent/hero/hero-tablet.png';
+import imageDesktop from '../../../assets/agent/hero/hero-desktop.png';
 import Picture from '../../../components/Picture.astro';
 ---
 
 <div class={styles.hero}>
-  <div class={styles.hero__bg}>
-		<HeroBgMobile class="u-visible u-hidden--md u-hidden--lg" />
-		<HeroBgTablet class="u-hidden u-visible--md u-hidden--lg" />
-		<HeroBgDesktop class="u-hidden u-hidden--md u-visible--lg" />
-	</div>
+  <Picture 
+  alt="bg" 
+  srcMobile={imageMobile.src}
+  srcTablet={imageTablet.src}
+  srcDesktop={imageDesktop.src}
+  class={styles.hero__bg}
+   />
   <div class={styles.hero__content}>
     <h1 class='text__heading--h4
       text__heading--h1-lg

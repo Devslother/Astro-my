@@ -5,10 +5,11 @@ import clsx from 'clsx';
 import Icon1 from '../../../assets/istio/solves/icon1.svg';
 import Icon2 from '../../../assets/istio/solves/icon2.svg';
 import Icon3 from '../../../assets/istio/solves/icon3.svg';
-import imageMobile from '../../../assets/agent/solves/solves-bg-mobile.svg';
-import imageTablet from '../../../assets/agent/solves/solves-bg-tablet.svg';
-import imageDesktop from '../../../assets/agent/solves/solves-bg-desktop.svg';
+import bgMobile from '../../../assets/agent/solves/solves-bg-mobile.svg';
+import bgTablet from '../../../assets/agent/solves/solves-bg-tablet.svg';
+import bgDesktop from '../../../assets/agent/solves/solves-bg-desktop.svg';
 import Picture from '../../../components/Picture.astro';
+import BgIcon from '../../../assets/istio/solves/bg-icon.svg'
 
 const items  = [
 	{
@@ -32,9 +33,9 @@ const items  = [
   <div class={styles.solves}>
     <Picture 
     alt="bg" 
-    srcMobile={imageMobile.src}
-    srcTablet={imageTablet.src}
-    srcDesktop={imageDesktop.src}
+    srcMobile={bgMobile.src}
+    srcTablet={bgTablet.src}
+    srcDesktop={bgDesktop.src}
     class={styles.solves__bg}
      />
     <h5 class={clsx(
@@ -50,7 +51,10 @@ const items  = [
       {items.map((item) => (
         <div class={styles.item}>
           <div class={styles.image}>
-            {<item.image class={styles.img}  />}
+            {<item.image />}
+            <div class={styles.image__bg}>
+              <BgIcon />
+            </div>
           </div>
           <div class={styles.content}>
             <h6 class=
