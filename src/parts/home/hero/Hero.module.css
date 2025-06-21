@@ -19,7 +19,7 @@
 .hero__figure {
   position: absolute;
   left: 50%;
-  top: 40px;
+  top: 60px;
   transform: translateX(-50%);
   width: 100%;
   z-index: 0;

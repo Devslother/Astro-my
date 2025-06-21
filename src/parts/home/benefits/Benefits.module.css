@@ -47,7 +47,7 @@
   pointer-events: none;
 }
 
-.card__bg img {
+.card__bg svg {
   width: 100%;
   height: 100%;
   object-fit: cover;

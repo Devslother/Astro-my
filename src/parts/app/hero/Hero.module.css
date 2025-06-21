@@ -1,9 +1,9 @@
 .hero {
-  margin-top: -78px;
+  background-image: linear-gradient(var(--color-white), #edeeee);
+  margin-top: -80px;
   height: 694px;
   position: relative;
   width: 100%;
-  overflow: hidden;
 }
 
 .hero__bg {
@@ -24,7 +24,7 @@
   flex-direction: column;
   gap: 16px;
   margin: 0 auto;
-  padding: 110px 20px 0 20px;
+  padding: 110px 20px;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -41,14 +41,14 @@
 
   .hero__content {
     gap: 20px;
-    padding: 130px 20px 0 20px;
+    padding: 130px 20px;
   }
 }
 
 @media (width >= 1024px) {
   .hero__content {
     gap: 30px;
-    padding: 254px 120px 0;
+    padding: 254px 120px 0 120px;
     align-items: start;
     text-align: left;
   }
