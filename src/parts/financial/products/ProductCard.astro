@@ -1,0 +1,73 @@
+---
+import Button from '../../../components/Button/Button.astro';
+import Icon from '../../../components/icon/Icon.astro';
+import styles from './ProductCard.module.css'
+import clsx from 'clsx';
+
+const { data } = Astro.props;
+---
+<div class={styles.card}>
+  <div class={styles.card__image}>
+    {<data.image />}
+  </div>
+  <div class={styles.container}>
+    <div class={styles.content}>
+      <div class={styles.header}>
+        <h5 class={clsx(
+          'text__heading--h5',
+          'text__heading--h5-lg',
+          'text__heading--h6-md',
+          styles.heading
+        )}
+        set:html={data.title}
+         />
+        <p class={clsx(
+          'text__body--14',
+          'text__body--14-lg',
+          'text__caption--md',
+          styles.description
+        )}>
+          {data.description}
+        </p>
+      </div>
+    
+      <div class={styles.itemList}>
+        {data.item.map((text: string) => (
+          <div class={styles.item}>
+            <div class="wrapper">
+              <Icon name="bullet" />
+            </div>
+            <span class={clsx(
+              'text__body--14',
+              'text__body--14-lg',
+              'text__caption--md',
+              styles.text
+            )}>
+              {text}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+    <Button 
+      variant="primary" 
+      size="lg" 
+      href={data.buttonLink}  
+      class={styles.productbtn}
+    >
+      <span class={clsx(
+        'text__body--16-medium',
+        'text__body--16-semibold-lg',
+        'text__body--16-medium-md',
+      )}>
+        Learn more
+      </span>
+        <Icon 
+        name="arrow-right" 
+        width={24} 
+        height={24}
+        color="var(--color-white)" 
+         />
+    </Button>
+  </div>
+</div>

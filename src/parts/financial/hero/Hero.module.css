@@ -1,5 +1,5 @@
 .hero {
-  margin-top: -80px;
+  margin-top: -78px;
   height: 694px;
   position: relative;
   width: 100%;
@@ -7,7 +7,7 @@
 
 .hero__bg {
   position: absolute;
-  inset: 0; /* заменяет top/left/right/bottom: 0 */
+  inset: 0;
   pointer-events: none;
 }
 
@@ -23,7 +23,7 @@
   flex-direction: column;
   gap: 16px;
   margin: 0 auto;
-  padding: 110px 20px 0 20px;
+  padding: 110px 24px 0 24px;
   align-items: center;
   justify-content: center;
   text-align: center;

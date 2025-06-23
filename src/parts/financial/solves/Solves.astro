@@ -1,0 +1,90 @@
+---
+import Grid from '../../../components/Grid/Grid.astro';
+import styles from './Solves.module.css';
+import clsx from 'clsx';
+import Icon1 from '../../../assets/financial/solves/icon1.svg';
+import Icon2 from '../../../assets/financial/solves/icon2.svg';
+import Icon3 from '../../../assets/financial/solves/icon3.svg';
+import Icon4 from '../../../assets/financial/solves/icon4.svg';
+import imageMobile from '../../../assets/agent/solves/solves-bg-mobile.svg';
+import imageTablet from '../../../assets/agent/solves/solves-bg-tablet.svg';
+import imageDesktop from '../../../assets/agent/solves/solves-bg-desktop.svg';
+import Picture from '../../../components/Picture.astro';
+import BgIcon from '../../../assets/financial/solves/bg-icon.svg';
+
+const items  = [
+	{
+		image: Icon1, 
+    title: 'Modernize Security',
+    text: 'Centralized control and automatic mTLS secure app traffic and increase resilience.'
+  },
+  {
+		image: Icon2, 
+    title: 'Zero Trust Approach',
+    text: 'Strengthen security posture and prevent data leaks with mTLS for microservices.'
+  },
+  {
+		image: Icon3, 
+    title: 'Simplify Kubernetes Management',
+    text: 'Enhance logging, tracing, and monitoring through a service mesh to resolve issues faster.'
+  },
+  {
+		image: Icon4, 
+    title: 'Speed Time to Value',
+    text: 'Seamless CI/CD integration and consistent configuration using declarative settings.'
+  }
+]
+---
+<Grid>
+  <div class={styles.solves}>
+    <Picture 
+      alt="bg" 
+      srcMobile={imageMobile.src}
+      srcTablet={imageTablet.src}
+      srcDesktop={imageDesktop.src}
+      class={styles.solves__bg}
+     />
+    <h5 class={clsx(
+      'text__heading--h5',
+      'text__heading--h3-lg',
+      'text__heading--h4-md',
+      styles.heading
+      )}
+    >
+    Why Tetrate is the Smart 
+    <br>
+    Choice for Financial Services
+    </h5>
+    <div class={styles.container}>
+      {items.map((item) => (
+        <div class={styles.item}>
+          <div class={styles.image}>
+            {<item.image />}
+            <div class={styles.image__bg}>
+              <BgIcon />
+            </div>
+          </div>
+          <div class={styles.content}>
+            <h6 class=
+              'text__body--18-medium
+              text__heading--h6-lg
+              text__body--18-medium-md'
+            >
+              {item.title}
+            </h6>
+            <p class=
+              'text__body--14
+              text__body--16-lg
+              text__body--14-md'
+             >
+              {item.text} 
+            </p>
+          </div>
+        </div>    
+      ))}
+    </div>
+  </div>
+</Grid>
+		
+    
+  

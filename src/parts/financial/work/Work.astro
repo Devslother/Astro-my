@@ -1,0 +1,117 @@
+---
+import styles from './Work.module.css'
+import clsx from "clsx";
+import Picture from '../../../components/Picture.astro';
+import imageMobile from '../../../assets/financial/work/card-mobile.svg';
+import imageTablet from '../../../assets/financial/work/card-tablet.svg';
+import imageDesktop from '../../../assets/financial/work/card-desktop.svg';
+import Icon1 from '../../../assets/financial/work/icon1.svg';
+import Icon2 from '../../../assets/financial/work/icon2.svg';
+import Icon3 from '../../../assets/financial/work/icon3.svg';
+import Button from '../../../components/Button/Button.astro';
+import Icon from '../../../components/icon/Icon.astro';
+
+const workNavigation = [
+  {
+    icon: Icon1,
+    title: "Enhance Cyber Resilience",
+    text: "Proactive operations and faster diagnostics to minimize breach impact.",
+  },
+  {
+    icon: Icon2,
+    title: "Protect Your Data",
+    text: "Ensure data confidentiality and integrity in compliance with NIST, FedRAMP, FIPS, and GDPR.",
+  },
+  {
+    icon: Icon3,
+    title: "Enable Zero Trust At Scale",
+    text: 'Enforce security policies and validate identities for every <br class="u-hidden u-visible--md u-visible--lg" /> service-to-service communication',
+  }
+];
+---
+
+<div class={styles.work}>
+  <h5 class={clsx(
+    'text__heading--h5',
+    'text__heading--h2-lg',
+    'text__heading--h4-md',
+    styles.heading
+  )}>
+      Embrace a Zero Trust  
+      <br class="u-visible u-hidden--md u-hidden--lg" />  
+      Security Model
+  </h5>
+  <div class={styles.workcard}>
+    <Picture 
+      alt="bg" 
+      srcMobile={imageMobile.src}
+      srcTablet={imageTablet.src}
+      srcDesktop={imageDesktop.src}
+      class={styles.workcard__image}
+    />
+    <div class={styles.workcard__content}>
+      <div class={styles.workcard__description}>
+        <h6 class={clsx(
+          'text__heading--h6',
+          'text__heading--h4-lg',
+          'text__heading--h6-md'
+        )}>
+          Zero Trust: Never Trust,
+          <br class="u-visible u-visible--md u-hidden--lg" />  
+          Always Verify
+        </h6>
+        <p class={clsx(
+          'text__body--14',
+          'text__body--14-lg',
+          'text__body--14-md'
+        )}
+        >
+          Tetrate's solution follows NIST 800-207A standards, using identity-based segmentation and least privileged access for every decision via the service mesh. 
+        </p>
+      </div>
+      <div class={styles.textcard__container}>
+        {workNavigation.map((item) => (
+          <div class={styles.textcard}>
+            <div>
+              <item.icon />
+            </div>
+            <div class={styles.text}>
+              <h6 class={clsx(
+                'text__body--14-semibold',
+                'text__body--14-semibold-lg',
+                'text__body--14-semibold-md'
+              )}>
+                {item.title}
+              </h6>
+              <p class={clsx(
+                'text__body--14',
+                'text__body--14-lg',
+                'text__body--14-md'
+              )} set:html={item.text} />
+            </div>           
+          </div>
+        ))} 
+      </div>
+    
+    <Button 
+        variant="tertiary" 
+        size="tert" 
+        href='https://tetrate.io/solutions/zero-trust-security'
+        class={styles.card__btn}
+      >
+        <span 
+          class="text__body--16-semibold" 
+          style={{ color: 'var(--color-black)' }}
+        >
+          Learn More
+        </span>
+        <Icon 
+          name="arrow-right" 
+          width={24} 
+          height={24} 
+          color="var(--color-orange-500)"
+        />
+      </Button> 
+    </div>
+  </div>
+</div>

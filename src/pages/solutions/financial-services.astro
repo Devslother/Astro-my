@@ -1,17 +1,20 @@
 ---
 import Pattern from '../../components/pattern/Pattern.astro';
 import Layout from '../../layouts/Layout.astro';
-import Cta from '../../parts/istio/cta/Cta.astro';
+import Cta from '../../parts/financial/cta/Cta.astro';
 import Hero from '../../parts/financial/hero/Hero.astro';
-import Products from '../../parts/istio/products/Products.astro';
-import Solves from '../../parts/istio/solves/Solves.astro';
-
-import Work from '../../parts/istio/work/Work.astro';
+import Products from '../../parts/financial/products/Products.astro';
+import Solves from '../../parts/financial/solves/Solves.astro';
+import Work from '../../parts/financial/work/Work.astro';
+import Resources from '../../parts/financial/resources/Resources.astro';
 ---
 
 <Layout>
 	<Hero />
-
+	<Solves />
 	<Pattern />
-
+	<Products />
+	<Work />
+	<Resources />
+	<Cta />
 </Layout>

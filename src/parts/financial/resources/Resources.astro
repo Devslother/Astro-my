@@ -1,0 +1,108 @@
+---
+import Grid from '../../../components/Grid/Grid.astro';
+import Pattern from '../../../components/pattern/Pattern.astro';
+import styles from './Resources.module.css'
+import clsx from 'clsx';
+import BluePattern from '../../../assets/financial/resources/blue-pattern.svg';
+import GreenPattern from '../../../assets/financial/resources/green-pattern.svg';
+import imageMobile from '../../../assets/agent/products/products-bg-mobile.svg';
+import imageTablet from '../../../assets/agent/products/products-bg-tablet.svg';
+import imageDesktop from '../../../assets/agent/products/products-bg-desktop.svg';
+import Picture from '../../../components/Picture.astro';
+import Button from '../../../components/Button/Button.astro';
+import Icon from '../../../components/icon/Icon.astro';
+
+const cards  = [
+	{
+		image: BluePattern, 
+    title: 'Blog',
+    titleColor: 'var(--color-blue-500)',
+    item: 'Simplify Kubernetes Security with the Service Mesh', 
+    buttonLink: 'https://tetrate.io/blog/simplify-kubernetes-security-with-the-service-mesh', 
+  },
+  {
+    image: GreenPattern, 
+    title: 'Whitepaper',
+    titleColor: 'var(--color-green-500)',
+    item: 'IDC Spotlight: Meeting the Need for Modern Application Networking', 
+    buttonLink: 'https://tetrate.io/resource/meeting-the-need-for-modern-application-networking', 
+  },
+  {
+    image: GreenPattern, 
+    title: 'Whitepaper',
+    titleColor: 'var(--color-green-500)',
+    item: 'Tetrate Service Bridge Application Security Architecture', 
+    buttonLink: 'https://tetrate.io/resource/tetrate-service-bridge-application-security-architecture', 
+  }
+]
+---
+
+<div class={styles.resources}>
+  <Picture 
+    alt="bg" 
+    srcMobile={imageMobile.src}
+    srcTablet={imageTablet.src}
+    srcDesktop={imageDesktop.src}
+    class={styles.resources__bg}
+   />
+  <h2 class={clsx(
+      'text__heading--h5',
+      'text__heading--h2-lg',
+      'text__heading--h4-md',
+      styles.resources__heading
+  )}>
+    Additional Resources
+  </h2>
+  <Grid variant="blue">
+    <div class={styles.card__container}>
+      {cards.map((card) => (
+       <div class={styles.card}>
+         <div class={styles.card__image}>
+          {<card.image />}
+        </div>
+        <div class={styles.content}>
+          <h5 
+            class={clsx(
+              'text__body--14-medium-uppercase',
+              'text__body--14-medium-uppercase-md',
+              'text__body--14-medium-uppercase-lg',
+              styles.title
+            )}
+            style={{ color: card.titleColor }}
+          >
+            {card.title}
+          </h5>
+          <p class={clsx(
+            'text__heading--h6',
+            'text__heading--h5-lg',
+            'text__heading--h5-md',
+            styles.item
+          )}>
+            {card.item}
+          </p>
+        </div>
+      <Button 
+        variant="tertiary" 
+        size="tert" 
+        href='https://tetrate.io/solutions/zero-trust-security'
+        class={styles.card__btn}
+      >
+        <span 
+          class="text__body--16-semibold" 
+          style={{ color: 'var(--color-gray-100)' }}
+        >
+          Read More
+        </span>
+        <Icon 
+          name="arrow-right" 
+          width={24} 
+          height={24} 
+          color="var(--color-orange-500)"
+        />
+      </Button> 
+       </div>
+      ))}
+    </div>
+  </Grid> 
+  <Pattern variant="blue" size="default" />
+</div>
