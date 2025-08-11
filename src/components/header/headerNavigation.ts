@@ -29,21 +29,21 @@ export const headerNavigation: THeaderMenu[] = [
             name: "Agent Operations Director",
             description:
               "Runtime visibility and governance for ML infrastructure teams to maximize GenAI ROI",
-            url: "/products/agent-operations-director/",
+            url: "/products/agent-operations-director",
           },
           {
             icon: "products-app-gateway",
             name: "Tetrate Application Gateway",
             description:
               "Intent-driven ingress traffic orchestration across clouds, on-prem environments, K8s, and VMs",
-            url: "/products/tetrate-application-gateway/",
+            url: "/products/tetrate-application-gateway",
           },
           {
             icon: "products-tetrate-service-bridge",
             name: "Tetrate Service Bridge",
             description:
               "Service mesh management for multi-cluster, multi-tenant developer platforms at massive scale",
-            url: "/products/tetrate-service-bridge/",
+            url: "/products/tetrate-service-bridge",
           },
         ],
       },
@@ -55,21 +55,21 @@ export const headerNavigation: THeaderMenu[] = [
             name: "Tetrate Istio Subscription",
             description:
               "Stable releases, production support, CVE scanner, and configuration analysis in one package",
-            url: "/products/tetrate-istio-subscription/",
+            url: "/products/tetrate-istio-subscription",
           },
           {
             icon: "products-tetrate-istio-subscription-plus",
             name: "Tetrate Istio Subscription+",
             description:
               "Powerful multi-cluster Istio troubleshooting for platform teams, safe self-service diagnostics for app",
-            url: "/products/tetrate-istio-subscription-plus/",
+            url: "/products/tetrate-istio-subscription-plus",
           },
           {
             icon: "products-tetrate-enterprise-envoy-gateway",
             name: "Tetrate Enterprise Gateway",
             description:
               "Stable releases, expert migration guidance, and production support for Envoy Gateway adopters",
-            url: "/products/tetrate-enterprise-gateway-for-envoy/",
+            url: "/products/tetrate-enterprise-gateway-for-envoy",
           },
         ],
       },
@@ -86,42 +86,42 @@ export const headerNavigation: THeaderMenu[] = [
             name: "Financial Services",
             description:
               "Build secure, scalable cloud-native applications and innovate faster with the service mesh",
-            url: "/solutions/financial-services/",
+            url: "/solutions/financial-services",
           },
           {
             icon: "solutions-fips",
             name: "FIPS",
             description:
               "FIPS-compliant Istio for compliance, faster FedRAMP approval, and security",
-            url: "/solutions/fips-140-2-validated-service-mesh/",
+            url: "/solutions/fips-140-2-validated-service-mesh",
           },
           {
             icon: "solutions-government",
             name: "Government",
             description:
               "Tetrate’s FIPS-validated mesh ensures modernization, risk mitigation, and compliance",
-            url: "/solutions/government/",
+            url: "/solutions/government",
           },
           {
             icon: "solutions-kubernetes",
             name: "Kubernetes",
             description:
               "Seamlessly implement policies for security, identity, traffic management",
-            url: "/solutions/manage-kubernetes-complexity/",
+            url: "/solutions/manage-kubernetes-complexity",
           },
           {
             icon: "solutions-kubernetes-ingress",
             name: "Kubernetes Ingress",
             description:
               "HTTP/S traffic routing mechanism for exposing servises within a Kubernetes cluster",
-            url: "/solutions/manage-kubernetes-ingress-complexity/",
+            url: "/solutions/manage-kubernetes-ingress-complexity",
           },
           {
             icon: "solutions-zero-trust",
             name: "Zero Trust Security",
             description:
               "Secure multi-cloud microservices with Zero Trust to protect apps, users, and business",
-            url: "/solutions/zero-trust-security/",
+            url: "/solutions/zero-trust-security",
           },
         ],
       },
@@ -133,22 +133,22 @@ export const headerNavigation: THeaderMenu[] = [
     categories: [
       {
         title: "Resources",
-        url: "/resources/",
+        url: "/resources",
         items: [
           {
             icon: "learn-blog",
             name: "Blog",
-            url: "/blog/",
+            url: "/blog",
           },
           {
             icon: "learn-zero-trust-center",
             name: "Zero Trust Center",
-            url: "/resources/",
+            url: "/resources",
           },
           {
             icon: "learn-documentation",
             name: "Documentation",
-            url: "https://docs.tetrate.io/",
+            url: "https://docs.tetrate.io",
           },
           {
             icon: "learn-faq",
@@ -173,54 +173,54 @@ export const headerNavigation: THeaderMenu[] = [
           {
             icon: "learn-all",
             name: "All Resources",
-            url: "/resources/",
+            url: "/resources",
           },
           {
             icon: "company-about-us",
             name: "Tetrate Academy",
-            url: "https://academy.tetrate.io/",
+            url: "https://academy.tetrate.io",
           },
         ],
       },
       {
         title: "Learning Center",
-        url: "/learning-center/",
+        url: "/learn",
         items: [
           {
             name: "Envoy Proxy",
             description:
               "Get started with the standard data plane for cloud-native applications.",
-            url: "/learn/envoy-proxy/",
+            url: "/learn/envoy-proxy",
           },
           {
             name: "Envoy Gateway",
             description:
               "Build scalable and resilient apps using Envoy as an application gateway.",
-            url: "/envoy-gateway/",
+            url: "/envoy-gateway",
           },
           {
             name: "Istio Service Mesh",
             description:
               "Connect, manage and secure apps with the industry standard service mesh.",
-            url: "/learn/istio-service-mesh/",
+            url: "/learn/istio-service-mesh",
           },
           {
             name: "FIPS",
             description:
               "Learn about the security standards for apps runnng in FedRAMP environments.",
-            url: "/learn/what-is-fips/",
+            url: "/learn/what-is-fips",
           },
           {
             name: "Mutual TLS (mTLS)",
             description:
               "Ensure secure communication between components of a Zero Trust architecture.",
-            url: "/learn/what-is-mtls/",
+            url: "/learn/what-is-mtls",
           },
           {
             name: "Observability",
             description:
               "Observe app behavior with telemetry from logs, metrics, traces and events.",
-            url: "/learn/what-is-observability/",
+            url: "/learn/what-is-observability",
           },
         ],
       },
@@ -232,37 +232,37 @@ export const headerNavigation: THeaderMenu[] = [
             name: "API Gateway",
             description:
               "Simplify app traffic management and improve security with a single point of entry.",
-            url: "/api-gateway/",
+            url: "/api-gateway",
           },
           {
             name: "Kubernetes Gateway API",
             description:
               "Manage K8s ingress with more power than the old Ingress API.",
-            url: "/learn/what-is-kubernetes-gateway-api/",
+            url: "/learn/what-is-kubernetes-gateway-api",
           },
           {
             name: "Microservices",
             description:
               "Gain agility with services that are separately developed, deployed and scaled.",
-            url: "/learn/what-are-microservices/",
+            url: "/learn/what-are-microservices",
           },
           {
             name: "Platform Team",
             description:
               "Improve application infrastructure with a dedicated team.",
-            url: "/learn/what-is-platform-team/",
+            url: "/learn/what-is-platform-team",
           },
           {
             name: "Wasm",
             description:
               "Write portable code in multiple languages compiled to a common bytecode format.",
-            url: "/learn/what-is-wasm/",
+            url: "/learn/what-is-wasm",
           },
           {
             name: "Zero Trust Architecture",
             description:
               "Improve security for all communication, regardless of network location.",
-            url: "/learn/what-is-zero-trust-architecture/",
+            url: "/learn/what-is-zero-trust-architecture",
           },
         ],
       },

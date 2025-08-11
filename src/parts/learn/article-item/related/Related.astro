@@ -1,0 +1,90 @@
+---
+import styles from './Related.module.css'
+import clsx from 'clsx';
+import BluePattern from '@/assets/financial/resources/blue-pattern.svg';
+import GreenPattern from '@/assets/financial/resources/green-pattern.svg';
+import YellowPattern from '@/assets/financial/resources/yellow-pattern.svg';
+import imageMobile from '@/assets/agent/products/products-bg-mobile.svg';
+import imageTablet from '@/assets/agent/products/products-bg-tablet.svg';
+import imageDesktop from '@/assets/agent/products/products-bg-desktop.svg';
+import Grid from '@/components/Grid/Grid.astro';
+import Pattern from '@/components/pattern/Pattern.astro';
+import Picture from '@/components/Picture.astro';
+import Button from '@/components/Button/Button.astro';
+import Icon from '@/components/icon/Icon.astro';
+
+const { related = [] } = Astro.props;
+---
+
+<div class={styles.related}>
+  <Picture 
+    alt="bg" 
+    srcMobile={imageMobile.src}
+    srcTablet={imageTablet.src}
+    srcDesktop={imageDesktop.src}
+    class={styles.bg}
+   />
+  <h2 class={clsx(
+      'text__heading--h5',
+      'text__heading--h2-lg',
+      'text__heading--h4-md',
+      styles.heading
+  )}>
+    Related articles
+  </h2>
+  <Grid variant="blue">
+    <div class={styles.container}>
+      {related.map((card, index) => {
+        const patterns = [YellowPattern, BluePattern, GreenPattern];
+        const PatternIcon = patterns[index % patterns.length];
+      
+        return (
+       <div class={styles.card}>
+         <div class={styles.image}>
+          {<PatternIcon />}
+        </div>
+        <div class={styles.content}>
+          <h5 
+            class={clsx(
+              'text__body--14',
+              'text__body--14-md',
+              'text__body--14-lg',
+              styles.title
+            )}
+          >
+            {card.data.title}
+          </h5>
+          <p class={clsx(
+            'text__heading--h6',
+            'text__heading--h5-lg',
+            'text__heading--h5-md',
+            styles.item
+          )}>
+            {card.data.excerpt}
+          </p>
+        </div>
+      <Button 
+        variant="tertiary" 
+        size="tert" 
+        url={`/learn/${card.slug}`}
+        class={styles.btn}
+      >
+        <span 
+          class="text__body--16-semibold" 
+          style={{ color: 'var(--color-gray-100)' }}
+        >
+          Read More
+        </span>
+        <Icon 
+          name="arrow-right" 
+          width={24} 
+          height={24} 
+          color="var(--color-orange-500)"
+        />
+      </Button> 
+       </div>
+      )})}
+    </div>
+  </Grid> 
+  <Pattern variant="blue" size="default" />
+</div>

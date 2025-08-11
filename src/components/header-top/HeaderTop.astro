@@ -1,11 +1,11 @@
 ---
-import Button from '../Button/Button.astro';
-import Icon from '../icon/Icon.astro';
+import Button from '@/components/Button/Button.astro';
+import Icon from '@/components/icon/Icon.astro';
 import styles from './HeaderTop.module.css';
 import clsx from 'clsx';
-import imageMobile from '../../assets/header-top/header-mobile.svg';
-import imageTablet from '../../assets/header-top/header-tablet.svg';
-import imageDesktop from '../../assets/header-top/hesder-desktop.svg';
+import imageMobile from '@/assets/header-top/header-mobile.svg';
+import imageTablet from '@/assets/header-top/header-tablet.svg';
+import imageDesktop from '@/assets/header-top/hesder-desktop.svg';
 import Picture from '../Picture.astro';
 ---
 <div class={styles.headertop} id="headertop">
@@ -50,7 +50,13 @@ import Picture from '../Picture.astro';
     </Button>
   </div>
   <button class={styles.closebtn} id="closeBtn">
-    <Icon name="close" width={24} height={24} color="var(--color-white)" />
+    <Icon 
+      name="close" 
+      width={24} 
+      height={24} 
+      color="var(--color-white)"
+      class='close-headertop'
+     />
   </button>
 </div>
 

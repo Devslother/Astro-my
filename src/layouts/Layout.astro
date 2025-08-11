@@ -3,6 +3,14 @@ import Footer from '../components/footer/Footer.astro';
 import HeaderTop from '../components/header-top/HeaderTop.astro';
 import Header from '../components/header/Header.astro';
 import "../styles/global.css";
+
+
+const {
+	title = "Tetrate: Safe, Fast, and Profitable AI for the Enterprise",
+	description = "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway.",
+	ogImage = "/og-image.png",
+	bodyClass = "",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -15,12 +23,14 @@ import "../styles/global.css";
 		<link rel="shortcut icon" href="favicon/favicon.ico" />
 		<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
 		<meta name="generator" content={Astro.generator} />
-		<title>
-			Tetrate: Application-aware networking for all Workloads, in all
-			Environments
-		</title>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:type" content="website" />
 	</head>
-	<body>
+	<body class={bodyClass}>
 		<HeaderTop />
 		<Header />
 		<slot />

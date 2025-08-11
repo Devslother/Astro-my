@@ -1,0 +1,138 @@
+---
+import BackButton from '@/components/Button/BackButton.astro';
+import Grid from '@/components/Grid/Grid.astro';
+import Pattern from '@/components/pattern/Pattern.astro';
+import styles from './Article.module.css';
+import clsx from "clsx";
+import TableOfContents from './toc/TableOfContents.astro';
+import ShareButton from '@/components/Button/ShareButton.astro';
+import Figure from './figure/Figure.astro';
+import Quote from './quote/Quote.astro';
+import Admonition from './admonition/Admonition.astro';
+import InlinePromo from './inlinepromo/InlinePromo.astro';
+import Icon from '@/components/icon/Icon.astro';
+import Code from './code/Code.astro';
+import Related from './related/Related.astro';
+import type { CollectionEntry } from "astro:content";
+
+import { getCollection } from "astro:content";
+import Cta from '@/parts/home/cta/Cta.astro';
+const allArticles = (await getCollection("learn")).filter((a) => a.id.startsWith("clean/"));
+
+const { article, headings } = Astro.props;
+const currentSlug = article.slug || article.data.slug;
+const { Content } = await article.render();
+const { title, excerpt, featuredImage, date, author, authorImage } = article.data
+const decodedTitle = decodeURIComponent(title);
+
+const categoriesRaw = article.data.categories;
+const categories = Array.isArray(categoriesRaw)
+  ? categoriesRaw
+  : typeof categoriesRaw === "string"
+    ? categoriesRaw.split(",").map((cat) => cat.trim()).filter(Boolean)
+    : [];
+
+const related = allArticles
+	.filter((entry: CollectionEntry<"learn">) => entry.data.slug !== currentSlug && entry.data.categories?.length)
+	.filter((entry: CollectionEntry<"learn">) => {
+		return entry.data.categories.some((cat: string) => categories.includes(cat));
+	})
+	.slice(0, 3);
+---
+<article class={styles.article}>
+<Grid>
+  <div class={styles.container}>
+    <div class={styles.btn}>
+			<BackButton fallback="/learn" />
+		</div>
+
+    <TableOfContents headings={headings} />
+
+    <div class={styles.post}>
+      <div class={styles.header}>
+        <h1 class={clsx(
+          'text__heading--h4',
+          'text__heading--h2-lg',
+          'text__heading--h3-md',
+          styles.title
+        )}>
+          {decodedTitle}
+        </h1>
+        {excerpt && (
+					<p class={styles.excerpt}>
+						{excerpt}
+					</p>
+				)}
+
+        <div class={styles.meta}>
+          <div class={styles.authorBlock}>
+            {authorImage && (
+              <img src={authorImage} alt={author} class={styles.authorAvatar} />
+            )}
+            {author && 
+              <div class={clsx(
+                'text__body--14-medium',
+                'text__body--14-medium-lg',
+                'text__body--14-medium-md',
+                styles.authorName
+              )}>
+                {author}
+              </div>
+            }
+            {date && 
+                <div class={clsx(
+                'text__body--14',
+                'text__body--14-lg',
+                'text__body--14-md',
+                styles.date
+              )}>
+              {new Date(date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+              })}
+              </div>
+            }
+          </div>
+        
+          <div class={styles.share}>
+            <ShareButton
+              client:load
+              url={Astro.url.href}
+              title={title}
+            />
+          </div>
+        </div>
+        
+        {featuredImage && (
+          <div class={styles.featuredImage}>
+            <Figure source={featuredImage} width={"100%"} lightbox={false} alt="Featured Image" />
+          </div>
+        )}
+      </div>
+
+      <TableOfContents className={styles.tocMobile} headings={headings} />
+
+      <div class={styles.content}>
+        <Content
+          components={{
+            Quote,
+            Admonition,
+            Code,
+            Icon,
+            Figure,
+            InlinePromo,
+          }}
+        />
+      </div>
+    </div>    
+  </div>
+</Grid>
+
+{related.length > 0 &&
+	<Pattern />
+	<Related related={related} />
+}
+
+<Cta />
+</article>

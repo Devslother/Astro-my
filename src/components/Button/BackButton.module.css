@@ -1,0 +1,13 @@
+.btn {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  transition: color 0.3s;
+  color: var(--color-black);
+}
+
+.btn:hover {
+  color: var(--color-gray-800);
+}

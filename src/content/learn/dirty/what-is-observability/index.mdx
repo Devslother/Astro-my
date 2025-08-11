@@ -1,0 +1,337 @@
+---
+title: "what is observability"
+slug: "what-is-observability"
+date: 2025-01-01
+categories: ["TODO"]
+---
+
+Tetrate & Bloomberg Announce the First Release of Envoy AI Gateway
+
+[**Learn more ›**](/blog/the-beginning-of-a-scalable-genai-future-the-first-release-of-envoy-ai-gateway) [_close_](#)
+
+[Skip to content](#main) [![Tetrate](/wp-content/uploads/2023/03/tetrate-logo-light.svg) ![Tetrate](/wp-content/uploads/2023/03/tetrate-logo-dark.svg)
+
+Tetrate Enterprise ready service mesh
+
+](/)
+
+*   [Why Tetrate](/why-tetrate/)
+    *   [Our Customers](/our-customers/)
+*   [Products](#)
+    
+    ### Products
+    
+    [Agent Operations Director]( /products/agent-operations-director)
+    
+    Seamless visibility and cost management for ML infrastructure teams to maximize GenAI ROI.
+    
+    [Tetrate Service Bridge](/tetrate-service-bridge/)
+    
+    Enterprise Application Networking and Security Platform.
+    
+    [Why Tetrate Service Bridge](/tetrate-service-bridge/why-tetrate-service-bridge/) [How Tetrate Service Bridge Works](/tetrate-service-bridge/how-tetrate-service-bridge-works/)
+    
+    [Tetrate Istio Subscription](/tetrate-istio-subscription/)
+    
+    CVE free, FIPS-verified, extended enterprise support for Istio with TIS. Add global service registry & troubleshooting with TIS+
+    
+    [TIS: Extended Enterprise Support](/tetrate-istio-subscription/) [TIS+: Global Istio Troubleshooting](/tetrate-istio-subscription-plus)
+    
+    [Pricing](/pricing-request/)
+    
+    Get the details about our flexible pricing.
+    
+    [Tetrate Enterprise Gateway for Envoy](/tetrate-enterprise-gateway-for-envoy/)
+    
+    The enterprise-ready distribution of Envoy Gateway
+    
+    [Get Istio Support](/istio-support-request/)
+    
+    Get the help you need to run your service mesh with confidence.
+    
+*   [Solutions](#)
+    *   [Financial Services](/tetrate-financial-services-solutions/)
+    *   [FIPS](/fips-140-2-validated-service-mesh/)
+    *   [Government](/government/)
+    *   [Kubernetes](/manage-kubernetes-complexity/)
+    *   [Zero Trust](/tetrate-zero-trust-security/)
+*   [Learn](#)
+    
+    ### Learn
+    
+    [Resources _arrow\_forward_](/resources/)
+    
+    [Blog](/blog/)
+    
+    [Zero Trust Center](/resources/)
+    
+    [Documentation](https://docs.tetrate.io/)
+    
+    [FAQ](/faq/whats-the-difference-between-tetrate-products-and-istio/)
+    
+    [Ebooks & Reports](/resources/?fwp_resource_categories=ebooks-reports)
+    
+    [White Papers](/resources/?fwp_resource_categories=whitepapers)
+    
+    [Video](/resources/?fwp_resource_categories=video)
+    
+    [All](/resources/)
+    
+    [Tetrate Academy _arrow\_forward_](https://academy.tetrate.io/)
+    
+    [Learning Center _arrow\_forward_](/learning-center/)
+    
+    [Envoy Proxy](/learn/envoy-proxy/)
+    
+    Get started with the standard data plane for cloud-native applications.
+    
+    [API Gateway](/api-gateway/)
+    
+    Simplify app traffic management and improve security with a single point of entry.
+    
+    [Envoy Gateway](/envoy-gateway/)
+    
+    Build scalable and resilient apps using Envoy as an application gateway.
+    
+    [Kubernetes Gateway API](/learn/what-is-the-kubernetes-gateway-api/)
+    
+    Manage K8s ingress with more power than the old Ingress API.
+    
+    [Istio Service Mesh](/learn/istio-service-mesh/)
+    
+    Connect, manage and secure apps with the industry standard service mesh.
+    
+    [Microservices](/learn/what-are-microservices/)
+    
+    Gain agility with services that are separately developed, deployed and scaled.
+    
+    [FIPS](/learn/fips/what-is-fips/)
+    
+    Learn about the security standards for apps running in FedRAMP environments.
+    
+    [Platform Team](/learn/what-is-platform-team)
+    
+    Improve application infrastructure with a dedicated team.
+    
+    [Mutual TLS (mTLS)](/learn/what-is-mtls/)
+    
+    Ensure secure communication between components of a Zero Trust architecture.
+    
+    [Wasm](/learn/what-is-wasm/)
+    
+    Write portable code in multiple languages compiled to a common bytecode format.
+    
+    [Observability](/learn/what-is-observability/)
+    
+    Observe app behavior with telemetry from logs, metrics, traces and events.
+    
+    [Zero Trust Architecture](/learn/what-is-zero-trust-architecture/)
+    
+    Improve security for all communication, regardless of network location.
+    
+*   [Events](/events/)
+*   [Company](#)
+    *   [About Us](/about-us/)
+    *   [Leadership](/about-us/#leadership)
+    *   [Investors](/about-us/#investors)
+    *   [Partners](/partners-and-integrations/)
+    *   [Newsroom](/press/)
+    *   [Careers](/about-us/#careers)
+    *   [Get Support](/about-us/#support)
+    *   [Contact Us](/about-us/#support)
+
+[Get Demo](/demo-request/)
+
+[Pricing](/pricing-request/)
+
+[Home](/)
+
+|
+
+[Learning Center](/learning-center/)
+
+|
+
+What Is Observability?
+
+# What Is Observability?
+
+### Article content
+
+*   [Overview](#h-overview)
+*   [The Three Pillars of Observability](#h-the-three-pillars-of-observability)
+*   [Tools and Techniques for Implementing Observability](#h-tools-and-techniques-for-implementing-observability)
+*   [What's the Difference Between Monitoring and Observability?](#h-what-s-the-difference-between-monitoring-and-observability)
+*   [The Role of Apache Skywalking in Observability](#h-the-role-of-apache-skywalking-in-observability)
+*   [The Role of Service Mesh in Observability](#h-the-role-of-service-mesh-in-observability)
+
+## Overview
+
+Observability refers to the ability to gain insight into the internal state of a system by observing its external behavior. In other words, it’s the ability to understand what’s happening inside a complex system by looking at its outputs, without necessarily needing to understand the system’s internal workings.
+
+In software engineering, observability is the ability to monitor and understand the behavior of distributed systems, microservices, or applications through the collection, processing, and visualization of telemetry data such as logs, metrics, traces, and events.
+
+Observability is essential for engineers to maintain and operate complex systems, troubleshoot issues, and ensure high availability and performance. Without observability, it’s difficult to understand what’s happening inside a system, leading to longer resolution times and decreased reliability.
+
+## The Three Pillars of Observability
+
+Observability for distributed software applications is typically achieved through the collection and analysis of three types of data: logs, metrics, and traces. Let’s take a closer look at each of these pillars.
+
+### Logs
+
+Logs are essentially records of events that occur within a system, such as user requests, errors, or system events. They provide a detailed view of system behavior, allowing engineers and operators to identify patterns and diagnose issues quickly.
+
+### Metrics
+
+Metrics are numerical measurements of system performance, such as CPU usage or network traffic. They provide a high-level view of system behavior, enabling engineers and operators to identify trends and anomalies.
+
+### Traces
+
+Traces are a record of the path of a user request as it moves through a system. They enable engineers and operators to gain a deep understanding of how different components of a system are interacting, allowing for more efficient problem solving.
+
+Together, logs, metrics, and traces provide a comprehensive view of system behavior, enabling engineers and operators to gain a deep understanding of how their systems operate.
+
+## Tools and Techniques for Implementing Observability
+
+Implementing observability requires the use of specialized tools and techniques that enable the collection and analysis of the data types discussed above. Here are some of the most commonly used tools and techniques in the observability space:
+
+### Logging Frameworks
+
+Logging frameworks enable the collection and analysis of logs generated by a system. They allow engineers and operators to define what types of events should be logged and how they should be formatted, as well as providing tools for searching and analyzing log data.
+
+Some popular logging frameworks include ELK Stack, Graylog, and Fluentd.
+
+### Metrics Collection Tools
+
+Metrics collection tools enable the collection and analysis of numerical measurements generated by a system. They typically provide real-time dashboards that display key metrics such as CPU usage, memory usage, and network traffic.
+
+Some popular metrics collection tools include Prometheus, Graphite, and InfluxDB.
+
+### Tracing Tools
+
+Tracing tools enable the collection and analysis of traces generated by a system. They provide a detailed view of how a user request moves through a system, including any microservices or other components it interacts with.
+
+Some popular tracing tools include Jaeger, Zipkin, and OpenTelemetry.
+
+### Apache SkyWalking
+
+In addition to point solutions mentioned above, broader observability solutions like Apache SkyWalking are also available. SkyWalking is designed to be a more comprehensive observability platform that includes tracing as one of its core features. SkyWalking also includes a broader range of features beyond tracing, such as metrics collection and log analysis.
+
+## What’s the Difference Between Monitoring and Observability?
+
+Monitoring involves tracking and measuring predefined metrics or events related to the performance or behavior of a system. For example, a monitoring system might track CPU usage, network traffic, or the number of requests being processed per second. The goal of monitoring is to provide a high-level overview of system behavior, identify trends or anomalies, and trigger alerts or notifications when certain thresholds are exceeded.
+
+Observability, on the other hand, is a more holistic approach that focuses on the ability to understand and analyze a system based on its external outputs. Rather than being limited to a predefined set of metrics or events, observability involves collecting and analyzing a wide range of data points, including those that may not have been previously considered important or relevant. The goal of observability is to gain a deep understanding of system behavior, identify the root cause of issues or anomalies, and provide actionable insights for improving system performance and reliability.
+
+## The Role of Apache Skywalking in Observability
+
+Apache SkyWalking is an open-source application performance monitor (APM) that can play an important role in enabling observability in modern applications. SkyWalking provides a comprehensive set of features for monitoring the performance of distributed systems, including tracing, metrics collection, and log analysis.
+
+Observability is a holistic approach to understanding system behavior that involves collecting and analyzing a wide range of data points, including logs, metrics, and traces. Apache SkyWalking is designed to provide visibility into many of these data points, particularly those related to application performance.
+
+One of the key features of Apache SkyWalking is its distributed tracing capability, which enables teams to track the flow of requests through their systems and identify bottlenecks or issues that may be impacting performance. SkyWalking also supports the collection of metrics related to application performance, such as response times, error rates, and resource utilization, as well as the analysis of log data to identify patterns or anomalies.
+
+In addition to these features, Apache SkyWalking is highly configurable and supports a wide range of programming languages and frameworks, making it a versatile tool for monitoring applications across different technology stacks. It also supports integrations with other monitoring and observability tools, such as Prometheus and Grafana, to provide a more comprehensive view of system behavior.
+
+## The Role of Service Mesh in Observability
+
+A service mesh is a dedicated infrastructure layer that provides connectivity and security for microservices within a distributed system. It can play an important role in enabling observability for such systems.
+
+One of the key benefits of a service mesh is that it can provide visibility into the interactions between microservices. By capturing data related to requests, responses, and other interactions between services, a service mesh can provide valuable insights into the behavior of a system. This information can be used to improve system performance, identify issues or anomalies, and troubleshoot problems as they arise.
+
+In addition, a service mesh can provide a centralized location for collecting and analyzing data related to the performance of microservices. This can include metrics such as response times, error rates, and resource utilization, as well as log data related to specific transactions or events. By providing a comprehensive view of system behavior, a service mesh can enable effective observability and help ensure the reliability, scalability, and maintainability of distributed systems.
+
+Some popular service mesh platforms that offer observability features include Istio, Linkerd, and Consul. These platforms provide a range of tools and techniques for collecting and analyzing data related to system behavior, and can be integrated with other observability tools to provide a complete view of system performance.
+
+Enterprise service mesh offerings like Tetrate Service Bridge can help provide unified and consistent observability signals across a fleet of applications in multiple clusters, clouds, and on premises.
+
+*   [](https://www.facebook.com/share.php?u=https://tetrate.io%2Flearn%2Fwhat-is-observability%2F&title=What+Is+Observability%3F)
+*   [](https://twitter.com/share?url=https://tetrate.io%2Flearn%2Fwhat-is-observability%2F&text=What+Is+Observability%3F&hashtags=innerstunner)
+*   [](https://www.linkedin.com/shareArticle?mini=true&url=https://tetrate.io%2Flearn%2Fwhat-is-observability%2F&title=What+Is+Observability%3F&source=https://tetrate.pm.peppermint.id)
+*   [](https://pinterest.com/pin/create/button/?url=https://tetrate.io%2Flearn%2Fwhat-is-observability%2F&description=What+Is+Observability%3F&media=)
+*   [](mailto:?subject=https://tetrate.io%2Flearn%2Fwhat-is-observability%2F&body=Check out this article I came across https://tetrate.io%2Flearn%2Fwhat-is-observability%2F)
+
+### Related articles
+
+### [Envoy Proxy](/learn/envoy-proxy/)
+
+### [Istio Service Mesh](/learn/istio-service-mesh/)
+
+### [What Is Zero Trust Security?](/learn/what-is-zero-trust-architecture/)
+
+### Other resources
+
+### [Apache SkyWalking in Action](/resource/apache-skywalking-in-action/)
+
+### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
+
+### [Current State and Future of the Istio Service Mesh](/resource/current-state-and-future-of-istio-service-mesh/)
+
+// Get all the H2 elements in the page const headings = document.querySelectorAll( 'h2\[id\]' ); // Get all the menu links in the sidebar const menuLinks = document.querySelectorAll( '.js-table-contents-link' ); // Function to check if an element is in the viewport function isInViewport( element ) { const rect = element.getBoundingClientRect(); return rect.top <= 100; } // Function to highlight the active menu link function highlightActiveLink() { headings.forEach( ( heading ) => { if ( isInViewport( heading ) ) { const id = heading.getAttribute( 'id' ); menuLinks.forEach( ( link ) => { if ( link.getAttribute( 'href' ) === \`#${id}\` ) { link.classList.add( 'active' ); } else { link.classList.remove( 'active' ); } } ); } } ); } // Add a scroll event listener to the window window.addEventListener( 'scroll', highlightActiveLink ); // Add a click event listener to each menu link menuLinks.forEach( ( link ) => { link.addEventListener( 'click', ( event ) => { event.preventDefault(); const id = link.getAttribute( 'href' ).substring( 1 ); const element = document.getElementById( id ); const offset = -100; const y = element.getBoundingClientRect().top + window.pageYOffset + offset; window.scrollTo( { top: y, behavior: 'smooth' } ); } ); } );
+
+*   [Why Tetrate – Kubernetes Ingress and Enterprise Istio Support](/why-tetrate/)
+*   [Our Customers](/our-customers/)
+
+### Products
+
+*   [Tetrate Istio Subscription – Commercial Istio Support](/tetrate-istio-subscription/)
+*   [Tetrate Istio Distro](https://docs.tetrate.io/istio-distro/)
+*   [Tetrate Enterprise Gateway for Envoy](/tetrate-enterprise-gateway-for-envoy/)
+*   [Tetrate Service Express](/tetrate-service-express/)
+*   [Tetrate Service Bridge](/tetrate-service-bridge/)
+
+### Solutions
+
+*   [Financial Services](/tetrate-financial-services-solutions/)
+*   [FIPS](/fips-140-2-validated-service-mesh/)
+*   [Government](/government/)
+*   [Kubernetes Ingress](/learn/kubernetes/what-is-kubernetes-ingress/)
+*   [Zero Trust](/tetrate-zero-trust-security/)
+
+### Learn
+
+*   [Blog](/blog/)
+*   [Resources for Kubernetes Ingress and Enterprise Istio Support](/resources/)
+*   [Learning Center](/learning-center/)
+*   [Tetrate Academy](https://academy.tetrate.io/)
+*   [Documentation](https://docs.tetrate.io/)
+
+*   [Events](/events/)
+*   [What’s New in Envoy Gateway 1.1](/event/whats-new-in-envoy-gateway-1-1/)
+*   [Best Practices For Platform Owners and App Developers](/event/best-practices-for-platform-owners-and-app-developers/)
+
+### Company
+
+*   [About](/about-us/)
+*   [Leadership](/about-us/#leadership)
+*   [Investors](/about-us/#investors)
+*   [Partners](/about-us/#partners)
+*   [Newsroom](/about-us/#newsroom)
+*   [Careers](/about-us/#careers)
+*   [Get Support](/about-us/#support)
+*   [Contact Us](/about-us/#support)
+*   [Legal](/legal/)
+*   [Sitemap](/sitemap/)
+
+#### Subscribe to our newsletter
+
+hbspt.forms.create( { region: "na1", portalId: "7637559", formId: "00c4d697-5b67-4601-ae76-c17d58788613", css: ' \* { opacity: 1; }', cssClass: 'main-wrapper' } );
+
+### Follow us
+
+*   [](https://x.com/tetrateio "twitter")
+*   [](https://www.youtube.com/channel/UCtV2o3OvEH6U3DQ0-_7chNw "youtube")
+*   [](https://www.linkedin.com/company/tetrate/about/ "linkedin")
+*   [](https://github.com/tetratelabs "github")
+*   [](https://join.slack.com/t/tetrate-community/shared_invite/zt-30pdbaw86-w~ny6j4g5s9nR5mA5dVn0Q "slack")
+
+[![Tetrate](/wp-content/uploads/2023/03/tetrate-logo-dark.svg)](/)
+
+Copyright © Tetrate 2025. All rights reserved.
+
+### Footer
+
+*   [Terms of Use](/legal/service-terms-and-conditions-eula/)
+*   [Privacy Policy](/privacy/)
+
+/\* <!\[CDATA\[ \*/ var leadin\_wordpress = {"userRole":"visitor","pageType":"post","leadinPluginVersion":"11.2.0"}; /\* \]\]> \*/ /\* <!\[CDATA\[ \*/ var localizedArray = {"academy\_form\_id":"11"}; /\* \]\]> \*/ /\* <!\[CDATA\[ \*/ !function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":4,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":true,"textOverflow":"scroll","linenumbers":true,"theme":"wpcustom","language":"generic","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN\_RAW}{BTN\_COPY}{BTN\_WINDOW}{BTN\_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console); /\* \]\]> \*/ var \_hsq = window.\_hsq = window.\_hsq || \[\]; \_hsq.push( \['setContentType', 'CONTENT\_TYPE'\] ); \_NBSettings = { apiKey: 'public\_702fb91aa7cddcb9569a3de5ee922699' };

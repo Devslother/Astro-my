@@ -1,0 +1,347 @@
+---
+import Icon from '@/components/icon/Icon.astro';
+import styles from './CategoriesFilter.module.css'
+import clsx from 'clsx';
+import { slugify } from '@/utils/slugify';
+
+
+interface Props {
+	categories: string[];
+	currentCategory?: string;
+}
+
+const { currentCategory, categories } = Astro.props;
+
+const uniqueCategories = [...new Set(
+  categories.flatMap(cat => cat.split(',').map(c => c.trim()))
+)].sort((a, b) => a.localeCompare(b));
+
+const categoryMap = Object.fromEntries(
+  uniqueCategories.map(cat => [slugify(cat), cat])
+);
+
+const slugToLabel = Object.fromEntries(uniqueCategories.map((cat) => [slugify(cat), cat]));
+const selectedLabel = currentCategory ? (slugToLabel[currentCategory] ?? currentCategory) : "Select category";
+---
+
+<div class={styles.filter}>
+  <div class={styles.select}>
+     <button 
+      type="button" 
+      id="category-button" 
+      aria-haspopup="listbox" 
+      aria-expanded="false"
+      class={styles.select__btn}
+     >
+      <span class={clsx(
+        'text__body--16',
+        styles.label,
+        { [styles.selected]: currentCategory }
+      )}>
+        {selectedLabel}
+      </span>
+      <Icon name="arrow" 
+        width={24} 
+        height={24} 
+        color="var(--color-gray-800)"
+        class={styles.arrow}
+       />
+    </button>
+
+    <div 
+      class={styles.dropdown} 
+      id="category-dropdown" 
+      hidden 
+      role="listbox"
+    >
+      {uniqueCategories.map((category: string) => (
+        <a 
+          role="option"
+          class={styles.option}
+          href={`/learn/category/${slugify(category)}`}
+          aria-selected={category === currentCategory}
+          data-value={slugify(category)}
+          data-option
+        >
+          {category}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <button 
+    id="clear-filters" 
+    type="button"
+    style="display: none;"
+    class={clsx(
+      'text__body--16',
+      styles.reset
+    )}
+  >
+    Clear
+    <Icon 
+      name="close" 
+      width={20} 
+      height={20} 
+      color="var(--color-gray-700)"
+     />
+  </button>
+</div>
+
+<script is:inline type="application/json" id="category-map" set:html={JSON.stringify(categoryMap)} />
+
+<script>
+  let currentQuery = "";
+	let currentCategory = "";
+
+  function setupSearchFiltering() {
+		const inputMobile = document.getElementById("search-input-mobile") as HTMLInputElement | null;
+		const inputDesktop = document.getElementById("search-input-desktop") as HTMLInputElement | null;
+
+		if (!inputMobile && !inputDesktop) return;
+
+		function handleSearchEvent(e: Event) {
+      const target = e.target as HTMLInputElement;
+     
+			currentQuery = target.value.toLowerCase();
+			if (e.target === inputMobile && inputDesktop) {
+				inputDesktop.value = target.value;
+			} else if (e.target === inputDesktop && inputMobile) {
+				inputMobile.value = target.value;
+			}
+			filterPosts();
+		}
+
+		function filterPosts() {
+			const cards = document.querySelectorAll("[data-article]");
+			const noPosts = document.querySelector("[data-noposts]")as HTMLElement;
+			const paginationEl = document.querySelector("[data-pagination]")as HTMLElement;
+			const paginationWrapper = document.querySelector("[data-pagination-wrapper]")as HTMLElement;
+
+			let matchesFound = false;
+
+			(cards as NodeListOf<HTMLElement>).forEach((card) => {
+				const title = card.dataset.title ?? "";
+				const slug = card.dataset.slug ?? "";
+				const categories = card.dataset.categories ?? "";
+
+				const matchesSearch =
+					title.includes(currentQuery) ||
+					slug.includes(currentQuery) ||
+					categories.includes(currentQuery);
+
+				const matchesCategory =
+					!currentCategory || categories.includes(currentCategory);
+
+				const shouldShow = matchesSearch && matchesCategory;
+
+				card.style.display = shouldShow ? "" : "none";
+				if (shouldShow) matchesFound = true;
+			});
+
+			if (noPosts) {
+				noPosts.style.display = matchesFound ? "none" : "block";
+			}
+
+			if (paginationEl) {
+				if (currentQuery.length > 0) {
+					paginationEl.style.display = "none";
+				} else {
+					paginationEl.style.display = "";
+				}
+			}
+
+			if (paginationWrapper) {
+				paginationWrapper.style.display = matchesFound ? "" : "none";
+			}
+		}
+
+		if (inputMobile) {
+			inputMobile.removeEventListener("input", handleSearchEvent);
+			inputMobile.addEventListener("input", handleSearchEvent);
+		}
+		if (inputDesktop) {
+			inputDesktop.removeEventListener("input", handleSearchEvent);
+			inputDesktop.addEventListener("input", handleSearchEvent);
+		}
+	}
+
+   (window as any).setupSearchFiltering = setupSearchFiltering;
+
+	document.addEventListener("astro:page-load", () => {
+		setupCategoryFilterUI();
+		setupClearFiltersButton();
+
+		(window as any).setupSearchFiltering();
+
+		setTimeout(() => {
+			toggleClearButtonVisibility();
+		}, 0);
+	});
+
+  function updateContent(url: string) {
+		const categoryMapEl = document.getElementById("category-map");
+		const categoryMap = categoryMapEl ? JSON.parse(categoryMapEl.textContent) : {};
+		const scrollY = window.scrollY;
+
+		fetch(url)
+			.then((res) => res.text())
+			.then((html) => {
+				const doc = new DOMParser().parseFromString(html, "text/html");
+				const newArticles = doc.querySelector("[data-articles-wrapper]");
+				const currentArticles = document.querySelector("[data-articles-wrapper]");
+
+				if (newArticles && currentArticles) {
+					currentArticles.replaceWith(newArticles);
+					window.history.pushState({}, "", url);
+					window.scrollTo({ top: scrollY, behavior: 'instant' });
+
+					const urlParts = url.split("/");
+					const slug = url.includes("/learn/category") ? decodeURIComponent(urlParts[3]) : null;
+					const label = categoryMap[slug] || "Select category";
+
+					const categoryButtonSpan = document.querySelector("#category-button span");
+					if (categoryButtonSpan) {
+						categoryButtonSpan.textContent = label;
+					}
+
+					toggleClearButtonVisibility();
+					setupSearchFiltering();
+					setupCategoryFilterUI();
+					setupClearFiltersButton();
+				}
+			});
+	}
+
+  function toggleClearButtonVisibility() {
+		const categoriesSpan = document.querySelector("#category-button span");
+		const clearButton = document.getElementById("clear-filters");
+
+		if (!clearButton) return;
+
+		const selected = categoriesSpan?.textContent?.trim() !== "Select category";
+		clearButton.style.display = selected ? "inline-flex" : "none";
+	}
+
+  function setupCategoryOptionListeners() {
+		const button = document.getElementById("category-button");
+		const dropdown = document.getElementById("category-dropdown");
+		const options = document.querySelectorAll("[data-option]");
+
+		if(!button || !dropdown) return;
+
+		options.forEach((option) => {
+			const newOption = option.cloneNode(true) as HTMLElement;
+			option.parentNode.replaceChild(newOption, option);
+
+			newOption.addEventListener("click", (e) => {
+				e.preventDefault();
+				const value = newOption.getAttribute("data-value");
+				const url = value ? `/learn/category/${value}` : "/learn";
+				updateContent(url);
+
+				button.setAttribute("aria-expanded", "false");
+				dropdown.hidden = true;
+			});
+		});
+	}
+
+  function setupClearFiltersButton() {
+		const clearButton = document.getElementById("clear-filters");
+		if (!clearButton) return;
+
+		const newClearButton = clearButton.cloneNode(true);
+		clearButton.parentNode.replaceChild(newClearButton, clearButton);
+
+		newClearButton.addEventListener("click", () => {
+			updateContent("/learn");
+		});
+
+		toggleClearButtonVisibility();
+	}
+
+  function initDropdownInteraction() {
+    const button = document.getElementById("category-button");
+    const dropdown = document.getElementById("category-dropdown");
+    if (!button || !dropdown) return;
+
+    const handleClick = (e: MouseEvent) => {
+      e.stopPropagation();
+      const isExpanded = button.getAttribute("aria-expanded") === "true";
+      button.setAttribute("aria-expanded", String(!isExpanded));
+      dropdown.hidden = isExpanded;
+    };
+
+    button.removeEventListener('click', handleClick);
+    button.addEventListener('click', handleClick);
+  }
+
+  function runInitializers() {
+    initDropdownInteraction();
+    setupCategoryOptionListeners();
+    setupClearFiltersButton();
+    setupSearchFiltering();
+    toggleClearButtonVisibility();
+  }
+
+  function setupCategoryFilterUI() {
+    const button = document.getElementById("category-button");
+    const dropdown = document.getElementById("category-dropdown");
+    const options = document.querySelectorAll("[data-option]");
+
+    if (!button || !dropdown) return;
+
+    const newButton = button.cloneNode(true);
+    button.parentNode.replaceChild(newButton, button);
+
+    const buttonNow = document.getElementById("category-button");
+
+    // Setup click handler for button
+    buttonNow.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const expanded = buttonNow.getAttribute("aria-expanded") === "true";
+      buttonNow.setAttribute("aria-expanded", String(!expanded));
+      dropdown.hidden = expanded;
+    });
+
+    // Setup click handlers for options
+    options.forEach((option) => {
+      const newOption = option.cloneNode(true) as HTMLElement;
+      option.parentNode.replaceChild(newOption, option);
+
+      newOption.addEventListener("click", (e) => {
+        e.preventDefault();
+        const value = newOption.getAttribute("data-value");
+        const url = value ? `/learn/category/${value}` : "/learn";
+        updateContent(url);
+
+        buttonNow.setAttribute("aria-expanded", "false");
+        dropdown.hidden = true;
+      });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+      const target = e.target as Node;
+      if (!buttonNow.contains(target) && !dropdown.contains(target)) {
+        buttonNow.setAttribute("aria-expanded", "false");
+        dropdown.hidden = true;
+      }
+    });
+
+    // Close dropdown on escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !dropdown.hidden) {
+        buttonNow.setAttribute("aria-expanded", "false");
+        dropdown.hidden = true;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    setupCategoryFilterUI();
+    setupClearFiltersButton();
+    setupSearchFiltering();
+    toggleClearButtonVisibility();
+  });
+</script>

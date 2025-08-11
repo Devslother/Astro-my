@@ -1,0 +1,78 @@
+.toc {
+  display: none;
+}
+
+.tocMobile {
+  display: flex;
+  flex-direction: column;
+  margin-top: 36px;
+  gap: 17px;
+}
+
+.tocTitle {
+  display: flex;
+  gap: 10px;
+  color: var(--color-gray-800);
+  align-items: center;
+}
+
+.tocList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.tocItem {
+  position: relative;
+  margin: 16px 0;
+  padding-left: 14px;
+}
+
+.tocItem::before {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  display: block;
+  width: 2px;
+  background-color: var(--color-orange-500);
+  content: "";
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.tocItemActive::before {
+  opacity: 1;
+}
+
+.tocLink {
+  color: var(--color-gray-700);
+  transition: color 0.25s ease-in-out;
+  text-decoration: none;
+}
+
+.tocItemActive .tocLink {
+  color: var(--color-black);
+}
+
+@media (width >= 768px) {
+  .tocMobile {
+    margin-top: 48px;
+  }
+}
+
+@media (width >= 1024px) {
+  .toc {
+    position: sticky;
+    top: 0;
+    display: block;
+    padding: 0 0 0 20px;
+  }
+
+  .tocMobile {
+    display: none !important;
+  }
+}

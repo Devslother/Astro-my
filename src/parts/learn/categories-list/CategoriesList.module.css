@@ -1,0 +1,24 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: 7px 0 7px 14px;
+  color: var(--color-gray-700);
+}
+
+.active {
+  color: var(--color-black);
+  border-left: 2px solid var(--color-orange-500);
+}
+
+@media (width >= 768px) {
+  .filter {
+    width: 135px;
+  }
+}

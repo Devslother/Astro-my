@@ -1,0 +1,146 @@
+---
+import Grid from '@/components/Grid/Grid.astro';
+import styles from './List.module.css';
+import type { CollectionEntry } from "astro:content";
+import clsx from 'clsx';
+import Noposts from '@/assets/learn/no-posts.svg';
+import CategoriesFilter from '../categories-filter/CategoriesFilter.astro';
+import CategoriesList from '../categories-list/CategoriesList.astro';
+
+import Pagination from '../pagination/Pagination.astro';
+import ArticleCard from '../article-card/ArticleCard.astro';
+import SearchInput from '@/components/search-input/SearchInput.astro';
+
+
+interface Props {
+	articles: CollectionEntry<"learn">[];
+	currentPage: number;
+	totalPages: number;
+	allCategories: any[];
+	currentCategory?: string;
+	baseUrl?: string;
+	noQuery: boolean;
+	hasResults: boolean;
+}
+
+const normalizeToString = (field: unknown) => {
+	if (!field) return "";
+	return Array.isArray(field) ? field.join(",") : field.toString();
+};
+
+const {
+  articles,
+  currentPage,
+  totalPages,
+  allCategories,
+  currentCategory,
+  baseUrl = "/learn",
+  noQuery,                 
+  hasResults,  
+} = Astro.props;
+---
+
+<Grid>
+  <div class={styles.list}>
+    <div class={clsx(
+        'u-hidden--md',
+        styles.filter
+      )}
+    >
+      <div class={styles.categories}>
+        {allCategories.length > 0 && 
+          <CategoriesFilter 
+            categories={allCategories} 
+            currentCategory={currentCategory} 
+          />
+        }
+      </div>
+      
+      <SearchInput 
+        placeholder="Search article..." 
+        containerClass={styles.learn__input}  
+        id="search-input-mobile" 
+        baseUrl={baseUrl}
+      />
+    </div>
+
+    <div class={styles.article}>
+      <div class={clsx(
+          'u-hidden',
+          'u-visible--md',
+          styles.filter
+        )}
+      >
+        <SearchInput 
+          placeholder="Search article..." 
+          containerClass={styles.learn__input} 
+          id="search-input-desktop"
+          baseUrl={baseUrl}
+        />
+
+        <div class={styles.categories}>
+          {allCategories.length > 0 && 
+            <CategoriesList 
+              categories={allCategories} 
+              currentCategory={currentCategory} 
+            />
+          }
+        </div>       
+      </div>
+
+      <div class={styles.grid}>
+        <div 
+        class={styles.wrapper}
+        data-articles-wrapper
+        >
+          {
+            articles.length > 0 && (
+              articles.map((article) => (
+                <div
+                  data-article
+                  data-title={article.data.title?.toLowerCase() ?? ""}
+                  data-slug={article.slug?.toLowerCase() ?? ""}
+                  data-categories={normalizeToString(article.data.categories).toLowerCase()}
+                >
+                  <ArticleCard article={article} />
+                </div>
+              ))
+            )
+          }
+        </div>
+        {!noQuery && !hasResults ? (
+          <div data-noposts class={styles.noposts}>
+            <Noposts />
+            <h2 class={clsx(
+              'text__heading--h6',
+              'text__heading--h6-lg',
+              'text__heading--h6-md',
+            )}>
+              No results found
+            </h2>
+            <p class={clsx(
+              'text__body--16',
+              'text__body--16--lg',
+              'text__body--16--md',
+              styles.text
+            )}>
+              Please try adjust your filter criteria.
+            </p>
+          </div>
+			  ) : null}
+
+        <div data-pagination-wrapper>
+          {totalPages > 1 && (
+            <Pagination
+              data-pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              baseUrl={baseUrl}
+            />
+          )}
+        </div>
+      </div>
+    </div> 
+  </div>
+</Grid>
+

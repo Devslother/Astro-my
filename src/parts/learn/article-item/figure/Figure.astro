@@ -1,0 +1,172 @@
+---
+import styles from './Figure.module.css';
+import Icon from '@/components/icon/Icon.astro';
+import { Image } from "astro:assets";
+
+interface Props {
+	source: any;
+	alt: string;
+	caption?: string;
+	width?: number | string;
+	height?: number | string;
+	index?: number;
+	lightbox?: boolean;
+}
+
+const { source, caption, index } = Astro.props;
+const alt = Astro.props.alt || "Post Image";
+const lightbox = Astro.props.lightbox !== false;
+
+let imageAsset = source;
+
+if (typeof source === "function" && source.src) {
+	imageAsset = source;
+} else if (typeof source === "object" && source !== null) {
+	imageAsset = source;
+}
+
+const isAstroAsset = imageAsset && imageAsset.src && imageAsset.format;
+const isAstroImage = isAstroAsset && imageAsset.format !== "svg";
+const isAstroSVG = isAstroAsset && imageAsset.format === "svg";
+const isRemoteSVG = typeof source === "string" && source.match(/\.svg(\?.*)?$/i);
+const isSVG = isAstroSVG || isRemoteSVG;
+
+const displaySrc = isAstroAsset ? imageAsset.src : source;
+
+const intrinsicWidth = isAstroAsset ? imageAsset.width : 800;
+const intrinsicHeight = isAstroAsset ? imageAsset.height : 600;
+---
+
+<figure class={styles.figure} data-figure-index={index}>
+  <div
+    class={`${styles.imageWrapper} ${!lightbox ? styles.noLightbox : ""}`}
+    data-lightbox-trigger={lightbox ? true : undefined}
+  >
+  {isAstroImage ? (
+    <Image
+      src={imageAsset}
+      alt={alt}
+      width={intrinsicWidth}
+      height={intrinsicHeight}
+      class={styles.image}
+      quality={90}
+      loading="lazy"
+      densities={[1, 2]}
+    />
+  ) : isSVG ? (
+    <img
+      src={displaySrc}
+      alt={alt}
+      class={`${styles.image} ${styles.imageSvg}`}
+      style="width:100%;height:auto;max-width:100%;"
+      draggable="false"
+      loading="lazy"
+    />
+  ) : displaySrc ? (
+    <img
+      src={displaySrc}
+      alt={alt}
+      width={intrinsicWidth}
+      height={intrinsicHeight}
+      class={styles.image}
+      loading="lazy"
+    />
+  ) : (
+    <div class={styles.error}>
+      <p>Image could not be loaded</p>
+    </div>
+  )}
+  </div>
+
+  {caption && (
+    <figcaption class={styles.caption}>
+      {index && <span class={styles.index}>Figure {index}: </span>}
+      {caption}
+    </figcaption>
+  )}
+
+<div class={styles.lightbox} data-lightbox>
+  <div class={styles.backdrop} data-lightbox-close></div>
+
+    {isAstroImage ? (
+      <Image
+        src={imageAsset}
+        alt={alt}
+        width={intrinsicWidth}
+        height={intrinsicHeight}
+        class={styles.lightboxImage}
+        quality={100}
+        densities={[1, 2]}
+      />
+    ) : isSVG ? (
+      <img
+        src={displaySrc}
+        alt={alt}
+        class={`${styles.lightboxImage} ${styles.imageSvg}`}
+        style="max-width:95vw;max-height:90vh;width:auto;height:auto;"
+        draggable="false"
+      />
+    ) : displaySrc ? (
+      <img
+        src={displaySrc}
+        alt={alt}
+        width={intrinsicWidth}
+        height={intrinsicHeight}
+        class={styles.lightboxImage}
+      />
+    ) : (
+      <div class={styles.error}>
+        <p>Image could not be loaded in lightbox</p>
+      </div>
+    )}
+
+  <button class={styles.close} data-lightbox-close aria-label="Close lightbox">
+    <Icon name="close" width={24} height={24} color="currentColor" />
+  </button>
+</div>
+</figure>
+
+<script is:inline type="module">
+  document.addEventListener("click", (e) => {
+    const trigger = e.target.closest("[data-lightbox-trigger]");
+    const close = e.target.closest("[data-lightbox-close]");
+
+    if (trigger) {
+      e.preventDefault();
+      const figure = trigger.closest("figure");
+      const lightbox = figure?.querySelector("[data-lightbox]");
+      if (lightbox) {
+        lightbox.classList.remove("lightbox--closing");
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+    }
+
+    if (close) {
+      e.preventDefault();
+      const lightbox = e.target.closest("[data-lightbox]");
+      if (lightbox) {
+        lightbox.classList.add("lightbox--closing");
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "";
+        setTimeout(() => {
+          lightbox.classList.remove("lightbox--closing");
+        }, 300);
+      }
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const activeLightbox = document.querySelector(".lightbox.active");
+      if (activeLightbox) {
+        activeLightbox.classList.add("lightbox--closing");
+        activeLightbox.classList.remove("active");
+        document.body.style.overflow = "";
+        setTimeout(() => {
+          activeLightbox.classList.remove("lightbox--closing");
+        }, 300);
+      }
+    }
+  });
+</script>

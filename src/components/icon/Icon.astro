@@ -106,6 +106,7 @@ export const icons = {
 	github: Github,
 	linkedin: Linkedin,
 	divider: Divider,
+	search: Search,
 	"icon-shadow": Shadow,
 	"icon-search": Search,
 	"square-linkedin": SquareLinkedin,
@@ -188,6 +189,7 @@ interface Props {
 	width?: number | string;
 	height?: number | string;
 	color?: string;
+	id?: string;
 }
 
 const {
@@ -203,7 +205,7 @@ const IconComponent = icons[name];
 ---
 {IconComponent ? (
 <IconComponent
-	class={className}
+	class={`fill-current icon-${name} ${className}`}
 	width={width}
 	height={height}
 	color={color}

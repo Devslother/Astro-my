@@ -1,0 +1,50 @@
+.hero {
+  margin-top: -78px;
+  height: 454px;
+  position: relative;
+  width: 100%;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0; /* заменяет top/left/right/bottom: 0 */
+  pointer-events: none;
+  top: 0px;
+}
+
+.hero__bg img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.hero__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding-top: 200px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (width >= 768px) {
+  .hero {
+    height: 365px;
+  }
+
+  .hero__content {
+    padding-top: 170px;
+  }
+}
+
+@media (width >= 1024px) {
+  .hero {
+    height: 476px;
+  }
+
+  .hero__content {
+    padding-top: 206px;
+  }
+}

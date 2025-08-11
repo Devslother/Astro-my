@@ -1,0 +1,138 @@
+.figure {
+  margin: 36px 0;
+  text-align: center;
+  display: block;
+}
+
+.imageWrapper {
+  display: inline-block;
+  width: 100%;
+  border-radius: 8px;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+
+.imageWrapper.noLightbox {
+  cursor: unset;
+}
+
+.lightbox.active .imageSvg {
+  width: 100% !important;
+  background: white;
+  height: auto;
+  max-width: 100%;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  box-shadow: 0 0 0 transparent;
+  border-radius: 8px;
+  height: auto;
+  max-width: 100%;
+  transition: box-shadow 0.2s;
+}
+
+.image:focus-visible {
+  box-shadow: 0 0 0 4px #007aff;
+  outline: 2px solid #fff;
+}
+
+.caption {
+  color: var(--color-gray-700);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.lightbox {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  background: rgb(0 0 0 / 0%);
+  align-items: center;
+  inset: 0;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: background 0.3s, opacity 0.3s;
+}
+
+.lightbox.active {
+  background: rgb(0 0 0 / 80%);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightboxImage {
+  width: auto;
+  background: var(--color-white);
+  box-shadow: 0 0 32px rgb(0 0 0 / 45%);
+  border-radius: 10px;
+  cursor: zoom-out;
+  height: auto;
+  max-height: 90vh;
+  max-width: 95vw;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.lightbox.active .lightboxImage {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.backdrop {
+  position: absolute;
+  z-index: 1;
+  background: transparent;
+  cursor: zoom-out;
+  inset: 0;
+}
+
+.close {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  z-index: 2;
+  padding: 0;
+  background: none;
+  color: var(--color-white);
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close:hover,
+.close:focus-visible {
+  color: #007aff;
+}
+
+.lightbox.lightbox--closing {
+  background: rgb(0 0 0 / 0%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lightbox.lightbox--closing .lightboxImage {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.error {
+  padding: 2rem;
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.error p {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}

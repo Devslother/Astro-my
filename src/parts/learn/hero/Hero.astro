@@ -1,0 +1,28 @@
+---
+import styles from './Hero.module.css';
+import imageMobile from '@/assets/learn/hero-mobile.png';
+import imageTablet from '@/assets/learn/hero-tablet.png';
+import imageDesktop from '@/assets/learn/hero-desktop.png';
+import Picture from '@/components/Picture.astro';
+---
+
+<div class={styles.hero}>
+  <Picture 
+    alt="bg" 
+    srcMobile={imageMobile.src}
+    srcTablet={imageTablet.src}
+    srcDesktop={imageDesktop.src}
+    class={styles.hero__bg}
+   />
+
+  <div class={styles.hero__content}>
+    <h1 class='text__heading--h4
+      text__heading--h1-lg
+      text__heading--h3-md'
+      >
+      Learning
+      <br class="u-visible u-visible--md u-hidden--lg" /> 
+      Center
+    </h1>
+  </div>
+</div>

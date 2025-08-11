@@ -1,0 +1,77 @@
+---
+import Button from '@/components/Button/Button.astro';
+import Icon from '@/components/icon/Icon.astro';
+import styles from './InlinePromo.module.css'
+import clsx from "clsx";
+import IconTetrate from '@/assets/learn/tetrate.svg'
+
+interface Props {
+  variant: 'istio' | 'envoy';
+}
+
+const { variant } = Astro.props;
+
+const promo = {
+  istio: {
+    content: "Tetrate offers an enterprise-ready, 100% upstream distribution of Istio, Tetrate Istio Subscription (TIS). TIS is the easiest way to get started with Istio for production use cases. TIS+, a hosted Day 2 operations solution for Istio, adds a global service registry, unified Istio metrics dashboard, and self-service troubleshooting.",
+    link: "/products/tetrate-istio-subscription",
+    btntext: "Learn More"
+  },
+  envoy: {
+    content: "Tetrate offers an enterprise-ready, 100% upstream distribution of Envoy Gateway, Tetrate Enterprise Gateway for Envoy (TEG). TEG is the easiest way to get started with Envoy for production use cases.",
+    link:  "/products/tetrate-enterprise-gateway-for-envoy",
+    btntext: "Get access now"
+  },
+}
+
+const selected = promo[variant];
+---
+
+<div 
+  class={styles.promo} 
+  style={`border-left: 3px solid var(--color-orange-500)`}
+>
+<div class={styles.title}>
+  <IconTetrate 
+    width={24} 
+    height={24} 
+    />
+  <span class={clsx(
+    'text__body--18-medium',
+    'text__body--18-medium-lg',
+    'text__body--18-medium-md',
+  )}
+  >
+  Inline Promo Headline
+  </span>
+</div>
+  
+  <div class={clsx(
+    'text__body--16',
+    'text__body--16-lg',
+    'text__body--16-md',
+    styles.content,
+  )}>
+		{selected.content}
+	</div>
+    <Button 
+      variant="tertiary" 
+      size="tert" 
+      href={selected.link} 
+      class={styles.btn}
+    >
+      <span 
+        class="text__body--16-semibold" 
+        style={{ color: 'var(--color-black)' }}
+      >
+        {selected.btntext}
+      </span>
+      <Icon 
+        name="arrow-right" 
+        width={24} 
+        height={24} 
+        color="var(--color-orange-500)"
+      />
+    </Button>
+  )}
+</div>

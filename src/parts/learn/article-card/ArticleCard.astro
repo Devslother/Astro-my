@@ -1,0 +1,66 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Figure from '../article-item/figure/Figure.astro';
+import styles from './ArticleCard.module.css'
+import clsx from 'clsx';
+import Icon from '@/components/icon/Icon.astro';
+
+interface Props {
+	article: CollectionEntry<"learn">;
+}
+
+const { article } = Astro.props;
+const { title, featuredImage, excerpt } = article.data;
+const decodedTitle = decodeURIComponent(title);
+---
+<article class={styles.card}>
+	<a href={`/learn/${article.slug}`} class={styles.link}>
+		<div class={styles.content}>
+      {featuredImage && !featuredImage.startsWith('/wp-content') && (
+        <div class={styles.featuredImage}>
+          <Figure 
+            source={featuredImage} 
+            width="100%" 
+            lightbox={false} 
+            alt="Featured Image"
+          />
+        </div>
+      )}
+
+      <div class={styles.heading}>
+        <h3 class={clsx(
+          'text__heading--h6',
+          'text__heading--h5-lg',
+          'text__heading--h4-md',
+          styles.title
+        )}>
+          {decodedTitle}
+        </h3>
+        {excerpt && (
+          <p class={clsx(
+            'text__body--16',
+            styles.description
+          )} >
+            {excerpt}
+          </p>
+        )}
+      </div>
+
+      <span 
+        class={clsx(
+          'text__body--16-semibold',
+          styles.cta
+        )} 
+        style={{ color: 'var(--color-black)' }}
+      >
+        Read more
+        <Icon 
+          name="arrow-right" 
+          width={24} 
+          height={24} 
+          color="var(--color-orange-500)"
+        />
+			</span>
+    </div>
+  </a>
+</article>

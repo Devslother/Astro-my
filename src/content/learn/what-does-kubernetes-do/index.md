@@ -1,0 +1,78 @@
+---
+title: What Does Kubernetes Do?
+slug: what-does-kubernetes-do
+date: 2025-01-01T00:00:00.000Z
+categories:
+  - Kubernetes
+featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
+excerpt: >-
+  Kubernetes has become essential to modern application deployments by providing
+  flexibility, scalability, and efficiency when managing containerized.
+---
+# What Does Kubernetes Do?
+
+### Article content
+
+## Containerization
+
+Kubernetes has become essential to modern application deployments by providing flexibility, scalability, and efficiency when managing containerized applications.
+
+Containerization is a popular method for packaging applications for deployment. Software containers are self-contained and include everything an application needs to run in a single package called a container.
+
+Due to the benefits, containers have become a popular deployment option for development teams. Docker is one of the most widely used container platforms and runtime engines, but others exist, such as CRI-O, Podman, and more. 
+
+The ease of creating containers and their growing popularity has led to a management challenge for many organizations. With a large number of containers deployed in DevSecOps and Production environments, container sprawl has become a problem, similar to virtual server sprawl in virtualization platforms. The open-source [Kubernetes](/faq/what-does-kubernetes-do/) platform has become a popular solution for managing containers and controlling sprawl.
+
+## Container Orchestration
+
+Container orchestration is an essential process for IT Operations Teams when managing large numbers of containers to ensure that deployed applications are available and performing well 24×7. This is especially true for microservices-based applications that use many separately deployed modules working in unison across containers. The Kubernetes platform provides the tools to manage container deployments. 
+
+Kubernetes has gained popularity with developers and DevSecOps teams due to its features, toolset, and support from major cloud service providers. Kubernetes has transformed application deployment by delivering enhanced container management for organizations. 
+
+## Kubernetes Components
+
+Kubernetes groups software containers into pods, the smallest deployable units in Kubernetes. A pod can contain one or more containers that share storage, networking, and a configuration specification outlining how the containers should run.
+
+Kubernetes has multiple components to deliver container orchestration:
+
+**Clusters** – The Kubernetes architecture uses clusters consisting of multiple worker nodes (see below) for running and managing containers and a Control Plane node for controlling and monitoring the worker nodes.
+
+**Nodes** – A compute host that can be a physical, virtual, or cloud instance. These nodes exist within a cluster, where they can act as workers or a Control Plane. The worker nodes are responsible for hosting and running the deployed containers. In contrast, the Control Plane node in each cluster manages the worker nodes in the same cluster. Each worker node runs an agent, which the master node uses to monitor and manage it.
+
+**Pods** – Groups of containers that share compute resources and a network. Kubernetes scales at the pod level. If additional capacity is needed to support an application running on containers in a pod, then Kubernetes can replicate the complete pod to add capacity via additional containers.
+
+**Deployments** – Kubernetes Deployments control the creation and deployment of containerized applications. They use declarative configuration files that specify the desired state of an application and its containers. The deployment file also specifies how many replicas of a pod should run on a cluster. Deployments monitor running container pods, and if a pod fails, they recreate it.
+
+## Kubernetes Services
+
+Within these components, Kubernetes provides the following services and functionality:
+
+**Control Plane-Node Architecture** – Kubernetes uses a Control Plane-Node architecture. A Control Plane node is responsible for managing the state of the cluster. It schedules pods to run on nodes, maintains the desired state of the application, scales applications, and rolls out new updates.
+
+**Rollouts** – These describe the target container landscape needed for an application and let Kubernetes handle the process deployment to get there. This includes new deployments, changing existing deployed containers, and rollbacks to remove obsolete deployments. The Kubernetes rollout scheduler automatically places containers in the available infrastructure based on their resource requirements.
+
+**Self-healing** – This monitors containers for issues and restarts them automatically if necessary. The restart can be within the same pod or on another pod.
+
+**Service discovery** – Automatically expose a container to the broader network or other containers via a DNS name or an IP Address.  
+
+**Load Balancing** – Manage the load across multiple containers delivering the same application to ensure consistent performance.
+
+**Storage orchestration** – Mount storage from the cloud or local resources as needed and for as long as necessary. Applications can request the storage they need, and the Kubernetes platform will allocate it dynamically from local or cloud storage resources without system administrators needing to be involved. 
+
+**Secret and configuration management** – Securely manage sensitive information like passwords, tokens, and keys. Deploy and update secrets and app configurations without exposing secrets on the network.
+
+## Conclusion
+
+In summary, Kubernetes provides the tools to automate the deployment, scaling, and management of application container clusters and pods across hosts. By abstracting the hardware infrastructure with a controlling software platform, Kubernetes presents the available IT infrastructure as a single deployment platform. 
+
+Kubernetes promotes a more collaborative approach between developers and operations teams, enabling them to work together more effectively and encouraging a more DevSecOps-centric approach to application deployment.
+
+### [Kubernetes Security Best Practices](/learn/kubernetes-security-best-practices/)
+
+### [What Is an API Gateway?](/learn/what-is-an-api-gateway/)
+
+### [Simplify Kubernetes and Multi-Cloud Complexity with the Service Mesh](/resource/simplify-kubernetes-and-multi-cloud-complexity-with-the-service-mesh/)
+
+### [5 Stages to Istio Production Success](/resource/istio-production-success/)
+
+### [Zero Trust, FIPS and FedRAMP for Kubernetes and Cloud Native Applications](/resource/zero-trust-fips-and-fedramp-for-cloud-native-applications/)

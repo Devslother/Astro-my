@@ -1,0 +1,61 @@
+---
+import Button from '@/components/Button/Button.astro';
+import styles from './Admonition.module.css'
+import clsx from "clsx";
+import Icon from '@/components/icon/Icon.astro';
+
+interface Props {
+	type: "note" | "info" | "warning" | "attention";
+  buttonLink?: string;
+}
+
+const colors = {
+	note: "var(--color-gray-700)",
+	info: "#4991FD",
+	warning: "#F1A505",
+	attention: "#F36863",
+};
+
+const { type = "note", buttonLink } = Astro.props;
+---
+
+<div class={styles.admonition} style={`border-left: 3px solid ${colors[type]}`}>
+  <span class={clsx(
+    'text__body--14-medium-uppercase',
+    'text__body--14-medium-uppercase-lg',
+    'text__body--14-medium-uppercase-md',
+  )}
+   style={`color: ${colors[type]}`}
+  >
+    {type}
+  </span>
+  <div class={clsx(
+    'text__body--16',
+    'text__body--16-lg',
+    'text__body--16-md',
+    styles.content,
+  )}>
+		<slot />
+	</div>
+  {buttonLink && (
+    <Button 
+      variant="tertiary" 
+      size="tert" 
+      href={buttonLink} 
+      class={styles.btn}
+    >
+      <span 
+        class="text__body--14-medium" 
+        style={{ color: 'var(--color-black)' }}
+      >
+        Learn More
+      </span>
+      <Icon 
+        name="arrow-right" 
+        width={24} 
+        height={24} 
+        color="var(--color-orange-500)"
+      />
+    </Button>
+  )}
+</div>

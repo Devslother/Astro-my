@@ -34,3 +34,58 @@ h5,
 h6 {
   margin: 0;
 }
+
+.learn-page svg * {
+  stroke: none !important;
+}
+
+.learn-page .icon--search * {
+  stroke: var(--color-gray-600) !important;
+}
+
+.learn-page .close-headertop * {
+  color: var(--color-white) !important;
+  stroke: currentColor !important;
+}
+
+.learn-page .arrow-pag * {
+  color: var(--color-black) !important;
+  stroke: currentColor !important;
+}
+
+.learn-page .icon-arrow *,
+.learn-page .icon-close *,
+.learn-page .icon-menu *,
+.learn-page .icon-learn-zero-trust-center *,
+.learn-page .icon-learn-blog *,
+.learn-page .icon-learn-documentation *,
+.learn-page .icon-learn-faq *,
+.learn-page .icon-learn-ebooks-and-reports *,
+.learn-page .icon-learn-white-papers *,
+.learn-page .icon-learn-video *,
+.learn-page .icon-learn-all *,
+.learn-page .icon-company-leadership *,
+.learn-page .icon-company-investors *,
+.learn-page .icon-company-partners *,
+.learn-page .icon-company-get-support *,
+.learn-page .icon-company-careers *,
+.learn-page .icon-company-contact-us * {
+  stroke: currentColor !important;
+}
+
+.learn-page .icon-learn-zero-trust-center:hover,
+.learn-page .icon-learn-blog:hover,
+.learn-page .icon-learn-documentation:hover,
+.learn-page .icon-learn-faq:hover,
+.learn-page .icon-learn-ebooks-and-reports:hover,
+.learn-page .icon-learn-white-papers:hover,
+.learn-page .icon-learn-video:hover,
+.learn-page .icon-learn-all:hover,
+.learn-page .icon-company-leadership:hover,
+.learn-page .icon-company-investors:hover,
+.learn-page .icon-company-partners:hover,
+.learn-page .icon-company-get-support:hover,
+.learn-page .icon-company-careers:hover,
+.learn-page .icon-company-contact-us:hover {
+  color: var(--color-orange-500);
+}

@@ -1,0 +1,78 @@
+---
+import Icon from '../icon/Icon.astro';
+import styles from './SearchInput.module.css'
+import clsx from 'clsx';
+
+interface Props {
+	placeholder?: string;
+	containerClass?: string;
+	id?: string;
+	baseUrl?: string;
+}
+
+const {
+	placeholder = "Search…",
+	containerClass = "",
+	id = "search-dynamic",
+	baseUrl = "/learn/search"
+} = Astro.props;
+
+const initial = new URL(Astro.url).searchParams.get("q") ?? "";
+---
+
+<label 
+  class={clsx(styles.container, containerClass)} 
+  for={id} 
+  data-baseurl={baseUrl}
+  data-search
+>
+  <div class={styles["icon-wrapper"]}>
+    <Icon 
+      name="search" 
+      width={16} height={16} 
+      color="var(--color-gray-700)"
+      data-search-icon
+      class={clsx(
+        'icon--search',
+        styles["search-icon"]
+      )}
+    />
+    <Icon
+      name="arrowClockwise"
+      width={16} height={16} 
+      color="var(--color-black)"
+      data-spinner
+      class={clsx(
+        "icon--search",
+        styles.spinner
+      )}
+    />
+  </div>
+  
+  <input
+		id={id}
+		name="q"
+		type="search"
+		placeholder={placeholder}
+		value={initial}
+		autocomplete="off"
+     class={clsx(
+          'text__body--14',
+          'text__body--14--lg',
+          'text__body--14--md',
+          styles.input,
+        )}
+	/>
+   <Icon 
+    name="close" 
+    width={16} height={16} 
+    color="var(--color-gray-700)"
+    data-clear-btn
+    class={clsx(
+      "icon--search",
+      styles['clear-btn']
+    )}
+  />
+</label>
+
+<script  is:inline src="/scripts/dynamicSearch.js" type="module" />

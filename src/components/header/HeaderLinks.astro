@@ -1,8 +1,8 @@
 ---
 import { headerNavigation } from './headerNavigation.ts';
-import Button from "../Button/Button.astro";
-import type { IconType } from '../icon/Icon.astro';
-import Icon from '../icon/Icon.astro';
+import Button from "@/components/Button/Button.astro";
+import type { IconType } from '@/components/icon/Icon.astro';
+import Icon from '@/components/icon/Icon.astro';
 import clsx from "clsx";
 import styles from "./HeaderLinks.module.css";
 
@@ -44,7 +44,12 @@ const { className = '' } = Astro.props;
                     href={category.url}
                   >
                     {category.title}
-                    <Icon name="arrow" width={20} height={20} />
+                    <Icon 
+                    name="arrow-right" 
+                    width={20} 
+                    height={20}
+                    color="var(--color-orange-500)"
+                     />
                   </a>
                 ) : (
                   <p class={clsx("text__caption", styles.content)}>

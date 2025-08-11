@@ -1,0 +1,75 @@
+---
+export let url: string;
+export let title: string;
+
+import styles from './ShareButton.module.css'
+import clsx from "clsx";
+import IconX from '@/assets/learn/x.svg';
+import IconF from '@/assets/learn/f.svg';
+import IconIn from '@/assets/learn/in.svg';
+import IconCopy from '@/assets/learn/copy.svg';
+---
+
+<div class={styles.share}>
+  <span class={clsx(
+    'text__body--14',
+    'text__body--14-lg',
+    'text__body--14-md',
+    styles.label
+  )}>
+    Share:
+  </span>
+  <div class={styles.list}>
+    <a
+      class={styles.button}
+      href={`https://twitter.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
+      target="_blank"
+      aria-label="Share on X"
+    >
+      <IconX class={styles.icon} />
+    </a>
+
+    <a
+      class={styles.button}
+      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
+      target="_blank"
+      aria-label="Share on Facebook"
+    >
+      <IconF class={styles.icon} />
+    </a>
+
+    <a
+      class={styles.button}
+      href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`}
+      target="_blank"
+      aria-label="Share on LinkedIn"
+    >
+    <IconIn class={styles.icon} />
+    </a>
+
+    <button class={styles.button} id="copyBtn" aria-label="Copy link">
+			<IconCopy class={styles.icon} />
+		</button>
+		<span id="copiedMsg"
+    class={clsx(
+      'text__body--14-medium',
+      'text__body--14-medium-lg',
+      'text__body--14-medium-md',
+      styles.tooltip
+    )}>
+      Copied!
+    </span>
+  </div>
+</div>
+
+<script is:inline type="module">
+	const copyBtn = document.getElementById("copyBtn");
+	const msg = document.getElementById("copiedMsg");
+
+	copyBtn?.addEventListener("click", () => {
+		navigator.clipboard.writeText(window.location.href).then(() => {
+			msg.classList.add("visible");
+			setTimeout(() => msg.classList.remove("visible"), 2000);
+		});
+	});
+</script>

@@ -1,0 +1,246 @@
+---
+title: "kubernetes security architecture"
+slug: "kubernetes-security-architecture"
+date: 2025-01-01
+categories: ["TODO"]
+---
+
+Tetrate & Bloomberg Announce the First Release of Envoy AI Gateway
+
+[**Learn more ›**](/blog/the-beginning-of-a-scalable-genai-future-the-first-release-of-envoy-ai-gateway) [_close_](#)
+
+[Skip to content](#main) [![Tetrate](/wp-content/uploads/2023/03/tetrate-logo-light.svg) ![Tetrate](/wp-content/uploads/2023/03/tetrate-logo-dark.svg)
+
+Tetrate Enterprise ready service mesh
+
+](/)
+
+*   [Why Tetrate](/why-tetrate/)
+    *   [Our Customers](/our-customers/)
+*   [Products](#)
+    
+    ### Products
+    
+    [Agent Operations Director]( /products/agent-operations-director)
+    
+    Seamless visibility and cost management for ML infrastructure teams to maximize GenAI ROI.
+    
+    [Tetrate Service Bridge](/tetrate-service-bridge/)
+    
+    Enterprise Application Networking and Security Platform.
+    
+    [Why Tetrate Service Bridge](/tetrate-service-bridge/why-tetrate-service-bridge/) [How Tetrate Service Bridge Works](/tetrate-service-bridge/how-tetrate-service-bridge-works/)
+    
+    [Tetrate Istio Subscription](/tetrate-istio-subscription/)
+    
+    CVE free, FIPS-verified, extended enterprise support for Istio with TIS. Add global service registry & troubleshooting with TIS+
+    
+    [TIS: Extended Enterprise Support](/tetrate-istio-subscription/) [TIS+: Global Istio Troubleshooting](/tetrate-istio-subscription-plus)
+    
+    [Pricing](/pricing-request/)
+    
+    Get the details about our flexible pricing.
+    
+    [Tetrate Enterprise Gateway for Envoy](/tetrate-enterprise-gateway-for-envoy/)
+    
+    The enterprise-ready distribution of Envoy Gateway
+    
+    [Get Istio Support](/istio-support-request/)
+    
+    Get the help you need to run your service mesh with confidence.
+    
+*   [Solutions](#)
+    *   [Financial Services](/tetrate-financial-services-solutions/)
+    *   [FIPS](/fips-140-2-validated-service-mesh/)
+    *   [Government](/government/)
+    *   [Kubernetes](/manage-kubernetes-complexity/)
+    *   [Zero Trust](/tetrate-zero-trust-security/)
+*   [Learn](#)
+    
+    ### Learn
+    
+    [Resources _arrow\_forward_](/resources/)
+    
+    [Blog](/blog/)
+    
+    [Zero Trust Center](/resources/)
+    
+    [Documentation](https://docs.tetrate.io/)
+    
+    [FAQ](/faq/whats-the-difference-between-tetrate-products-and-istio/)
+    
+    [Ebooks & Reports](/resources/?fwp_resource_categories=ebooks-reports)
+    
+    [White Papers](/resources/?fwp_resource_categories=whitepapers)
+    
+    [Video](/resources/?fwp_resource_categories=video)
+    
+    [All](/resources/)
+    
+    [Tetrate Academy _arrow\_forward_](https://academy.tetrate.io/)
+    
+    [Learning Center _arrow\_forward_](/learning-center/)
+    
+    [Envoy Proxy](/learn/envoy-proxy/)
+    
+    Get started with the standard data plane for cloud-native applications.
+    
+    [API Gateway](/api-gateway/)
+    
+    Simplify app traffic management and improve security with a single point of entry.
+    
+    [Envoy Gateway](/envoy-gateway/)
+    
+    Build scalable and resilient apps using Envoy as an application gateway.
+    
+    [Kubernetes Gateway API](/learn/what-is-the-kubernetes-gateway-api/)
+    
+    Manage K8s ingress with more power than the old Ingress API.
+    
+    [Istio Service Mesh](/learn/istio-service-mesh/)
+    
+    Connect, manage and secure apps with the industry standard service mesh.
+    
+    [Microservices](/learn/what-are-microservices/)
+    
+    Gain agility with services that are separately developed, deployed and scaled.
+    
+    [FIPS](/learn/fips/what-is-fips/)
+    
+    Learn about the security standards for apps running in FedRAMP environments.
+    
+    [Platform Team](/learn/what-is-platform-team)
+    
+    Improve application infrastructure with a dedicated team.
+    
+    [Mutual TLS (mTLS)](/learn/what-is-mtls/)
+    
+    Ensure secure communication between components of a Zero Trust architecture.
+    
+    [Wasm](/learn/what-is-wasm/)
+    
+    Write portable code in multiple languages compiled to a common bytecode format.
+    
+    [Observability](/learn/what-is-observability/)
+    
+    Observe app behavior with telemetry from logs, metrics, traces and events.
+    
+    [Zero Trust Architecture](/learn/what-is-zero-trust-architecture/)
+    
+    Improve security for all communication, regardless of network location.
+    
+*   [Events](/events/)
+*   [Company](#)
+    *   [About Us](/about-us/)
+    *   [Leadership](/about-us/#leadership)
+    *   [Investors](/about-us/#investors)
+    *   [Partners](/partners-and-integrations/)
+    *   [Newsroom](/press/)
+    *   [Careers](/about-us/#careers)
+    *   [Get Support](/about-us/#support)
+    *   [Contact Us](/about-us/#support)
+
+[Get Demo](/demo-request/)
+
+[Pricing](/pricing-request/)
+
+[Home](/)
+
+|
+
+[Learning Center](/learning-center/)
+
+|
+
+Kubernetes Security Architecture
+
+# Kubernetes Security Architecture
+
+### Article content
+
+*   [Secure Storage](#h-secure-storage)
+*   [Use a Service Mesh](#h-use-a-service-mesh)
+*   [Use Namespaces](#h-use-namespaces)
+
+Kubernetes has a security architecture based on the principle of defense in depth. This means that it incorporates multiple layers of security controls throughout the platform to deliver robust security. The security controls needed include the items mentioned in the previous section. At the architectural level, the flooring items also need to be protected with suitable security techniques:
+
+## Secure Storage
+
+The security of the Etcd storage backend, where all cluster data is stored, requires top-tier hardware and software protection.
+
+## Use a Service Mesh
+
+A service mesh adds a layer of security across the Kubernetes platform deployment by adding features like traffic encryption and monitoring to enhance the underlying network security.
+
+## Use Namespaces
+
+Dividing Kubernetes clusters into logical segments using namespaces improves resource isolation and limits the impact of any breaches to a subset of the deployed resources. This is part of the broader segmentation recommended for Kubernetes deployments.
+
+// Get all the H2 elements in the page const headings = document.querySelectorAll( 'h2\[id\]' ); // Get all the menu links in the sidebar const menuLinks = document.querySelectorAll( '.js-table-contents-link' ); // Function to check if an element is in the viewport function isInViewport( element ) { const rect = element.getBoundingClientRect(); return rect.top <= 100; } // Function to highlight the active menu link function highlightActiveLink() { headings.forEach( ( heading ) => { if ( isInViewport( heading ) ) { const id = heading.getAttribute( 'id' ); menuLinks.forEach( ( link ) => { if ( link.getAttribute( 'href' ) === \`#${id}\` ) { link.classList.add( 'active' ); } else { link.classList.remove( 'active' ); } } ); } } ); } // Add a scroll event listener to the window window.addEventListener( 'scroll', highlightActiveLink ); // Add a click event listener to each menu link menuLinks.forEach( ( link ) => { link.addEventListener( 'click', ( event ) => { event.preventDefault(); const id = link.getAttribute( 'href' ).substring( 1 ); const element = document.getElementById( id ); const offset = -100; const y = element.getBoundingClientRect().top + window.pageYOffset + offset; window.scrollTo( { top: y, behavior: 'smooth' } ); } ); } );
+
+*   [Why Tetrate – Kubernetes Ingress and Enterprise Istio Support](/why-tetrate/)
+*   [Our Customers](/our-customers/)
+
+### Products
+
+*   [Tetrate Istio Subscription – Commercial Istio Support](/tetrate-istio-subscription/)
+*   [Tetrate Istio Distro](https://docs.tetrate.io/istio-distro/)
+*   [Tetrate Enterprise Gateway for Envoy](/tetrate-enterprise-gateway-for-envoy/)
+*   [Tetrate Service Express](/tetrate-service-express/)
+*   [Tetrate Service Bridge](/tetrate-service-bridge/)
+
+### Solutions
+
+*   [Financial Services](/tetrate-financial-services-solutions/)
+*   [FIPS](/fips-140-2-validated-service-mesh/)
+*   [Government](/government/)
+*   [Kubernetes Ingress](/learn/kubernetes/what-is-kubernetes-ingress/)
+*   [Zero Trust](/tetrate-zero-trust-security/)
+
+### Learn
+
+*   [Blog](/blog/)
+*   [Resources for Kubernetes Ingress and Enterprise Istio Support](/resources/)
+*   [Learning Center](/learning-center/)
+*   [Tetrate Academy](https://academy.tetrate.io/)
+*   [Documentation](https://docs.tetrate.io/)
+
+*   [Events](/events/)
+*   [What’s New in Envoy Gateway 1.1](/event/whats-new-in-envoy-gateway-1-1/)
+*   [Best Practices For Platform Owners and App Developers](/event/best-practices-for-platform-owners-and-app-developers/)
+
+### Company
+
+*   [About](/about-us/)
+*   [Leadership](/about-us/#leadership)
+*   [Investors](/about-us/#investors)
+*   [Partners](/about-us/#partners)
+*   [Newsroom](/about-us/#newsroom)
+*   [Careers](/about-us/#careers)
+*   [Get Support](/about-us/#support)
+*   [Contact Us](/about-us/#support)
+*   [Legal](/legal/)
+*   [Sitemap](/sitemap/)
+
+#### Subscribe to our newsletter
+
+hbspt.forms.create( { region: "na1", portalId: "7637559", formId: "00c4d697-5b67-4601-ae76-c17d58788613", css: ' \* { opacity: 1; }', cssClass: 'main-wrapper' } );
+
+### Follow us
+
+*   [](https://x.com/tetrateio "twitter")
+*   [](https://www.youtube.com/channel/UCtV2o3OvEH6U3DQ0-_7chNw "youtube")
+*   [](https://www.linkedin.com/company/tetrate/about/ "linkedin")
+*   [](https://github.com/tetratelabs "github")
+*   [](https://join.slack.com/t/tetrate-community/shared_invite/zt-30pdbaw86-w~ny6j4g5s9nR5mA5dVn0Q "slack")
+
+[![Tetrate](/wp-content/uploads/2023/03/tetrate-logo-dark.svg)](/)
+
+Copyright © Tetrate 2025. All rights reserved.
+
+### Footer
+
+*   [Terms of Use](/legal/service-terms-and-conditions-eula/)
+*   [Privacy Policy](/privacy/)
+
+/\* <!\[CDATA\[ \*/ var leadin\_wordpress = {"userRole":"visitor","pageType":"post","leadinPluginVersion":"11.2.0"}; /\* \]\]> \*/ /\* <!\[CDATA\[ \*/ var localizedArray = {"academy\_form\_id":"11"}; /\* \]\]> \*/ /\* <!\[CDATA\[ \*/ !function(e,n){if("undefined"!=typeof EnlighterJS){var o={"selectors":{"block":"pre.EnlighterJSRAW","inline":"code.EnlighterJSRAW"},"options":{"indent":4,"ampersandCleanup":true,"linehover":true,"rawcodeDbclick":true,"textOverflow":"scroll","linenumbers":true,"theme":"wpcustom","language":"generic","retainCssClasses":false,"collapse":false,"toolbarOuter":"","toolbarTop":"{BTN\_RAW}{BTN\_COPY}{BTN\_WINDOW}{BTN\_WEBSITE}","toolbarBottom":""}};(e.EnlighterJSINIT=function(){EnlighterJS.init(o.selectors.block,o.selectors.inline,o.options)})()}else{(n&&(n.error||n.log)||function(){})("Error: EnlighterJS resources not loaded yet!")}}(window,console); /\* \]\]> \*/ var \_hsq = window.\_hsq = window.\_hsq || \[\]; \_hsq.push( \['setContentType', 'CONTENT\_TYPE'\] ); \_NBSettings = { apiKey: 'public\_702fb91aa7cddcb9569a3de5ee922699' };

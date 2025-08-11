@@ -1,0 +1,30 @@
+---
+const { fallback = "/learn" } = Astro.props;
+import styles from './BackButton.module.css'
+import Icon from '@/assets/left.svg'
+import clsx from 'clsx';
+---
+
+<button class={clsx(
+  'text__body--16-medium',
+  'text__body--16-medium-lg',
+  'text__body--16-medium-md',
+  styles.btn
+  )} onclick="goBack()">
+  <Icon width={16} height={16} />
+  Back
+</button>
+
+<script is:inline define:vars={{ fallback }}>
+  function goBack() {
+    const referrer = document.referrer;
+    const current = window.location.href;
+    const origin = window.location.origin;
+
+    if (referrer && referrer.startsWith(origin) && referrer !== current) {
+      window.location.href = referrer;
+    } else {
+      window.location.href = fallback;
+    }
+  }
+</script>

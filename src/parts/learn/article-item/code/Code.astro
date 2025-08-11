@@ -1,0 +1,52 @@
+---
+import styles from './Code.module.css';
+import Icon from '@/assets/learn/copycode.svg';
+import clsx from "clsx";
+
+interface Props {
+	title?: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class={styles.code}>
+	{title && <span class={styles.title}>{title}</span>}
+	<div class={styles.content}>
+		<button 
+      class={clsx(
+        'text__body--14-medium-lg',
+        'text__body--14-medium-md',
+        styles.copy
+      )}
+      type="button" 
+      >
+			<Icon />				
+			Copy
+		</button>
+    <span class={clsx(
+      'text__body--14-medium-lg',
+      'text__body--14-medium-md',
+      styles.copied
+    )} hidden>
+      Copied!
+    </span>
+		<slot />
+	</div>
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.currentScript.closest(`.${styles.code}`);
+      const button = container.querySelector(`.${styles.copy}`);
+      const msg = container.querySelector(`.${styles.copied}`);
+      const code = container.querySelector('pre, code');
+
+      button.addEventListener('click', () => {
+        if (code) {
+        navigator.clipboard.writeText(code.innerText.trim());
+        msg.hidden = false;
+        setTimeout(() => (msg.hidden = true), 2000);
+        }
+      });
+    });
+  </script>
+</div>

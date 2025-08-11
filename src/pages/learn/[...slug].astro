@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Layout from '@/layouts/Layout.astro';
+import Article from '@/parts/learn/article-item/Article.astro';
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import Cta from '@/parts/learn/cta/Cta.astro';
+
+export async function getStaticPaths() {
+  const articles: CollectionEntry<"learn">[] = await getCollection("learn");
+  return articles.map((article) => ({
+    params: { slug: article.slug.split("/")} 
+  }))
+}
+
+const slug = Astro.params.slug;
+const slugString = Array.isArray(slug) ? slug.join("/") : slug;
+const entry = await getEntry("learn", slugString);
+if (!entry) {
+	return Astro.redirect("/learn");
+}
+const ogImage = entry.data.featuredImage?.src ?? "/og-image.png";
+const { headings } = await entry.render();
+const decodedTitle = decodeURIComponent(entry.data.title);
+
+type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+const tocHeadings = headings
+	.filter((h: Heading) => h.depth === 2)
+	.map(({ text, slug }) => ({ text, id: slug }));
+---
+
+<Layout title={decodedTitle} bodyClass="post-body" ogImage={ogImage}>
+	<Article article={entry} headings={tocHeadings} />
+	<Cta />
+</Layout>
