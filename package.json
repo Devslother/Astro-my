@@ -13,6 +13,7 @@
     "classnames": "^2.5.1"
   },
   "devDependencies": {
+    "@astrojs/vercel": "^8.2.5",
     "typescript": "^5.8.3"
   }
 }
