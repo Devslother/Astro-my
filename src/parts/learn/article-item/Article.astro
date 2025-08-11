@@ -5,7 +5,7 @@ import Pattern from '@/components/pattern/Pattern.astro';
 import styles from './Article.module.css';
 import clsx from "clsx";
 import TableOfContents from './toc/TableOfContents.astro';
-import ShareButton from '@/components/Button/ShareButton.astro';
+import ShareButton from "../../../components/Button/ShareButton.astro"
 import Figure from './figure/Figure.astro';
 import Quote from './quote/Quote.astro';
 import Admonition from './admonition/Admonition.astro';
@@ -97,7 +97,6 @@ const related = allArticles
         
           <div class={styles.share}>
             <ShareButton
-              client:load
               shareUrl={Astro.url.href}
               title={title}
             />
