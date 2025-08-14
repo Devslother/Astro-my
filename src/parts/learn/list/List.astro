@@ -34,7 +34,7 @@ const {
   totalPages,
   allCategories,
   currentCategory,
-  baseUrl = "/learn",
+  baseUrl = "/learn/search/1",
   noQuery,                 
   hasResults,  
 } = Astro.props;
@@ -60,7 +60,7 @@ const {
         placeholder="Search article..." 
         containerClass={styles.learn__input}  
         id="search-input-mobile" 
-        baseUrl={baseUrl}
+        baseUrl="/learn/search/1"
       />
     </div>
 
@@ -75,7 +75,7 @@ const {
           placeholder="Search article..." 
           containerClass={styles.learn__input} 
           id="search-input-desktop"
-          baseUrl={baseUrl}
+          baseUrl="/learn/search/1"
         />
 
         <div class={styles.categories}>
@@ -91,7 +91,6 @@ const {
       <div class={styles.grid}>
         <div 
         class={styles.wrapper}
-        data-articles-wrapper
         >
           {
             articles.length > 0 && (

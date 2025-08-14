@@ -1,4 +1,5 @@
 ---
+
 import Icon from '../icon/Icon.astro';
 import styles from './SearchInput.module.css'
 import clsx from 'clsx';
@@ -14,10 +15,10 @@ const {
 	placeholder = "Search…",
 	containerClass = "",
 	id = "search-dynamic",
-	baseUrl = "/learn/search"
+	baseUrl = "/learn/search/1"
 } = Astro.props;
 
-const initial = new URL(Astro.url).searchParams.get("q") ?? "";
+const initial = Astro.url.searchParams.get("q") ?? "";
 ---
 
 <label 
@@ -75,4 +76,3 @@ const initial = new URL(Astro.url).searchParams.get("q") ?? "";
   />
 </label>
 
-<script  is:inline src="/scripts/dynamicSearch.js" type="module" />

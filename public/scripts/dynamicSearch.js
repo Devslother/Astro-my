@@ -104,6 +104,11 @@
     }
   }
 
-  if (document.readyState !== "loading") initSearchInputs();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSearchInputs);
+  } else {
+    initSearchInputs();
+  }
+
   document.addEventListener("astro:page-load", initSearchInputs);
 })();
