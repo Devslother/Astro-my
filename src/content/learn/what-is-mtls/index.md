@@ -3,10 +3,11 @@ title: What Is mTLS?
 slug: what-is-m-tls
 date: 2025-01-01T00:00:00.000Z
 categories:
-  - Kubernetes
+  - mTLS
 featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: "Mutual TLS (mTLS) is a variation on transport layer security (TLS). Traditional TLS is the successor to secure sockets layer (SSL) and is the most widely deployed standard for secure communication, most visibly in HTTPS. TLS establishes secure communication that is both confidential (resistant to eavesdropping) and authentic (resistant to tampering) between a server that needs to prove its identity to its clients. But, in situations where both parties need to prove their identity to each other—such as between microservices in a Kubernetes(/learn/kubernetes/what-is-kubernetes-ingress/) application—TLS isn’t sufficient. mTLS is used in cases where both parties must prove their identities to each other.\_ mTLS extends the security provided by TLS(/blog/istio-gateway-upgrade-challenges-how-we-solved-tls-issues-and-ensured-seamless-service-delivery/) by adding mutual authentication between the client and the."
 ---
+
 # What Is mTLS?
 
 ### Article content
@@ -49,7 +50,7 @@ TLS uses a combination of symmetric and asymmetric cryptography to strike a bala
 
 ### Public Key Certificates, Certificate Authorities (CA), and Public Key Infrastructure (PKI)
 
-The public keys used in asymmetric cryptography don’t have to be secret and can be shared publicly. But, we need a way to make sure that public keys are _authentic_—that the server you’re connecting to actually _is_ the server you think it is (and not a bad actor pretending to be that server, also known as a man-in-the-middle attack) and that the public key it gives you isn’t fake. To do this, TLS relies on a system of digitally signed certificates issued by a trusted third party called a certificate authority (CA) to prove the authenticity of the public key and the identity of the server presenting the key. 
+The public keys used in asymmetric cryptography don’t have to be secret and can be shared publicly. But, we need a way to make sure that public keys are _authentic_—that the server you’re connecting to actually _is_ the server you think it is (and not a bad actor pretending to be that server, also known as a man-in-the-middle attack) and that the public key it gives you isn’t fake. To do this, TLS relies on a system of digitally signed certificates issued by a trusted third party called a certificate authority (CA) to prove the authenticity of the public key and the identity of the server presenting the key.
 
 This system established to support issuing, validating, and revoking public key certificates is known as a public key infrastructure (PKI) ([Recommendation ITU-T X.509 | ISO/IEC 9594-8](https:
 
@@ -59,7 +60,7 @@ During the TLS handshake, the server presents the certificate to the client to p
 
 For public key infrastructure to work, everyone (and everything) using it must agree on a set of one or more trusted third parties. Those trusted third parties are known as “root CAs”  and they create and publish a self-signed “root certificate.”
 
-Typically, devices have a set of those trusted root certificates securely installed in what’s known as a “root store” or “root CA bundle.”  The presence of a root certificate in the root store of a device (or software installed on the device) establishes trust in the root CA that issued the root certificate. 
+Typically, devices have a set of those trusted root certificates securely installed in what’s known as a “root store” or “root CA bundle.”  The presence of a root certificate in the root store of a device (or software installed on the device) establishes trust in the root CA that issued the root certificate.
 
 For the public Internet, the root CAs are operated by well-known commercial or non-profit organizations, but some organizations operate their own PKI with their own CAs.
 
@@ -73,10 +74,10 @@ An “end-entity” or “leaf” certificate is typically issued to individual 
 
 When a client connects to the server, the server sends its leaf certificate along with the chain of certificates that can be traced all the way back to a root certificate. The client then validates the certificate, typically with the following checks:
 
-*   **Verifying the certificate’s signature** to ensure that the certificate was actually issued by the CA and has not been tampered with.
-*   **Checking the certificate’s status:** The client checks the certificate’s expiration date, as well as any other relevant information such as the domain name or the subject’s public key, to ensure that the certificate is still valid.
-*   **Checking the certificate chain:** The client follows the links in the certificate chain, starting with the server’s leaf certificate, and checking each intermediate certificate in the chain. It uses the information in each certificate to [verify](https:
-*   **Validating the root certificate:** The client validates the trusted root certificate by checking that it is in its list of trusted root CAs. This ensures that the root certificate is a trusted and authoritative source of information about other certificates.
+- **Verifying the certificate’s signature** to ensure that the certificate was actually issued by the CA and has not been tampered with.
+- **Checking the certificate’s status:** The client checks the certificate’s expiration date, as well as any other relevant information such as the domain name or the subject’s public key, to ensure that the certificate is still valid.
+- **Checking the certificate chain:** The client follows the links in the certificate chain, starting with the server’s leaf certificate, and checking each intermediate certificate in the chain. It uses the information in each certificate to [verify](https:
+- **Validating the root certificate:** The client validates the trusted root certificate by checking that it is in its list of trusted root CAs. This ensures that the root certificate is a trusted and authoritative source of information about other certificates.
 
 ### CA Bundle
 
@@ -118,7 +119,7 @@ mTLS is a crucial component of a [zero trust architecture](/zero-trust/). One of
 
 As part of a zero trust security posture, you should use mTLS for network communication between application components that you have some control over—like between microservices in a cluster.
 
-One-way TLS is typically used by Internet clients to connect to web services, which means that only the server needs to show identification and is unconcerned with the identity of the client. One-way TLS allows you to use passwords, tokens, two-factor authentication, and other methods when you need to confirm the identity of the client. However, when using a supporting technology like a service mesh, mTLS operates outside the application and doesn’t require many changes to the application logic to implement. 
+One-way TLS is typically used by Internet clients to connect to web services, which means that only the server needs to show identification and is unconcerned with the identity of the client. One-way TLS allows you to use passwords, tokens, two-factor authentication, and other methods when you need to confirm the identity of the client. However, when using a supporting technology like a service mesh, mTLS operates outside the application and doesn’t require many changes to the application logic to implement.
 
 Since mTLS implementation calls for certificate exchange between services, as the number of services rises, managing numerous certificates becomes a laborious task. You can implement automatic mTLS to mitigate the complexity of certificate management with the aid of a service mesh.
 
@@ -159,23 +160,23 @@ Istio includes a built-in CA, and [Secret Discovery Service (SDS)](https:
 
 In Istio, authentication and authorization between services can be configured using one of three resource objects:
 
-*   [**RequestAuthentication**](https:
-*   [**PeerAuthentication**](https:
-*   [**AuthorizationPolicy**](https:
+- [**RequestAuthentication**](https:
+- [**PeerAuthentication**](https:
+- [**AuthorizationPolicy**](https:
 
 ### How to Enable Automatic mTLS in Istio
 
 In [Istio’s PeerAuthentication configuration](https:
 
-*   PERMISSIVE: The workload’s default setting that allows it to accept either mTLS or plain text traffic.
-*   STRICT: The workload accepts only mTLS traffic.
-*   DISABLE: Disable mTLS. From a security perspective, mTLS should not be disabled unless you have your own security solution.
-*   UNSET: Inherited from the parent, with the following priority: service specific > namespace scope > mesh scope setting.
+- PERMISSIVE: The workload’s default setting that allows it to accept either mTLS or plain text traffic.
+- STRICT: The workload accepts only mTLS traffic.
+- DISABLE: Disable mTLS. From a security perspective, mTLS should not be disabled unless you have your own security solution.
+- UNSET: Inherited from the parent, with the following priority: service specific > namespace scope > mesh scope setting.
 
 Istio’s peer authentication uses PERMISSIVE mode by default, automatically sending mTLS traffic to these workloads and clear text traffic to workloads without a sidecar. After including Kubernetes services in the Istio mesh, we can use PERMISSIVE mode first to prevent services from failing mTLS. We can use one of two ways to enable strict mTLS mode for certain services:
 
-*   Use PeerAuthentication to define how traffic is transferred between sidecars.
-*   Use DestinationRule to define the TLS settings in the traffic routing policy.
+- Use PeerAuthentication to define how traffic is transferred between sidecars.
+- Use DestinationRule to define the TLS settings in the traffic routing policy.
 
 The reviews service’s mTLS configuration in the default namespace can be seen in the example below.
 
@@ -232,8 +233,8 @@ If you’re not supposed to use Istio’s default self-signed certificates, what
 
 How, exactly, do you root Istio’s trust in your existing PKI? Tetrate founding engineer and co-author of NIST’s security standards for microservices, Zack Butcher, [has all the details here](https:
 
-*   Allow for fine-grained cert revocation without forcing new certificates across your entire infrastructure at the same time.
-*   Enable easy rotation of signing certificates.
+- Allow for fine-grained cert revocation without forcing new certificates across your entire infrastructure at the same time.
+- Enable easy rotation of signing certificates.
 
 For step-by-step instructions on how to automate [Istio certificate](/blog/how-are-certificates-managed-in-istio/) authority (CA) rotation, see our article on [automating Istio CA rotation in production at scale](/blog/automate-istio-ca-rotation-in-production-at-scale/).
 
@@ -241,12 +242,12 @@ For step-by-step instructions on how to automate [Istio certificate](/blog/how-a
 
 In short, zero trust security is more than just mTLS, although mTLS is an important part of a zero trust architecture, especially for microservices. Zero trust networking is an approach governed by a few important principles more than it is a particular technology. In a zero trust network, all access to resources should be:
 
-*   **Authenticated and dynamically authorized**, not only at the network layer and the service-to-service layer, but also at the application layer. Network location does not imply trust. Service identity and end-user credentials are authenticated and dynamically authorized before any access is allowed.
-*   **Bounded in time:** authentication and authorization are bound to a short-lived session after which they must be re-established.
-*   **Bounded in space:** the perimeter of trust around a service should be as small as possible.
-*   **Encrypted**, both to prevent eavesdropping and to ensure messages are authentic and
-*   unaltered.
-*   **Observable**, so the integrity and security posture of all assets may be continuously monitored and policy enforcement continuously assured. Also, insights gained from observing should be fed back to improve policy.
+- **Authenticated and dynamically authorized**, not only at the network layer and the service-to-service layer, but also at the application layer. Network location does not imply trust. Service identity and end-user credentials are authenticated and dynamically authorized before any access is allowed.
+- **Bounded in time:** authentication and authorization are bound to a short-lived session after which they must be re-established.
+- **Bounded in space:** the perimeter of trust around a service should be as small as possible.
+- **Encrypted**, both to prevent eavesdropping and to ensure messages are authentic and
+- unaltered.
+- **Observable**, so the integrity and security posture of all assets may be continuously monitored and policy enforcement continuously assured. Also, insights gained from observing should be fed back to improve policy.
 
 Implementing mTLS between resources like microservices in Kubernetes cluster provides authentication and encryption, but doesn’t address the rest of the full scope of a zero trust architecture. To learn more, [download our zero trust architecture white paper](/resource/zero-trust-architecture-white-paper/) written by Zack Butcher, Tetrate founding engineer and co-author of the [NIST security standards for microservices applications](/blog/nist-standards-for-zero-trust-the-sp-800-204-series/).
 

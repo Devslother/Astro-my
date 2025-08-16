@@ -2,12 +2,30 @@
   const DEBOUNCE_MS = 700;
   let timer = null;
 
+  if (!window.__lastNonSearchUrl) {
+    window.__lastNonSearchUrl = location.pathname.startsWith("/learn/search")
+      ? "/learn"
+      : location.pathname + location.search;
+  }
+  window.__setLastNonSearchUrl = (url) => {
+    window.__lastNonSearchUrl = url;
+  };
+
   function updateResults(query, input) {
     toggleIcons(input, "loading");
 
     const baseUrl = input.closest("[data-search]")?.dataset.baseurl;
-    let fetchUrl = new URL(baseUrl, location.origin);
-    if (query) fetchUrl.searchParams.set("q", query);
+
+    // не создаю URL заранее
+    let fetchUrl;
+    if (!query) {
+      // остаюсь там, где была (категория или /learn)
+      const fallback = window.__lastNonSearchUrl || baseUrl || "/learn";
+      fetchUrl = new URL(fallback, location.origin);
+    } else {
+      fetchUrl = new URL(baseUrl || "/learn/search/1", location.origin);
+      fetchUrl.searchParams.set("q", query);
+    }
 
     fetch(fetchUrl.href)
       .then((res) => {
@@ -28,7 +46,10 @@
         if (newWrapper) {
           currentWrapper.replaceWith(newWrapper);
           if (currentNoPosts) currentNoPosts.style.display = "none";
+          // переинициализирую поисковые инпуты
           window.initSearchInputs && window.initSearchInputs();
+          // даю знать другим скриптам (категории и т.п.)
+          document.dispatchEvent(new Event("astro:page-load"));
         } else {
           currentWrapper.innerHTML = "";
           if (currentNoPosts && noPosts) {
@@ -42,6 +63,10 @@
           "",
           fetchUrl.pathname + fetchUrl.search
         );
+        if (!fetchUrl.pathname.startsWith("/learn/search")) {
+          window.__lastNonSearchUrl = fetchUrl.pathname + fetchUrl.search;
+        }
+
         toggleIcons(input, "ready");
 
         requestAnimationFrame(() => {
@@ -80,7 +105,7 @@
           input.value = "";
           clearBtn.style.display = "none";
           input.focus();
-          updateResults("", input);
+          updateResults("", input); // пустая строка – остаюсь на текущем /learn или /learn/categories/<slug>
         };
       });
   };
@@ -109,6 +134,5 @@
   } else {
     initSearchInputs();
   }
-
   document.addEventListener("astro:page-load", initSearchInputs);
 })();

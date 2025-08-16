@@ -6,15 +6,17 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import Cta from '@/parts/learn/cta/Cta.astro';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const articles: CollectionEntry<"learn">[] = await getCollection("learn");
   return articles.map((article) => ({
-    params: { slug: article.slug.split("/")} 
-  }))
+  params: { slug: article.slug }
+}));
 }
 
-const slug = Astro.params.slug;
-const slugString = Array.isArray(slug) ? slug.join("/") : slug;
+const slugParam = Astro.params.slug;
+const slugString = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
 const entry = await getEntry("learn", slugString);
 if (!entry) {
 	return Astro.redirect("/learn");

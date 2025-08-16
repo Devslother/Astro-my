@@ -3,10 +3,11 @@ title: Istio Service Mesh
 slug: istio-service-mesh
 date: 2025-01-01T00:00:00.000Z
 categories:
-  - Kubernetes
+  - Service
 featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: Learn more.
 ---
+
 # Istio Service Mesh
 
 ### Article content

@@ -58,7 +58,7 @@ const selectedLabel = currentCategory ? (slugToLabel[currentCategory] ?? current
         <a 
           role="option"
           class={styles.option}
-          href={`/learn/category/${slugify(category)}`}
+          href={`/learn/categories/${slugify(category)}`}
           aria-selected={category === currentCategory}
           data-value={slugify(category)}
           data-option
@@ -90,258 +90,174 @@ const selectedLabel = currentCategory ? (slugToLabel[currentCategory] ?? current
 
 <script is:inline type="application/json" id="category-map" set:html={JSON.stringify(categoryMap)} />
 
-<script>
-  let currentQuery = "";
-	let currentCategory = "";
+<script is:inline>
+(() => {
+  // ОДИНАКОВЫЙ контейнер на всех страницах!
+  const WRAP_SEL = "[data-articles-wrapper]";
 
-  function setupSearchFiltering() {
-		const inputMobile = document.getElementById("search-input-mobile") as HTMLInputElement | null;
-		const inputDesktop = document.getElementById("search-input-desktop") as HTMLInputElement | null;
+  let currentCategory = "";
 
-		if (!inputMobile && !inputDesktop) return;
+  let lastNonSearchUrl =
+  location.pathname.startsWith("/learn/search")
+    ? "/learn"
+    : location.pathname + location.search;
 
-		function handleSearchEvent(e: Event) {
-      const target = e.target as HTMLInputElement;
-     
-			currentQuery = target.value.toLowerCase();
-			if (e.target === inputMobile && inputDesktop) {
-				inputDesktop.value = target.value;
-			} else if (e.target === inputDesktop && inputMobile) {
-				inputMobile.value = target.value;
-			}
-			filterPosts();
-		}
-
-		function filterPosts() {
-			const cards = document.querySelectorAll("[data-article]");
-			const noPosts = document.querySelector("[data-noposts]")as HTMLElement;
-			const paginationEl = document.querySelector("[data-pagination]")as HTMLElement;
-			const paginationWrapper = document.querySelector("[data-pagination-wrapper]")as HTMLElement;
-
-			let matchesFound = false;
-
-			(cards as NodeListOf<HTMLElement>).forEach((card) => {
-				const title = card.dataset.title ?? "";
-				const slug = card.dataset.slug ?? "";
-				const categories = card.dataset.categories ?? "";
-
-				const matchesSearch =
-					title.includes(currentQuery) ||
-					slug.includes(currentQuery) ||
-					categories.includes(currentQuery);
-
-				const matchesCategory =
-					!currentCategory || categories.includes(currentCategory);
-
-				const shouldShow = matchesSearch && matchesCategory;
-
-				card.style.display = shouldShow ? "" : "none";
-				if (shouldShow) matchesFound = true;
-			});
-
-			if (noPosts) {
-				noPosts.style.display = matchesFound ? "none" : "block";
-			}
-
-			if (paginationEl) {
-				if (currentQuery.length > 0) {
-					paginationEl.style.display = "none";
-				} else {
-					paginationEl.style.display = "";
-				}
-			}
-
-			if (paginationWrapper) {
-				paginationWrapper.style.display = matchesFound ? "" : "none";
-			}
-		}
-
-		if (inputMobile) {
-			inputMobile.removeEventListener("input", handleSearchEvent);
-			inputMobile.addEventListener("input", handleSearchEvent);
-		}
-		if (inputDesktop) {
-			inputDesktop.removeEventListener("input", handleSearchEvent);
-			inputDesktop.addEventListener("input", handleSearchEvent);
-		}
-	}
-
-   (window as any).setupSearchFiltering = setupSearchFiltering;
-
-	document.addEventListener("astro:page-load", () => {
-		setupCategoryFilterUI();
-		setupClearFiltersButton();
-
-		(window as any).setupSearchFiltering();
-
-		setTimeout(() => {
-			toggleClearButtonVisibility();
-		}, 0);
-	});
-
-  function updateContent(url: string) {
-		const categoryMapEl = document.getElementById("category-map");
-		const categoryMap = categoryMapEl ? JSON.parse(categoryMapEl.textContent) : {};
-		const scrollY = window.scrollY;
-
-		fetch(url)
-			.then((res) => res.text())
-			.then((html) => {
-				const doc = new DOMParser().parseFromString(html, "text/html");
-				const newArticles = doc.querySelector("[data-articles-wrapper]");
-				const currentArticles = document.querySelector("[data-articles-wrapper]");
-
-				if (newArticles && currentArticles) {
-					currentArticles.replaceWith(newArticles);
-					window.history.pushState({}, "", url);
-					window.scrollTo({ top: scrollY, behavior: 'instant' });
-
-					const urlParts = url.split("/");
-					const slug = url.includes("/learn/category") ? decodeURIComponent(urlParts[3]) : null;
-					const label = categoryMap[slug] || "Select category";
-
-					const categoryButtonSpan = document.querySelector("#category-button span");
-					if (categoryButtonSpan) {
-						categoryButtonSpan.textContent = label;
-					}
-
-					toggleClearButtonVisibility();
-					setupSearchFiltering();
-					setupCategoryFilterUI();
-					setupClearFiltersButton();
-				}
-			});
-	}
-
-  function toggleClearButtonVisibility() {
-		const categoriesSpan = document.querySelector("#category-button span");
-		const clearButton = document.getElementById("clear-filters");
-
-		if (!clearButton) return;
-
-		const selected = categoriesSpan?.textContent?.trim() !== "Select category";
-		clearButton.style.display = selected ? "inline-flex" : "none";
-	}
-
-  function setupCategoryOptionListeners() {
-		const button = document.getElementById("category-button");
-		const dropdown = document.getElementById("category-dropdown");
-		const options = document.querySelectorAll("[data-option]");
-
-		if(!button || !dropdown) return;
-
-		options.forEach((option) => {
-			const newOption = option.cloneNode(true) as HTMLElement;
-			option.parentNode.replaceChild(newOption, option);
-
-			newOption.addEventListener("click", (e) => {
-				e.preventDefault();
-				const value = newOption.getAttribute("data-value");
-				const url = value ? `/learn/category/${value}` : "/learn";
-				updateContent(url);
-
-				button.setAttribute("aria-expanded", "false");
-				dropdown.hidden = true;
-			});
-		});
-	}
-
-  function setupClearFiltersButton() {
-		const clearButton = document.getElementById("clear-filters");
-		if (!clearButton) return;
-
-		const newClearButton = clearButton.cloneNode(true);
-		clearButton.parentNode.replaceChild(newClearButton, clearButton);
-
-		newClearButton.addEventListener("click", () => {
-			updateContent("/learn");
-		});
-
-		toggleClearButtonVisibility();
-	}
-
-  function initDropdownInteraction() {
-    const button = document.getElementById("category-button");
-    const dropdown = document.getElementById("category-dropdown");
-    if (!button || !dropdown) return;
-
-    const handleClick = (e: MouseEvent) => {
-      e.stopPropagation();
-      const isExpanded = button.getAttribute("aria-expanded") === "true";
-      button.setAttribute("aria-expanded", String(!isExpanded));
-      dropdown.hidden = isExpanded;
-    };
-
-    button.removeEventListener('click', handleClick);
-    button.addEventListener('click', handleClick);
+  // slug -> label из скрытого JSON
+  function readCategoryMap() {
+    const el = document.getElementById("category-map");
+    try { return el ? JSON.parse(el.textContent || "{}") : {}; } catch { return {}; }
   }
 
-  function runInitializers() {
-    initDropdownInteraction();
-    setupCategoryOptionListeners();
-    setupClearFiltersButton();
-    setupSearchFiltering();
-    toggleClearButtonVisibility();
+  function setButtonLabelFromSlug(slug) {
+    const map  = readCategoryMap();
+    const span = document.querySelector("#category-button span");
+    if (!span) return;
+    span.textContent = slug ? (map[slug] || "Select category") : "Select category";
   }
 
-  function setupCategoryFilterUI() {
-    const button = document.getElementById("category-button");
-    const dropdown = document.getElementById("category-dropdown");
-    const options = document.querySelectorAll("[data-option]");
+  function toggleClear() {
+    const clearBtn = document.getElementById("clear-filters");
+    const span = document.querySelector("#category-button span");
+    if (!clearBtn || !span) return;
+    const hasCategory = span.textContent.trim() !== "Select category";
+    clearBtn.style.display = hasCategory ? "inline-flex" : "none";
+  }
 
-    if (!button || !dropdown) return;
+  function extractSlugFromUrl(url) {
+    const path = new URL(url, location.origin).pathname;
+    const m = path.match(/^\/learn\/categories\/([^/]+)/);
+    return m ? decodeURIComponent(m[1]) : "";
+  }
 
-    const newButton = button.cloneNode(true);
-    button.parentNode.replaceChild(newButton, button);
+  function replaceArticlesFromHtml(html) {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    const newWrap = doc.querySelector(WRAP_SEL);
+    const curWrap = document.querySelector(WRAP_SEL);
+    if (!newWrap || !curWrap) return false;
+    curWrap.innerHTML = newWrap.innerHTML;
+    return true;
+  }
 
-    const buttonNow = document.getElementById("category-button");
-
-    // Setup click handler for button
-    buttonNow.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const expanded = buttonNow.getAttribute("aria-expanded") === "true";
-      buttonNow.setAttribute("aria-expanded", String(!expanded));
-      dropdown.hidden = expanded;
+  function clearSearchInputs() {
+    ["search-input-mobile", "search-input-desktop"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.value = "";
+        // чтобы поисковый скрипт сам погасил /learn/search/… и не перебил категорию
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      }
     });
+  }
 
-    // Setup click handlers for options
-    options.forEach((option) => {
-      const newOption = option.cloneNode(true) as HTMLElement;
-      option.parentNode.replaceChild(newOption, option);
+  function updateContent(url) {
+    const scrollY = window.scrollY;
+    fetch(url)
+      .then(res => res.text())
+      .then(html => {
+        if (!replaceArticlesFromHtml(html)) return;
 
-      newOption.addEventListener("click", (e) => {
-        e.preventDefault();
-        const value = newOption.getAttribute("data-value");
-        const url = value ? `/learn/category/${value}` : "/learn";
-        updateContent(url);
+        history.pushState({}, "", url);
+        lastNonSearchUrl = url;
+        if (window.__setLastNonSearchUrl) {
+          window.__setLastNonSearchUrl(url);
+        }
 
-        buttonNow.setAttribute("aria-expanded", "false");
-        dropdown.hidden = true;
+        currentCategory = extractSlugFromUrl(url);
+        setButtonLabelFromSlug(currentCategory);
+        toggleClear();
+
+        // СБРОС ПОИСКА — критично, иначе скрипт поиска тут же запишет /learn/search/?q=…
+        clearSearchInputs();
+
+        // дать шанс другим скриптам перевеситься
+        document.dispatchEvent(new Event("astro:page-load"));
+
+        window.scrollTo({ top: scrollY, behavior: "instant" });
       });
+  }
+
+  function bindDropdown() {
+    const btn = document.getElementById("category-button");
+    const dd  = document.getElementById("category-dropdown");
+    if (!btn || !dd || btn.dataset.bound === "1") return;
+    btn.dataset.bound = "1";
+
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      dd.hidden = open;
     });
 
-    // Close dropdown when clicking outside
+    dd.addEventListener("click", (e) => {
+      const a = e.target && e.target.closest ? e.target.closest("[data-option]") : null;
+      if (!a) return;
+      e.preventDefault();
+      const slug = a.getAttribute("data-value") || "";
+      const url  = slug ? `/learn/categories/${slug}` : "/learn";
+      btn.setAttribute("aria-expanded", "false");
+      dd.hidden = true;
+      updateContent(url);
+    });
+
     document.addEventListener("click", (e) => {
-      const target = e.target as Node;
-      if (!buttonNow.contains(target) && !dropdown.contains(target)) {
-        buttonNow.setAttribute("aria-expanded", "false");
-        dropdown.hidden = true;
+      const t = e.target;
+      if (!btn.contains(t) && !dd.contains(t)) {
+        btn.setAttribute("aria-expanded", "false");
+        dd.hidden = true;
       }
     });
 
-    // Close dropdown on escape key
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !dropdown.hidden) {
-        buttonNow.setAttribute("aria-expanded", "false");
-        dropdown.hidden = true;
+      if (e.key === "Escape" && !dd.hidden) {
+        btn.setAttribute("aria-expanded", "false");
+        dd.hidden = true;
       }
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    setupCategoryFilterUI();
-    setupClearFiltersButton();
-    setupSearchFiltering();
-    toggleClearButtonVisibility();
-  });
+  function bindClear() {
+    const clearBtn = document.getElementById("clear-filters");
+    if (!clearBtn || clearBtn.dataset.bound === "1") return;
+    clearBtn.dataset.bound = "1";
+    clearBtn.addEventListener("click", () => {
+      currentCategory = "";
+      setButtonLabelFromSlug("");
+      toggleClear();
+      updateContent("/learn");
+    });
+  }
+
+  function initFromUrl() {
+    currentCategory = extractSlugFromUrl(location.href);
+    setButtonLabelFromSlug(currentCategory);
+    toggleClear();
+  }
+
+  // как в CategoriesList: подмена по popstate
+  function bindPopstate() {
+    window.addEventListener("popstate", () => {
+      const url = location.href;
+      fetch(url)
+        .then(r => r.text())
+        .then(html => {
+          if (!replaceArticlesFromHtml(html)) return;
+          currentCategory = extractSlugFromUrl(url);
+          setButtonLabelFromSlug(currentCategory);
+          toggleClear();
+          document.dispatchEvent(new Event("astro:page-load"));
+        });
+    });
+  }
+
+  function run() {
+    initFromUrl();
+    bindDropdown();
+    bindClear();
+    bindPopstate();
+  }
+
+  document.addEventListener("DOMContentLoaded", run);
+  document.addEventListener("astro:page-load", run);
+})();
 </script>

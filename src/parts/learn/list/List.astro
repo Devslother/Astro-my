@@ -34,7 +34,6 @@ const {
   totalPages,
   allCategories,
   currentCategory,
-  baseUrl = "/learn/search/1",
   noQuery,                 
   hasResults,  
 } = Astro.props;
@@ -134,7 +133,7 @@ const {
               data-pagination
               currentPage={currentPage}
               totalPages={totalPages}
-              baseUrl={baseUrl}
+              baseUrl="/learn"
             />
           )}
         </div>

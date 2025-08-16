@@ -10,13 +10,13 @@ interface Props {
 	baseUrl: string;
 }
 
-const { currentPage, totalPages, baseUrl } = Astro.props;
+const { currentPage, totalPages, baseUrl = "/learn" } = Astro.props;
 
-const getPageUrl = (page: number) => {
+const getPageUrl = (page:number) => {
 	const currentUrl = new URL(Astro.url);
 	const queryString = currentUrl.search;
 
-	const pagePath = page === 1 ? baseUrl : `${baseUrl}/${page}`;
+	const pagePath = page === 1 ? baseUrl : `${baseUrl}/page/${page}`;
 	return `${pagePath}${queryString}`;
 };
 

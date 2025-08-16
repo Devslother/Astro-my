@@ -1,8 +1,7 @@
 ---
-import { slugify } from '@/utils/slugify';
 import styles from './CategoriesList.module.css'
 import clsx from 'clsx';
-
+import { slugify } from '../../../utils/slugify';
 
 interface Props {
 	categories: string[];
@@ -24,73 +23,127 @@ const uniqueCategories = [...new Set(
         { [styles.active]: !currentCategory }
       )}
       data-item
+      data-slug="__all__"   
     >
       <a href="/learn">All articles</a>
     </li>
-    {uniqueCategories.map((category: string) => (
-      <li class={clsx(
+   {uniqueCategories.map((category: string) => {
+  const slug = slugify(category);
+  return (
+    <li
+      class={clsx(
         'text__body--14-md',
         styles.item,
-        { [styles.active]: currentCategory === slugify(category) } 
+        { [styles.active]: currentCategory === slug }
       )}
       data-item
+      data-slug={slug} 
     >
-        <a href={`/learn/category/${slugify(category)}`}>
-          {category}
-        </a>
-      </li>
-    ))}
+      <a href={`/learn/categories/${slug}`}>
+        {category}
+      </a>
+    </li>
+  );
+})}
   </ul>
 </div>
 
 <script>
-  function initializeDesktopCategories() {
-    const container = document.querySelector('[data-list]');
-    const categoryLinks = container.querySelectorAll('[data-item] a');
+  // ставлю active на нужный li
+  function setActiveBySlug(slug: string) {
+    document.querySelectorAll<HTMLLIElement>('[data-list] li[data-item]').forEach((li) => {
+      const liSlug = li.getAttribute('data-slug') || '__all__';
+      li.dataset.active = (liSlug === slug).toString();
+    });
+  }
 
-		(categoryLinks as NodeListOf<HTMLElement>).forEach(link => {
-      if (link.dataset.listenerAdded) {
-				return;
-			}
-			link.dataset.listenerAdded = 'true';
+  // достаю slug из URL (чтобы знать, какая категория выбрана)
+  function extractSlugFromUrl(url: string): string {
+    const path = new URL(url, location.origin).pathname;
+    const match = path.match(/^\/learn\/categories\/([^/]+)/);
+    return match ? match[1] : '__all__';
+  }
+
+  function initializeDesktopCategories() {
+    const categoryLinks = document.querySelectorAll<HTMLAnchorElement>('[data-list] li[data-item] a');
+
+    categoryLinks.forEach(link => {
+      if (link.dataset.listenerAdded) return;
+      link.dataset.listenerAdded = 'true';
 
       link.addEventListener('click', e => {
         e.preventDefault();
-				const url = link.getAttribute('href');
-				const scrollY = window.scrollY;
+        const url = link.getAttribute('href');
+        if (!url) return;
+
+        const scrollY = window.scrollY;
 
         fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const newWrapper = doc.querySelector('[data-articles-wrapper]');
-          const currentWrapper = document.querySelector('[data-articles-wrapper]');
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newWrapper = doc.querySelector('[data-articles-wrapper]');
+            const currentWrapper = document.querySelector('[data-articles-wrapper]');
 
-          if (newWrapper && currentWrapper) {
-            currentWrapper.replaceWith(newWrapper);
-            history.pushState({}, '', url);
-            window.scrollTo({ top: scrollY, behavior: 'instant' });
+            if (newWrapper && currentWrapper) {
+              // обновляю список статей
+              currentWrapper.innerHTML = newWrapper.innerHTML;
 
-            const inputMobile = document.getElementById("search-input-mobile") as HTMLInputElement | null;
-            const inputDesktop = document.getElementById("search-input-desktop") as HTMLInputElement | null;
-            if (inputMobile) {
-              inputMobile.value = '';
-              inputMobile.dispatchEvent(new Event('input'));
+              // меняю URL в адресной строке
+              history.pushState({}, '', url);
+
+              // сразу переключаю активную категорию
+              setActiveBySlug(extractSlugFromUrl(url));
+
+              // возвращаю скролл
+              window.scrollTo({ top: scrollY, behavior: 'instant' });
+
+              // сброс поисковых полей
+              const inputMobile = document.getElementById("search-input-mobile") as HTMLInputElement | null;
+              const inputDesktop = document.getElementById("search-input-desktop") as HTMLInputElement | null;
+              if (inputMobile) {
+                inputMobile.value = '';
+                inputMobile.dispatchEvent(new Event('input'));
+              }
+              if (inputDesktop) {
+                inputDesktop.value = '';
+                inputDesktop.dispatchEvent(new Event('input'));
+              }
+
+              // триггерю обновление Astro
+              document.dispatchEvent(new Event('astro:page-load'));
             }
-            if (inputDesktop) {
-              inputDesktop.value = '';
-              inputDesktop.dispatchEvent(new Event('input'));
-            }
-
-            document.dispatchEvent(new Event('astro:page-load'));
-          }
-        })  
-      })
-    })
+          });
+      });
+    });
   }
 
   document.addEventListener('DOMContentLoaded', initializeDesktopCategories);
-	document.addEventListener('astro:page-load', initializeDesktopCategories);
+  document.addEventListener('astro:page-load', initializeDesktopCategories);
 
+  // при первой загрузке подсвечиваю правильный active
+  document.addEventListener('DOMContentLoaded', () => {
+    setActiveBySlug(extractSlugFromUrl(location.href));
+  });
+  document.addEventListener('astro:page-load', () => {
+    setActiveBySlug(extractSlugFromUrl(location.href));
+  });
+
+  // поддержка кнопок "назад/вперёд" в браузере
+  window.addEventListener('popstate', () => {
+    const url = location.href;
+    fetch(url)
+      .then(r => r.text())
+      .then(html => {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const newWrapper = doc.querySelector('[data-articles-wrapper]');
+        const currentWrapper = document.querySelector('[data-articles-wrapper]');
+        if (newWrapper && currentWrapper) {
+          currentWrapper.innerHTML = newWrapper.innerHTML;
+          setActiveBySlug(extractSlugFromUrl(url));
+          document.dispatchEvent(new Event('astro:page-load'));
+        }
+      });
+  });
 </script>
