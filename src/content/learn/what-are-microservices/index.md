@@ -7,7 +7,7 @@ description: >-
   are built as a collection of small, independent services that work together to
   provide…
 categories:
-  - Kubernetes
+  - What
 excerpt: >-
   Microservices are a software architecture approach where applications are
   built as a collection of small, independent services that work together to
@@ -19,6 +19,7 @@ excerpt: >-
   smaller units also makes it easier to scale them independently, which makes
   the system more resilient to changes in traffic or demand over.
 ---
+
 ## Overview
 
 Microservices are a software architecture approach where applications are built as a collection of small, independent services that work together to provide functionality. Each microservice typically performs a single function or task and communicates with other microservices through lightweight protocols, such as RESTful APIs. This allows developers to work on different parts of the application without affecting other services, making it easier to maintain and update the system. The decomposition of functionality into smaller units also makes it easier to scale them independently, which makes the system more resilient to changes in traffic or demand over time.

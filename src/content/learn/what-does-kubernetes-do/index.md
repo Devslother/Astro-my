@@ -7,26 +7,27 @@ description: >-
   deployments by providing flexibility, scalability, and efficiency when
   managing containerized…
 categories:
-  - Kubernetes
+  - What
 excerpt: >-
   Kubernetes has become essential to modern application deployments by providing
   flexibility, scalability, and efficiency when managing containerized.
 ---
+
 ## Containerization
 
 Kubernetes has become essential to modern application deployments by providing flexibility, scalability, and efficiency when managing containerized applications.
 
 Containerization is a popular method for packaging applications for deployment. Software containers are self-contained and include everything an application needs to run in a single package called a container.
 
-Due to the benefits, containers have become a popular deployment option for development teams. Docker is one of the most widely used container platforms and runtime engines, but others exist, such as CRI-O, Podman, and more. 
+Due to the benefits, containers have become a popular deployment option for development teams. Docker is one of the most widely used container platforms and runtime engines, but others exist, such as CRI-O, Podman, and more.
 
 The ease of creating containers and their growing popularity has led to a management challenge for many organizations. With a large number of containers deployed in DevSecOps and Production environments, container sprawl has become a problem, similar to virtual server sprawl in virtualization platforms. The open-source [Kubernetes](/faq/what-does-kubernetes-do/) platform has become a popular solution for managing containers and controlling sprawl.
 
 ## Container Orchestration
 
-Container orchestration is an essential process for IT Operations Teams when managing large numbers of containers to ensure that deployed applications are available and performing well 24×7. This is especially true for microservices-based applications that use many separately deployed modules working in unison across containers. The Kubernetes platform provides the tools to manage container deployments. 
+Container orchestration is an essential process for IT Operations Teams when managing large numbers of containers to ensure that deployed applications are available and performing well 24×7. This is especially true for microservices-based applications that use many separately deployed modules working in unison across containers. The Kubernetes platform provides the tools to manage container deployments.
 
-Kubernetes has gained popularity with developers and DevSecOps teams due to its features, toolset, and support from major cloud service providers. Kubernetes has transformed application deployment by delivering enhanced container management for organizations. 
+Kubernetes has gained popularity with developers and DevSecOps teams due to its features, toolset, and support from major cloud service providers. Kubernetes has transformed application deployment by delivering enhanced container management for organizations.
 
 ## Kubernetes Components
 
@@ -52,16 +53,16 @@ Within these components, Kubernetes provides the following services and function
 
 **Self-healing** – This monitors containers for issues and restarts them automatically if necessary. The restart can be within the same pod or on another pod.
 
-**Service discovery** – Automatically expose a container to the broader network or other containers via a DNS name or an IP Address.  
+**Service discovery** – Automatically expose a container to the broader network or other containers via a DNS name or an IP Address.
 
 **Load Balancing** – Manage the load across multiple containers delivering the same application to ensure consistent performance.
 
-**Storage orchestration** – Mount storage from the cloud or local resources as needed and for as long as necessary. Applications can request the storage they need, and the Kubernetes platform will allocate it dynamically from local or cloud storage resources without system administrators needing to be involved. 
+**Storage orchestration** – Mount storage from the cloud or local resources as needed and for as long as necessary. Applications can request the storage they need, and the Kubernetes platform will allocate it dynamically from local or cloud storage resources without system administrators needing to be involved.
 
 **Secret and configuration management** – Securely manage sensitive information like passwords, tokens, and keys. Deploy and update secrets and app configurations without exposing secrets on the network.
 
 ## Conclusion
 
-In summary, Kubernetes provides the tools to automate the deployment, scaling, and management of application container clusters and pods across hosts. By abstracting the hardware infrastructure with a controlling software platform, Kubernetes presents the available IT infrastructure as a single deployment platform. 
+In summary, Kubernetes provides the tools to automate the deployment, scaling, and management of application container clusters and pods across hosts. By abstracting the hardware infrastructure with a controlling software platform, Kubernetes presents the available IT infrastructure as a single deployment platform.
 
 Kubernetes promotes a more collaborative approach between developers and operations teams, enabling them to work together more effectively and encouraging a more DevSecOps-centric approach to application deployment.

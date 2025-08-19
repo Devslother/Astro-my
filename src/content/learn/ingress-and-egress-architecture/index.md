@@ -7,7 +7,7 @@ description: >-
   reliable communication within Kubernetes deployments. Ingress controls how
   external traffic…
 categories:
-  - Kubernetes
+  - Ingress
 excerpt: >-
   Managing Ingress and Egress traffic is essential for secure, efficient, and
   reliable communication within Kubernetes deployments. Ingress controls how
@@ -15,25 +15,26 @@ excerpt: >-
   services communicate with external resources. Together, they form the
   foundation of Kubernetes traffic flow, ensuring connectivity, security, and.
 ---
+
 Managing Ingress and Egress traffic is essential for secure, efficient, and reliable communication within Kubernetes deployments. Ingress controls how external traffic enters the cluster, while Egress manages how internal services communicate with external resources. Together, they form the foundation of Kubernetes traffic flow, ensuring connectivity, security, and performance.
 
 ## Managing Ingress Traffic in Kubernetes
 
-Ingress and Egress work together to deliver the inward and outward traffic flow to and from a Kubernetes cluster. Ingress brings external requests into the cluster, while Egress ensures secure outbound communication. Together, they create a well-structured traffic flow, enhancing performance, security, and compliance. 
+Ingress and Egress work together to deliver the inward and outward traffic flow to and from a Kubernetes cluster. Ingress brings external requests into the cluster, while Egress ensures secure outbound communication. Together, they create a well-structured traffic flow, enhancing performance, security, and compliance.
 
 Ingress in Kubernetes uses several components:
 
-*   **Ingress Controllers** – Manages external access by routing traffic based on domain names, paths, and protocols. Envoy Gateway is the modern standard for Kubernetes Ingress, providing advanced security, observability, and multi-tenancy support.  
-*   **TLS Termination** – Ensures secure traffic by handling TLS/SSL encryption at the Ingress layer.
-*   **Load Balancing & Traffic Shaping** – Distributes incoming requests efficiently, supporting QA deployments and canary releases.
+- **Ingress Controllers** – Manages external access by routing traffic based on domain names, paths, and protocols. Envoy Gateway is the modern standard for Kubernetes Ingress, providing advanced security, observability, and multi-tenancy support.
+- **TLS Termination** – Ensures secure traffic by handling TLS/SSL encryption at the Ingress layer.
+- **Load Balancing & Traffic Shaping** – Distributes incoming requests efficiently, supporting QA deployments and canary releases.
 
 ## Managing Egress Traffic in Kubernetes
 
 Egress in Kubernetes is built on several components:
 
-*   **Egress Gateways** – Enforce outbound traffic policies, ensuring controlled communication with external APIs or cloud services.  
-*   **Network Policies** – Restrict Egress traffic to limit unauthorized data flows and prevent leaks.  
-*   **Service Mesh Integration** – Istio’s Egress gateway provides fine-grained control over external connections, enforcing authentication and mutual TLS (mTLS).  
+- **Egress Gateways** – Enforce outbound traffic policies, ensuring controlled communication with external APIs or cloud services.
+- **Network Policies** – Restrict Egress traffic to limit unauthorized data flows and prevent leaks.
+- **Service Mesh Integration** – Istio’s Egress gateway provides fine-grained control over external connections, enforcing authentication and mutual TLS (mTLS).
 
 ## Ingress vs. Egress – Understanding the Differences
 

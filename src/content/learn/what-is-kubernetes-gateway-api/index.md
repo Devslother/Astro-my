@@ -7,11 +7,12 @@ description: >-
   benefits, design goals, and comparison to Ingress. Optimize traffic management
   now!
 categories:
-  - Kubernetes
+  - What
 excerpt: >-
   The Kubernetes Gateway API(/learn/what-is-the-kubernetes-gateway-api/), aka
   “Gateway.
 ---
+
 ## Overview
 
 The [Kubernetes Gateway API](/learn/what-is-the-kubernetes-gateway-api/), aka “[Gateway API,](https:
@@ -26,10 +27,10 @@ Conceived as a successor to the earlier Ingress API, Gateway API aims to enhance
 
 Gateway API represents a superset of Ingress functionality, enabling more advanced use cases. It offers the following benefits over earlier ingress implementations:
 
-*   A comprehensive, unified, and standardized API for managing traffic into and out of a Kubernetes cluster.
+- A comprehensive, unified, and standardized API for managing traffic into and out of a Kubernetes cluster.
 
-*   More powerful and granular control, including expanded protocol support and routing options.
-*   More flexible configuration that can be extended to address specific use cases.
+- More powerful and granular control, including expanded protocol support and routing options.
+- More flexible configuration that can be extended to address specific use cases.
 
 ### Design Goals
 
@@ -51,19 +52,19 @@ Both the Gateway API and Ingress are used for managing inbound traffic to Kubern
 
 ### Ingress
 
-Ingress is an earlier API originally introduced to route incoming HTTP traffic to services using a straightforward, declarative syntax. It offered more control than the more limited options available at the time for exposing services in Kubernetes to the outside world. 
+Ingress is an earlier API originally introduced to route incoming HTTP traffic to services using a straightforward, declarative syntax. It offered more control than the more limited options available at the time for exposing services in Kubernetes to the outside world.
 
-Ingress controllers, such as [NGINX](/learn/kubernetes/nginx/), [Traefik](/blog/traefik-with-istio/), or Istio, may be used to implement the Ingress resource and provide additional features like SSL termination, load balancing algorithms, and traffic shaping. More advanced features have been added by vendors, typically in the form of custom annotations that aren’t always portable across implementations. 
+Ingress controllers, such as [NGINX](/learn/kubernetes/nginx/), [Traefik](/blog/traefik-with-istio/), or Istio, may be used to implement the Ingress resource and provide additional features like SSL termination, load balancing algorithms, and traffic shaping. More advanced features have been added by vendors, typically in the form of custom annotations that aren’t always portable across implementations.
 
 ### Ingress Limitations
 
 While effective for basic use cases, Ingress has significant limitations for advanced uses, including:
 
-*   **Limited power and flexibility:** Ingress is often not powerful or flexible enough for most real-world use and it only supports HTTP protocol routing.
-*   **Limited expressiveness:** It only supports host and path matching, and there is no standard configuration for advanced routing features, which can only be achieved through non-portable annotations.
-*   **Proliferation of non-portable, vendor-specific annotations:** The lack of advanced capabilities has driven a proliferation of implementation-specific annotations. For example,  URL redirection using the NGINX Ingress Controller requires configuration of the nginx.ingress.kubernetes.io/rewrite-target annotation, which makes it incompatible with a programmable proxy like Envoy.
-*   **Lack of cross-namespace support.** Since Ingress can only route traffic to a single namespace, it can’t be used as a unified gateway across multiple namespaces.
-*   **Lack of role-based configuration and management responsibilities.** Since there is no built-in delineation of responsibilities, operational tasks like creating and managing gateways that more properly belong to platform engineering are often shouldered by app developers.
+- **Limited power and flexibility:** Ingress is often not powerful or flexible enough for most real-world use and it only supports HTTP protocol routing.
+- **Limited expressiveness:** It only supports host and path matching, and there is no standard configuration for advanced routing features, which can only be achieved through non-portable annotations.
+- **Proliferation of non-portable, vendor-specific annotations:** The lack of advanced capabilities has driven a proliferation of implementation-specific annotations. For example,  URL redirection using the NGINX Ingress Controller requires configuration of the nginx.ingress.kubernetes.io/rewrite-target annotation, which makes it incompatible with a programmable proxy like Envoy.
+- **Lack of cross-namespace support.** Since Ingress can only route traffic to a single namespace, it can’t be used as a unified gateway across multiple namespaces.
+- **Lack of role-based configuration and management responsibilities.** Since there is no built-in delineation of responsibilities, operational tasks like creating and managing gateways that more properly belong to platform engineering are often shouldered by app developers.
 
 ### Gateway API vs Ingress
 
@@ -75,7 +76,7 @@ For a deep dive on the history of Kubernetes Ingress and Gateway API, read our a
 
 ## Gateway API vs API Gateway
 
-The Gateway API is a built-in Kubernetes API that provides a standardized way to manage and configure inbound traffic in Kubernetes environments. 
+The Gateway API is a built-in Kubernetes API that provides a standardized way to manage and configure inbound traffic in Kubernetes environments.
 
 An API Gateway provides a single entry point for incoming requests and outgoing responses in front of the backend services that implement an API’s functionality. It typically provides a range of advanced features such as traffic routing, rate limiting, authentication, and authorization, among others, to help manage and secure the [API endpoints of an application](/faq/what-is-an-api/).
 
@@ -178,8 +179,8 @@ Envoy Gateway is an implementation of the Gateway API that uses [Envoy Proxy](/w
 
 Getting started with Gateway API and Envoy Gateway is easy. Go to the documentation on [the Envoy Gateway project site](https:
 
-*   [Quick start ›](https:
-*   [User guides ›](https:
+- [Quick start ›](https:
+- [User guides ›](https:
 
 ## Get Enterprise Support for Your Envoy Gateway Deployment
 
@@ -187,6 +188,6 @@ Getting started with Gateway API and Envoy Gateway is easy. Go to the documentat
 
 Tetrate is a leading contributor to open source Envoy and Envoy Gateway. Tetrate Enterprise Gateway for Envoy brings them to the enterprise, with the scale, reliability, performance and security necessary for large and mission-critical apps. Whatever your Kubernetes platforms of choice, rely on Tetrate’s expertise to deliver your services without missing a beat.
 
-*   [Get access now ›](https:
-*   [Learn more ›](/tetrate-enterprise-gateway-for-envoy/)
-*   [Quick start ›](https:
+- [Get access now ›](https:
+- [Learn more ›](/tetrate-enterprise-gateway-for-envoy/)
+- [Quick start ›](https:

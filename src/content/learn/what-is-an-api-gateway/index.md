@@ -9,7 +9,7 @@ description: >-
 featuredImage: >-
   https://lh5.googleusercontent.com/WSns3Ifou8w8ifxl3PTBGIvSP6UevjPdQW0PoT0zZdbwyouY1JFvYRB2Pm6Zx0eHygBK8IkkyKr6gtc4c_K56HJfMhACIWOFF4t20WpuJOof8fB7Zr4d9xeYEBQvefKRvTBfFLSOFUC05-maH_fpNTc
 categories:
-  - Kubernetes
+  - What
 excerpt: >-
   Application Programming Interfaces (APIs) are essential building blocks of
   modern software applications. APIs provide a standard way for different
@@ -17,6 +17,7 @@ excerpt: >-
   managing APIs can be challenging, especially when dealing with multiple
   microservices, legacy systems, and different.
 ---
+
 ## Overview
 
 Application Programming Interfaces (APIs) are essential building blocks of modern software applications. APIs provide a standard way for different applications to communicate and exchange data with each other. However, managing APIs can be challenging, especially when dealing with multiple microservices, legacy systems, and different protocols.
@@ -29,13 +30,13 @@ In addition, API gateways provide a layer of abstraction between client applicat
 
 Simplifying the management of complex microservice-based architectures by providing a single point of entry for clients and allowing for the addition or removal of services without affecting clients is also a key benefit of API gateways . They can also improve security by handling authentication and access control for all services in a consistent and centralized way.
 
- allows single-IP-port to access all services running in k8s through ingress rules. The Ingress Controller service is set to load balancer to be accessible from the public internet.
+allows single-IP-port to access all services running in k8s through ingress rules. The Ingress Controller service is set to load balancer to be accessible from the public internet.
 
 An Ingress Controller is a Layer 4 and Layer 7 proxy that routes traffic from clients to the services deployed into Kubernetes. Like an API gateway, an Ingress Controller can manage traffic and provide visibility, troubleshooting, security, and identity. An Ingress Controller is limited to only Kubernetes services, while an API gateway can manage traffic for both Kubernetes and VM workloads. Envoy proxy is used by some popular Ingress Controllers such as Ambassador and Contour. Other tools that are widely used as Ingress controllers include Kong Ingress, HAProxy Ingress, [NGINX Ingress](/learn/kubernetes/nginx/), etc.
 
 ## API Gateway vs the Kubernetes Gateway API
 
-The Gateway API is a built-in Kubernetes API that represents a superset of Kubernetes Ingress and  provides a standardized way to manage and configure inbound traffic in Kubernetes environments. 
+The Gateway API is a built-in Kubernetes API that represents a superset of Kubernetes Ingress and  provides a standardized way to manage and configure inbound traffic in Kubernetes environments.
 
 An API gateway is an API management component that provides a single entry point for incoming requests and outgoing responses in front of the backend services that implement an API’s functionality. It typically provides a range of advanced features such as traffic routing, rate limiting, authentication, and authorization, among others, to help manage and secure the API endpoints of an application.
 
@@ -57,11 +58,11 @@ A service mesh handles traffic flowing from external clients into an application
 
 Istio is the most widely-deployed service mesh. The figure below highlights how Istio handles the communication flow among various microservices (including Kubernetes and VMs):
 
- is an open source project that can be easily used as an API gateway. It is based on the Gateway API—a resource used for service networking in Kubernetes. This means when users create Gateway API resources in Kubernetes cluster, they will be translated into native Envoy API calls, so Envoy and xDS, its native API, will not need to be changed to add this new support.
+is an open source project that can be easily used as an API gateway. It is based on the Gateway API—a resource used for service networking in Kubernetes. This means when users create Gateway API resources in Kubernetes cluster, they will be translated into native Envoy API calls, so Envoy and xDS, its native API, will not need to be changed to add this new support.
 
 ### Operational Benefits of Envoy Gateway
 
-*   **App developers** can use Envoy Gateway to route external traffic to their application easily, without needing to build or extend control planes to manage traffic.
-*   **Infrastructure teams** can get basic gateway functionality quickly with Envoy Gateway. They can provide Envoy-native experience to the application team without purchasing a vendor solution.
+- **App developers** can use Envoy Gateway to route external traffic to their application easily, without needing to build or extend control planes to manage traffic.
+- **Infrastructure teams** can get basic gateway functionality quickly with Envoy Gateway. They can provide Envoy-native experience to the application team without purchasing a vendor solution.
 
 Envoy Gateway makes it easy for platform architects, infrastructure administrators, and developers to quickly adopt an Envoy-based API gateway. [Learn more about getting started with Envoy Gateway ›](/learn/what-is-envoy-gateway/)

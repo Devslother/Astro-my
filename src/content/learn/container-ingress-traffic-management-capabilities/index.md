@@ -7,7 +7,7 @@ description: >-
   essential for ensuring smooth, secure, and reliable application performance.
   Container Ingress…
 categories:
-  - Kubernetes
+  - Ingress
 excerpt: >-
   Managing Ingress traffic for containerized applications in Kubernetes is
   essential for ensuring smooth, secure, and reliable application performance.
@@ -15,25 +15,26 @@ excerpt: >-
   handled, routed, and secured as they enter a Kubernetes cluster. Properly
   configuring Ingress controllers ensures high availability, scalability, and.
 ---
-Managing Ingress traffic for containerized applications in Kubernetes is essential for ensuring smooth, secure, and reliable application performance. Container Ingress traffic management refers to how external requests are handled, routed, and secured as they enter a Kubernetes cluster. Properly configuring Ingress controllers ensures high availability, scalability, and security. 
+
+Managing Ingress traffic for containerized applications in Kubernetes is essential for ensuring smooth, secure, and reliable application performance. Container Ingress traffic management refers to how external requests are handled, routed, and secured as they enter a Kubernetes cluster. Properly configuring Ingress controllers ensures high availability, scalability, and security.
 
 ## How Container Ingress Traffic Management Works
 
 Kubernetes manages Ingress traffic using three main components: the Ingress resource, the Ingress controller, and supporting services:
 
-*   **Ingress Resource** – Defines rules for routing HTTP/HTTPS traffic to internal services.
-*   **Ingress Controller** – Processes the Ingress resource rules and directs traffic accordingly. Common examples include Envoy Gateway, NGINX, and HAProxy.
+- **Ingress Resource** – Defines rules for routing HTTP/HTTPS traffic to internal services.
+- **Ingress Controller** – Processes the Ingress resource rules and directs traffic accordingly. Common examples include Envoy Gateway, NGINX, and HAProxy.
 
-A service mesh like Istio enhances Ingress traffic management by adding fine-grained control, mTLS encryption, and observability for monitoring traffic flows. 
+A service mesh like Istio enhances Ingress traffic management by adding fine-grained control, mTLS encryption, and observability for monitoring traffic flows.
 
 ## Why Proper Configuration is Crucial
 
 Incorrect Ingress traffic management can lead to serious problems, including:
 
-*   **Application Downtime & Latency** – Poorly configured Ingress can cause misrouted traffic, overloaded services, or inefficient failover strategies, resulting in degraded performance or outages.
-*   **Security Vulnerabilities** – Misconfigured TLS can expose sensitive data, creating compliance risks and potential data breaches.
-*   **Traffic Bottlenecks** – Inadequate load balancing and improper rate limiting can overload some Pods while underutilizing others.
-*   **Observability Gaps** – Without proper logging and monitoring, diagnosing traffic issues becomes difficult, increasing the time required to resolve incidents. 
+- **Application Downtime & Latency** – Poorly configured Ingress can cause misrouted traffic, overloaded services, or inefficient failover strategies, resulting in degraded performance or outages.
+- **Security Vulnerabilities** – Misconfigured TLS can expose sensitive data, creating compliance risks and potential data breaches.
+- **Traffic Bottlenecks** – Inadequate load balancing and improper rate limiting can overload some Pods while underutilizing others.
+- **Observability Gaps** – Without proper logging and monitoring, diagnosing traffic issues becomes difficult, increasing the time required to resolve incidents.
 
 ## How Tetrate’s Istio-Based Solutions Improve Ingress Traffic Management
 
