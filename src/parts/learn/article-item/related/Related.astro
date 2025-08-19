@@ -40,6 +40,7 @@ const { related = [] } = Astro.props;
       
         return (
        <div class={styles.card}>
+
          <div class={styles.image}>
           {<PatternIcon />}
         </div>
@@ -66,7 +67,7 @@ const { related = [] } = Astro.props;
       <Button 
         variant="tertiary" 
         size="tert" 
-        url={`/learn/${card.slug}`}
+        href={`/learn/${card.slug}`}
         class={styles.btn}
       >
         <span 
