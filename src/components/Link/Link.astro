@@ -1,6 +1,4 @@
 ---
-import styles from './Link.module.css';
-
 interface Props {
   href: string;
   class?: string;
@@ -35,7 +33,7 @@ Object.entries(linkFixes).forEach(([wrong, correct]) => {
 
 <a 
   href={processedHref}
-  class={`${styles.link} ${className || ''}`}
+  class={className || ''}
   {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
 >
   <slot />

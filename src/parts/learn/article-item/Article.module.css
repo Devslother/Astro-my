@@ -4,6 +4,16 @@
   position: relative;
 }
 
+/* Стили для ссылок в статье */
+.content a {
+  text-decoration: none !important;
+}
+
+.content a:hover,
+.content a:focus {
+  text-decoration: underline !important;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -181,16 +191,6 @@
   .content {
     font-size: 18px;
   }
-}
-
-.content a:not(.btn) {
-  color: var(--color-blue-500);
-}
-.content a:not(.btn):hover {
-  text-decoration: underline;
-}
-.content a:not(.btn):active {
-  color: var(--color-blue-600);
 }
 
 .content em {
