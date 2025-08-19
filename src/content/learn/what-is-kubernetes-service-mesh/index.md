@@ -18,7 +18,7 @@ excerpt: >-
 
 ### A Dedicated Infrastructure Layer
 
-A Kubernetes [service mesh](/what-is-istio-service-mesh/) is a software infrastructure layer added within a Kubernetes cluster designed to simplify service-to-service communication, observability, and management of microservices running via containers.
+A Kubernetes [service mesh](/what-is-istio-service-mesh) is a software infrastructure layer added within a Kubernetes cluster designed to simplify service-to-service communication, observability, and management of microservices running via containers.
 
 While containers and microservices bring many benefits when deploying applications, they also introduce issues that IT teams need to deal with.
 
@@ -52,7 +52,7 @@ Istio is one of the most popular and feature-rich service mesh offerings for Kub
 
 ## Enterprise-Ready Service Mesh
 
-Deploying and managing Istio properly can still be complex, even if it’s not as difficult as managing Kubernetes clusters, pods, and containers directly. Tetrate is focused on the deployment and management of complex Kubernetes infrastructure using service mesh solutions. Tetrate’s enterprise service mesh products, [Tetrate Service Bridge (TSB)](/resource/tetrate-service-bridge-application-security-architecture/), [Tetrate Istio Subscription (TIS)](/tetrate-istio-subscription/), and [Tetrate Enterprise Gateway for Envoy (TEG)](/tetrate-enterprise-gateway-for-envoy/) are enterprise-ready service mesh solutions that build on core Istio and Envoy functionality.
+Deploying and managing Istio properly can still be complex, even if it’s not as difficult as managing Kubernetes clusters, pods, and containers directly. Tetrate is focused on the deployment and management of complex Kubernetes infrastructure using service mesh solutions. Tetrate’s enterprise service mesh products, [Tetrate Service Bridge (TSB)](/resource/tetrate-service-bridge-application-security-architecture), [Tetrate Istio Subscription (TIS)](/tetrate-istio-subscription), and [Tetrate Enterprise Gateway for Envoy (TEG)](/tetrate-enterprise-gateway-for-envoy) are enterprise-ready service mesh solutions that build on core Istio and Envoy functionality.
 
 ## Conclusion
 

@@ -27,7 +27,7 @@ Using Kubernetes to manage your containerization infrastructure offers numerous 
 
 - Automated Deployments and Rollbacks
 - Application Self-Healing
-- Service Discovery and [Ingress Management](/learn/kubernetes/what-is-kubernetes-ingress/)
+- Service Discovery and Ingress Management
 - Load Balancing
 
 ### Scalability
@@ -48,7 +48,7 @@ Kubernetes is a versatile tool that IT teams can use for many deployment scenari
 - Continuous integration and continuous deployment (CI/CD) workflows
 - DevSecOps and agile development
 - Cloud-native application deployments
-- Supporting [multi-cloud](/resource/simplify-kubernetes-and-multi-cloud-complexity-with-the-service-mesh/) and hybrid cloud strategies
+- Supporting [multi-cloud](/resource/simplify-kubernetes-and-multi-cloud-complexity-with-the-service-mesh) and hybrid cloud strategies
 - Big data and machine learning projects
 - Internet of Things (IoT) and edge computing infrastructure management
 

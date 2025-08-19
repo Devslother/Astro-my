@@ -1,0 +1,15 @@
+.link {
+  color: var(--color-orange-500);
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--color-orange-600);
+  text-decoration: none;
+}
+
+.link:focus {
+  outline: 2px solid var(--color-orange-500);
+  outline-offset: 2px;
+}

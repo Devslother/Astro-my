@@ -9,22 +9,23 @@ categories:
   - Kubernetes
 excerpt: >-
   Zero Trust Security—sometimes called Zero Trust
-  Architecture(/learn/zero-trust/zero-trust-architecture/) (ZTA) and Zero Trust
+  Zero Trust Architecture (ZTA) and Zero Trust
   Network Access (ZTNA)—is an information security
   model(/learn/kubernetes-security-best-practices/) that requires strict
   identity verification for all users, devices, and applications attempting to
   access resources within a network, regardless of their location. Popularized
   by John Kindervag at Forrester in.
 ---
+
 ## Overview
 
-Zero Trust Security—sometimes called [Zero Trust Architecture](/learn/zero-trust/zero-trust-architecture/) (ZTA) and Zero Trust Network Access (ZTNA)—is an information [security model](/learn/kubernetes-security-best-practices/) that requires strict identity verification for all users, devices, and applications attempting to access resources within a network, regardless of their location. Popularized by [John Kindervag at Forrester in 2010](https:
+Zero Trust Security—sometimes called Zero Trust Architecture (ZTA) and Zero Trust Network Access (ZTNA)—is an information [security model](/learn/kubernetes-security-best-practices) that requires strict identity verification for all users, devices, and applications attempting to access resources within a network, regardless of their location. Popularized by [John Kindervag at Forrester in 2010](/external-link/)
 
-Instead, [Zero Trust](/zero-trust/) requires continuous verification and authentication of users and devices before granting access to any network resources. This is typically done through multi-factor authentication, role-based access control and monitoring of user activity to detect and respond to any suspicious behavior.
+Instead, [Zero Trust](/zero-trust) requires continuous verification and authentication of users and devices before granting access to any network resources. This is typically done through multi-factor authentication, role-based access control and monitoring of user activity to detect and respond to any suspicious behavior.
 
 Zero Trust also requires strict segmentation of network resources, so users and devices only have access to the resources they need to perform their tasks, and nothing more. This reduces the risk of lateral movement by attackers who may gain access to one part of the network and then move laterally to gain access to more sensitive resources.
 
-Zero Trust systems have a simple litmus test:  if exposed to a public network, they wouldn’t need to change. If properly implemented, a [Zero Trust security architecture](/learn/zero-trust/nist-zero-trust-architecture/) would be as secure on the public Internet as it is behind a firewall.
+Zero Trust systems have a simple litmus test:  if exposed to a public network, they wouldn’t need to change. If properly implemented, a Zero Trust security architecture would be as secure on the public Internet as it is behind a firewall.
 
 ## Principles of Zero Trust
 
@@ -58,18 +59,18 @@ Additionally, Zero Trust requires strict segmentation of network resources, so t
 
 ## Benefits of Zero Trust Architecture
 
-*   Accessibility is not authorization—unlike perimeter security, access to a resource is not granted solely because that resource is reachable; it must be explicitly authenticated and authorized as well.
-*   Authenticated and authorized resources are protected from perimeter breaches.
-*   Bounding trust in time limits the risk of compromised credentials.
-*   Bounding trust in space allows for high granularity of policy enforcement.
-*   Dynamic policy enforcement ensures authorization policy is up-to-date.
-*   Encryption limits reconnaissance and ensures authenticity of communication.
-*   Least privilege ensures that users, applications, and systems have only the access rights and permissions necessary to perform their specific functions. This approach helps prevent unauthorized access to sensitive data and resources and limits the damage that can be caused by a security incident
-*   Fine-grained observability allows real-time assurance policy is being enforced and allows post-facto auditability of how policy has been enforced historically, plus the necessary data for troubleshooting and analysis.
+- Accessibility is not authorization—unlike perimeter security, access to a resource is not granted solely because that resource is reachable; it must be explicitly authenticated and authorized as well.
+- Authenticated and authorized resources are protected from perimeter breaches.
+- Bounding trust in time limits the risk of compromised credentials.
+- Bounding trust in space allows for high granularity of policy enforcement.
+- Dynamic policy enforcement ensures authorization policy is up-to-date.
+- Encryption limits reconnaissance and ensures authenticity of communication.
+- Least privilege ensures that users, applications, and systems have only the access rights and permissions necessary to perform their specific functions. This approach helps prevent unauthorized access to sensitive data and resources and limits the damage that can be caused by a security incident
+- Fine-grained observability allows real-time assurance policy is being enforced and allows post-facto auditability of how policy has been enforced historically, plus the necessary data for troubleshooting and analysis.
 
 ## Challenges of Implementing Zero Trust
 
-While [Zero Trust architecture](/learn/zero-trust/what-is-zero-trust-security/) offers many benefits, there are also several challenges organizations may face when adopting this approach:
+While Zero Trust architecture offers many benefits, there are also several challenges organizations may face when adopting this approach:
 
 **Complexity.** Implementing Zero Trust architecture requires a comprehensive understanding of an organization’s network environment, including all users, devices, applications and data. This can be a complex and time-consuming process, especially for organizations with large, distributed networks.
 
@@ -85,11 +86,11 @@ While [Zero Trust architecture](/learn/zero-trust/what-is-zero-trust-security/) 
 
 ## U.S. Government Standards for Zero Trust Security
 
-The US government has published several standards and guidelines for Zero Trust Architecture. One of the most notable is the National Institute of Standards and Technology (NIST) [Special Publication 800-207](/blog/nist-sp-207-the-groundwork-for-zero-trust/), which provides an overview of Zero Trust Architecture and its key components. NIST has also published the [SP 800-204 series](/blog/nist-standards-for-zero-trust-the-sp-800-204-series/) on Zero Trust security recommendations for microservices applications.
+The US government has published several standards and guidelines for Zero Trust Architecture. One of the most notable is the National Institute of Standards and Technology (NIST) [Special Publication 800-207](/blog/nist-sp-207-the-groundwork-for-zero-trust), which provides an overview of Zero Trust Architecture and its key components. NIST has also published the [SP 800-204 series](/blog/nist-standards-for-zero-trust-the-sp-800-204-series) on Zero Trust security recommendations for microservices applications.
 
-The Cybersecurity and Infrastructure Security Agency (CISA) has also published guidance on implementing Zero Trust, including a [Zero Trust Maturity Model](https:
+The Cybersecurity and Infrastructure Security Agency (CISA) has also published guidance on implementing Zero Trust, including a [Zero Trust Maturity Model](/external-link/)
 
-Additionally, the Office of Management and Budget (OMB) [has issued a memorandum on Zero Trust Architecture implementation](/blog/us-government-endorses-zero-trust-architecture-for-security/), outlining the government’s commitment to transitioning to a Zero Trust model and providing guidance for agencies to follow.
+Additionally, the Office of Management and Budget (OMB) [has issued a memorandum on Zero Trust Architecture implementation](/blog/us-government-endorses-zero-trust-architecture-for-security), outlining the government’s commitment to transitioning to a Zero Trust model and providing guidance for agencies to follow.
 
 ## Service Mesh as a Critical Component of a Zero Trust Architecture
 
@@ -101,5 +102,5 @@ Kubernetes doesn’t address certain application-level development and operation
 
 Istio’s data plane of Envoy proxies provides authentication and authorization, secure service discovery via a dedicated service registry, secure communications including mTLS and encryption, network resilience and unified observability data. Istio’s ingress controller provides a common, external-facing API for all clients, protocol translation, composition of results, load balancing and public TLS termination. Istio’s egress controller provides a single, centralized set of whitelisted external workloads, credential exchange and protocol translation back to web-friendly protocols.
 
-*   Learn more about the Istio service mesh ›
-*   [Get started with Istio using Tetrate Istio Distro, Tetrate’s hardened, performant, and fully upstream Istio distribution ›](https:
+- Learn more about the Istio service mesh ›
+- [Get started with Istio using Tetrate Istio Distro, Tetrate’s hardened, performant, and fully upstream Istio distribution ›](/external-link/)

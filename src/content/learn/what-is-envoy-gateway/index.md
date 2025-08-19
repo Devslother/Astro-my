@@ -13,19 +13,19 @@ excerpt: "> Tetrate offers an enterprise-ready, 100% upstream distribution of En
 
 ## Overview
 
-[Envoy Gateway](https:
+[Envoy Gateway](/external-link/)
 
-> Tetrate offers an enterprise-ready, 100% upstream distribution of Envoy Gateway, [Tetrate Enterprise Gateway for Envoy (TEG)](/tetrate-enterprise-gateway-for-envoy/). TEG is the easiest way to get started with Envoy for production use cases. [Get access now ›](https:
+> Tetrate offers an enterprise-ready, 100% upstream distribution of Envoy Gateway, [Tetrate Enterprise Gateway for Envoy (TEG)](/tetrate-enterprise-gateway-for-envoy). TEG is the easiest way to get started with Envoy for production use cases. [Get access now ›](/demo-request)
 
-.wp-block-quote { padding: 1rem; background-color: #F5F5F5; }
 
-Envoy Proxy is a high-performance open-source proxy server designed for cloud-native applications. It was initially created by Lyft in 2016, where it was used as an API gateway and edge proxy, offering observability insights [that aided Lyft’s transition](https:
 
-While Envoy Proxy is typically used in conjunction with other technologies like [the Istio service mesh](/what-is-istio-service-mesh/), Envoy Gateway is a great way to get started with Envoy on its own as a cloud-native application gateway—especially for those coming from traditional API gateway technologies looking to adopt a more modern approach.
+Envoy Proxy is a high-performance open-source proxy server designed for cloud-native applications. It was initially created by Lyft in 2016, where it was used as an API gateway and edge proxy, offering observability insights [that aided Lyft’s transition](/external-link/)
+
+While Envoy Proxy is typically used in conjunction with other technologies like [the Istio service mesh](/what-is-istio-service-mesh), Envoy Gateway is a great way to get started with Envoy on its own as a cloud-native application gateway—especially for those coming from traditional API gateway technologies looking to adopt a more modern approach.
 
 Envoy Gateway provides a suite of services and features including:
 
-- An [xDS](https:
+- An [xDS](/external-link/)
 - An expressive API based on the Kubernetes Gateway API, with reasonable settings to simplify the Envoy user experience.
 - Support for heterogeneous environments (although, early versions focus on deployment in Kubernetes).
 - Extensibility to support a multitude of application gateway use cases.
@@ -54,7 +54,7 @@ Envoy Gateway makes it easy to get started using a modern application gateway an
 
 ## Envoy Gateway Project Goals
 
-The core of Envoy Proxy is inherently low-level, designed to be fast, flexible, capable, and extensible, but not necessarily easy to use by itself. Envoy Gateway was born to [“bring Envoy to the masses”](https:
+The core of Envoy Proxy is inherently low-level, designed to be fast, flexible, capable, and extensible, but not necessarily easy to use by itself. Envoy Gateway was born to [“bring Envoy to the masses”](/external-link/)
 
 **A streamlined API tailored for gateway use cases.** Envoy Gateway uses the Kubernetes Gateway API with Envoy-specific extensions. This decision is based on the project’s initial focus on deployment within Kubernetes as an ingress controller plus the broad buy-in of the Gateway API.
 
@@ -76,17 +76,17 @@ Envoy Gateway is a more flexible and scalable alternative to traditional API Gat
 
 ## Get Enterprise Support for Your Envoy Gateway Deployment
 
-[Tetrate Enterprise Gateway for Envoy](/tetrate-enterprise-gateway-for-envoy/) provides available 24/7 enterprise support and enablement plus FIPS-verified and CVE-protected builds of Envoy Gateway suitable for mission critical applications and regulated environments like FedRAMP.
+[Tetrate Enterprise Gateway for Envoy](/tetrate-enterprise-gateway-for-envoy) provides available 24/7 enterprise support and enablement plus FIPS-verified and CVE-protected builds of Envoy Gateway suitable for mission critical applications and regulated environments like FedRAMP.
 
 Tetrate is a leading contributor to open source Envoy and Envoy Gateway. Tetrate Enterprise Gateway for Envoy brings them to the enterprise, with the scale, reliability, performance and security necessary for large and mission-critical apps. Whatever your Kubernetes platforms of choice, rely on Tetrate’s expertise to deliver your services without missing a beat.
 
-- [Get access now ›](https:
-- [Learn more ›](/tetrate-enterprise-gateway-for-envoy/)
-- [Quick start ›](https:
+- [Get access now ›](/demo-request)
+- [Learn more ›](/tetrate-enterprise-gateway-for-envoy)
+- [Quick start ›](/quick-start)
 
 ## Get Started with Envoy Gateway
 
-Getting started with Envoy Gateway is easy. Go to the documentation on [the Envoy Gateway project site](https:
+Getting started with Envoy Gateway is easy. Go to the documentation on [the Envoy Gateway project site](/external-link/)
 
-- [Quick start ›](https:
-- [User guides ›](https:
+- [Quick start ›](/quick-start)
+- [User guides ›](/user-guides)

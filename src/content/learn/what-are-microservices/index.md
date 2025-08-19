@@ -26,7 +26,7 @@ Microservices are a software architecture approach where applications are built 
 
 ## Benefits of Microservices
 
-Some of the key advantages of a [microservices architecture include](/learn/what-are-microservices/):
+Some of the key advantages of a [microservices architecture include](/learn/what-are-microservices):
 
 ### Scalability
 

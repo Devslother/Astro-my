@@ -38,6 +38,6 @@ Incorrect Ingress traffic management can lead to serious problems, including:
 
 ## How Tetrate’s Istio-Based Solutions Improve Ingress Traffic Management
 
-Managing container Ingress traffic requires deep expertise in networking, security, and Kubernetes architecture. Tetrate [Consulting](/kubernetes-consulting/) helps organizations configure Ingress controllers, service meshes, and TLS security to ensure optimal performance and protection. Our experts can help you fine-tune your Kubernetes Ingress, service mesh, and traffic management strategies.
+Managing container Ingress traffic requires deep expertise in networking, security, and Kubernetes architecture. Tetrate [Consulting](/kubernetes-consulting) helps organizations configure Ingress controllers, service meshes, and TLS security to ensure optimal performance and protection. Our experts can help you fine-tune your Kubernetes Ingress, service mesh, and traffic management strategies.
 
 Tetrate’s enterprise-grade Istio platform also simplifies and optimizes Ingress traffic management, making it easier to deploy secure, scalable applications in Kubernetes environments.

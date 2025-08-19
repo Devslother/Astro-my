@@ -75,4 +75,4 @@ Kubernetes deployments typically use both Services and Ingress to manage traffic
 
 ## Optimize Kubernetes Networking with Tetrate
 
-Designing Ingress and Service configurations can be complex. Tetrate [Consulting](/kubernetes-consulting/) helps organizations implement secure, scalable, and optimized Kubernetes networking architectures using Istio and advanced traffic management. Our experts can help you refine your Ingress, service mesh, and overall traffic management strategies. Connect with Tetrate’s consulting services for expert guidance on Kubernetes networking.
+Designing Ingress and Service configurations can be complex. Tetrate [Consulting](/kubernetes-consulting) helps organizations implement secure, scalable, and optimized Kubernetes networking architectures using Istio and advanced traffic management. Our experts can help you refine your Ingress, service mesh, and overall traffic management strategies. Connect with Tetrate’s consulting services for expert guidance on Kubernetes networking.

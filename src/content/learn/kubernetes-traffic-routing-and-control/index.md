@@ -27,6 +27,6 @@ Kubernetes clusters must handle both incoming (ingress) and outgoing (egress) tr
 
 **Egress** handles outbound communication from pods to external resources, like APIs or databases. Configuring **Network Policies** and Egress Gateways is key for security and performance when accessing external networks. Egress also depends on controllers deployed in Kubernetes to manage outbound traffic. These components ensure that only authorized services can communicate outside of the cluster, adding an additional layer of control to the architecture.
 
-If you need to [implement both Ingress and Egress gateway control](/learn/ingress-and-egress-architecture/), it is recommended to use **Istio**. Istio provides a comprehensive solution for managing both incoming and outgoing traffic, with enhanced features for security, observability, and traffic control.
+If you need to [implement both Ingress and Egress gateway control](/learn/ingress-and-egress-architecture), it is recommended to use **Istio**. Istio provides a comprehensive solution for managing both incoming and outgoing traffic, with enhanced features for security, observability, and traffic control.
 
 Together, Ingress and Egress form a comprehensive architecture that secures and optimizes the way Kubernetes clusters interact with both internal and external environments. Proper planning of ingress and egress strategies will improve reliability, security, and the efficiency of your Kubernetes applications.

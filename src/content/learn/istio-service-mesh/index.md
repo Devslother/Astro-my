@@ -12,6 +12,6 @@ excerpt: Learn more.
 ---
 ## Overview
 
-[Istio](https:
+[Istio](/external-link/)
 
-[Learn more ›](/what-is-istio-service-mesh/)
+[Learn more ›](/what-is-istio-service-mesh)

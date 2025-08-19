@@ -11,13 +11,14 @@ excerpt: >-
   A platform team is responsible for creating and maintaining the underlying
   platform that supports the development, deployment and operations of software.
 ---
+
 ## Overview
 
-A platform team is responsible for creating and maintaining the underlying platform that supports the development, deployment and operations of software [applications](https:
+A platform team is responsible for creating and maintaining the underlying platform that supports the development, deployment and operations of software [applications](/external-link/)
 
-The platform team typically includes software engineers, systems administrators, network engineers, database administrators, security experts and other specialists who work together to ensure the platform is secure, scalable and reliable. The platform team is responsible for the technical aspects of the platform, including [architecture](/learn/kubernetes-security-architecture/) design, system configuration, coding, testing, deployment and ongoing maintenance.
+The platform team typically includes software engineers, systems administrators, network engineers, database administrators, security experts and other specialists who work together to ensure the platform is secure, scalable and reliable. The platform team is responsible for the technical aspects of the platform, including [architecture](/learn/kubernetes-security-architecture) design, system configuration, coding, testing, deployment and ongoing maintenance.
 
-> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the de facto standard connectivity platform for cloud-native applications. [Get access now ›](/demo-request/)
+> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the de facto standard connectivity platform for cloud-native applications. [Get access now ›](/demo-request)
 
 ### Origins of Platform Engineering
 
@@ -43,7 +44,7 @@ By designing and building a scalable and reliable platform, platform teams can r
 
 ### Improved Security
 
-A well-engineered platform can help prevent [data breaches](/resource/common-vulnerabilities-and-exposures-cve-explained/), unauthorized access, or other security issues that can compromise sensitive information or harm the business.
+A well-engineered platform can help prevent [data breaches](/resource/common-vulnerabilities-and-exposures-cve-explained), unauthorized access, or other security issues that can compromise sensitive information or harm the business.
 
 ### Technical Support and Expertise
 
@@ -69,9 +70,9 @@ A product-focused platform team also takes responsibility for the success of the
 
 The product mindset of a platform team can help deliver frictionless self-service to application development teams by focusing on the needs and priorities of those teams and delivering a platform that is easy to use, integrate and operate. This approach involves a few key elements:
 
-*   **Understanding the needs of application development teams.** A product-focused platform team will work closely with application development teams to understand their needs, priorities and pain points. This understanding allows the platform team to prioritize the features and capabilities that are most important to application development teams and deliver a platform that meets their needs.
-*   **Delivering a user-friendly platform.** A product-focused platform team will design and build a platform that is user-friendly and easy to navigate. This can involve creating clear documentation, providing intuitive interfaces and offering self-service capabilities that enable app teams to easily provision and manage the resources they need.
-*   **Providing ongoing support and feedback.** A product-focused platform team will provide ongoing support and feedback to application development teams, helping them to troubleshoot issues, optimize their usage of the platform and improve their overall experience.
+- **Understanding the needs of application development teams.** A product-focused platform team will work closely with application development teams to understand their needs, priorities and pain points. This understanding allows the platform team to prioritize the features and capabilities that are most important to application development teams and deliver a platform that meets their needs.
+- **Delivering a user-friendly platform.** A product-focused platform team will design and build a platform that is user-friendly and easy to navigate. This can involve creating clear documentation, providing intuitive interfaces and offering self-service capabilities that enable app teams to easily provision and manage the resources they need.
+- **Providing ongoing support and feedback.** A product-focused platform team will provide ongoing support and feedback to application development teams, helping them to troubleshoot issues, optimize their usage of the platform and improve their overall experience.
 
 By taking this approach, a product-focused platform team can deliver frictionless self-service to app teams, making it easy for them to provision, deploy and manage the resources they need to build and operate their applications. This can help to improve the efficiency and quality of software development, reduce the workload on operations teams, and ultimately deliver better software products to customers.
 
@@ -83,11 +84,11 @@ DevOps, on the other hand, is a broader set of practices and principles that aim
 
 ## What Role Does Service Mesh Play in the Platform?
 
-[A service mesh](/what-is-istio-service-mesh/) provides several features and capability that are particularly important for internal developer platforms, including:
+[A service mesh](/what-is-istio-service-mesh) provides several features and capability that are particularly important for internal developer platforms, including:
 
 ### Traffic Management
 
-Service mesh can manage traffic between microservices, [providing load balancing](/load-balance-failover-kafka-redhat-amq-streams-k8s-tsb/), routing and service discovery capabilities. This can help developers to easily connect their microservices and create complex applications.
+Service mesh can manage traffic between microservices, [providing load balancing](/load-balance-failover-kafka-redhat-amq-streams-k8s-tsb), routing and service discovery capabilities. This can help developers to easily connect their microservices and create complex applications.
 
 ### Security
 
@@ -105,8 +106,8 @@ Service mesh provides features such as circuit breaking and retry logic, improvi
 
 Platform teams for large organizations with fleets of applications across multiple clusters, clouds, and data centers often need to “connect the dots” across service mesh deployments to provide a unified and consistent operational model for their customers. For platform teams in these larger organizations, Tetrate offers enterprise service mesh solutions to do just that.
 
-Tetrate’s enterprise-grade service mesh platform, Tetrate Service Bridge, unifies and simplifies the connectivity, security, observability, and reliability for your entire application fleet—across [Kubernetes](/learn/kubernetes-security-best-practices/) clusters, virtual machines, bare metal servers and across clouds and on-premises deployments
+Tetrate’s enterprise-grade service mesh platform, Tetrate Service Bridge, unifies and simplifies the connectivity, security, observability, and reliability for your entire application fleet—across [Kubernetes](/learn/kubernetes-security-best-practices) clusters, virtual machines, bare metal servers and across clouds and on-premises deployments
 
 TSB is also a “bridge” between your organization—its people, teams, and applications—and your compute infrastructure, making it easy to assign consistent policies and access rights so your teams can safely control application resources.
 
-[Learn more ›](/tetrate-service-bridge/)
+[Learn more ›](/tetrate-service-bridge)

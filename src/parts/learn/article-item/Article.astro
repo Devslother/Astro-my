@@ -16,6 +16,7 @@ import Related from './related/Related.astro';
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 import Cta from '@/parts/home/cta/Cta.astro';
+import Link from '@/components/Link/Link.astro';
 
 const allArticles = await getCollection("learn");
 const { article, headings } = Astro.props;
@@ -154,6 +155,7 @@ const related = getRelatedArticles(allArticles, currentSlug, categories);
             Icon,
             Figure,
             InlinePromo,
+            a: Link,
           }}
         />
       </div>

@@ -22,17 +22,17 @@ excerpt: >-
 
 Application Programming Interfaces (APIs) are essential building blocks of modern software applications. APIs provide a standard way for different applications to communicate and exchange data with each other. However, managing APIs can be challenging, especially when dealing with multiple microservices, legacy systems, and different protocols.
 
-[An API gateway](/api-gateway/) is a software layer that sits between API clients and the services implementing the APIs they consume. It acts as a unified entry point for all API requests and provides several functionalities, such as request routing, security, rate limiting, and API versioning. It can also perform additional functions such as protocol translation and message transformation.
+[An API gateway](/learn/what-is-an-api-gateway) is a software layer that sits between API clients and the services implementing the APIs they consume. It acts as a unified entry point for all API requests and provides several functionalities, such as request routing, security, rate limiting, and API versioning. It can also perform additional functions such as protocol translation and message transformation.
 
 In addition, API gateways provide a layer of abstraction between client applications and backend services. This means client applications do not need to know the internal workings of the backend services, or even the API itself. Instead, they can rely on the API gateway to handle requests and responses.
 
-> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the de facto standard connectivity platform for cloud-native applications. [Get access now ›](/demo-request/)
+> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the de facto standard connectivity platform for cloud-native applications. [Get access now ›](/demo-request)
 
 Simplifying the management of complex microservice-based architectures by providing a single point of entry for clients and allowing for the addition or removal of services without affecting clients is also a key benefit of API gateways . They can also improve security by handling authentication and access control for all services in a consistent and centralized way.
 
 allows single-IP-port to access all services running in k8s through ingress rules. The Ingress Controller service is set to load balancer to be accessible from the public internet.
 
-An Ingress Controller is a Layer 4 and Layer 7 proxy that routes traffic from clients to the services deployed into Kubernetes. Like an API gateway, an Ingress Controller can manage traffic and provide visibility, troubleshooting, security, and identity. An Ingress Controller is limited to only Kubernetes services, while an API gateway can manage traffic for both Kubernetes and VM workloads. Envoy proxy is used by some popular Ingress Controllers such as Ambassador and Contour. Other tools that are widely used as Ingress controllers include Kong Ingress, HAProxy Ingress, [NGINX Ingress](/learn/kubernetes/nginx/), etc.
+An Ingress Controller is a Layer 4 and Layer 7 proxy that routes traffic from clients to the services deployed into Kubernetes. Like an API gateway, an Ingress Controller can manage traffic and provide visibility, troubleshooting, security, and identity. An Ingress Controller is limited to only Kubernetes services, while an API gateway can manage traffic for both Kubernetes and VM workloads. Envoy proxy is used by some popular Ingress Controllers such as Ambassador and Contour. Other tools that are widely used as Ingress controllers include Kong Ingress, HAProxy Ingress, NGINX Ingress, etc.
 
 ## API Gateway vs the Kubernetes Gateway API
 
@@ -40,7 +40,7 @@ The Gateway API is a built-in Kubernetes API that represents a superset of Kuber
 
 An API gateway is an API management component that provides a single entry point for incoming requests and outgoing responses in front of the backend services that implement an API’s functionality. It typically provides a range of advanced features such as traffic routing, rate limiting, authentication, and authorization, among others, to help manage and secure the API endpoints of an application.
 
-Implementations of Gateway API, such as [Envoy Gateway](/learn/what-is-an-api-gateway/), the  Istio service mesh, and more advanced commercial offerings like Tetrate Service Bridge, can be used to implement API gateway capabilities.
+Implementations of Gateway API, such as [Envoy Gateway](/learn/what-is-an-api-gateway), the  Istio service mesh, and more advanced commercial offerings like Tetrate Service Bridge, can be used to implement API gateway capabilities.
 
 ## API Gateway vs Service Mesh
 
@@ -65,4 +65,4 @@ is an open source project that can be easily used as an API gateway. It is based
 - **App developers** can use Envoy Gateway to route external traffic to their application easily, without needing to build or extend control planes to manage traffic.
 - **Infrastructure teams** can get basic gateway functionality quickly with Envoy Gateway. They can provide Envoy-native experience to the application team without purchasing a vendor solution.
 
-Envoy Gateway makes it easy for platform architects, infrastructure administrators, and developers to quickly adopt an Envoy-based API gateway. [Learn more about getting started with Envoy Gateway ›](/learn/what-is-envoy-gateway/)
+Envoy Gateway makes it easy for platform architects, infrastructure administrators, and developers to quickly adopt an Envoy-based API gateway. [Learn more about getting started with Envoy Gateway ›](/learn/what-is-envoy-gateway)

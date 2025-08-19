@@ -21,7 +21,7 @@ Containerization is a popular method for packaging applications for deployment. 
 
 Due to the benefits, containers have become a popular deployment option for development teams. Docker is one of the most widely used container platforms and runtime engines, but others exist, such as CRI-O, Podman, and more.
 
-The ease of creating containers and their growing popularity has led to a management challenge for many organizations. With a large number of containers deployed in DevSecOps and Production environments, container sprawl has become a problem, similar to virtual server sprawl in virtualization platforms. The open-source [Kubernetes](/faq/what-does-kubernetes-do/) platform has become a popular solution for managing containers and controlling sprawl.
+The ease of creating containers and their growing popularity has led to a management challenge for many organizations. With a large number of containers deployed in DevSecOps and Production environments, container sprawl has become a problem, similar to virtual server sprawl in virtualization platforms. The open-source [Kubernetes](/learn/what-does-kubernetes-do) platform has become a popular solution for managing containers and controlling sprawl.
 
 ## Container Orchestration
 
