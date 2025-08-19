@@ -10,21 +10,28 @@ import clsx from 'clsx';
   'text__body--16-medium-lg',
   'text__body--16-medium-md',
   styles.btn
-  )} onclick="goBack()">
+  )} data-fallback={fallback}>
   <Icon width={16} height={16} />
   Back
 </button>
 
-<script is:inline define:vars={{ fallback }}>
-  function goBack() {
-    const referrer = document.referrer;
-    const current = window.location.href;
-    const origin = window.location.origin;
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const backButtons = document.querySelectorAll('button[data-fallback]');
+    
+    backButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const fallback = this.getAttribute('data-fallback');
+        const referrer = document.referrer;
+        const current = window.location.href;
+        const origin = window.location.origin;
 
-    if (referrer && referrer.startsWith(origin) && referrer !== current) {
-      window.location.href = referrer;
-    } else {
-      window.location.href = fallback;
-    }
-  }
+        if (referrer && referrer.startsWith(origin) && referrer !== current) {
+          window.location.href = referrer;
+        } else {
+          window.location.href = fallback || '/learn';
+        }
+      });
+    });
+  });
 </script>

@@ -1,16 +1,15 @@
 ---
 title: What Is Envoy Gateway?
 slug: what-is-envoy-gateway
-date: 2025-01-01T00:00:00.000Z
+date: 2024-10-08T07:50:50.000Z
+description: >-
+  Overview Envoy Gateway is an open source project that aims to make it simple
+  to use Envoy Proxy as an API gateway by delivering a simplified deployment
+  model and API…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: "> Tetrate offers an enterprise-ready, 100% upstream distribution of Envoy Gateway,\_Tetrate Enterprise Gateway for Envoy (TEG)(/tetrate-enterprise-gateway-for-envoy/). TEG is the easiest way to get started with Envoy for production use cases.\_Get access now."
 ---
-# What Is Envoy Gateway?
-
-### Article content
-
 ## Overview
 
 [Envoy Gateway](https:
@@ -80,12 +79,13 @@ Envoy Gateway is a more flexible and scalable alternative to traditional API Gat
 
 Tetrate is a leading contributor to open source Envoy and Envoy Gateway. Tetrate Enterprise Gateway for Envoy brings them to the enterprise, with the scale, reliability, performance and security necessary for large and mission-critical apps. Whatever your Kubernetes platforms of choice, rely on Tetrate’s expertise to deliver your services without missing a beat.
 
-### [Envoy Proxy](/learn/envoy-proxy/)
+*   [Get access now ›](https:
+*   [Learn more ›](/tetrate-enterprise-gateway-for-envoy/)
+*   [Quick start ›](https:
 
-### [Istio Service Mesh](/learn/istio-service-mesh/)
+## Get Started with Envoy Gateway
 
-### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
+Getting started with Envoy Gateway is easy. Go to the documentation on [the Envoy Gateway project site](https:
 
-### [ServiceMeshCon: Service Mesh Everywhere](/resource/service-mesh-everywhere/)
-
-### [Tetrate Service Bridge, a Large-Scale Service Mesh](/resource/tetrate-service-bridge-a-large-scale-service-mesh/)
+*   [Quick start ›](https:
+*   [User guides ›](https:

@@ -28,7 +28,7 @@
 .heading {
   position: relative;
   text-align: center;
-  color: var(--color-white);
+  color: var(--color-white) !important;
   margin-bottom: 10px;
 }
 
@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column; /* Делаем карточку флекс-контейнером */
   position: relative;
-  justify-content: flex-start;
+  justify-content: space-between; /* Распределяем пространство между элементами */
   align-items: flex-start;
   text-align: left;
   border-radius: 16px;
@@ -74,16 +74,29 @@
   flex-grow: 1;
   gap: 12px;
   z-index: 1;
+  min-height: 0; /* Важно для правильной работы flex-grow */
 }
 
-.title,
+.title {
+  color: var(--color-white) !important;
+  margin: 0;
+}
+
 .item {
-  color: var(--color-white);
+  color: var(--color-white) !important;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Ограничиваем тремя строками */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5; /* Устанавливаем line-height для точного контроля */
 }
 
 .btn {
-  margin-top: 24px;
+  margin-top: auto; /* Прижимает кнопку к низу */
   z-index: 1;
+  flex-shrink: 0; /* Предотвращает сжатие кнопки */
 }
 
 @media (width >= 768px) {
@@ -112,10 +125,16 @@
 
   .card {
     height: 272px;
-    padding: 24px 24px 40px;
+    padding: 24px 24px 10px 24px;
   }
 
   .item {
     width: 90%;
+    /* Сохраняем ограничение в 3 строки */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

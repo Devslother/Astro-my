@@ -1,10 +1,13 @@
 ---
 title: What Are Microservices?
 slug: what-are-microservices
-date: 2025-01-01T00:00:00.000Z
+date: 2023-06-30T07:21:19.000Z
+description: >-
+  Overview Microservices are a software architecture approach where applications
+  are built as a collection of small, independent services that work together to
+  provide…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Microservices are a software architecture approach where applications are
   built as a collection of small, independent services that work together to
@@ -16,10 +19,6 @@ excerpt: >-
   smaller units also makes it easier to scale them independently, which makes
   the system more resilient to changes in traffic or demand over.
 ---
-# What Are Microservices?
-
-### Article content
-
 ## Overview
 
 Microservices are a software architecture approach where applications are built as a collection of small, independent services that work together to provide functionality. Each microservice typically performs a single function or task and communicates with other microservices through lightweight protocols, such as RESTful APIs. This allows developers to work on different parts of the application without affecting other services, making it easier to maintain and update the system. The decomposition of functionality into smaller units also makes it easier to scale them independently, which makes the system more resilient to changes in traffic or demand over time.
@@ -157,13 +156,3 @@ A service mesh can provide monitoring and logging capabilities that allow you to
 A service mesh can provide features such as circuit breaking and retries that can help ensure that the application remains available and responsive even during periods of high traffic or service failures.
 
 Learn more about Istio, the most widely-deployed service mesh ›
-
-### [Istio Service Mesh](/learn/istio-service-mesh/)
-
-### [What Is Zero Trust Security?](/learn/what-is-zero-trust-architecture/)
-
-### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
-
-### [Current State and Future of the Istio Service Mesh](/resource/current-state-and-future-of-istio-service-mesh/)
-
-### [ServiceMeshCon: Service Mesh Everywhere](/resource/service-mesh-everywhere/)

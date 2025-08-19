@@ -1,18 +1,17 @@
 ---
 title: What Does Kubernetes Do?
 slug: what-does-kubernetes-do
-date: 2025-01-01T00:00:00.000Z
+date: 2025-05-05T18:06:35.000Z
+description: >-
+  Containerization Kubernetes has become essential to modern application
+  deployments by providing flexibility, scalability, and efficiency when
+  managing containerized…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Kubernetes has become essential to modern application deployments by providing
   flexibility, scalability, and efficiency when managing containerized.
 ---
-# What Does Kubernetes Do?
-
-### Article content
-
 ## Containerization
 
 Kubernetes has become essential to modern application deployments by providing flexibility, scalability, and efficiency when managing containerized applications.
@@ -66,13 +65,3 @@ Within these components, Kubernetes provides the following services and function
 In summary, Kubernetes provides the tools to automate the deployment, scaling, and management of application container clusters and pods across hosts. By abstracting the hardware infrastructure with a controlling software platform, Kubernetes presents the available IT infrastructure as a single deployment platform. 
 
 Kubernetes promotes a more collaborative approach between developers and operations teams, enabling them to work together more effectively and encouraging a more DevSecOps-centric approach to application deployment.
-
-### [Kubernetes Security Best Practices](/learn/kubernetes-security-best-practices/)
-
-### [What Is an API Gateway?](/learn/what-is-an-api-gateway/)
-
-### [Simplify Kubernetes and Multi-Cloud Complexity with the Service Mesh](/resource/simplify-kubernetes-and-multi-cloud-complexity-with-the-service-mesh/)
-
-### [5 Stages to Istio Production Success](/resource/istio-production-success/)
-
-### [Zero Trust, FIPS and FedRAMP for Kubernetes and Cloud Native Applications](/resource/zero-trust-fips-and-fedramp-for-cloud-native-applications/)

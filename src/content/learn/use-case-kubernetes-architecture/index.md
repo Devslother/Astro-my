@@ -1,10 +1,13 @@
 ---
 title: Use Case and Architecture for Tetrate with Kubernetes and Istio
-slug: use-case-and-architecture-for-tetrate-with-kubernetes-and-istio
-date: 2025-01-01T00:00:00.000Z
+slug: use-case-kubernetes-architecture
+date: 2025-05-05T19:18:41.000Z
+description: >-
+  How our solutions help organizations implement a robust zero trust security
+  model using Istio and Envoy in Kubernetes environments, particularly on
+  platforms like AWS…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   How our solutions help organizations implement a robust zero trust security
   model using Istio and Envoy in Kubernetes environments, particularly on
@@ -13,10 +16,6 @@ excerpt: >-
   Azure. Here’s how Tetrate’s offerings address key aspects of microservices
   architecture, observability, and.
 ---
-# Use Case and Architecture for Tetrate with Kubernetes and Istio
-
-### Article content
-
 How our solutions help organizations implement a robust zero trust security model using Istio and Envoy in Kubernetes environments, particularly on platforms like [AWS](/blog/migrating-from-aws-app-mesh-to-istio-a-comprehensive-guide/) and Azure. Here’s how Tetrate’s offerings address key aspects of microservices architecture, observability, and security:
 
 ## Use Cases

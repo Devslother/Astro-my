@@ -46,18 +46,18 @@ const { related = [] } = Astro.props;
         <div class={styles.content}>
           <h5 
             class={clsx(
-              'text__body--14',
-              'text__body--14-md',
-              'text__body--14-lg',
+              'text__heading--h5',
+              'text__heading--h5-md',
+              'text__heading--h5-lg',
               styles.title
             )}
           >
             {card.data.title}
           </h5>
           <p class={clsx(
-            'text__heading--h6',
-            'text__heading--h5-lg',
-            'text__heading--h5-md',
+            'text__body--14',
+            'text__body--14-md',
+            'text__body--14-lg',
             styles.item
           )}>
             {card.data.excerpt}

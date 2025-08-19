@@ -1,10 +1,13 @@
 ---
 title: Ingress and Egress Architecture
 slug: ingress-and-egress-architecture
-date: 2025-01-01T00:00:00.000Z
+date: 2025-05-05T17:03:16.000Z
+description: >-
+  Managing Ingress and Egress traffic is essential for secure, efficient, and
+  reliable communication within Kubernetes deployments. Ingress controls how
+  external traffic…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Managing Ingress and Egress traffic is essential for secure, efficient, and
   reliable communication within Kubernetes deployments. Ingress controls how
@@ -12,10 +15,6 @@ excerpt: >-
   services communicate with external resources. Together, they form the
   foundation of Kubernetes traffic flow, ensuring connectivity, security, and.
 ---
-# Ingress and Egress Architecture
-
-### Article content
-
 Managing Ingress and Egress traffic is essential for secure, efficient, and reliable communication within Kubernetes deployments. Ingress controls how external traffic enters the cluster, while Egress manages how internal services communicate with external resources. Together, they form the foundation of Kubernetes traffic flow, ensuring connectivity, security, and performance.
 
 ## Managing Ingress Traffic in Kubernetes

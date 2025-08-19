@@ -1,11 +1,15 @@
 .btn {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
   text-align: left;
   text-decoration: none;
-  transition: color 0.3s;
+  transition: all 0.3s ease;
   color: var(--color-black);
+  background: none;
+  border: none;
+  padding-left: 6px;
 }
 
 .btn:hover {

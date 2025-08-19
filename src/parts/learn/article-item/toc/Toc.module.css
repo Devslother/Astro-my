@@ -19,7 +19,6 @@
 .tocList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
   margin-top: 18px;
   padding: 0;
   list-style: none;

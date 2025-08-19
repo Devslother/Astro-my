@@ -1,10 +1,13 @@
 ---
 title: Kubernetes Traffic Routing and Control
 slug: kubernetes-traffic-routing-and-control
-date: 2025-01-01T00:00:00.000Z
+date: 2025-04-16T11:18:04.000Z
+description: >-
+  Kubernetes is the go-to choice for deploying containerized applications, but
+  managing traffic within and between services is crucial for optimal
+  performance. Kubernetes…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Kubernetes is the go-to choice for deploying containerized applications, but
   managing traffic within and between services is crucial for optimal
@@ -14,10 +17,6 @@ excerpt: >-
   Meshes. Each provides unique ways to control and direct internal and external
   traffic, maintaining scalability and.
 ---
-# Kubernetes Traffic Routing and Control
-
-### Article content
-
 Kubernetes is the go-to choice for deploying containerized applications, but managing traffic within and between services is crucial for optimal performance. Kubernetes traffic routing encompasses how requests move between different services, ensuring that applications respond reliably and efficiently. Key mechanisms include **Services**, **Ingress Controllers**, and **Service Meshes**. Each provides unique ways to control and direct internal and external traffic, maintaining scalability and stability.
 
 The core component of Kubernetes traffic management is the **Kubernetes Service**. It creates a stable endpoint to direct network traffic to pods. In more complex environments, **Ingress** and **Service Meshes** like Istio add layers of control. Ingress manages external access, while service meshes offer more sophisticated routing features, like retries, failover, and load balancing. It is important to note that Kubernetes Ingress gateways can use Kubernetes’ Ingress resource and Ingress controllers, but this approach is no longer recommended. Instead, using the **Kubernetes Gateway API** with **Gateway** resources is now the preferred method. Effective routing strategies ensure reduced latency, improved scalability, and a better overall user experience.

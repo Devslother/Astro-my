@@ -1,10 +1,13 @@
 ---
 title: Difference Between Ingress and Service in Kubernetes
 slug: difference-between-ingress-and-service-in-kubernetes
-date: 2025-01-01T00:00:00.000Z
+date: 2025-05-05T17:05:27.000Z
+description: >-
+  Ingress and Service are two methods used to manage network traffic flow in
+  Kubernetes, each serving a distinct purpose. A Service provides internal
+  networking within a…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Ingress and Service are two methods used to manage network traffic flow in
   Kubernetes, each serving a distinct purpose. A Service provides internal
@@ -13,10 +16,6 @@ excerpt: >-
   roles and how they complement each other is essential for optimizing your
   Kubernetes network.
 ---
-# Difference Between Ingress and Service in Kubernetes
-
-### Article content
-
 Ingress and Service are two methods used to manage network traffic flow in Kubernetes, each serving a distinct purpose. A **Service** provides internal networking within a cluster, while **Ingress** manages external access to services from clients and other IT systems outside the cluster. Understanding their roles and how they complement each other is essential for optimizing your Kubernetes network architecture.
 
 ## What is a Kubernetes Service?

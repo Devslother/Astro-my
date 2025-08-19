@@ -1,10 +1,13 @@
 ---
 title: How To Secure Kubernetes
 slug: how-to-secure-kubernetes
-date: 2025-01-01T00:00:00.000Z
+date: 2024-10-24T03:53:52.000Z
+description: >-
+  Kubernetes is now the leading orchestration platform for deploying and
+  managing containerized applications. However, the distributed nature of
+  Kubernetes environments…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Kubernetes is now the leading orchestration platform for deploying and
   managing containerized applications. However, the distributed nature of
@@ -13,10 +16,6 @@ excerpt: >-
   solutions from Tetrate can help simplify management while bolstering
   Kubernetes.
 ---
-# How To Secure Kubernetes
-
-### Article content
-
 Kubernetes is now the leading orchestration platform for deploying and managing containerized applications. However, the distributed nature of Kubernetes environments also introduces security challenges. In this article, we’ll look at best practices for securing Kubernetes and touch on how solutions from Tetrate can help simplify management while bolstering Kubernetes security.
 
 ## Securing Kubernetes
@@ -47,15 +46,3 @@ Tetrate integrates with authentication/authorization services, certificate manag
 ## Final Thoughts
 
 It is crucial to secure Kubernetes, but doing so can be complex. Organizations can mitigate risks effectively by prioritizing basic best practices such as isolation, access control, runtime security, secrets management, and monitoring. Implementing these best practices consistently and at scale is greatly simplified by using Tetrate.
-
-### [What Is mTLS?](/learn/what-is-mtls/)
-
-### [Kubernetes Ingress](/learn/kubernetes/what-is-kubernetes-ingress/)
-
-### [What Is Kubernetes Service Mesh](/learn/what-is-kubernetes-service-mesh/)
-
-### [What Is the Kubernetes Gateway API?](/learn/what-is-kubernetes-gateway-api/)
-
-### [What Is Envoy Gateway?](/learn/what-is-envoy-gateway/)
-
-### [Istio Service Mesh](/learn/istio-service-mesh/)

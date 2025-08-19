@@ -1,10 +1,15 @@
 ---
 title: What Is an API Gateway?
 slug: what-is-an-api-gateway
-date: 2025-01-01T00:00:00.000Z
+date: 2024-07-19T01:05:00.000Z
+description: >-
+  Overview Application Programming Interfaces (APIs) are essential building
+  blocks of modern software applications. APIs provide a standard way for
+  different applications…
+featuredImage: >-
+  https://lh5.googleusercontent.com/WSns3Ifou8w8ifxl3PTBGIvSP6UevjPdQW0PoT0zZdbwyouY1JFvYRB2Pm6Zx0eHygBK8IkkyKr6gtc4c_K56HJfMhACIWOFF4t20WpuJOof8fB7Zr4d9xeYEBQvefKRvTBfFLSOFUC05-maH_fpNTc
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Application Programming Interfaces (APIs) are essential building blocks of
   modern software applications. APIs provide a standard way for different
@@ -12,10 +17,6 @@ excerpt: >-
   managing APIs can be challenging, especially when dealing with multiple
   microservices, legacy systems, and different.
 ---
-# What Is an API Gateway?
-
-### Article content
-
 ## Overview
 
 Application Programming Interfaces (APIs) are essential building blocks of modern software applications. APIs provide a standard way for different applications to communicate and exchange data with each other. However, managing APIs can be challenging, especially when dealing with multiple microservices, legacy systems, and different protocols.
@@ -64,15 +65,3 @@ Istio is the most widely-deployed service mesh. The figure below highlights how 
 *   **Infrastructure teams** can get basic gateway functionality quickly with Envoy Gateway. They can provide Envoy-native experience to the application team without purchasing a vendor solution.
 
 Envoy Gateway makes it easy for platform architects, infrastructure administrators, and developers to quickly adopt an Envoy-based API gateway. [Learn more about getting started with Envoy Gateway ›](/learn/what-is-envoy-gateway/)
-
-### [What Is the Kubernetes Gateway API?](/learn/what-is-kubernetes-gateway-api/)
-
-### [Envoy Proxy](/learn/envoy-proxy/)
-
-### [Istio Service Mesh](/learn/istio-service-mesh/)
-
-### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
-
-### [ServiceMeshCon: Service Mesh Everywhere](/resource/service-mesh-everywhere/)
-
-### [Identity Based Segmentation for a Zero Trust Architecture (ZTA)](/resource/identity-based-segmentation-for-a-zero-trust-architecture/)

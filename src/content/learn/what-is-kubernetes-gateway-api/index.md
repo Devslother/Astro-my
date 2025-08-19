@@ -1,18 +1,17 @@
 ---
 title: What Is the Kubernetes Gateway API?
-slug: what-is-the-kubernetes-gateway-api
-date: 2025-01-01T00:00:00.000Z
+slug: what-is-kubernetes-gateway-api
+date: 2025-04-17T20:28:17.000Z
+description: >-
+  Discover Kubernetes Gateway API for efficient traffic management. Learn
+  benefits, design goals, and comparison to Ingress. Optimize traffic management
+  now!
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   The Kubernetes Gateway API(/learn/what-is-the-kubernetes-gateway-api/), aka
   “Gateway.
 ---
-# What Is the Kubernetes Gateway API?
-
-### Article content
-
 ## Overview
 
 The [Kubernetes Gateway API](/learn/what-is-the-kubernetes-gateway-api/), aka “[Gateway API,](https:
@@ -188,12 +187,6 @@ Getting started with Gateway API and Envoy Gateway is easy. Go to the documentat
 
 Tetrate is a leading contributor to open source Envoy and Envoy Gateway. Tetrate Enterprise Gateway for Envoy brings them to the enterprise, with the scale, reliability, performance and security necessary for large and mission-critical apps. Whatever your Kubernetes platforms of choice, rely on Tetrate’s expertise to deliver your services without missing a beat.
 
-### [Envoy Proxy](/learn/envoy-proxy/)
-
-### [Istio Service Mesh](/learn/istio-service-mesh/)
-
-### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
-
-### [ServiceMeshCon: Service Mesh Everywhere](/resource/service-mesh-everywhere/)
-
-### [Future of Cloud Native Security](/resource/future-of-cloud-native-security/)
+*   [Get access now ›](https:
+*   [Learn more ›](/tetrate-enterprise-gateway-for-envoy/)
+*   [Quick start ›](https:

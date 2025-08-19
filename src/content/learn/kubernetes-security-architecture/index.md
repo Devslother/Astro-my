@@ -1,10 +1,13 @@
 ---
 title: Kubernetes Security Architecture
 slug: kubernetes-security-architecture
-date: 2025-01-01T00:00:00.000Z
+date: 2025-01-21T03:37:22.000Z
+description: >-
+  Kubernetes has a security architecture based on the principle of defense in
+  depth. This means that it incorporates multiple layers of security controls
+  throughout the…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Kubernetes has a security architecture based on the principle of defense in
   depth. This means that it incorporates multiple layers of security controls
@@ -13,10 +16,6 @@ excerpt: >-
   architectural level, the flooring items also need to be protected with
   suitable security.
 ---
-# Kubernetes Security Architecture
-
-### Article content
-
 Kubernetes has a security architecture based on the principle of defense in depth. This means that it incorporates multiple layers of security controls throughout the platform to deliver robust security. The security controls needed include the items mentioned in the previous section. At the architectural level, the flooring items also need to be protected with suitable security techniques:
 
 ## Secure Storage

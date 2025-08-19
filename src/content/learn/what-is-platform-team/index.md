@@ -1,18 +1,16 @@
 ---
 title: What Is a Platform Team?
-slug: what-is-a-platform-team
-date: 2025-01-01T00:00:00.000Z
+slug: what-is-platform-team
+date: 2025-04-18T10:02:55.000Z
+description: >-
+  Explore Tetrate's guide to platform teams: their role, functions, and
+  significance in modern software development for scalability and efficiency.
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   A platform team is responsible for creating and maintaining the underlying
   platform that supports the development, deployment and operations of software.
 ---
-# What Is a Platform Team?
-
-### Article content
-
 ## Overview
 
 A platform team is responsible for creating and maintaining the underlying platform that supports the development, deployment and operations of software [applications](https:
@@ -112,13 +110,3 @@ Tetrate’s enterprise-grade service mesh platform, Tetrate Service Bridge, unif
 TSB is also a “bridge” between your organization—its people, teams, and applications—and your compute infrastructure, making it easy to assign consistent policies and access rights so your teams can safely control application resources.
 
 [Learn more ›](/tetrate-service-bridge/)
-
-### [What Is Observability?](/learn/what-is-observability/)
-
-### [What Is an API Gateway?](/learn/what-is-an-api-gateway/)
-
-### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
-
-### [Current State and Future of the Istio Service Mesh](/resource/current-state-and-future-of-istio-service-mesh/)
-
-### [Identity Based Segmentation for a Zero Trust Architecture (ZTA)](/resource/identity-based-segmentation-for-a-zero-trust-architecture/)

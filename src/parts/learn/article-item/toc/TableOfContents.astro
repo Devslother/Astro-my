@@ -46,15 +46,14 @@ const { className, headings } = Astro.props;
 		</>
 	)}
 </nav>
-
-<script is:inline>
+<script is:inline define:vars={{ activeClass: styles.tocItemActive }}>
 	document.addEventListener("DOMContentLoaded", () => {
 		const tocLinks = document.querySelectorAll("a[href^='#']");
 		const headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, h6[id]")); 
 
     function setActive(id) {
 			document.querySelectorAll("[data-id]").forEach(el => {
-				el.classList.toggle(styles.tocItemActive, el.dataset.id === id);
+				el.classList.toggle(activeClass, el.dataset.id === id);
 			});
 		}
 
@@ -103,3 +102,4 @@ const { className, headings } = Astro.props;
     checkInitialHash();   
   })		
 </script>
+

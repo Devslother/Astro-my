@@ -1,20 +1,18 @@
 ---
 title: What Is Observability?
 slug: what-is-observability
-date: 2025-01-01T00:00:00.000Z
+date: 2024-03-19T17:04:19.000Z
+description: >-
+  Discover observability basics with Tetrate. Learn to optimize performance and
+  troubleshoot efficiently. Explore now!
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Observability refers to the ability to gain insight into the internal state of
   a system by observing its external behavior. In other words, it’s the ability
   to understand what’s happening inside a complex system by looking at its
   outputs, without necessarily needing to understand the system’s internal.
 ---
-# What Is Observability?
-
-### Article content
-
 ## Overview
 
 Observability refers to the ability to gain insight into the internal state of a system by observing its external behavior. In other words, it’s the ability to understand what’s happening inside a complex system by looking at its outputs, without necessarily needing to understand the system’s internal workings.
@@ -94,13 +92,3 @@ In addition, a service mesh can provide a centralized location for collecting an
 Some popular service mesh platforms that offer observability features include Istio, Linkerd, and Consul. These platforms provide a range of tools and techniques for collecting and analyzing data related to system behavior, and can be integrated with other observability tools to provide a complete view of system performance.
 
 Enterprise service mesh offerings like Tetrate Service Bridge can help provide unified and consistent observability signals across a fleet of applications in multiple clusters, clouds, and on premises.
-
-### [Istio Service Mesh](/learn/istio-service-mesh/)
-
-### [What Is Zero Trust Security?](/learn/what-is-zero-trust-architecture/)
-
-### [Apache SkyWalking in Action](/resource/apache-skywalking-in-action/)
-
-### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
-
-### [Current State and Future of the Istio Service Mesh](/resource/current-state-and-future-of-istio-service-mesh/)

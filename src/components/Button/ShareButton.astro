@@ -47,22 +47,48 @@ import IconCopy from '@/assets/learn/copy.svg';
       rel="noopener noreferrer"
       aria-label="Share on LinkedIn"
     >
-    <IconIn class={styles.icon} />
+      <IconIn class={styles.icon} />
     </a>
 
     <button class={styles.button} id="copyBtn" aria-label="Copy link">
-			<IconCopy class={styles.icon} />
-		</button>
-		<span id="copiedMsg"
-    class={clsx(
-      'text__body--14-medium',
-      'text__body--14-medium-lg',
-      'text__body--14-medium-md',
-      styles.tooltip
-    )}>
-      Copied!
-    </span>
+      <IconCopy class={styles.icon} />
+      <span id="copiedMsg"
+        class={clsx(
+          'text__body--14-medium',
+          'text__body--14-medium-lg',
+          'text__body--14-medium-md',
+          styles.tooltip
+        )}>
+        Copied!
+      </span>
+    </button>
   </div>
 </div>
 
-<script is:inline src="/scripts/shareButton.js"></script>
+<script is:inline>
+  (function () {
+    const copyBtn = document.getElementById("copyBtn");
+    const msg = document.getElementById("copiedMsg");
+
+    if (copyBtn && msg) {
+      copyBtn.addEventListener("click", () => {
+        navigator.clipboard
+          .writeText(window.location.href)
+          .then(() => {
+            // Показываем сообщение с !important
+            msg.style.setProperty("opacity", "1", "important");
+            msg.style.setProperty("visibility", "visible", "important");
+            
+            setTimeout(() => {
+              // Скрываем сообщение с !important
+              msg.style.setProperty("opacity", "0", "important");
+              msg.style.setProperty("visibility", "hidden", "important");
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error("Failed to copy: ", err);
+          });
+      });
+    }
+  })();
+</script>

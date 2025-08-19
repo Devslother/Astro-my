@@ -1,21 +1,18 @@
 ---
 title: What Is Wasm?
 slug: what-is-wasm
-date: 2025-01-01T00:00:00.000Z
+date: 2024-09-15T03:52:11.000Z
+description: >-
+  Uncover WebAssembly's power: revolutionizing web dev with enhanced
+  performance, portability, security. Explore wazero, Go-based Wasm runtime.
 categories:
-  - Learn
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
+  - Kubernetes
 excerpt: >-
   WebAssembly (abbreviated as Wasm) is a low-level bytecode format designed as a
   portable target for the compilation of high-level languages like C, C++, and
   Rust, enabling deployment on the web for client and server applications. Wasm
   is designed to be executed in a sandboxed environment, ensuring safety and.
 ---
-
-# What Is Wasm?
-
-### Article content
-
 WebAssembly (abbreviated as Wasm) is a low-level bytecode format designed as a portable target for the compilation of high-level languages like C, C++, and Rust, enabling deployment on the web for client and server applications. Wasm is designed to be executed in a sandboxed environment, ensuring safety and [security](/faq/why-is-application-security-important/).
 
 One of the key advantages of Wasm is its performance. Unlike JavaScript, which is an interpreted language, Wasm is a compiled language, meaning that it can be executed more quickly and efficiently. This makes Wasm a good choice for applications that require high performance.
@@ -87,11 +84,3 @@ Despite these differences, Wasm and JavaScript can be used together to provide a
 ## Wazero And Wasm For Go
 
 [wazero](https:
-
-### [Istio Service Mesh](/learn/istio-service-mesh/)
-
-### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
-
-### [Zero Trust Architecture White Paper](/resource/zero-trust-architecture-white-paper/)
-
-### [Future of Cloud Native Security](/resource/future-of-cloud-native-security/)

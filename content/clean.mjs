@@ -4,15 +4,30 @@ import { glob } from "glob";
 import matter from "gray-matter";
 import slugify from "@sindresorhus/slugify";
 
+// === helpers ===
+function absolutizeWp(url = "") {
+  if (!url) return url;
+  if (/^https?:\/\//i.test(url)) return url;
+  if (url.startsWith("/wp-content/")) return `https://tetrate.io${url}`;
+  return url;
+}
+
+function isProbablyValidImage(url = "") {
+  if (!url) return false;
+  const u = url.toLowerCase();
+
+  // отбрасываем логотипы / svg / плейсхолдеры / общие OG-постеры
+  if (u.endsWith(".svg")) return false;
+  if (u.includes("logo") || u.includes("placeholder")) return false;
+  if (u.includes("og_image") || u.includes("tetrate.io-og_image")) return false;
+
+  // допустимы абсолютные http(s) или относительный wp-content
+  return /^https?:\/\//.test(url) || u.startsWith("/wp-content/");
+}
+
 // Очистка и нормализация одного MDX-файла
 export function cleanMdxContent(raw) {
   const { content, data } = matter(raw);
-
-  // Найти первое изображение
-  const imgMatch = raw.match(/!\[.*?\]\(([^)]+)\)/);
-  if (imgMatch && !data.featuredImage) {
-    data.featuredImage = imgMatch[1];
-  }
 
   let cleaned = content
     // Удалить HTML и JS
@@ -25,7 +40,7 @@ export function cleanMdxContent(raw) {
 
     // Markdown
     .replace(/\!\[[^\]]*\]\([^)]+\)/g, "")
-    .replace(/\*\s*\[\]\(https:[^)]+\)/g, "") // `* [](https:)`
+    .replace(/\*\s*\[\]\(https:[^)]+\)/g, "")
     .replace(/\[\s*\]\((.*?)\)/g, "")
     .replace(/\[[^\]]*?\]\((https?:\/\/[^\s)]*)\)/g, "")
     .replace(/^\s*\[.*?\]\(\s*\/?\s*\)\s*$/gm, "")
@@ -50,47 +65,71 @@ export function cleanMdxContent(raw) {
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
-  // h1-заголовок → title
+  // h1 → title
   const h1Match = cleaned.match(/^#\s+(.*)/m);
   const title = h1Match ? h1Match[1].trim() : "Untitled";
 
   // slug
   const slug = slugify(title);
 
-  // excerpt — первый абзац
-  const excerpt =
-    cleaned
-      .replace(/^#.*$/gm, "")
-      .split("\n\n")
-      .find((p) => p.trim().length > 40)
-      ?.replace(/[*_`[\]]+/g, "")
-      .trim()
-      .replace(/\s+\S*$/, "") + ".";
+  // excerpt — первый «осмысленный» абзац, без "undefined."
+  const p = cleaned
+    .replace(/^#.*$/gm, "")
+    .split("\n\n")
+    .map((x) => x.trim())
+    .find((x) => x.length >= 40);
 
-  // Финальный frontmatter
+  const excerpt = p
+    ? (() => {
+        const e = p
+          .replace(/[*_`[\]]+/g, "")
+          .replace(/\s+/g, " ")
+          .trim();
+        return /[.!?…]$/.test(e) ? e : `${e}.`;
+      })()
+    : undefined;
+
+  // featuredImage: валидируем + делаем абсолютный URL
+  let featuredImage = isProbablyValidImage(data.featuredImage)
+    ? data.featuredImage
+    : undefined;
+  if (featuredImage) {
+    featuredImage = absolutizeWp(featuredImage);
+  }
+
+  // categories → массив
+  let categories = data.categories;
+  if (typeof categories === "string") categories = [categories];
+  if (
+    !Array.isArray(categories) ||
+    categories.length === 0 ||
+    categories[0] === "TODO"
+  ) {
+    categories = ["Kubernetes"];
+  }
+
+  // дата — оставляем, если была; иначе сегодняшняя YYYY-MM-DD
+  const date = data.date || new Date().toISOString().slice(0, 10);
+
   const updated = {
     ...data,
     title,
     slug,
-    excerpt,
+    ...(excerpt ? { excerpt } : {}),
     hubspotFormId: data.hubspotFormId || undefined,
-    featuredImage: data.featuredImage || undefined,
-    categories: data.categories,
-    date: data.date || new Date().toISOString().slice(0, 10),
+    featuredImage, // <- уже отфильтровано и нормализовано
+    categories,
+    date,
     author: data.author,
     authorImage: data.authorImage,
   };
 
-  if (!updated.categories || updated.categories[0] === "TODO") {
-    updated.categories = ["Kubernetes"];
+  // удалить undefined-ключи
+  for (const k of Object.keys(updated)) {
+    if (updated[k] === undefined) delete updated[k];
   }
 
-  // Удалить undefined
-  for (const key in updated) {
-    if (updated[key] === undefined) delete updated[key];
-  }
-
-  // Удалить скрипты и CDATA после markdown-а
+  // чистим строки от мусорных скриптов
   const cleanedLines = cleaned
     .split("\n")
     .filter(
@@ -115,7 +154,6 @@ const allCleanMdx = await glob("**/*.mdx", {
 });
 
 const oldCleanMdx = allCleanMdx.filter((file) => !file.includes("/dirty/"));
-
 for (const file of oldCleanMdx) {
   await fs.unlink(file);
 }
@@ -124,8 +162,8 @@ for (const file of oldCleanMdx) {
 const files = await glob("**/*.mdx", {
   cwd: dirtyRoot,
   absolute: true,
-  dot: true, // учитывать скрытые файлы
-  nodir: true, // только файлы
+  dot: true,
+  nodir: true,
 });
 
 if (files.length === 0) {

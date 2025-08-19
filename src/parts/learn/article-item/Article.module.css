@@ -18,6 +18,85 @@
   }
 }
 
+@media (width >= 1024px) {
+  .container {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    align-items: start;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 40px;
+  }
+}
+
+/* === Левая колонка (TOC) === */
+.tocDesktop {
+  display: none !important;
+}
+
+@media (width >= 1024px) {
+  .tocDesktop {
+    display: block !important;
+    position: sticky;
+    top: 100px;
+  }
+}
+
+/* === Кнопка Back === */
+.btn {
+  margin-bottom: 24px;
+}
+
+@media (width >= 1024px) {
+  .btn {
+    margin-bottom: 32px;
+  }
+}
+
+/* Back кнопка в центральной колонке скрыта на desktop */
+.post .btn {
+  display: block;
+}
+
+@media (width >= 1024px) {
+  .post .btn {
+    display: none;
+  }
+}
+
+/* === Центральная колонка (контент) === */
+.post {
+  width: 100%;
+  min-width: 0; /* Важно для правильной работы grid */
+}
+
+.share {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px; /* Расстояние между share и toc в мобильной версии */
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+@media (width >= 768px) {
+  .share {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+}
+
 .featuredImage {
   display: block;
   width: 100%;
@@ -25,6 +104,8 @@
 
 /* === Заголовок и excerpt === */
 .header {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
 }
 
@@ -64,18 +145,10 @@
   color: var(--color-gray-700);
 }
 
-@media (width >= 768px) {
-  .meta {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
-
 .excerpt {
   color: var(--color-gray-800, #6c6e6f);
   font-size: 18px;
   line-height: 27px;
-  margin-top: 24px;
 }
 
 @media (width >= 1024px) {
@@ -85,19 +158,18 @@
 }
 
 /* === Table of Contents (мобильная версия) === */
-
 .tocMobile {
-  display: block;
+  display: block !important;
+  margin-bottom: 32px;
 }
 
 @media (width >= 1024px) {
   .tocMobile {
-    display: none;
+    display: none !important;
   }
 }
 
 /* === Контент статьи (из <Content />) === */
-
 .content {
   width: 100%;
   max-width: 100%;
@@ -199,7 +271,6 @@
 }
 
 /* === Таблицы === */
-
 .table-wrapper {
   width: 100%;
   margin: 16px 0;

@@ -1,20 +1,19 @@
 ---
 title: What Is Kubernetes Service Mesh
 slug: what-is-kubernetes-service-mesh
-date: 2025-01-01T00:00:00.000Z
+date: 2024-05-22T02:33:51.000Z
+description: >-
+  Traffic Management, Security, Observability and Reliability for Kubernetes A
+  Dedicated Infrastructure Layer A Kubernetes service mesh is a software
+  infrastructure layer…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   A Kubernetes service mesh(/what-is-istio-service-mesh/) is a software
   infrastructure layer added within a Kubernetes cluster designed to simplify
   service-to-service communication, observability, and management of
   microservices running via.
 ---
-# What Is Kubernetes Service Mesh
-
-### Article content
-
 ## Traffic Management, Security, Observability and Reliability for Kubernetes
 
 ### A Dedicated Infrastructure Layer
@@ -58,13 +57,3 @@ Deploying and managing Istio properly can still be complex, even if it’s not a
 ## Conclusion
 
 In summary, a service mesh in Kubernetes simplifies the management of microservices-based applications. With the complexities of network management abstracted away, organizations can focus on their application’s business logic. The service mesh creates a dedicated infrastructure layer for handling service communication, improving microservice observability, reliability, and security. Because of this, it is now an essential component of modern container-based and Kubernetes-managed application architectures. Tetrate Service Bridge takes service mesh functionality to the next level by enhancing the popular Istio service mesh while also making it easier to use in enterprise deployments.
-
-### [What Is the Kubernetes Gateway API?](/learn/what-is-kubernetes-gateway-api/)
-
-### [Kubernetes Security Best Practices](/learn/kubernetes-security-best-practices/)
-
-### [5 Stages to Istio Production Success](/resource/istio-production-success/)
-
-### [Common Vulnerabilities and Exposures (CVE) Explained](/resource/common-vulnerabilities-and-exposures-cve-explained/)
-
-### [Simplify Kubernetes and Multi-Cloud Complexity with the Service Mesh](/resource/simplify-kubernetes-and-multi-cloud-complexity-with-the-service-mesh/)

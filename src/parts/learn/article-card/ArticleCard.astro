@@ -6,24 +6,44 @@ import clsx from 'clsx';
 import Icon from '@/components/icon/Icon.astro';
 
 interface Props {
-	article: CollectionEntry<"learn">;
+  article: CollectionEntry<"learn">;
 }
 
 const { article } = Astro.props;
-const { title, featuredImage, excerpt } = article.data;
+const { title, featuredImage, excerpt, description } = article.data; // ← берём description
 const decodedTitle = decodeURIComponent(title);
+
+// тип картинки
+const isUrl = typeof featuredImage === 'string';
+const isLocal = typeof featuredImage === 'object' && featuredImage && 'src' in featuredImage;
+
+// относительный wp-content → абсолютный
+const resolvedUrl = isUrl && (featuredImage as string).startsWith('/wp-content')
+  ? `https://tetrate.io${featuredImage}`
+  : featuredImage;
+
+  const text = (description ?? excerpt ?? '').trim();
+
+// показывать ли текст?
+const showText =
+  text.length > 0 &&
+  text.toLowerCase() !== decodedTitle.trim().toLowerCase(); 
 ---
 <article class={styles.card}>
 	<a href={`/learn/${article.slug}`} class={styles.link}>
 		<div class={styles.content}>
-      {featuredImage && !featuredImage.startsWith('/wp-content') && (
+      {featuredImage && (
         <div class={styles.featuredImage}>
-          <Figure 
-            source={featuredImage} 
-            width="100%" 
-            lightbox={false} 
-            alt="Featured Image"
-          />
+          {isUrl ? (
+            <img src={resolvedUrl as string} alt={decodedTitle} loading="lazy" />
+          ) : isLocal ? (
+            <Figure
+              source={featuredImage}
+              width="100%"
+              lightbox={false}
+              alt={decodedTitle}
+            />
+          ) : null}
         </div>
       )}
 
@@ -36,12 +56,12 @@ const decodedTitle = decodeURIComponent(title);
         )}>
           {decodedTitle}
         </h3>
-        {excerpt && (
+       {showText && (
           <p class={clsx(
             'text__body--16',
             styles.description
-          )} >
-            {excerpt}
+          )}>
+            {text}
           </p>
         )}
       </div>

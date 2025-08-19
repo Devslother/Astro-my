@@ -14,15 +14,14 @@ import Icon from '@/components/icon/Icon.astro';
 import Code from './code/Code.astro';
 import Related from './related/Related.astro';
 import type { CollectionEntry } from "astro:content";
-
 import { getCollection } from "astro:content";
 import Cta from '@/parts/home/cta/Cta.astro';
-const allArticles = (await getCollection("learn")).filter((a) => a.id.startsWith("clean/"));
 
+const allArticles = await getCollection("learn");
 const { article, headings } = Astro.props;
-const currentSlug = article.slug || article.data.slug;
+const currentSlug = article.slug;
 const { Content } = await article.render();
-const { title, excerpt, featuredImage, date, author, authorImage } = article.data
+const { title, description, featuredImage, date, author, authorImage } = article.data
 const decodedTitle = decodeURIComponent(title);
 
 const categoriesRaw = article.data.categories;
@@ -32,23 +31,47 @@ const categories = Array.isArray(categoriesRaw)
     ? categoriesRaw.split(",").map((cat) => cat.trim()).filter(Boolean)
     : [];
 
-const related = allArticles
-	.filter((entry: CollectionEntry<"learn">) => entry.data.slug !== currentSlug && entry.data.categories?.length)
-	.filter((entry: CollectionEntry<"learn">) => {
-		return entry.data.categories.some((cat: string) => categories.includes(cat));
-	})
-	.slice(0, 3);
+function getRelatedArticles(
+  allArticles: CollectionEntry<"learn">[],
+  currentSlug: string,
+  categories: string[]
+) {
+  // Убираем текущую статью
+  const others = allArticles.filter((a) => a.slug !== currentSlug);
+
+  // Находим статьи с пересекающимися категориями
+  const sameCategory = others.filter((a) => {
+    const cats = Array.isArray(a.data.categories)
+      ? a.data.categories
+      : [a.data.categories];
+    return cats.some((c) => categories.includes(c));
+  });
+
+  // Добавляем статьи до 3 шт., сначала из той же категории, потом любые другие
+  return [...sameCategory, ...others.filter(a => !sameCategory.includes(a))]
+    .slice(0, 3);
+}
+
+const related = getRelatedArticles(allArticles, currentSlug, categories);
 ---
 <article class={styles.article}>
 <Grid>
   <div class={styles.container}>
-    <div class={styles.btn}>
-			<BackButton fallback="/learn" />
-		</div>
+    <!-- Левая колонка: Back + TOC (Desktop) -->
+    <div class={styles.tocDesktop}>
+      <div class={styles.btn}>
+        <BackButton fallback="/learn" />
+      </div>
+      <TableOfContents headings={headings} />
+    </div>
 
-    <TableOfContents headings={headings} />
-
+    <!-- Центральная колонка: Контент -->
     <div class={styles.post}>
+      <!-- Back кнопка (Mobile/Tablet) -->
+      <div class={styles.btn}>
+        <BackButton fallback="/learn" />
+      </div>
+
       <div class={styles.header}>
         <h1 class={clsx(
           'text__heading--h4',
@@ -58,11 +81,12 @@ const related = allArticles
         )}>
           {decodedTitle}
         </h1>
-        {excerpt && (
-					<p class={styles.excerpt}>
-						{excerpt}
-					</p>
-				)}
+
+        {description && (
+          <p class={styles.excerpt}>
+            {description}
+          </p>
+        )}
 
         <div class={styles.meta}>
           <div class={styles.authorBlock}>
@@ -94,23 +118,32 @@ const related = allArticles
               </div>
             }
           </div>
-        
-          <div class={styles.share}>
-            <ShareButton
-              shareUrl={Astro.url.href}
-              title={title}
-            />
-          </div>
+        </div>
+
+        <div class={styles.share}>
+          <ShareButton
+            shareUrl={Astro.url.href}
+            title={title}
+          />
         </div>
         
         {featuredImage && (
           <div class={styles.featuredImage}>
-            <Figure source={featuredImage} width={"100%"} lightbox={false} alt="Featured Image" />
+            <Figure 
+              source={featuredImage} 
+              width={"100%"} 
+              lightbox={false} 
+              alt="Featured Image"
+             />
           </div>
         )}
       </div>
 
-      <TableOfContents className={styles.tocMobile} headings={headings} />
+      <!-- TOC (Mobile/Tablet) -->
+      <TableOfContents 
+        className={styles.tocMobile} 
+        headings={headings}
+       />
 
       <div class={styles.content}>
         <Content
@@ -124,14 +157,16 @@ const related = allArticles
           }}
         />
       </div>
-    </div>    
+    </div>
   </div>
 </Grid>
 
-{related.length > 0 &&
-	<Pattern />
-	<Related related={related} />
-}
+{related.length > 0 && (
+	<>
+		<Pattern />
+		<Related related={related} />
+	</>
+)}
 
 <Cta />
 </article>

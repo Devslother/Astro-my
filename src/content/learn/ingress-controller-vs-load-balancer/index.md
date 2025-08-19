@@ -1,10 +1,13 @@
 ---
 title: Ingress Controller vs Load Balancer
 slug: ingress-controller-vs-load-balancer
-date: 2025-01-01T00:00:00.000Z
+date: 2025-04-14T17:07:11.000Z
+description: >-
+  When managing traffic flow in Kubernetes, various ways exist to control
+  routing to pods and other microservices running in a cluster. For example,
+  using Ingress…
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   When managing traffic flow in Kubernetes, various ways exist to control
   routing to pods and other microservices running in a cluster. For example,
@@ -13,10 +16,6 @@ excerpt: >-
   their differences and when to use each is essential for optimizing Kubernetes
   networking, security, and.
 ---
-# Ingress Controller vs Load Balancer
-
-### Article content
-
 When managing traffic flow in Kubernetes, various ways exist to control routing to pods and other microservices running in a cluster. For example, using Ingress Controllers and Load Balancers. While both direct traffic to applications and microservices, they use different methods. Understanding their differences and when to use each is essential for optimizing Kubernetes networking, security, and performance. 
 
 ## Load Balancers in Kubernetes?

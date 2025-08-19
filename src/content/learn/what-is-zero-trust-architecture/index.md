@@ -1,10 +1,12 @@
 ---
 title: What Is Zero Trust Security?
-slug: what-is-zero-trust-security
-date: 2025-01-01T00:00:00.000Z
+slug: what-is-zero-trust-architecture
+date: 2025-04-18T10:04:15.000Z
+description: >-
+  Explore Zero Trust Security: principles, implementation, and its
+  transformative impact on cybersecurity with Tetrate's comprehensive guide.
 categories:
   - Kubernetes
-featuredImage: /wp-content/uploads/2023/03/tetrate-logo-light.svg
 excerpt: >-
   Zero Trust Security—sometimes called Zero Trust
   Architecture(/learn/zero-trust/zero-trust-architecture/) (ZTA) and Zero Trust
@@ -14,10 +16,6 @@ excerpt: >-
   access resources within a network, regardless of their location. Popularized
   by John Kindervag at Forrester in.
 ---
-# What Is Zero Trust Security?
-
-### Article content
-
 ## Overview
 
 Zero Trust Security—sometimes called [Zero Trust Architecture](/learn/zero-trust/zero-trust-architecture/) (ZTA) and Zero Trust Network Access (ZTNA)—is an information [security model](/learn/kubernetes-security-best-practices/) that requires strict identity verification for all users, devices, and applications attempting to access resources within a network, regardless of their location. Popularized by [John Kindervag at Forrester in 2010](https:
@@ -104,13 +102,4 @@ Kubernetes doesn’t address certain application-level development and operation
 Istio’s data plane of Envoy proxies provides authentication and authorization, secure service discovery via a dedicated service registry, secure communications including mTLS and encryption, network resilience and unified observability data. Istio’s ingress controller provides a common, external-facing API for all clients, protocol translation, composition of results, load balancing and public TLS termination. Istio’s egress controller provides a single, centralized set of whitelisted external workloads, credential exchange and protocol translation back to web-friendly protocols.
 
 *   Learn more about the Istio service mesh ›
-
-### [Istio Service Mesh](/learn/istio-service-mesh/)
-
-### [Zero Trust Architecture White Paper](/resource/zero-trust-architecture-white-paper/)
-
-### [Zero Trust, FIPS and FedRAMP for Kubernetes and Cloud Native Applications](/resource/zero-trust-fips-and-fedramp-for-cloud-native-applications/)
-
-### [Future of Cloud Native Security](/resource/future-of-cloud-native-security/)
-
-### [Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise](/resource/service-mesh-handbook/)
+*   [Get started with Istio using Tetrate Istio Distro, Tetrate’s hardened, performant, and fully upstream Istio distribution ›](https:
