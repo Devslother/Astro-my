@@ -1,0 +1,52 @@
+---
+title: "Is Less More for API Gateways? The 80% Case for Envoy Proxy"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+_This is the second in [a series of articles](/blog/do-i-need-a-gateway-or-a-service-mesh/) on Tetrate Enterprise Gateway for Envoy (TEG), the enterprise-ready distribution of Envoy Gateway, the cloud-native service gateway._ [_Get access to TEG today_](/tetrate-enterprise-gateway-for-envoy-demo-request/) and [sign up for our intro to Envoy Gateway webinar ›](https://tetr8.io/3w84tK6)
+
+## [](#do-you-really-need-a-sprawling-api-management-platform)Do You Really Need a Sprawling API Management Platform?
+
+Is less more for API gateways? Five years ago, I would have told you that more is more.
+
+Today, I believe that the all-singing-and-dancing API Management and Distribution Platforms are the least likely fit for your architecture. Their inherent complexity and long feature lists appear excessive, as most of us focus on enabling first-party API distribution and consumption within our organizations. 
+
+I have concluded that less is more, simplicity is the key, and we are unveiling a shifting solution landscape where gateways catering to the core needs of first-party API distribution and consumption are the right choice for the 80%.
+
+## [](#most-api-traffic-is-first-party)Most API Traffic Is First-Party
+
+Once, we all dreamed of being API-first and offering headless API-only products; however, APIs as revenue-generating stand-alone products are only the reality for some. 
+
+The fact is that most API traffic is, to no surprise, first-party API traffic. As we adopt modern service-oriented architectures, we’re seeing the growth of first-party APIs outstrip the growth of second—and third-party APIs. We see apps calling backends, services calling other services, and the backend of an acquired solution making calls “home” to integrate the systems.
+
+As we navigate the realities of large system landscapes, whether through a growing suite of solutions or acquisitions, the challenges we face are becoming increasingly apparent. The task of integrating internal systems effectively and securely is pressing and complex.
+
+## [](#secure-and-stable-takes-priority)Secure and Stable Takes Priority
+
+The most critical challenge is ensuring stable, secure, and monitored connections between systems. The task of addressing interface design standards and existing awkward interfaces, such as outdated SOAP interfaces or complex RESTful APIs, quickly falls outside the top priority list.
+
+Using the 80/20 rule, we can simplify that the current dominating solution landscape, with its all-singing-and-dancing API Management and Distribution Platforms, is only appropriate for 20% of us.
+
+The remaining 80% of us, who are primarily dealing with enabling API distribution and consumption of first-party APIs, are underserved and oversold. Picking a gateway solution that can handle the core, common, and critical functions becomes important, and it shouldn’t be a hard decision to make.
+
+## [](#picking-the-right-solutions)Picking the Right Solution(s)
+
+One of the first solutions you will pick is a gateway, and choosing an Envoy-based gateway is generally your best choice today. Envoy offers advanced load-balancing algorithms, real-time dynamic configuration, extensive support for modern protocols, and built-in support for detailed metrics, among other benefits.
+
+Envoy is the data plane for many gateways and service meshes, making it a proven and reliable choice. Its active community ensures continuous improvement and support.
+
+If you are running in Kubernetes, [you can now use Envoy Gateway](/tetrate-enterprise-gateway-for-envoy/) and configure it with the [Kubernetes Gateway API](/resource/gateway-api-is-the-future-of-kubernetes-ingress/). If you want to learn more about how to use Envoy Gateway [check out Tetrate’s webinar on Envoy Gateway by Eitan Suez](https://tetr8.io/3w84tK6).
+
+However, if your system mainly consists of microservices running on one or more Kubernetes clusters, you might consider using [an Envoy-based service mesh, like Istio](https://docs.tetrate.io/istio-distro/). The service mesh is great for service-to-service communication, but a combination of gateways and load-balancers is still likely a part of your architecture to enable API access from scripts, web apps, and other API-driven integrations. We’ve discussed when you need a gateway vs. a service mesh in detail [here](/blog/do-i-need-a-gateway-or-a-service-mesh/).
+
+In conclusion,  picking a robust and feature-rich gateway like Envoy to cover the 80% case of exposing our APIs is likely a great choice.
+
+## [](#learn-more)Learn More
+
+*   [Sign up for our intro to Envoy Gateway webinar ›](https://tetr8.io/3w84tK6)
+*   [Which do I need? A gateway or a service mesh?](/blog/do-i-need-a-gateway-or-a-service-mesh/)
+*   [What Envoy Gateway can do for you ›](https://docs.tetrate.io/envoy-gateway/introduction/capabilities)
+*   [Why the Gateway API is the unified future for Kubernetes ingress ›](/resource/gateway-api-is-the-future-of-kubernetes-ingress/)

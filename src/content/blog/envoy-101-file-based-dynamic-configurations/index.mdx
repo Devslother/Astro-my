@@ -1,0 +1,501 @@
+---
+title: "Envoy 101: File-based dynamic configurations"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+One of Envoy’s many powers is traffic routing and load balancing. For any dynamic environment that’s subject to regular changes, it needs a dynamic configuration mechanism that is capable of enabling users to make those changes easily, and most importantly, with no downtime. 
+
+## [](#file-based-dynamic-routing-configuration)File Based Dynamic Routing Configuration
+
+This is Envoy 101: it’ll provide an easy-to-follow introduction to key concepts within Envoy, the edge and service proxy. This example takes a static configuration and turns it into a file-based dynamic configuration capable of handling multiple changes. There’ll be a walkthrough of the yaml and config files, with an example to try yourself at the end. 
+
+### [](#dynamic-versus-static-configurations)Dynamic versus static configurations
+
+The difference between a static and a dynamic configuration is an important distinction. 
+
+A **Static** configuration is one that requires Envoy to restart to force changes to take effect. 
+
+A **Dynamic** configuration allows users to make changes using file-based or network-based methods and doesn’t require the Envoys to restart to enable the changes.
+
+### [](#discovery-service-apis)Discovery Service APIs
+
+Dynamic configurations use “discovery service” APIs that point to specific parts of a configuration and can be altered. There are five key ‘service discovery’ APIs that can be configured statically or dynamically within Envoy:
+
+**Listener Discovery Service (LDS)** – Allows you to alter listeners while the Envoy is running
+
+**Route Discovery Service (RDS**) – Allows you to update and change entire routes for the HTTP connection managers
+
+**Cluster Discovery Service (CDS)** – Allows you to dynamically update cluster definitions
+
+**Endpoint Discovery Service (EDS)**  – Allows you to add or remove servers that handle traffic
+
+**Secret Discovery Service (SDS)** – Enables Envoy to discover certificates, keys and TLS information for listeners, and some peer certificates validation logic.
+
+Collectively they’re known as “xDS.”  
+
+When dynamic configurations are used in Envoy, they must be given a very simple static configuration called a ‘bootstrap’ to know where to fetch the dynamic configuration from. 
+
+In this particular example, we’ll be updating **EDS, CDS and LDS**. It will have a bootstrap file that points to several JSON-based .conf files. 
+
+### [](#how-it-works)How it works
+
+To make sure that the changes can be made “dynamically,” this example takes a static configuration file that describes an entire Envoy configuration, and splits it into smaller files. The static configuration will point to the files for CDS and LDS that provide the information they need, and Envoy will watch for changes to those files that need to be applied immediately.
+
+This means that you don’t need to restart Envoy every time there’s a change. It wouldn’t be viable to do this in most cases, and frankly, you don’t need the stress. Another benefit is that it decouples activities too. In most cases, where there’s an update to an endpoint, you won’t need to make changes to listeners and clusters. 
+
+![Post Image](/.netlify/images?url=_astro%2FScreen-Shot-2020-11-18-at-12.17.08-PM-1.Cjo-axnJ.png&w=1044&h=638&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2FScreen-Shot-2020-11-18-at-12.17.08-PM-1.Cjo-axnJ.png&w=1044&h=638&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+Let’s see it in a little more detail!
+
+### [](#understanding-the-configuration)Understanding the configuration
+
+```
+dynamic_resources:
+lds_config:
+path: "/etc/envoy/lds.conf"
+cds_config:
+path: "/etc/envoy/cds.conf"
+admin:
+access_log_path: "/dev/null"
+address:
+socket_address:
+address: 0.0.0.0
+port_value: 8001
+```
+
+Yes, the configuration really is that short! Here’s why.
+
+Everything that could be found in static\_resources is now dynamic, which means this yaml file looks very small. The information for the listener, cluster and endpoints have been moved to other files that can be changed much more easily.
+
+We’ve told Envoy that it needs to watch two different files for updates, the LDS, and CDS (the CDS file will point to the EDS file, as we’ll see later). The bulk of the work is done by these configuration files.
+
+### [](#configuration-files)Configuration files
+
+This example uses three .conf files for the EDS, CDS, and LDS, to allow us to make changes to any part of the configuration that we need. The information that you would find in a static configuration is now contained in these yaml files.
+
+#### [](#listener-discovery-service-lds)Listener Discovery Service (LDS):
+
+```
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.config.listener.v3.Listener
+address:
+socket_address:
+address: 0.0.0.0
+port_value: 8080
+filter_chains:
+- filters:
+- name: envoy.filters.network.http_connection_manager
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+access_log:
+- name: envoy.access_loggers.file
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+path: "/dev/stdout"
+stat_prefix: ingress_http
+codec_type: AUTO
+route_config:
+name: local_route
+virtual_hosts:
+- name: local_service
+domains:
+- "*"
+routes:
+- match:
+prefix: "/service/1"
+route:
+cluster: service1
+http_filters:
+- name: envoy.filters.http.router
+typed_config: {}
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.config.listener.v3.Listener
+address:
+socket_address:
+address: 0.0.0.0
+port_value: 8080
+filter_chains:
+- filters:
+- name: envoy.filters.network.http_connection_manager
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+access_log:
+- name: envoy.access_loggers.file
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+path: "/dev/stdout"
+stat_prefix: ingress_http
+codec_type: AUTO
+route_config:
+name: local_route
+virtual_hosts:
+- name: local_service
+domains:
+- "*"
+routes:
+- match:
+prefix: "/service/1"
+route:
+cluster: service1
+http_filters:
+- name: envoy.filters.http.router
+typed_config: {}
+```
+
+This LDS file is the same as you would find in a static configuration — there are no changes in here to either the listener or the route that would alter the use.
+
+#### [](#cluster-discovery-service-cds)Cluster Discovery Service (CDS):
+
+```
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
+name: service1
+connect_timeout: 0.25s
+lb_policy: ROUND_ROBIN
+type: EDS
+eds_cluster_config:
+service_name: localservices
+eds_config:
+path: "/etc/envoy/eds.conf"
+```
+
+The CDS configuration is key to this example. It’s where the main change has been made to enable EDS – the “type” wherein a static configuration it would have read “static\_DNS” has been updated. What this has done, is it has signalled to Envoy that the endpoints are subject to change, and to look at path “path”:”/etc/envoy/eds.conf” for the changes.
+
+#### [](#endpoint-discovery-service-eds)Endpoint Discovery Service (EDS):
+
+```
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.api.v2.ClusterLoadAssignment
+cluster_name: localservices
+endpoints:
+- lb_endpoints:
+- endpoint:
+address:
+socket_address:
+address: 172.120.0.4
+port_value: 8080
+```
+
+#### [](#edsfixed)EDSfixed:
+
+```
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.api.v2.ClusterLoadAssignment
+cluster_name: localservices
+endpoints:
+- lb_endpoints:
+- endpoint:
+address:
+socket_address:
+address: 172.120.0.3
+port_value: 8000
+```
+
+## [](#try-it-out)Try it out
+
+So here we go! In this example we’re going to set up all of the files that we need, then make a change to an endpoint using EDS files. This example is going to take a non-working example and make it work.
+
+This example uses Docker Compose. If you’re not intimately familiar with it, I would suggest checking out their docs on how to make this work, and make sure that you have all the relevant files set up.
+
+### [](#the-files-that-youll-need)The files that you’ll need
+
+Your docker-compose.yaml should look like this:
+
+```
+version: "3.8"
+services:
+
+front-envoy:
+build:
+context: .
+dockerfile: Dockerfile-dynamicfileapi
+volumes:
+- ./dynamic.yaml:/etc/dynamic.yaml
+networks:
+- envoymesh
+expose:
+- "8080"
+- "8001"
+ports:
+- "8080:8080"
+- "8001:8001"
+
+service1:
+build:
+context: .
+dockerfile: Dockerfile-service
+volumes:
+- ./service-envoy.yaml:/etc/service-envoy.yaml
+networks:
+envoymesh:
+ipv4_address: "172.120.0.3"
+environment:
+- SERVICE_NAME=1
+expose:
+- "8000"
+networks:
+envoymesh:
+ipam:
+config:
+- subnet: "172.120.0.0/24"
+```
+
+Dockerfile-dynamicfileapi
+
+```
+FROM envoyproxy/envoy-dev:latest
+
+RUN apt-get update && apt-get -q install -y \
+curl
+
+COPY edsfixed.conf /etc/envoy/edsfixed.conf
+COPY cds.conf /etc/envoy/cds.conf
+COPY lds.conf /etc/envoy/lds.conf
+COPY eds.conf /etc/envoy/eds.conf
+
+CMD /usr/local/bin/envoy -c /etc/dynamic.yaml --service-cluster front-proxy --service-node node1
+```
+
+Then, you’ll need the dynamic.yaml file:
+
+```
+dynamic_resources:
+lds_config:
+path: "/etc/envoy/lds.conf"
+cds_config:
+path: "/etc/envoy/cds.conf"
+admin:
+access_log_path: "/dev/null"
+address:
+socket_address:
+address: 0.0.0.0
+port_value: 8001
+```
+
+service-envoy.yaml
+
+```
+static_resources:
+listeners:
+- address:
+socket_address:
+address: 0.0.0.0
+port_value: 8000
+filter_chains:
+- filters:
+- name: envoy.filters.network.http_connection_manager
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+access_log:
+- name: envoy.access_loggers.file
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+path: "/dev/stdout"
+codec_type: auto
+stat_prefix: ingress_http
+route_config:
+name: local_route
+virtual_hosts:
+- name: service
+domains:
+- "*"
+routes:
+- match:
+prefix: "/service"
+route:
+cluster: local_service
+http_filters:
+- name: envoy.filters.http.router
+typed_config: {}
+clusters:
+- name: local_service
+connect_timeout: 0.25s
+type: strict_dns
+lb_policy: round_robin
+load_assignment:
+cluster_name: local_service
+endpoints:
+- lb_endpoints:
+- endpoint:
+address:
+socket_address:
+address: 127.0.0.1
+port_value: 8080
+admin:
+access_log_path: "/dev/null"
+address:
+socket_address:
+address: 0.0.0.0
+port_value: 8081
+```
+
+and copies of the .conf files:
+
+lds.conf:
+
+```
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.config.listener.v3.Listener
+address:
+socket_address:
+address: 0.0.0.0
+port_value: 8080
+filter_chains:
+- filters:
+- name: envoy.filters.network.http_connection_manager
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+access_log:
+- name: envoy.access_loggers.file
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+path: "/dev/stdout"
+stat_prefix: ingress_http
+codec_type: AUTO
+route_config:
+name: local_route
+virtual_hosts:
+- name: local_service
+domains:
+- "*"
+routes:
+- match:
+prefix: "/service/1"
+route:
+cluster: service1
+http_filters:
+- name: envoy.filters.http.router
+typed_config: {}
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.config.listener.v3.Listener
+address:
+socket_address:
+address: 0.0.0.0
+port_value: 8080
+filter_chains:
+- filters:
+- name: envoy.filters.network.http_connection_manager
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+access_log:
+- name: envoy.access_loggers.file
+typed_config:
+"@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+path: "/dev/stdout"
+stat_prefix: ingress_http
+codec_type: AUTO
+route_config:
+name: local_route
+virtual_hosts:
+- name: local_service
+domains:
+- "*"
+routes:
+- match:
+prefix: "/service/1"
+route:
+cluster: service1
+http_filters:
+- name: envoy.filters.http.router
+typed_config: {}
+```
+
+cds.conf:
+
+```
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.config.cluster.v3.Cluster
+name: service1
+connect_timeout: 0.25s
+lb_policy: ROUND_ROBIN
+type: EDS
+eds_cluster_config:
+service_name: localservices
+eds_config:
+path: "/etc/envoy/eds.conf"
+```
+
+eds.conf:
+
+```
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.api.v2.ClusterLoadAssignment
+cluster_name: localservices
+endpoints:
+- lb_endpoints:
+- endpoint:
+address:
+socket_address:
+address: 172.120.0.4
+port_value: 8080
+```
+
+edsfixed.conf:
+
+```
+---
+version_info: '0'
+resources:
+- "@type": type.googleapis.com/envoy.api.v2.ClusterLoadAssignment
+cluster_name: localservices
+endpoints:
+- lb_endpoints:
+- endpoint:
+address:
+socket_address:
+address: 172.120.0.3
+port_value: 8000
+```
+
+### [](#what-to-do-next)What to do next
+
+Spin up your containers with docker-compose up and try to reach [https://localhost:8080/service/1](https://localhost:8080/service/1). 
+
+It shouldn’t work– because Envoy has been told to send traffic to the wrong endpoint. 
+
+You should have noticed that in this list of instructions there were two EDS files, eds.conf and edsfixed.conf, which contain two different IP addresses. edsfixed.conf points to the correct IP address, so how can we make that change?
+
+Rather than updating the EDS Script to reflect the right endpoint, we’re going to dynamically change it from within the container, swapping out the eds.conf for the edsfixed.conf to update the IP address. 
+
+So let’s open another shell/terminal and run:
+
+```
+docker-compose exec front-envoy mv /etc/envoy/edsfixed.conf /etc/envoy/eds.conf
+```
+
+which replaces eds.conf with edsfixed.conf within the container.
+
+To verify that it’s worked, try to run the service again by attempting to reload [https://localhost:8080/service/1](https://localhost:8080/service/1) and verify the result as: Hello from behind Envoy (service 1)! hostname: 5583ae3c2023 resolvedhostname: 172.120.0.3. 
+
+## [](#congratulations)Congratulations!
+
+There you have it!  You’ve started to use [xDS](/blog/istio-service-mesh-delta-xds/), and updated a configuration file dynamically. 
+
+This is a great way to learn the internals of Envoy, but there are more practical ways to use it in production. To see how easy this can be, check out the Envoy binaries and images available from [GetEnvoy](https://www.getenvoy.io/)!
+
+_Christoph Pakulski, Liam White and Lizan Zhou provided technical reviews and support for this content._

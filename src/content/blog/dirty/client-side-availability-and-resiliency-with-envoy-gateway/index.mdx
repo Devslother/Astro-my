@@ -1,0 +1,84 @@
+---
+title: "Building Client-Side Availability and Resiliency with a Service Mesh and Envoy Gateway"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+## [](#how-to-think-about-availability-and-resiliency-in-client-applications)How to Think about Availability and Resiliency in Client Applications
+
+_This is the first in a series of articles on [the value of Envoy Gateway as it reaches the 1.0 release milestone](/blog/announcing-envoy-gateway-1-0/) and ready for production use._
+
+Usually when we talk about availability and resiliency we talk from the perspective of the infrastructure and our services we expose to clients. Rarely do we talk about what _clients_ can do to increase “perceived availability” of backend services (the availability of a service as measured by the clients). Mostly this is because we can’t control how clients interact with the services we expose – but (sometimes) we can.
+
+In this article, we’ll discuss six ways a service mesh can improve the “perceived availability” of services from the client side, augmenting the overall resiliency of the system:
+
+1.  Client-side load balancing
+2.  Retries
+3.  Timeouts
+4.  Circuit breaking
+5.  Outlier detection
+6.  Rate limiting
+
+We’ll cover each of these and the value they provide in turn, but it’s important to note from the very beginning that while each of these features in isolation provides some benefit, it’s in working together—as we’ll see below—that we can really achieve some magic for our systems.
+
+## [](#a-gateway-at-every-service)A “Gateway” at Every Service
+
+The traditional place we can control “client” behavior is at the ingress or API gateway. We can shield our internal systems from whatever craziness is happening outside with that gateway. And at that gateway we can implement well-known patterns like load balancing, retries, timeouts, rate limits, and more. With the introduction of the service mesh, we have a “gateway” beside every service in our infrastructure – the service mesh’s sidecar. The sidecar doesn’t just function on the server side, exposing (m)TLS and providing a policy enforcement point. It also provides significant functionality on the client (caller’s) side. And since the mesh provides centralized control, service owners can easily set default behaviors for clients calling their service. As a result, we can start to talk about resiliency of the system not just in terms of infrastructure failure domains and database blast radius and so on, but also in terms of how clients communicate with servers.
+
+The first and most important feature the sidecar brings for clients is _client-side load balancing_. That is, rather than going through a central load balancer (like F5) to reach backend services, the sidecar knows about every instance of services you may want to talk to and can load balance traffic across them directly, from client to server without a middle-man. Because we do client-side load balancing, the mesh can bring a suite of other powerful tools to bear.
+
+## [](#five-nines-for-the-price-of-three-a-true-story)Five Nines for the Price of Three: a True Story 
+
+To give some anecdotal evidence on the ability of these tools to improve the perceived availability of an application, we can look at one of the services I used to work on at a previous employer. The advertised SLA of the service’s primary method was 5.5-9s: “five-and-a-half-nines” or 99.9995% available at 10ms a P90 (90th percentile) of latency or less. (Folks used to working with high availability systems will recognize the cost required to deliver a system with that kind of uptime. For folks who aren’t, the rule of thumb I use is: “start at $1000 and add a zero for every 9”. Certainly it can be done cheaper, but if you’re going to maintain that kind of uptime for a sustained period \[multiple years\], that’s about the right sizing to have in mind). 
+
+Rather than building out a server capability of handling that kind of availability for arbitrary clients, we built a thick client that provided all the features the mesh sidecar provides. Using that client’s retries, timeouts, outlier detection, circuit breaking – and a few advanced patterns like request-hedging – we were able to deliver a system with a perceived availability meeting our target, while the backend itself delivered an availability slightly above 3.5-9s (99.95%). Because we were able to isolate our failure domains and combine that with intelligent client behavior, we could make the failure of a request “look” uncorrelated.
+
+## [](#client-side-load-balancing-with-a-service-mesh-more-than-the-sum-of-its-parts)Client-Side Load Balancing with a Service Mesh: More than the Sum of its Parts
+
+**Client-Side Load Balancing**, and the service discovery it implies, means that clients have knowledge of all possible backends they can talk to, and can freely choose among them when attempting to contact that service. We can use a variety of algorithms to choose endpoints to load balance against. On this fundamental capability, we can layer the rest of the capabilities on our list.
+
+### [](#retries)Retries
+
+**Retries** help mitigate the impact of transient failures. Where we have flakiness, unreliable networks, servers that get overloaded and fail, and so on, retries give us the ability to attempt to service the same request against a different backend, hoping the failure was uncorrelated and a retry is likely to succeed. Importantly, Envoy avoids re-sending a retry request to any backend that’s already failed – we’re guaranteed to get a new backend service as our target (assuming there are enough backends deployed). However, just blindly retrying results in problems, which the next two features help address
+
+### [](#outlier-detection)Outlier Detection
+
+**Outlier detection**, a form of passive health checking, means watching how every individual endpoint responds to requests from the client, and marking the endpoints that perform poorly compared to the others (e.g., are returning consecutive errors, or are timing out repeatedly). If an endpoint continues to perform poorly, we’ll pull it out of the active load balancing set – in other words, Envoy will temporarily stop sending traffic to it. According to a policy, Envoy will incrementally attempt to send traffic to previously-bad endpoints to see if they’re healthy again. If they are, they’re put back into the active load balancing set and treated as normal.
+
+When we combine outlier detection with retries, for a single request we can avoid sending a retry to a known bad endpoint, and in aggregate for all requests a client can learn which endpoints are behaving well and which aren’t and preferentially send traffic to endpoints that behave better.
+
+### [](#circuit-breaking)Circuit Breaking
+
+**Circuit Breaking** helps limit the maximum concurrency from each individual client to each individual backend – with all those retries flying around, it’s critical to use circuit breakers to avoid cascading failures resulting from massed retries! Circuit breakers limit concurrency in terms of connection TTL, maximum number of TCP connections between a client and each backend server, maximum number of HTTP requests allowed to be outstanding to each individual backend server, and so on. Helpfully, when an endpoint “trips the circuit breaker” (that’s why it has that name), it triggers _outlier detection_ for that endpoint, moving it out of the active load balancing set.
+
+So when we combine all three (retries, outlier detection, and circuit breaking) we get a robust client that can keep forwarding traffic to backends that work correctly and avoid backends that are behaving poorly, while not overwhelming the system and causing a _different_ style of outage.
+
+### [](#timeouts)Timeouts
+
+Having these retries flying around also puts a heavier resource load on the system – it takes resources for a server to accept a request and start to process it, even if ultimately the server fails! So it becomes important to be able to bound the system’s behavior: both to limit what the worst possible latency a user will experience as well as bound the resources used by so many requests in flight (when a request times out, Envoy can choose to do things like close the connection to the server, signaling it should halt “wasted” work for the request). **Timeouts** help us bound the resource utilization of the system by bounding how long any client will wait on a server to respond (total, and per-retry). Once the timeout is reached, Envoy will close the connection and return a timeout error to the caller, freeing the clients resources (as well as the server’s in appropriately written server runtimes).
+
+### [](#rate-limiting)Rate Limiting
+
+While timeouts help limit the resource we’ll spend on any single request, **Rate Limiting** helps bound the total number of requests in the system at a single time. You might think of timeouts and retries as controlling how _deep_ the system goes (what you wait or spend for any single request), and rate limiting as controlling how _wide_ it goes (how many requests you’ll serve at a time). Rate limits are about protecting the server from being overwhelmed by a set of clients in aggregate, while circuit breaking helps protect a server from being overwhelmed by specific individual clients.
+
+Think of rate limits as protecting a shared resource used by the server from overload, while a circuit breaker protects every individual instance of the server from overload.
+
+Envoy supports doing _local_ rate limiting, where each individual Envoy instance keeps track of requests it sees and applies rate limits. This can be useful as a best-effort tool in places where Envoy is deployed as, for example, an ingress gateway. To get “global” rate limiting where limits are shared by all Envoy instances, you need to deploy a Redis instance that stores the rate limits, as well as a shim-server in front of it. [Tetrate Enterprise Gateway for Envoy (TEG)](/tetrate-enterprise-gateway-for-envoy/)—Tetrate’s enterprise-ready distribution of [Envoy Gateway](https://gateway.envoyproxy.io/)— ships these together and wires them up in its helm chart.
+
+Where you have stateless services performing work and returning results to the client, you can often get _very_ far without reaching for rate limiting and the extra machinery it requires.
+
+## [](#high-perceived-availability-at-low-cost)High Perceived Availability at Low Cost
+
+Working through the list above, I hope it becomes apparent why we need to talk about all of these features together, as a package, rather than any single one in isolation. Think through the different failure modes and resource constraints in your system and build a comprehensive set of client policies – the results can be _vastly_ improved perceived client availability at low cost.
+
+## [](#next-steps)Next Steps
+
+[Envoy Gateway (EG)](https://gateway.envoyproxy.io/) is a project driven by the Envoy community to make Envoy easy to use and operate for ingress. It focuses on ease of use, and making the common case easy and leverages the [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/) for managing Envoy and exposing applications. Tetrate helped start the EG project and continues to invest in it heavily.
+
+Tetrate offers an enterprise-ready distribution of Envoy Gateway—Tetrate Enterprise Gateway for Envoy—that you can start using right away. Check out the docs to [learn more and take it for a spin ›](https://docs.tetrate.io/envoy-gateway/)
+
+*   [Envoy Gateway ›](https://gateway.envoyproxy.io/)
+*   [Tetrate Enterprise Gateway for Envoy ›](https://docs.tetrate.io/envoy-gateway/)
+*   [Contact us for a demo ›](/tetrate-enterprise-gateway-for-envoy-demo-request/)

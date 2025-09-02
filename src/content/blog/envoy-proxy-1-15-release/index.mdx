@@ -1,0 +1,45 @@
+---
+title: "Envoy proxy 1.15 release"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+Envoy proxy, the open source edge and service proxy designed for cloud-native applications, today announced the general availability of 1.15.0. The update includes some exciting extensions, including a Postgres filter for network observability. Tetrate’s Chris Pakulski has written a useful walk-through on [how to use the Postgres filter](/blog/using-envoys-postgres-filter-for-network-observability/). 
+
+This latest community release includes:
+
+*   brand new network and HTTP level filters (see more below)
+*   new features in Access Loggers, HTTP dynamic forward proxy filter, External Authorization filter, Fault filter, gRRP filter, gRPC-JSON filter, Lua filter, Rate limiter, Redis filter, Router
+*   support for dynamic (re-)configuration of Tracing Providers 
+*   support for dumping EDS config at /config\_dump?include\_eds
+*   and much more 
+
+## [](#notable-enhancements-to-envoy-115-include)**Notable enhancements to Envoy _1.15_ include:**
+
+*   A new network level filter for sniffing [Postgres traffic](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/other_protocols/postgres). 
+*   The main goal of the Postgres filter is to capture runtime statistics without impacting or generating any load on the Postgres upstream server, it is transparent to it. Information decoded from [Postgres frontend/backend protocol](https://www.postgresql.org/docs/current/protocol.html) is currently used only to produce Postgres level statistics like sessions, statements or transactions executed, among others. This current version does not decode SQL queries.
+*   A new network level filter for proxying [RocketMQ traffic](https://www.envoyproxy.io/docs/envoy/latest/configuration/listeners/network_filters/rocketmq_proxy_filter). 
+*   RocketMQ filter proxies requests and responses between producers/consumers on one side and brokers on another. Various statistical items are collected to enhance observability.
+*    A new network level filter to support [SNI based dynamic forward proxying](https://www.envoyproxy.io/docs/envoy/latest/configuration/listeners/network_filters/postgres_proxy_filter). The implementation works just like the [HTTP dynamic forward proxy](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/http/http_proxy), but using the value in SNI as target host instead.
+*   A pair of new HTTP filters to generalize compression and decompression of request/response. When the compressor filter is enabled, request and response headers are inspected to determine whether or not the content should be compressed. The content is compressed and then sent to the client with the appropriate headers, if response and request allow. Similarly, when the decompressor filter is enabled, headers are inspected to determine whether or not the content should be decompressed. The content is decompressed and passed on to the rest of the filter chain. Note that decompression happens independently for request and responses based on the rules described below.
+*   Added support for proxying CONNECT requests, terminating CONNECT requests, and converting raw TCP streams into HTTP/2 CONNECT requests. 
+
+A complete list of 1.15 features is available on Envoy’s community [release announcement](https://www.envoyproxy.io/docs/envoy/latest/version_history/v1.15.0) page.
+
+## [](#additional-resources)**Additional Resources**
+
+*   Get Envoy updates on [Twitter](https://twitter.com/envoyproxy)
+*   Use [GetEnvoy](https://www.getenvoy.io/), Tetrate’s open source project that makes it easy to install and upgrade Envoy.
+*   Read more about Envoy [community events](https://github.com/envoyproxy/envoy#community-meeting)
+
+_Envoy is an edge and service proxy that functions as a service mesh data plane. Tetrate is a major contributor to the open source project and created GetEnvoy to make it easy to install and upgrade Envoy._ 
+
+![Yaroslav Skopets, Envoy Contributor](img1)
+
+![Yaroslav Skopets, Envoy Contributor](img1) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+Yaro Skopets is a Tetrate engineer and Envoy contributor focused on Envoy extensibility.

@@ -1,0 +1,33 @@
+---
+title: "NIST SP 800-207A Explained: A Zero Trust Architecture Model for Access Control in Cloud-Native Applications in Multi-Cloud Environments"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+## [](#new-guidance-for-federal-agencies)New Guidance for Federal Agencies
+
+Achieving a [Zero Trust architecture](/learn/zero-trust/nist-zero-trust-architecture/) (ZTA) is a key goal for many enterprises and government agencies today. In fact, the [Executive Order 14028](https://bidenwhitehouse.archives.gov/briefing-room/presidential-actions/2021/05/12/executive-order-on-improving-the-nations-cybersecurity/) (EO 14028) on Improving the Nation’s Cybersecurity pushes agencies to adopt [zero trust cybersecurity principles](/zero-trust/) and adjust their network accordingly by 2024. Zero Trust Architecture is a crucial security framework that addresses the challenges posed by the evolving threat landscape, remote work, cloud adoption and compliance requirements. By adopting ZTA, organizations can enhance their security posture, reduce risk and better protect their valuable assets and data. 
+
+NIST Special Publication [800-207A](https://csrc.nist.gov/pubs/sp/800/207/a/final), entitled **A Zero Trust Architecture (ZTA) Model for Access Control in Cloud-Native Applications in Multi-Cloud Environments**, provides a comprehensive overview of the fundamental principles and concepts of Zero Trust Architecture at runtime. Runtime ZTA provides a dynamic and adaptive approach to security, ensuring that trust is continuously verified, reducing the attack surface and mitigating the evolving threats posed by remote work, cloud adoption and the dissolution of traditional perimeters. Runtime ZTA also reduces the attack surface by segmenting the network and applying access controls based on identity, device health and context. This limits lateral movement for attackers who manage to breach one part of the network. Most importantly, runtime ZTA, enables adaptive security allowing organizations to dynamically adjust security policies based on real-time risk assessments and changing conditions. 
+
+The objective of recently published NIST SP 800-207A, co-authored by Tetrate’s founding engineer [Zack Butcher](https://www.linkedin.com/in/zackbutcher/) and [Ramaswamy Chandramouli](https://www.nist.gov/nist-awards/2019-gold-medal-award-ramaswamy-chandramouli), Sr. Computer Scientist at NIST is to provide guidance for realizing an architecture that can enforce granular application-level policies while meeting the runtime requirements of ZTA for multi-cloud and hybrid environments.
+
+## [](#key-points-covered-in-sp-800-207a)Key Points Covered in SP 800-207A
+
+*   **Introduction to Zero Trust:** The publication introduces the Zero Trust concept and its importance in modern cybersecurity. It highlights the need for organizations to adopt a more proactive and adaptive security approach in the face of evolving threats.
+*   **Zero Trust Principles:** NIST outlines the core principles of ZTA, which include verifying identity, monitoring and controlling access and securing resources and assets through micro-segmentation.
+*   **The Evolving Security Perimeter**: The document discusses the limitations of traditional perimeter-based security and how it has become inadequate for addressing contemporary cybersecurity challenges, such as remote work and cloud computing.
+*   **Continuous Verification**: ZTA emphasizes the continuous monitoring and verification of users, devices and applications, regardless of their location or network access method.
+*   **Micro-Segmentation**: Micro-segmentation involves dividing an organization’s network into smaller segments with unique access controls. NIST explains how this approach enhances security and reduces the attack surface.
+*   **Identity-Centric Security**: ZTA is identity-centric, focusing on user and device identities rather than network locations. The publication highlights the importance of strong identity and access management.
+*   **Trust Assessment**: NIST SP 800-207A covers the concept of trust assessment and how organizations can assess the trustworthiness of users, devices and applications.
+*   **Implementing ZTA**: The document provides guidance on implementing Zero Trust Architecture, including practical steps and considerations for organizations looking to adopt ZTA principles.
+*   **Use Cases:** It offers real-world use cases and scenarios where ZTA can be applied to enhance security.
+
+## [](#additional-resources)Additional Resources
+
+NIST SP 800-207A is a valuable resource for organizations and security professionals seeking to understand and implement the principles of Zero Trust Architecture. It provides a solid foundation for improving cybersecurity strategies and adapting to the evolving threat landscape. 
+
+For a deeper dive into NIST SP 800-207A and a better understanding of the core principles and the rationale behind them, you can [watch Zack and Mouli on demand webinar – Zero Trust at Runtime: An Update on NIST 800-207A](https://app.livestorm.co/tetrate/zero-trust-at-runtime-an-update-on-nist-sp-800-207a). Additionally, Zack discusses using the service mesh to put 207A and ZTA into action in multi–cloud environments. To get further insight into how  Tetrate Service Bridge (TSB) – Tetrate’s implementation of the powerful [Istio](https://istio.io/) open-source project, – streamlines policy management and actions 207A recommendations for zero trust at runtime, [read the white paper](/resource/tetrate-service-bridge-application-security-architecture/).

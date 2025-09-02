@@ -1,0 +1,81 @@
+---
+title: "Istio and Envoy Security Advisories"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+**September 29, 2020 —** The **Envoy Product Security Team (PST)** announced  the availability of a security fix and a series of patches for Envoy versions 1.12,1.13, 1.14 and 1.15 to address two **high-risk** vulnerabilities related to header values and HTTP URL paths. In response to CVE-2020-25017. Additionally the **Istio community** recommends users to upgrade to 1.6.11+ for 1.6.x deployments or 1.7.3 or later for 1.7.x deployments.
+
+Users are encouraged to apply the related patches to address the following CVEs:
+
+*   **CVE-2020-25017** (CVSS score 8.3, High) Envoy through 1.15.0 only considers the first value when multiple header values are present for some HTTP headers. Also, Envoy’s setCopy() header map API does not replace all existing occurrences of a non-inline header. See the [Envoy GitHub advisory](https://github.com/envoyproxy/envoy/security/advisories/GHSA-2v25-cjjq-5f4w) and [Istio advisory](https://istio.io/latest/news/security/istio-security-2020-006/) for more details.
+*   **CVE-2020-25018** ([CVSS](https://www.first.org/cvss/calculator/3.0#CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H) score 7.5, High) Envoy master after 2d69e30 may fail to parse request URL that requires host canonicalization. The use of Internationalized Domain Name (IDN) as the host component in a request URL triggers the URL parser library used by Envoy to do Punycode encoding (to convert Unicode characters to ASCII). Since the conversion data is not available, it fails the conversion, which could result in executing code in faulting address (segmentation fault). See the [GitHub advisory](https://github.com/envoyproxy/envoy/security/advisories/GHSA-fwwh-fc9w-9673) for more details.
+
+## [](#am-i-at-risk)**Am I at Risk?**
+
+Envoy versions 1.15 or earlier deployments are vulnerable to CVE-2020-25017. Run \`envoy –version\` and if it indicates a base version of 1.15.0, 1.14.4, 1.13.4, 1.12.6 or older you are running a vulnerable version.
+
+For Istio users – the affected versions are:
+
+*   1.6 to 1.6.10
+*   1.7 to 1.7.2
+
+## [](#how-do-i-fix-it)**How do I fix it?**
+
+The Envoy security team has announced the availability of Envoy versions **1.15.1**, **1.14.5**, **1.13.6**, and **1.12.7** to address the incorrect handling of duplicate HTTP headers (CVE-2020-25017). Users are encouraged to upgrade to these versions to fix the issue.
+
+Including the [3b5acb2](https://github.com/envoyproxy/envoy/commit/3b5acb2f43548862dadb243de7cf3994986a8e04) commit, pushed into the main branch on Sept. 29, 2020 at 12 PDT, is encouraged to fix CVE-2020-25017. The vulnerability is not included in any Envoy releases and will not affect end-users who deployed the official Envoy release.
+
+Istio users should upgrade to 1.6.11+ for 1.6.x deployments or 1.7.3 or later for 1.7.x deployments.
+
+If you’re a Tetrate Service Bridge customer, please review this issue with your Tetrate support contact if any changes in your environment are required.
+
+This notice will be updated if further information becomes available for Envoy or Istio.
+
+## [](#how-do-i-patch)**How do I patch?**
+
+Update to 1.15.1, 1.14.5, 1.13.6, or 1.12.7 via your Envoy distribution or rebuild from the Envoy GitHub source at the 1.15.1, 1.14.5, 1.13.6, or 1.12.7 tag or HEAD @ master.
+
+**For v1.15.1:**
+
+GitHub tags: [https://github.com/envoyproxy/envoy/releases/tag/v1.15.1](https://github.com/envoyproxy/envoy/releases/tag/v1.15.1)
+
+Docker images: docker pull envoyproxy/envoy:v1.15.1
+
+Text release notes can be found [here](https://raw.githubusercontent.com/envoyproxy/envoy/670a4a60080f5889d9f7c022a009dcf25f1062ca/docs/root/version_history/current.rst)
+
+Expect a followup email tomorrow with links to release notes and docs for 1.15.1; 
+
+**For v1.14.5:**
+
+GitHub tags: [https://github.com/envoyproxy/envoy/releases/tag/v1.14.5](https://github.com/envoyproxy/envoy/releases/tag/v1.14.5)
+
+Docker images: docker pull envoyproxy/envoy:v1.14.5
+
+Release notes: [https://www.envoyproxy.io/docs/envoy/v1.14.5/intro/version\_history](https://www.envoyproxy.io/docs/envoy/v1.14.5/intro/version_history)
+
+Docs: [https://www.envoyproxy.io/docs/envoy/v1.14.5/](https://www.envoyproxy.io/docs/envoy/v1.14.5/)
+
+**For v1.13.6:**
+
+GitHub tags: [https://github.com/envoyproxy/envoy/releases/tag/v1.13.6](https://github.com/envoyproxy/envoy/releases/tag/v1.13.6)
+
+Docker images: docker pull envoyproxy/envoy:v1.13.6
+
+Release notes: [https://www.envoyproxy.io/docs/envoy/v1.13.6/intro/version\_history](https://www.envoyproxy.io/docs/envoy/v1.13.6/intro/version_history)
+
+Docs: [https://www.envoyproxy.io/docs/envoy/v1.13.6/](https://www.envoyproxy.io/docs/envoy/v1.13.6/)
+
+**For v1.12.7:**
+
+GitHub tags: [https://github.com/envoyproxy/envoy/releases/tag/v1.12.7](https://github.com/envoyproxy/envoy/releases/tag/v1.12.7)
+
+Docker images: docker pull envoyproxy/envoy:v1.12.7
+
+Release notes: [https://www.envoyproxy.io/docs/envoy/v1.12.7/intro/version\_history](https://www.envoyproxy.io/docs/envoy/v1.12.7/intro/version_history)
+
+Docs: [https://www.envoyproxy.io/docs/envoy/v1.12.7/](https://www.envoyproxy.io/docs/envoy/v1.12.7/)
+
+_Tetrate will continue to work in close coordination with the Envoy security team. We support organizations in preventing attacks by providing rapid notification and updates to respond to identified vulnerabilities._

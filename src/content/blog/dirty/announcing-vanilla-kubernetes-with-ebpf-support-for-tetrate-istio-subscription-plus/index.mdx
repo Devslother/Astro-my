@@ -1,0 +1,83 @@
+---
+title: "Announcing Vanilla Kubernetes with eBPF Support for Tetrate Istio Subscription Plus"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+In January 2025, we announced the [general availability of Tetrate Istio Subscription Plus](/blog/tetrate-istio-subscription-plus-generally-available/) (TIS+) as a hosted Kubernetes network troubleshooting solution for Application Developers and Application Operations. In February 2025, we enhanced the TIS+ experience with the addition of workloads running on Istio clusters in [ambient mode](/blog/istio-and-ambient-commercial-support/).
+
+This month, we are excited to announce support for workloads that are not managed by Istio, but are running on vanilla Kubernetes clusters. With TIS+, a single pane of glass and a common API platform for Observability and Monitoring is now available for all your microservices based containerized applications! 
+
+Troubleshooting and observability in hybrid Kubernetes environments (where some clusters run in **eBPF mode** and others are managed by **Istio** as part of a Service Mesh) can become fragmented if not managed under a **unified management plane**. With a normalized metrics and distributed tracing enabled platform, debugging and troubleshooting complexities are greatly reduced and thereby shortening the duration for issue isolation and issue resolution.
+
+Taken together, TIS and TIS+ provide a comprehensive solution to support every stage of your Istio journey. From Istio break/fix support to troubleshooting the full TIS offering empowers organizations to confidently deploy, manage, and optimize Istio in any environment.
+
+TIS+ is available standalone or as an add-on to your TIS package.
+
+To see TIS+ in action, [visit our website](/tetrate-istio-subscription-plus/), [get a demo](/tetrate-istio-subscription-plus/), or read onwards!
+
+![](/images/icons/inline-promo-icon.svg)
+
+Tetrate offers an enterprise-ready, 100% upstream distribution of Istio, Tetrate Istio Subscription (TIS). TIS is the easiest way to get started with Istio for production use cases. TIS+, a hosted Day 2 operations solution for Istio, adds a global service registry, unified Istio metrics dashboard, and self-service troubleshooting.
+
+[Learn more](/products/tetrate-istio-subscription)
+
+## [](#vanilla-kubernetes-with-ebpf)Vanilla Kubernetes with eBPF
+
+eBPF Kubernetes cluster management refers to leveraging eBPF (Extended Berkeley Packet Filter) to handle networking, security, observability, and performance monitoring within a Kubernetes environment. Unlike traditional Kubernetes cluster management, which relies on iptables, sidecars, and userspace proxies, eBPF operates directly in the Linux kernel, providing efficient, low-latency, and highly scalable management capabilities. 
+
+In a deployment with any cluster type (Istio with sidecars, Istio in ambient mode, and now with no Istio at all) or with a hybrid deployment with any combination of these variants, a common workload-agnostic Observability solution like TIS+ becomes key.
+
+Starting March 2025, TIS+ will support – with a seamless and consistent user experience – full service discovery and observability of clusters running without Istio (or on Vanilla Kubernetes). In this mode, TIS+ will:
+
+*   Offer service discovery and service dependency visualization, and provide a full service topology, health, and inter-service communication view of the deployment
+*   Collect aggregated metrics from the data path services
+*   Support distributed call tracing for Services that are instrumented to export Trace spans in Zipkin or OpenTelemetry formats.
+
+![Post Image](/.netlify/images?url=_astro%2Fnon-istio-enabled-workloads.BdQiEavq.jpg&w=1024&h=556&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2Fnon-istio-enabled-workloads.BdQiEavq.jpg&w=1024&h=556&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+_Figure 1: A single view with Ambient and Non-Istio enabled workloads_
+
+![Post Image](/.netlify/images?url=_astro%2Febpf-enabled-clusters.DSOD6RDe.jpg&w=1024&h=348&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2Febpf-enabled-clusters.DSOD6RDe.jpg&w=1024&h=348&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+_Figure 2: A Single Service Inventory from ambient and eBPF enabled clusters_
+
+![Post Image](/.netlify/images?url=_astro%2Fdetailed-metrics-for-a-service.V-htVFbx.jpg&w=1024&h=431&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2Fdetailed-metrics-for-a-service.V-htVFbx.jpg&w=1024&h=431&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+_Figure 3: Detailed metrics for a Service in an eBPF enabled cluster_
+
+## [](#whats-next)What’s Next
+
+In this monthly blog series, we will continuously announce TIS+ features, capabilities, and news.
+
+Stay tuned for the upcoming blogs that will cover:
+
+*   TIS+ support for virtual machines
+*   Istio Config validation correctness checks
+*   New User Interface capabilities
+*   Cross-Cluster traffic configurations and visualization
+
+## [](#get-started)Get Started
+
+Here are some resources to help you get started:
+
+*   **Free training.** If you’re new to Istio, check out our free Istio training at Tetrate Academy, including [Istio Fundamentals](https://academy.tetrate.io/courses/istio-fundamentals) and our [Istio 0-60](https://tetrate-academy.thinkific.com/courses/istio-0-to-60) and [Istio Wasm](https://tetrate-academy.thinkific.com/courses/wasm-extensions) workshops.
+*   **Hardened Istio distribution.** If you’re looking to take Istio for a test drive, [install Tetrate Istio Distro](https://docs.tetrate.io/istio-subscription/installation/), our open source, 100% upstream Istio builds with extended CVE patching and version support.
+*   **CVE scanner.** If you’re already running Istio, try our [free CVE scanner ›](https://tetr8.io/tvs-download)
+*   **Config verification** Learn more about our Istio config verification tooling, Tetrate Configuration Analyzer:  [Istio Configuration Security: How to Avoid Misconfigurations ›](/blog/istio-configuration-security-how-to-avoid-misconfigurations/) 
+*   **Let’s talk.** Schedule a call with an Istio expert to find out how TIS and TIS+ can help [speed delivery, reduce risk, and streamline Istio operations ›](https://tetr8.io/tis-plus-access)
+*   **TIS+ Documentation**. Learn about TIS+ through our [online documentation ›](https://docs.tetrate.io/istio-subscription-plus/).

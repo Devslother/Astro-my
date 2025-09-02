@@ -1,0 +1,65 @@
+---
+title: "Istio Visibility and Troubleshooting: Key Metrics for Monitoring the Control Plane"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+The Istio Service Mesh is packed with features that make hundreds of companies’ Kubernetes environments more secure, agile, and resilient. All those features are orchestrated from a scalable, stateless, and loosely coupled component called Istiod, a software component at the heart of Istio constantly receiving updates from K8s API, transmitting configs and updates to the sidecars, as well as being their CA authority. And it generates lots of metrics.
+
+While _istiod_ works perfectly out of the box, it may not continue to do so without proper maintenance; and yes, there are some cases where it may not operate at peak performance if maintenance is not carried out, especially once the mesh extends across teams in an organization and the burden of responsibility upon its shoulders bears heavier.
+
+This is why service mesh operators must watch closely for the key metrics _Istiod_ generates, as they will help to prevent issues and to diagnose whether a given problem is or is not related to the mesh. Because, as an extra networking layer, Istio is in every hop of your data path and you need the tools and information to sort out the question: “_Is this issue I’m experiencing related to the service mesh?_”
+
+Besides the control Plane, Istio has a data plane composed of Envoy sidecars injected to the pods and the gateways. I will cover its key metrics in the follow-up article on key metrics in Istio data plane (watch this space).
+
+![](/images/icons/inline-promo-icon.svg)
+
+Tetrate offers an enterprise-ready, 100% upstream distribution of Istio, Tetrate Istio Subscription (TIS). TIS is the easiest way to get started with Istio for production use cases. TIS+, a hosted Day 2 operations solution for Istio, adds a global service registry, unified Istio metrics dashboard, and self-service troubleshooting.
+
+[Learn more](/products/tetrate-istio-subscription)
+
+## [](#what-to-look-for-istio-golden-metrics)What to Look For: Istio Golden Metrics
+
+A quick way to identify the scope of a question like _“what to observe in_ istiod\_?”\_ is by running this command:
+
+```
+$ ~ kubectl exec -it $(kubectl get po -l app=istiod -oname) -- curl localhost:15014/metrics | grep -P '^(?!#).*?' | awk -F'{' '{print $1}' | sort | uniq | wc -l
+
+87
+```
+
+That’s more than 87 unique metrics—and that doesn’t include saturation and other specific metrics not counted because they are null in my cluster.A suggestion is to look out for metrics that account for **latency, traffic, errors, and saturation**. That combo is called the Golden Metrics.
+
+## [](#istio-latency-metrics)Istio Latency Metrics
+
+_istiod’s_ latency relates to how much time it takes for its messages to be transmitted and digested by the sidecars. That wire transmits all of your Istio Custom Resource Definitions (CRDs) configs, new pods’ IPs, deletion of kubernetes services, and the start up config batch for newly created sidecars, amongst other data.
+
+A must-follow metric is `pilot_proxy_convergence_time_bucket`, as it indicates how much time it takes for _istiod_ configs to be live in the sidecar. This metric has helped our customers spot performance issues in their control plane and adjust before they are even impacting any app.
+
+A second recommendation is `pilot_xds_push_time_bucket`, specially at the EDS (endpoint discovery service) dimension as this config stream is in charge of transmitting the changes in pod’s IPs. Just imagine if a pod is deleted and it takes 5 seconds for all the other running sidecars to update… that will have an impact on requests being sent to a non listening IP:port. In some cases, transient timeouts and increased tail latency can be addressed by understanding this metric.
+
+## [](#istio-traffic-metrics)Istio Traffic Metrics
+
+Traffic is all about how much activity is going through _istiod_. It is a good indicator for how much service mesh users are changing configs like adding new routes, but, crucially, how intense the changes are in the cluster, as it is correlated with pods and kubernetes services changes. This is valuable as it provides a single place to measure the footprint of certain cluster changes—both at service and Istio config levels, to analyze it in context with other relevant data, and to plan for the future.
+
+A key metric is pilot\_xds\_pushes, which includes by default a dimension, `type`, mapped to CDS, LDS, RDS and EDS. The first three relate to Istio configurations like Virtual Services, Gateways or Destination Rules, whilst the last one follows closely the changes in pods IPs or Endpoints. This metric is key because it helps you understand what changes and their intensity  is Istiod having to process at any time.
+
+## [](#istio-error-metrics)Istio Error Metrics
+
+This is a serious category. Any error in _istiod_ needs to be addressed with the utmost diligence, even though, given the loosely coupled architecture, the sidecars continue working normally if they lose connections with it and as long as there are no Pod or CRD changes.
+
+Two metrics require attention here. First, `sidecar_injection_failure_total` keeps track of an _istiod_ function we haven’t yet discussed: a mutating webhook that changes pods’ specs at creation time to insert Istio machinery like sidecars and init-containers. Second, `pilot_xds_write_timeout` indicates _istiod_ to sidecar pushes were not able to be processed in time by one of the parties.
+
+## [](#istio-saturation-metrics)Istio Saturation Metrics
+
+Last but not least, a likely scenario when proper monitoring is not in place revolves around _istiod_ being resource starved. CPU and memory allocations, as well as horizontal pod autoscaling (HPA), should be closely watched and adjusted based on past patterns. For example, new app version rollouts, node upgrades that require big evictions, and peak traffic scenarios in the last years are watermarks to use as reference to periodically adjust resources and HPA.
+
+In the past, one of our customers was experiencing disruption to traffic when rolling out their new app versions, but this had never happened before. It was a confusing and unexpected situation in a live production environment.  Through the inspection of `container_cpu_usage_seconds_total` we pin pointed something was not right with the Control Plane, as it was possibly throttled by high CPU usage. Digging a little bit further, a second issue arose: HPA desired replicas were in the max allowed threshold. A quick adjustment brought the cluster back to its regular operation. 
+
+_istiod_ metrics like `process_virtual_memory_bytes` need to be combined with kube-state-metrics to give you an intuitive reading of the current _istiod_ memory saturation.
+
+## [](#parting-thoughts)Parting Thoughts
+
+Once you have the proper dashboards to observe the bespoken metrics and the team understands its importance, you will unlock increased diagnosis accuracy and speed, better resiliency, and happier end users.

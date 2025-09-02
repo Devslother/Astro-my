@@ -1,0 +1,955 @@
+---
+title: "Transparent Traffic Intercepting and Routing in the L4 Network of Istio Ambient Mesh"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+Ambient mesh is an experimental new deployment model recently introduced to Istio. It splits the duties currently performed by the Envoy sidecar into two separate components: a node-level component for encryption (called “ztunnel”) and an L7 Envoy instance deployed per service for all other processing (called “waypoint”). The ambient mesh model is an attempt to gain some efficiencies in potentially improved lifecycle and resource management. You can learn more about what ambient mesh is and how it differs from the Sidecar pattern [here](/blog/ambient-mesh-what-you-need-to-know-about-this-experimental-new-deployment-model-for-istio/).
+
+This article takes you step-by-step through a hands-on approach to the transparent traffic intercepting and routing of L4 traffic paths in the Istio’s Ambient mode. If you don’t know what Ambient mode is, [this article](/blog/ambient-mesh-what-you-need-to-know-about-this-experimental-new-deployment-model-for-istio/) can help you understand.
+
+If you want to skip the actual hands-on steps and just want to know the L4 traffic path in Ambient mode, please see the figure below, it shows a Pod of Service A calling a Pod of Service B on a different node below.
+
+![Post Image](/.netlify/images?url=_astro%2Fl4.750z99Sw.png&w=2722&h=2378&q=100)
+
+Figure 1: Figure 1: Transparent traffic intercepting and routing in the L4 network of Istio Ambient Mesh
+
+![Post Image](/.netlify/images?url=_astro%2Fl4.750z99Sw.png&w=2722&h=2378&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+### [](#principles)Principles
+
+Ambient mode uses [tproxy](https://www.kernel.org/doc/Documentation/networking/tproxy.txt) and [HTTP Based Overlay Network Environment (HBONE)](https://pkg.go.dev/github.com/costinm/hbone) as key technologies for transparent traffic intercepting and routing:
+
+*   Using tproxy to intercept the traffic from the host Pod into the Ztunnel (Envoy Proxy).
+*   Using HBONE to establish a tunnel for passing TCP traffic between Ztunnels.
+
+## [](#what-is-tproxy)What Is tproxy?
+
+tproxy is a transparent proxy supported by the Linux kernel since version 2.2, where the t stands for transparent. You need to enable _NETFILTER\_TPROXY_ and policy routing in the kernel configuration. With tproxy, the Linux kernel can act as a router and redirect packets to user space. See the [tproxy documentation](http://lxr.linux.no/linux+v3.10/Documentation/networking/tproxy.txt) for details.
+
+## [](#what-is-hbone)What Is HBONE?
+
+HBONE is a method of providing tunneling capabilities using the HTTP protocol. A client sends an [HTTP CONNECT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/CONNECT) request (which contains the destination address) to an HTTP proxy server to establish a tunnel, and the proxy server establishes a TCP connection to the destination on behalf of the client, which can then transparently transport TCP data streams to the destination server through the proxy. In Ambient mode, Ztunnel (Envoy inside) acts as a transparent proxy, using [Envoy Internal Listener](https://www.envoyproxy.io/docs/envoy/latest/configuration/other_features/internal_listener) to receive HTTP CONNECT requests and pass TCP streams to the upstream cluster.
+
+### [](#environment)Environment
+
+Before starting the hands-on, it is necessary to explain the demo environment, and the corresponding object names in this article:
+
+Items
+
+Name
+
+IP
+
+Service A Pod
+
+sleep-5644bdc767-2dfg7
+
+10.4.4.19
+
+Service B Pod
+
+productpage-v1-5586c4d4ff-qxz9f
+
+10.4.3.20
+
+Ztunnel A Pod
+
+ztunnel-rts54
+
+10.4.4.18
+
+Ztunnel B Pod
+
+ztunnel-z4qmh
+
+10.4.3.14
+
+Node A
+
+gke-jimmy-cluster-default-pool-d5041909-d10i
+
+10.168.15.222
+
+Node B
+
+gke-jimmy-cluster-default-pool-d5041909-c1da
+
+10.168.15.224
+
+Service B Cluster
+
+productpage
+
+10.8.14.226
+
+Because these names will be used in subsequent command lines, the text will use pronouns, so that you can experiment in your own environment.
+
+For the tutorial, I installed Istio Ambient mode in GKE. You can refer to this [Istio blog post](https://istio.io/latest/blog/2022/get-started-ambient/) for installation instructions. Be careful not to install the Gateway, so as not to enable the L7 functionality; otherwise, the traffic path will be different from the descriptions in this blog.
+
+In the following, we will experiment and dive into the L4 traffic path of a pod of _sleep_ service to a pod of _productpage_ service on different nodes. We will look at the outbound and inbound traffic of the Pods separately.
+
+### [](#outbound-traffic-intercepting)Outbound Traffic Intercepting
+
+The transparent traffic intercepting process for outbound traffic from a pod in Ambient mesh is as follows:
+
+1.  Istio CNI creates the _istioout_ NIC and iptables rules on the node, adds the Pods’ IP in Ambient mesh to the [IP set](https://ipset.netfilter.org/), and transparently intercepts outbound traffic from Ambient mesh to _pistioout_ virtual NIC through [Geneve (Generic Network Virtualization Encapsulation)](https://datatracker.ietf.org/doc/rfc8926/) tunnels with netfilter _nfmark_ tags and routing rules.
+2.  The init container in Ztunnel creates iptables rules that forward all traffic from the _pistioout_ NIC to port 15001 of the Envoy proxy in Ztunnel.
+3.  Envoy processes the packets and establishes an HBONE tunnel (HTTP CONNECT) with the upstream endpoints to forward the packets upstream.
+
+### [](#check-the-routing-rules-on-node-a)Check The Routing Rules On Node A
+
+Log in to Node A, where Service A is located, and use iptables-save to check the rules.
+
+```
+1  $ iptables-save
+2  /* omit */
+3  -A PREROUTING -j ztunnel-PREROUTING
+4  -A PREROUTING -m comment --comment "kubernetes service portals" -j KUBE-SERVICES
+5  -A ztunnel-POSTROUTING -m mark --mark 0x100/0x100 -j ACCEPT
+6  -A ztunnel-PREROUTING -m mark --mark 0x100/0x100 -j ACCEPT
+7  /* omit */
+8  *mangle
+9  /* omit */
+10  -A PREROUTING -j ztunnel-PREROUTING
+11  -A INPUT -j ztunnel-INPUT
+12  -A FORWARD -j ztunnel-FORWARD
+13  -A OUTPUT -j ztunnel-OUTPUT
+14  -A OUTPUT -s 169.254.169.254/32 -j DROP
+15  -A POSTROUTING -j ztunnel-POSTROUTING
+16  -A ztunnel-FORWARD -m mark --mark 0x220/0x220 -j CONNMARK --save-mark --nfmask 0x220 --ctmask 0x220
+17  -A ztunnel-FORWARD -m mark --mark 0x210/0x210 -j CONNMARK --save-mark --nfmask 0x210 --ctmask 0x210
+18  -A ztunnel-INPUT -m mark --mark 0x220/0x220 -j CONNMARK --save-mark --nfmask 0x220 --ctmask 0x220
+19  -A ztunnel-INPUT -m mark --mark 0x210/0x210 -j CONNMARK --save-mark --nfmask 0x210 --ctmask 0x210
+20  -A ztunnel-OUTPUT -s 10.4.4.1/32 -j MARK --set-xmark 0x220/0xffffffff
+21  -A ztunnel-PREROUTING -i istioin -j MARK --set-xmark 0x200/0x200
+22  -A ztunnel-PREROUTING -i istioin -j RETURN
+23  -A ztunnel-PREROUTING -i istioout -j MARK --set-xmark 0x200/0x200
+24  -A ztunnel-PREROUTING -i istioout -j RETURN
+25  -A ztunnel-PREROUTING -p udp -m udp --dport 6081 -j RETURN
+26  -A ztunnel-PREROUTING -m connmark --mark 0x220/0x220 -j MARK --set-xmark 0x200/0x200
+27  -A ztunnel-PREROUTING -m mark --mark 0x200/0x200 -j RETURN
+28  -A ztunnel-PREROUTING ! -i veth300a1d80 -m connmark --mark 0x210/0x210 -j MARK --set-xmark 0x40/0x40
+29  -A ztunnel-PREROUTING -m mark --mark 0x40/0x40 -j RETURN
+30  -A ztunnel-PREROUTING ! -s 10.4.4.18/32 -i veth300a1d80 -j MARK --set-xmark 0x210/0x210
+31  -A ztunnel-PREROUTING -m mark --mark 0x200/0x200 -j RETURN
+32  -A ztunnel-PREROUTING -i veth300a1d80 -j MARK --set-xmark 0x220/0x220
+33  -A ztunnel-PREROUTING -p udp -j MARK --set-xmark 0x220/0x220
+34  -A ztunnel-PREROUTING -m mark --mark 0x200/0x200 -j RETURN
+35  -A ztunnel-PREROUTING -p tcp -m set --match-set ztunnel-pods-ips src -j MARK --set-xmark 0x100/0x100
+```
+
+IPtables rule descriptions:
+
+*   Line 3: the _PREROUTING_ chain is the first to run, and all packets will go to the _ztunnel-PEROUTING_ chain first.
+*   Line 4: packets are sent to the _KUBE-SERVICES_ chain, where the Cluster IP of the Kubernetes Service is DNAT’d to the Pod IP.
+*   Line 6: packets with 0x100/0x100 flags pass through the _PREROUTING_ chain and no longer go through the _KUBE-SERVICES_ chain.
+*   Line 35: this is the last rule added to the _ztunnel-PREROUTING_ chain; all TCP packets entering the _ztunnel-PREROUTING_ chain that are in the _ztunnel-pods-ips_ [IP set](https://ipset.netfilter.org/) (created by the Istio CNI) are marked with 0x100/0x100, which overrides all previous marks. See the [Netfilter documentation](https://ipset.netfilter.org/iptables-extensions.man.html#lbDD) for more information about _nfmark_.
+
+By implementing the above iptables rules, we can ensure that ambient mesh only intercepts packets from the _ztunnel-pods-ips_ IP set pods and marks the packets with 0x100/0x100 (_nfmark_, in value/mask format, both value and mask are 32-bit binary integers) without affecting other pods.
+
+Let’s look at the routing rules for this node.
+
+```
+$ ip rule
+0:      from all lookup local
+100:    from all fwmark 0x200/0x200 goto 32766
+101:    from all fwmark 0x100/0x100 lookup 101
+102:    from all fwmark 0x40/0x40 lookup 102
+103:    from all lookup 100
+32766:  from all lookup main
+32767:  from all lookup default
+```
+
+The routing table will be executed sequentially, with the first column indicating the priority of the routing table and the second column indicating the routing table to look for or jump to. You will see that all packets marked with 0x100/0x100 will look for the 101 routing table. Let’s look at that routing table.
+
+```
+$ ip route show table 101
+default via 192.168.127.2 dev istioout
+10.4.4.18 dev veth52b75946 scope link
+```
+
+You will see the 101 routing table with the keyword via, which indicates that the packets will be transmitted through the gateway, [see the usage of the ip route command](http://linux-ip.net/html/tools-ip-route.html#tools-ip-route-show). All packets are sent through the _istioout_ NIC to the gateway (IP is 192.168.127.2). The other line indicates the routing link for the _ztunnel_ pod on the current node.
+
+Let’s look at the details of the _istioout_ NIC.
+
+```
+$ ip -d addr show istioout
+24: istioout:  mtu 1410 qdisc noqueue state UNKNOWN group default
+link/ether 62:59:1b:ad:79:01 brd ff:ff:ff:ff:ff:ff
+geneve id 1001 remote 10.4.4.18 ttl auto dstport 6081 noudpcsum udp6zerocsumrx numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
+inet 192.168.127.1/30 brd 192.168.127.3 scope global istioout
+valid_lft forever preferred_lft forever
+inet6 fe80::6059:1bff:fead:7901/64 scope link
+valid_lft forever preferred_lft forever
+```
+
+The _istioout_ NIC in Pod A is connected to the _pstioout_ NIC in _ztunnel_ A through the Geneve tunnel.
+
+### [](#check-the-routing-rules-on-ztunnel-a)Check The Routing Rules On Ztunnel A
+
+Go to the _Ztunnel_ A Pod and use the _ip -d_ a command to check its NIC information.
+
+```
+$ ip -d a
+1: lo:  mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 promiscuity 0 minmtu 0 maxmtu 0 numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+2: eth0@if16:  mtu 1460 qdisc noqueue state UP group default
+link/ether 06:3e:d1:5d:95:16 brd ff:ff:ff:ff:ff:ff link-netnsid 0 promiscuity 0 minmtu 68 maxmtu 65535
+veth numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
+inet 10.4.2.1/24 brd 10.4.4.255 scope global eth0
+valid_lft forever preferred_lft forever
+3: pistioin:  mtu 1410 qdisc noqueue state UNKNOWN group default qlen 1000
+link/ether 06:18:ee:29:7e:e4 brd ff:ff:ff:ff:ff:ff promiscuity 0 minmtu 68 maxmtu 65485
+geneve id 1000 remote 10.4.2.1 ttl auto dstport 6081 noudpcsum udp6zerocsumrx numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
+inet 192.168.126.2/30 scope global pistioin
+valid_lft forever preferred_lft forever
+4: pistioout:  mtu 1410 qdisc noqueue state UNKNOWN group default qlen 1000
+link/ether aa:40:40:7c:07:b2 brd ff:ff:ff:ff:ff:ff promiscuity 0 minmtu 68 maxmtu 65485
+geneve id 1001 remote 10.4.2.1 ttl auto dstport 6081 noudpcsum udp6zerocsumrx numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
+inet 192.168.127.2/30 scope global pistioout
+valid_lft forever preferred_lft forever
+```
+
+You will find two NICs:
+
+*   _pistioin_ ：192.168.126.2, for the inbound traffic
+*   _pistioout_：192.168.127.2 for the outbound traffic
+
+How do you handle traffic from Pod A after it enters ztunnel? The answer is iptables. Look at the iptables rules in ztunnel A:
+
+```
+$ iptables-save
+/* omit */
+*mangle
+:PREROUTING ACCEPT [185880:96984381]
+:INPUT ACCEPT [185886:96984813]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [167491:24099839]
+:POSTROUTING ACCEPT [167491:24099839]
+-A PREROUTING -j LOG --log-prefix "mangle pre [ ztunnel-rts54]"
+-A PREROUTING -i pistioin -p tcp -m tcp --dport 15008 -j TPROXY --on-port 15008 --on-ip 127.0.0.1 --tproxy-mark 0x400/0xfff
+-A PREROUTING -i pistioout -p tcp -j TPROXY --on-port 15001 --on-ip 127.0.0.1 --tproxy-mark 0x400/0xfff
+-A PREROUTING -i pistioin -p tcp -j TPROXY --on-port 15006 --on-ip 127.0.0.1 --tproxy-mark 0x400/0xfff
+/* omit */
+```
+
+You can see that all TCP traffic in Ztunnel A destined for the pistioin NIC is transparently forwarded to port 15001 (Envoy’s outbound port) and tagged with 0x400/0xfff. This marker ensures that packets are sent to the correct NIC.
+
+Check the routing rules In Ztunnel A:
+
+```
+$ ip rule
+0:      from all lookup local
+20000:  from all fwmark 0x400/0xfff lookup 100
+20001:  from all fwmark 0x401/0xfff lookup 101
+20002:  from all fwmark 0x402/0xfff lookup 102
+20003:  from all fwmark 0x4d3/0xfff lookup 100
+32766:  from all lookup main
+32767:  from all lookup default
+```
+
+You will see that all packets marked 0x400/0xfff go to the 101 routing table, and we look at the details of that routing table:
+
+```
+$ ip route show table 100
+local default dev lo scope host
+```
+
+You will see that this is a local route and the packet is sent to the loopback NIC, which is 127.0.0.1.
+
+This is the transparent intercepting process of outbound traffic in the pod.
+
+### [](#outbound-traffic-routing-on-ztunnel-a)Outbound Traffic Routing On Ztunnel A
+
+Outbound traffic is intercepted onto Ztunnel and processed into Envoy’s port 15001. Let’s see how Ztunnel routes outbound traffic.
+
+> Note: The Envoy filter rules in Ztunnel are completely different from the Envoy filter rules in Sidecar mode, so instead of using the _istioctl proxy-config_ command to inspect the configuration of Listener, Cluster, Endpoint, etc., we directly export the complete Envoy configuration in Ztunnel.
+
+You can get the Envoy configuration in Ztunnel A directly and remotely on your local machine
+
+```
+kubectl exec -n istio-system ztunnel-hptxk -c istio-proxy -- curl "127.0.0.1:15000/config_dump?include_eds">ztunnel-a-all-include-eds.json
+```
+
+> Note: Do not use _istioctl proxy-config all ztunnel-rts54 -n istio-system_ command to get the Envoy configuration, because the configuration so obtained does not contain the EDS part. The exported JSON file will have tens of thousands of lines, so it is recommended to use [fx](https://github.com/antonmedv/fx) or other tools to parse the file for readability.
+
+\### Ztunnel\_outbound Listener
+
+The Envoy configuration contains the traffic rule configuration for all pods on this node. Let’s inspect the _ztunnel\_outbound_ Listener section configuration (some parts are omitted due to too much configuration):
+
+```
+1  {
+2   "name": "ztunnel_outbound",
+3   "active_state": {
+4    "version_info": "2022-11-11T07:10:40Z/13",
+5    "listener": {
+6     "@type": "type.googleapis.com/envoy.config.listener.v3.Listener",
+7     "name": "ztunnel_outbound",
+8     "address": {
+9      "socket_address": {
+10       "address": "0.0.0.0",
+11       "port_value": 15001
+12      }
+13     },
+14     "filter_chains": [{...},...],
+15     "use_original_dst": true,
+16     "listener_filters": [
+17      {
+18       "name": "envoy.filters.listener.original_dst",
+19       "typed_config": {
+20        "@type": "type.googleapis.com/envoy.extensions.filters.listener.original_dst.v3.OriginalDst"
+21       }
+22      },
+23      {
+24       "name": "envoy.filters.listener.original_src",
+25       "typed_config": {
+26        "@type": "type.googleapis.com/envoy.extensions.filters.listener.original_src.v3.OriginalSrc",
+27        "mark": 1234
+28       }
+29      },
+30      {
+31       "name": "envoy.filters.listener.workload_metadata",
+32       "config_discovery": {
+33        "config_source": {
+34         "ads": {},
+35         "initial_fetch_timeout": "30s"
+36        },
+37        "type_urls": [
+38         "type.googleapis.com/istio.telemetry.workloadmetadata.v1.WorkloadMetadataResources"
+39        ]
+40       }
+41      }
+42     ],
+43    "transparent": true,
+44     "socket_options": [
+45      {
+46       "description": "Set socket mark to packets coming back from outbound listener",
+47       "level": "1",
+48       "name": "36",
+49       "int_value": "1025"
+50      }
+51     ],
+52     "access_log": [{...}],
+53     "default_filter_chain": {"filters": [...], ...},
+54     "filter_chain_matcher": {
+55      "matcher_tree": {
+56       "input": {
+57        "name": "port",
+58        "typed_config": {
+59         "@type": "type.googleapis.com/envoy.extensions.matching.common_inputs.network.v3.DestinationPortInput"
+60        }
+61       },
+62       "exact_match_map": {
+63        "map": {
+64         "15001": {
+65          "action": {
+66           "name": "BlackHoleCluster",
+67           "typed_config": {
+68            "@type": "type.googleapis.com/google.protobuf.StringValue",
+69            "value": "BlackHoleCluster"
+70           }
+71          }
+72         }
+73        }
+74       }
+75      },
+76      "on_no_match": {
+77       "matcher": {
+78        "matcher_tree": {
+79         "input": {
+80          "name": "source-ip",
+81          "typed_config": {
+82           "@type": "type.googleapis.com/envoy.extensions.matching.common_inputs.network.v3.SourceIPInput"
+83          }
+84         },
+85         "exact_match_map": {
+86          "map": {
+87           "10.168.15.222": {...},
+
+88           "10.4.4.19": {
+89            "matcher": {
+90             "matcher_tree": {
+91              "input": {
+92               "name": "ip",
+93               "typed_config": {
+94                "@type": "type.googleapis.com/envoy.extensions.matching.common_inputs.network.v3.DestinationIPInput"
+95               }
+96              },
+97              "exact_match_map": {
+98               "map": {
+99                "10.8.4.226": {
+100                 "matcher": {
+101                  "matcher_tree": {
+102                   "input": {
+103                    "name": "port",
+104                    "typed_config": {
+105                     "@type": "type.googleapis.com/envoy.extensions.matching.common_inputs.network.v3.DestinationPortInput"
+106                    }
+107                   },
+108                   "exact_match_map": {
+109                    "map": {
+110                     "9080": {
+111                      "action": {
+112                       "name": "spiffe://cluster.local/ns/default/sa/sleep_to_http_productpage.default.svc.cluster.local_outbound_internal",
+113                       "typed_config": {
+114                        "@type": "type.googleapis.com/google.protobuf.StringValue",
+115                        "value": "spiffe://cluster.local/ns/default/sa/sleep_to_http_productpage.default.svc.cluster.local_outbound_internal"
+116                       }
+117                      }
+118                     }
+119                    }
+120                   }
+121                  }
+122                 }
+123                },
+124                {...}
+125               }
+126              }
+127             }
+128            }
+129           },
+130           "10.4.4.7": {...},
+131           "10.4.4.11": {...},
+132          }
+133         }
+134        },
+135        "on_no_match": {
+136         "action": {
+137          "name": "PassthroughFilterChain",
+138          "typed_config": {
+139           "@type": "type.googleapis.com/google.protobuf.StringValue",
+140           "value": "PassthroughFilterChain"
+141          }
+142         }
+143        }
+144       }
+145      }
+146     }
+147    },
+148    "last_updated": "2022-11-11T07:33:10.485Z"
+149   }
+150  }
+```
+
+Descriptions:
+
+*   Lines 10, 11, 59, 62, 64, 69, 76, 82, 85: Envoy listens to port 15001 and processes traffic forwarded using tproxy in the kernel; packets destined for port 15001 are directly discarded, and packets destined for other ports are then matched according to the source IP address to determine their destination.
+*   Line 43: Use the IP\_TRANSPARENT socket option to enable tproxy transparent proxy to forward traffic packets with destinations other than Ztunnel IPs.
+*   Lines 88 to 123: based on the source IP (10.4.4.19 is the IP of Pod A), destination IP (10.8.14.226 is the Cluster IP of Service B) and port (9080) rule match, the packet will be sent to spiffe://cluster.local/ns/default/sa/sleep\_to\_http\_productpage.default.svc.cluster.local\_outbound\_internal cluster.
+
+### [](#sleep-cluster)Sleep Cluster
+
+Let’s check the cluster’s configuration:
+
+```
+1  {
+2   "version_info": "2022-11-08T06:40:06Z/63",
+3   "cluster": {
+4    "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
+5    "name": "spiffe://cluster.local/ns/default/sa/sleep_to_http_productpage.default.svc.cluster.local_outbound_internal",
+6    "type": "EDS",
+7    "eds_cluster_config": {
+8     "eds_config": {
+9      "ads": {},
+10      "initial_fetch_timeout": "0s",
+11      "resource_api_version": "V3"
+12     }
+13    },
+14    "transport_socket_matches": [
+15     {
+16      "name": "internal_upstream",
+17      "match": {
+18       "tunnel": "h2"
+19      },
+20      "transport_socket": {
+21       "name": "envoy.transport_sockets.internal_upstream",
+22       "typed_config": {
+23        "@type": "type.googleapis.com/envoy.extensions.transport_sockets.internal_upstream.v3.InternalUpstreamTransport",
+24        "passthrough_metadata": [
+25         {
+26          "kind": {
+27           "host": {}
+28          },
+29          "name": "tunnel"
+30         },
+31         {
+32          "kind": {
+33           "host": {}
+34          },
+35          "name": "istio"
+36         }
+37        ],
+38        "transport_socket": {
+39         "name": "envoy.transport_sockets.raw_buffer",
+40         "typed_config": {
+41          "@type": "type.googleapis.com/envoy.extensions.transport_sockets.raw_buffer.v3.RawBuffer"
+42         }
+43        }
+44       }
+45      }
+46     },
+47     {
+48      "name": "tlsMode-disabled",
+49      "match": {},
+50      "transport_socket": {
+51       "name": "envoy.transport_sockets.raw_buffer",
+52       "typed_config": {
+53        "@type": "type.googleapis.com/envoy.extensions.transport_sockets.raw_buffer.v3.RawBuffer"
+54       }
+55      }
+56     }
+57    ]
+58   },
+59   "last_updated": "2022-11-08T06:40:06.619Z"
+60  }
+```
+
+Descriptions:
+
+*   Line 6: This Cluster configuration uses EDS to get endpoints.
+*   Line 18: [InternalUpstreamTransport](https://www.envoyproxy.io/docs/envoy/latest/api-v3/extensions/transport_sockets/internal_upstream/v3/internal_upstream.proto#envoy-v3-api-msg-extensions-transport-sockets-internal-upstream-v3-internalupstreamtransport) is applied to all byte streams with a tunnel: h2 metadata for internal addresses, defining loopback userspace sockets located in the same proxy instance. In addition to regular byte streams, this extension allows the additional structured state to be passed across userspace sockets (passthrough\_metadata). The purpose is to facilitate communication between downstream filters and upstream internal connections. All filter state objects shared with the upstream connection are also shared with the downstream inner connection via this transportation socket.
+*   Lines 23 to 37: structured data passed upstream.
+
+### [](#endpoints-of-the-sleep-cluster)Endpoints of The Sleep Cluster
+
+Let’s check the EDS again, and you will find this entry in one of the many endpoint\_config:
+
+```
+1  {
+2   "endpoint_config": {
+3    "@type": "type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment",
+4    "cluster_name": "spiffe://cluster.local/ns/default/sa/sleep_to_http_productpage.default.svc.cluster.local_outbound_internal",
+5    "endpoints": [
+6     {
+7      "locality": {},
+8      "lb_endpoints": [
+9       {
+10        "endpoint": {
+11         "address": {
+12          "envoy_internal_address": {
+13           "server_listener_name": "outbound_tunnel_lis_spiffe://cluster.local/ns/default/sa/sleep",
+14           "endpoint_id": "10.4.3.20:9080"
+15          }
+16         },
+17         "health_check_config": {}
+18        },
+19        "health_status": "HEALTHY",
+20        "metadata": {
+21         "filter_metadata": {
+22          "envoy.transport_socket_match": {
+23           "tunnel": "h2"
+24          },
+25          "tunnel": {
+26           "address": "10.4.3.20:15008",
+27           "destination": "10.4.3.20:9080"
+28          }
+29         }
+30        },
+31        "load_balancing_weight": 1
+32       }
+33      ]
+34     }
+35    ],
+36    "policy": {
+37     "overprovisioning_factor": 140
+38    }
+39   }
+40  }
+```
+
+Descriptions:
+
+Line 4: As of the first release of Ambient mesh, this field was not actually present when the Envoy configuration was exported, but it is should have it. Otherwise, it would be impossible to determine which Cluster the Endpoint belongs to. The mandatory cluster\_name field is missing from the endpoint\_config here, probably due to a bug in Ambient mode that caused the field to be missing when exporting Envoy’s configuration.
+
+Line 13: the address of the Endpoint is an envoy\_internal\_address, Envoy internal listener outbound\_tunnel\_lis\_spiffe://cluster.local/ns/default/sa/sleep.
+
+Lines 20 – 30: defining filter metadata to be passed to the Envoy internal listener using the HBONE tunnel.
+
+### [](#establishing-an-hbone-tunnel-through-envoys-internal-listener)Establishing an HBONE Tunnel Through Envoy’s Internal Listener
+
+Let’s look into the listener outbound\_tunnel\_lis\_spiffe://cluster.local/ns/default/sa/sleep:
+
+```
+1  {
+2   "name": "outbound_tunnel_lis_spiffe://cluster.local/ns/default/sa/sleep",
+3   "active_state": {
+4    "version_info": "2022-11-08T06:40:06Z/63",
+5    "listener": {
+6     "@type": "type.googleapis.com/envoy.config.listener.v3.Listener",
+7     "name": "outbound_tunnel_lis_spiffe://cluster.local/ns/default/sa/sleep",
+8     "filter_chains": [
+9      {
+10       "filters": [
+11        {
+12         "name": "envoy.filters.network.tcp_proxy",
+13         "typed_config": {
+14          "@type": "type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy",
+15          "stat_prefix": "outbound_tunnel_lis_spiffe://cluster.local/ns/default/sa/sleep",
+16          "cluster": "outbound_tunnel_clus_spiffe://cluster.local/ns/default/sa/sleep",
+17          "access_log": [{...}, ...],
+18          "tunneling_config": {
+19           "hostname": "%DYNAMIC_METADATA(tunnel:destination)%",
+20           "headers_to_add": [
+21            {
+22             "header": {
+23              "key": "x-envoy-original-dst-host",
+24              "value": "%DYNAMIC_METADATA(["tunnel", "destination"])%"
+25             }
+26            }
+27           ]
+28          }
+29         }
+30        }
+31       ]
+32      }
+33     ],
+34     "use_original_dst": false,
+35     "listener_filters": [
+36      {
+37       "name": "set_dst_address",
+38       "typed_config": {
+39        "@type": "type.googleapis.com/xds.type.v3.TypedStruct",
+40        "type_url": "type.googleapis.com/istio.set_internal_dst_address.v1.Config",
+41        "value": {}
+42       }
+43      }
+44     ],
+45     "internal_listener": {}
+46    },
+47    "last_updated": "2022-11-08T06:40:06.750Z"
+48   }
+49  }
+```
+
+Descriptions:
+
+*   Line 14: packets will be forwarded to the outbound\_tunnel\_clus\_spiffe://cluster.local/ns/default/sa/sleep cluster.
+*   Lines 18 – 28: [tunneling\_config](https://www.envoyproxy.io/docs/envoy/latest/api-v3/extensions/filters/network/tcp_proxy/v3/tcp_proxy.proto#envoy-v3-api-msg-extensions-filters-network-tcp-proxy-v3-tcpproxy-tunnelingconfig) , used to configure the upstream HTTP CONNECT tunnel. In addition, the TcpProxy filter in this listener passes traffic to the upstream p cluster. HTTP CONNECT tunnels (which carry traffic sent to 10.4.3.20:9080) are set up on the TCP filter for use by the Ztunnel on the node where the productpage is located. As many tunnels are created, as there are endpoints. HTTP tunnels are the bearer protocol for secure communication between Ambient components. The packet in the tunnel also adds the x-envoy-original-dst-host header, which sets the destination address based on the parameters in the metadata of the endpoint selected in the previous EDS step. The endpoint selected in the previous EDS is 10.4.3.20:9080, so the tunnel listener here sets the header value to 10.4.3.20:9080, so keep an eye on this header as it will be used at the other end of the tunnel.
+*   Line 40: The listener filter is executed first in the listener. The set\_dst\_address filter sets the upstream address to the downstream destination address.
+
+### [](#hbone-tunnel-endpoints-for-the-sleep-cluster)HBONE Tunnel Endpoints For The Sleep Cluster
+
+Let’s look into the configuration of the outbound\_tunnel\_clus\_spiffe://cluster.local/ns/default/sa/sleep cluster.
+
+```
+1  {
+2   "version_info": "2022-11-11T07:30:10Z/37",
+3   "cluster": {
+4    "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster""outbound_pod_tunnel_clus_spiffe://cluster.local/ns/default/sa/sleep",
+6    "type": "ORIGINAL_DST",
+7    "connect_timeout": "2s",
+8    "lb_policy": "CLUSTER_PROVIDED",
+9    "cleanup_interval": "60s",
+10    "transport_socket": {
+11     "name": "envoy.transport_sockets.tls",
+12     "typed_config": {
+13      "@type": "type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext",
+14      "common_tls_context": {
+15       "tls_params": {
+16        "tls_minimum_protocol_version": "TLSv1_3",
+17        "tls_maximum_protocol_version": "TLSv1_3"
+18       },
+19       "alpn_protocols": [
+20        "h2"
+21       ],
+22       "tls_certificate_sds_secret_configs": [
+23        {
+24         "name": "spiffe://cluster.local/ns/default/sa/sleep~sleep-5644bdc767-2dfg7~85c8c34e-7ae3-4d29-9582-0819e2b10c69",
+25         "sds_config": {
+26          "api_config_source": {
+27           "api_type": "GRPC",
+28           "grpc_services": [
+29            {
+30             "envoy_grpc": {
+31              "cluster_name": "sds-grpc"
+32             }
+33            }
+34           ],
+35           "set_node_on_first_message_only": true,
+36           "transport_api_version": "V3"
+37          },
+38          "resource_api_version": "V3"
+39         }
+40        }
+41       ]
+42      }
+43     }
+44    },
+45    "original_dst_lb_config": {
+46     "upstream_port_override": 15008
+47    },
+48    "typed_extension_protocol_options": {
+49     "envoy.extensions.upstreams.http.v3.HttpProtocolOptions": {
+50      "@type": "type.googleapis.com/envoy.extensions.upstreams.http.v3.HttpProtocolOptions",
+51      "explicit_http_config": {
+52       "http2_protocol_options": {
+53        "allow_connect": true
+54       }
+55      }
+56     }
+57    }
+58   },
+59   "last_updated": "2022-11-11T07:30:10.754Z"
+60  }
+```
+
+Descriptions:
+
+*   Line 6: the type of this cluster is ORIGINAL\_DST, i.e. the address 10.4.3.20:9080 obtained by EDS in the previous section.
+*   Lines 22 – 41: the upstream TLS certificate is configured.
+*   lines 45 – 48: the upstream port is overridden with 15008.
+
+The above is the whole process of transparent outbound traffic intercepting using tproxy and HBONE tunnel.
+
+### [](#inbound-traffic-intercepting)Inbound Traffic Intercepting
+
+Node B receives requests from Node A to 10.4.3.20:15008. Inbound traffic intercepting in Ambient mode is similar to outbound. It also uses tproxy and HBONE to achieve transparent traffic intercepting.
+
+The transparent traffic intercepting process for inbound traffic to the pod of Ambient mesh is as follows:
+
+1.  Istio CNI creates the istioin NIC and iptables rules on the node, adds the pods IP in Ambient mesh to the IP set, and transparently hijacks outbound traffic from Ambient mesh to the pistioin VM through the Geneve tunnel by using Netfilter nfmark tags and routing rules. NICs.
+2.  The init container in Ztunnel creates iptables rules that forward all traffic from the pistioin NIC to port 15008 of the Envoy proxy in Ztunnel.
+3.  Envoy processes the packets and forwards them to Pod B.
+
+Since the checking procedure is similar to the outbound traffic, some of the output will be omitted below.
+
+### [](#check-the-routing-rules-on-node-b)Check the Routing Rules on Node B
+
+Log in to Node B, where Service B is located, and check the iptables on the node:
+
+```
+$ iptables-save
+/* omit */
+-A ztunnel-PREROUTING -m mark --mark 0x200/0x200 -j RETURN
+-A ztunnel-PREROUTING -p tcp -m set --match-set ztunnel-pods-ips src -j MARK --set-xmark 0x100/0x100
+/* omit */
+```
+
+You will see the previous command mentioned in the previous section to mark all packets sent by the pods in the ztunnel-pods-ips IP set with 0x100/0x100: mark all packets with 0x200/0x200, and then continue with iptables.
+
+Look into the routing table on node B:
+
+```
+0:      from all lookup local
+100:    from all fwmark 0x200/0x200 goto 32766
+101:    from all fwmark 0x100/0x100 lookup 101
+102:    from all fwmark 0x40/0x40 lookup 102
+103:    from all lookup 100
+32766:  from all lookup main
+32767:  from all lookup default
+```
+
+The number of routing tables and rules are the same in all the nodes which belong to the ambient mesh. The routing table rules will be executed sequentially, looking first for the local table, then all packets with 0x200/0x200 flags will first jump to the main table (where veth routes are defined), and then to the 100 table, where the following rules are in place:
+
+```
+$ ip route show table 100
+10.4.3.14 dev veth28865c45 scope link
+10.4.3.15 via 192.168.126.2 dev istioin src 10.4.3.1
+10.4.3.16 via 192.168.126.2 dev istioin src 10.4.3.1
+10.4.3.17 via 192.168.126.2 dev istioin src 10.4.3.
+10.4.3.18 via 192.168.126.2 dev istioin src 10.4.3.
+10.4.3.19 via 192.168.126.2 dev istioin src 10.4.3.1
+10.4.3.20 via 192.168.126.2 dev istioin src 10.4.3.1
+```
+
+You will see that packets destined for 10.4.3.20 will be routed to the 192.168.126.2 gateway on the istioin NIC.
+
+Look into the details of the istioin NIC:
+
+```
+$ ip -d addr show istioin
+17: istioin:  mtu 1410 qdisc noqueue state UNKNOWN group default
+link/ether 36:2a:2f:f1:5c:97 brd ff:ff:ff:ff:ff:ff promiscuity 0 minmtu 68 maxmtu 65485
+geneve id 1000 remote 10.4.3.14 ttl auto dstport 6081 noudpcsum udp6zerocsumrx numtxqueues 1 numrxqueues 1 gso_max_size 65536 gso_max_segs 65535
+inet 192.168.126.1/30 brd 192.168.126.3 scope global istioin
+valid_lft forever preferred_lft forever
+inet6 fe80::342a:2fff:fef1:5c97/64 scope link
+valid_lft forever preferred_lft forever
+```
+
+As you can see from the output, istioin is a Geneve type virtual NIC that creates a Geneve tunnel with a remote IP of 10.4.3.14, which is the Pod IP of Ztunnel B.
+
+Check The Routing Rules On Ztunnel B Pod
+
+Go to the Ztunnel B Pod and use the ip -d a command to check its NIC information. You will see that there is a pistioout NIC with an IP of 192.168.127.2, which is the far end of the Geneve tunnel created with the istioin virtual NIC.
+
+Use iptables-save to view the iptables rules within the Pod, and you will see that:
+
+```
+-A PREROUTING -i pistioin -p tcp -m tcp --dport 15008 -j TPROXY --on-port 15008 --on-ip 127.0.0.1 --tproxy-mark 0x400/0xfff
+-A PREROUTING -i pistioin -p tcp -j TPROXY --on-port 15006 --on-ip 127.0.0.1 --tproxy-mark 0x400/0xfff
+```
+
+All traffic destined for 10.4.3.20:15008 will be routed to port 15008 using tproxy.
+
+**15006 and 15008**
+
+*   Port 15006 is used to process non-encrypted (plain) TCP packets.
+
+*   Port 15008 is used to process encrypted (TLS) TCP packets.
+
+The above is the transparent intercepting process of inbound traffic in the Pod.
+
+### [](#inbound-traffic-routing-on-ztunnel-b)Inbound Traffic Routing On Ztunnel B
+
+The outbound TLS encrypted traffic is intercepted on Ztunnel and goes to Envoy’s port 15008 for processing. Let’s look at how Ztunnel routes inbound traffic.
+
+Let’s remotely get the Envoy configuration in Ztunnel B directly on our local machine.
+
+```
+kubectl exec -n istio-system ztunnel-z4qmh -c istio-proxy -- curl "127.0.0.1:15000/config_dump?include_eds">ztunnel-b-all-include-eds.json
+```
+
+### [](#ztunnel_inbound-listener)Ztunnel\_inbound Listener
+
+Look into the details of the ztunnel\_inbound listener:
+
+```
+1  {
+2   "name": "ztunnel_inbound",
+3   "active_state": {
+4    "version_info": "2022-11-11T07:12:01Z/16",
+5    "listener": {
+6     "@type": "type.googleapis.com/envoy.config.listener.v3.Listener",
+7     "name": "ztunnel_inbound",
+8     "address": {
+9      "socket_address": {
+10       "address": "0.0.0.0",
+11       "port_value": 15008
+12      }
+13     },
+14     "filter_chains": [
+15      {
+16       "filter_chain_match": {
+17        "prefix_ranges": [
+18         {
+19          "address_prefix": "10.4.3.20",
+20          "prefix_len": 32
+21         }
+22        ]
+23       },
+24       "filters": [
+25        {
+26         "name": "envoy.filters.network.rbac",
+27         "typed_config": {
+28          "@type": "type.googleapis.com/envoy.extensions.filters.network.rbac.v3.RBAC",
+29          "rules": {...},
+30          "stat_prefix": "tcp.",
+31          "shadow_rules_stat_prefix": "istio_dry_run_allow_"
+32         }
+33        },
+34        {
+35         "name": "envoy.filters.network.http_connection_manager",
+36         "typed_config": {
+37          "@type": "type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager",
+38          "stat_prefix": "inbound_hcm",
+39          "route_config": {
+40           "name": "local_route",
+41           "virtual_hosts": [
+42            {
+43             "name": "local_service",
+44             "domains": [
+45              "*"
+46             ],
+47             "routes": [
+48              {
+49               "match": {
+50                "connect_matcher": {}
+51               },
+52               "route": {
+53                "cluster": "virtual_inbound",
+54                "upgrade_configs": [
+55                 {
+56                  "upgrade_type": "CONNECT",
+57                  "connect_config": {}
+58                 }
+59                ]
+60               }
+61              }
+62             ]
+63            }
+64           ]
+65          },
+66          "http_filters": [
+67           {
+68            "name": "envoy.filters.http.router",
+69            "typed_config": {
+70             "@type": "type.googleapis.com/envoy.extensions.filters.http.router.v3.Router"
+71            }
+72           }
+73          ],
+74          "http2_protocol_options": {
+75           "allow_connect": true
+76          },
+77          "access_log": [{...}],
+78          "upgrade_configs": [
+79           {
+80            "upgrade_type": "CONNECT"
+81           }
+82          ]
+83         }
+84        }
+85       ],
+86       "transport_socket": {
+87        "name": "envoy.transport_sockets.tls",
+88        "typed_config": {...}
+89       },
+90       "name": "inbound_10.4.3.20"
+91      },
+92      {...}
+93     ],
+94     "use_original_dst": true,
+95     "listener_filters": [{},...],
+96     "transparent": true,
+97     "socket_options": [{...}}],
+98     "access_log": [{...} ]
+99    },
+100    "last_updated": "2022-11-14T03:54:07.040Z"
+101   }
+102  }
+```
+
+You will see that:
+
+*   Traffic destined for 10.4.3.20 will be routed to the virtual\_inbound cluster.
+*   Lines 78 – 82: upgrade\_type: “CONNECT” Enables the HTTP Connect tunnel for Envoy’s HCM to send TCP packets in that tunnel upstream.
+
+### [](#-1)
+
+Virtual\_inbound Cluster
+
+Look into the configuration of the virtual\_inbound cluster:
+
+```
+1  {
+2   "version_info": "2022-11-11T07:10:40Z/13",
+3   "cluster": {
+4    "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
+5    "name": "virtual_inbound",
+6    "type": "ORIGINAL_DST",
+7    "lb_policy": "CLUSTER_PROVIDED",
+8    "original_dst_lb_config": {
+9     "use_http_header": true
+10    }
+11   },
+12   "last_updated": "2022-11-11T07:10:42.111Z"
+13  }
+```
+
+Descriptions:
+
+*   Line 7: the type of this cluster is ORIGINAL\_DST, indicating that the original downstream destination is used as the route destination, i.e. 10.4.3.20:15008, which obviously has an incorrect port in this address.
+*   Line 9: a use\_http\_header of true will use the HTTP header x-envoy-original-dst-host as the destination, which has been set to 10.4.3.20:9080 in the outbound Ztunnel, and it will override the previously set destination address.
+
+At this point, the inbound traffic is accurately routed to the destination by Ztunnel. The above is the flow of L4 traffic hijacking and routing between nodes in Ambient mode.
+
+### [](#summary)Summary
+
+For demonstration purposes, this article shows the paths of L4 network access packets for services on different nodes, even if the paths are similar for two services on the same node. Istio’s Ambient mode is still in its infancy, and during my testing, I also found that the EDS in the exported Envoy configuration was missing the cluster\_name field. After understanding the L4 traffic path, I will share the L7 traffic path in Ambient mode in the future. Stay tuned.

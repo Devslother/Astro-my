@@ -1,0 +1,50 @@
+---
+title: "What Is Kubernetes Service Mesh"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+categories: ["learn"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+## [](#traffic-management-security-observability-and-reliability-for-kubernetes)Traffic Management, Security, Observability and Reliability for Kubernetes
+
+### [](#a-dedicated-infrastructure-layer)A Dedicated Infrastructure Layer
+
+A Kubernetes [service mesh](/what-is-istio-service-mesh/) is a software infrastructure layer added within a Kubernetes cluster designed to simplify service-to-service communication, observability, and management of microservices running via containers.
+
+While containers and microservices bring many benefits when deploying applications, they also introduce issues that IT teams need to deal with.
+
+## [](#kubernetes-challenges)Kubernetes Challenges
+
+Common such issues are:
+
+**Increasing complexity**. When applications are decomposed into microservices that need to communicate within clusters, the network between them becomes very complex. Tracking the connections and their security policies as the number of microservices increases is difficult. Using a Kubernetes service mesh hides this complexity.    
+
+**Service opacity.** As the number of microservices increases, observing their interactions and communications becomes harder. A service mesh uses monitoring, logs, and connection tracing to pierce this opacity so you can see what’s happening. This is essential when optimizing performance and troubleshooting issues.
+
+**Managing dynamic changes.** Kubernetes supports auto-scaling of services, which can pose challenges for maintaining security policies and access control as services are dynamically added and removed.
+
+**Ingress and egress control.** Securing data flow into and out of a Kubernetes cluster is critical. Kubernetes’s dynamic nature may undermine any traditional security model organizations use. The service mesh makes delivering security in Kubernetes-based infrastructure easier.
+
+A Kubernetes service mesh links microservices, manages traffic flow between them, enforces policies, and collects telemetry data. The service mesh comprises several lightweight network proxies that are deployed alongside application containers in each service instance, using a sidecar proxy pattern. In a cluster, every pod has an extra container deployed, which is known as a sidecar, that intercepts traffic flowing to and from the primary application containers. It uses this network traffic to manage communication with other services and implement the features and policies that the mesh defines.
+
+## [](#service-mesh-solutions)Service Mesh Solutions
+
+A service mesh delivers this key functionality within Kubernetes deployments:
+
+**Traffic management**. Service meshes provide advanced capabilities for traffic routing, including staged canary deployments, A/B testing, and blue-green deployments to production applications. They handle traffic flow within a cluster by ensuring that requests are directed to the correct service instance, even during network downtime or service updates, thus ensuring reliable routing.
+
+**Security**. Service meshes enforce policies around authentication, encryption, and authorization, ensuring communications within the cluster use secure service-to-service communication and are allowed to talk to each other. One standard method for this is mutual TLS (mTLS) for encryption and authentication. A service mesh like Istio also aligns with the Zero Trust security model defined in NIST SP 800-207A. Zero trust is becoming more important, and using a service mesh with Kubernetes helps deliver it. Also, it helps demonstrate the usage of zero trust principles to relevant third parties (such as regulators, insurers, and auditors). 
+
+**Observability**. Service meshes collect telemetry data on service communication, such as container metrics, logs, and network traces. This data enables enhanced observability and is vital to understanding service behavior, detecting issues, and optimizing performance in production applications.
+
+**Reliability**. Service meshes help improve communication reliability through features like rate limiting, retries, circuit breaking, and timeouts. By handling these automatically, service meshes can ensure that the system remains resilient despite failures.
+
+Istio is one of the most popular and feature-rich service mesh offerings for Kubernetes. Istio is open source and uses a component called Envoy as the sidecar to intercept and deliver service mesh functionality.
+
+## [](#enterprise-ready-service-mesh)Enterprise-Ready Service Mesh
+
+Deploying and managing Istio properly can still be complex, even if it’s not as difficult as managing Kubernetes clusters, pods, and containers directly. Tetrate is focused on the deployment and management of complex Kubernetes infrastructure using service mesh solutions. Tetrate’s enterprise service mesh products, [Tetrate Service Bridge (TSB)](/resource/tetrate-service-bridge-application-security-architecture/), [Tetrate Istio Subscription (TIS)](/tetrate-istio-subscription/), and [Tetrate Enterprise Gateway for Envoy (TEG)](/tetrate-enterprise-gateway-for-envoy/) are enterprise-ready service mesh solutions that build on core Istio and Envoy functionality.
+
+## [](#conclusion)Conclusion
+
+In summary, a service mesh in Kubernetes simplifies the management of microservices-based applications. With the complexities of network management abstracted away, organizations can focus on their application’s business logic. The service mesh creates a dedicated infrastructure layer for handling service communication, improving microservice observability, reliability, and security. Because of this, it is now an essential component of modern container-based and Kubernetes-managed application architectures. Tetrate Service Bridge takes service mesh functionality to the next level by enhancing the popular Istio service mesh while also making it easier to use in enterprise deployments.

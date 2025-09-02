@@ -1,0 +1,40 @@
+---
+title: "Exploring Envoy Proxy’s Latest Release: Version 1.27"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+[Envoy Proxy, a high-performance edge and service proxy](/what-is-envoy-proxy/), recently introduced the latest version, providing developers with powerful tools to manage and secure their network traffic effectively. In this article, we’ll go over some of the noteworthy features of Envoy Proxy 1.27.
+
+## [](#introducing-l4-golang-network-filter)Introducing L4 Golang Network Filter
+
+Building upon the advancements made in the previous release (1.26), Envoy Proxy now introduces a new Layer 4 (L4) Golang network filter. With this enhancement, developers can write filters in Golang and seamlessly integrate them into the Envoy ecosystem. Initially introduced for HTTP filters, this new feature extends the support to network filters, significantly expanding the customization options available to developers.
+
+However, it’s worth noting that this feature is currently experimental and only available in the contrib build. The official build excludes this feature as it undergoes further refinement to ensure stability and robustness.
+
+## [](#enhanced-configurability-of-cookie-attributes-in-http)Enhanced Configurability of Cookie Attributes in HTTP
+
+In response to user feedback and requirements, Version 1.27 introduces improved support for configuring additional cookie attributes in HTTP. This update empowers developers to fine-tune the behavior of cookies within the Envoy Proxy, providing greater control and flexibility when handling HTTP traffic.For further details and insights into this enhancement, refer to the related issue on GitHub: [https://github.com/envoyproxy/envoy/issues/27234](https://github.com/envoyproxy/envoy/issues/27234).
+
+## [](#cel-matcher-support-for-advanced-matching)CEL Matcher Support for Advanced Matching
+
+Including [Common Expression Language (CEL)](https://github.com/google/cel-spec) matcher support marks another significant stride in Envoy Proxy’s feature set. With CEL data input and CEL input matcher capabilities, developers can now perform more sophisticated matching operations within the proxy.
+
+Although this addition promises enhanced flexibility, it is recommended to conduct further investigation to grasp its full potential and understand how it can be leveraged to meet specific use cases effectively.
+
+## [](#cluster-provided-extension-for-custom-load-balancer-policy)Cluster-Provided Extension for Custom Load Balancer Policy
+
+Envoy Proxy 1.27 introduces an exciting feature that allows users to leverage cluster-provided extensions to support custom load balancer policies in upstream traffic management. This empowers developers to plug in their custom load balancer implementations, tailoring the load balancing behavior to their unique application requirements.
+
+To take full advantage of this feature, in-depth exploration and investigation are necessary to ensure seamless integration and optimal performance.
+
+## [](#conclusion)Conclusion
+
+Envoy Proxy’s version 1.27 release brings forth a host of powerful enhancements, reaffirming its position as a leading-edge service proxy in the tech industry. The introduction of the L4 Golang network filter, enhanced cookie attribute configurability, CEL matcher support, and cluster-provided extension for custom load balancer policies all make Envoy Proxy an indispensable tool for managing, securing, and optimizing network traffic.
+
+## [](#references)References
+
+*   [Envoy Proxy 1.27 release notes ›](https://github.com/envoyproxy/envoy/releases/tag/v1.27.0)
+*   [Documentation ›](https://www.envoyproxy.io/docs/envoy/v1.27.0/)

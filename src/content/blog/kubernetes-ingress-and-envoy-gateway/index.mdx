@@ -1,0 +1,33 @@
+---
+title: "Kubernetes Ingress and Envoy Gateway"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+## [](#envoy-gateway-addresses-common-needs-for-kubernetes-ingress-traffic-handling)Envoy Gateway Addresses Common Needs for Kubernetes Ingress Traffic Handling
+
+As Kubernetes became the accepted container orchestration solution for cloud-native applications and our systems grew in complexity and scale, the management of traffic into and within Kubernetes clusters became a critical concern. 
+
+Before [the Gateway API](/resource/gateway-api-is-the-future-of-kubernetes-ingress/) and [implementations like Envoy Gateway,](/blog/envoy-microservices-overview/) cloud-native engineers used Node Ports, Load Balancers, and Ingress API Implementations to manage ingress traffic to their Kubernetes clusters. 
+
+Providing a way to expose services running in a Kubernetes cluster to external callers isn’t just about connectivity. As traffic flows, we need to manage it, secure it, and observe it. That we needed more sophisticated solutions to manage Kubernetes’ ingress traffic is not news, but it provides the history of how Envoy Gateway came about to serve common needs. 
+
+Envoy Gateway empowers you to easily configure and use the widely established Envoy Proxy for your Kubernetes ingress traffic. Envoy Proxy, an edge and service proxy designed for cloud-native applications, addresses these traffic management, security, and observability requirements. 
+
+Envoy Gateway integrates seamlessly with Kubernetes and supports the Kubernetes Gateway API, offering a robust, scalable, and flexible approach to managing ingress traffic.
+
+## [](#when-is-envoy-gateway-the-right-choice-to-handle-your-kubernetes-ingress-traffic)When Is Envoy Gateway the Right Choice to Handle Your Kubernetes Ingress Traffic?
+
+There are many reasons why Envoy Gateway may or may not be the right choice for your architecture. To help identify if Envoy Gateway is a good fit, here are the five top motivations for using Envoy Gateway to handle your Kubernetes Ingress traffic.
+
+1.  **Advanced Traffic Management**: If you need advanced routing capabilities such as retries, traffic splitting, timeouts, circuit breaking, or traffic shadowing.
+2.  **Security**: If you need security features like mutual TLS, rules for access control, WAF integration, and the ability to integrate with external authorization services.
+3.  **Observability**:  If monitoring and troubleshooting are crucial for your system, and you want observability features including detailed metrics, distributed tracing, and logging.
+4.  **Scalability**: If your application needs to scale horizontally and handle high volumes of traffic, Envoy Gateway can manage this effectively.
+5.  **Compatibility with Kubernetes Gateway API**: If you plan to adopt the Kubernetes Gateway API, Envoy Gateway is designed to work seamlessly with it, providing a consistent and modern API for managing Kubernetes ingress traffic configurations.
+
+## [](#get-started-with-envoy-gateway)Get Started with Envoy Gateway
+
+Envoy Gateway is ideal for modern cloud-native applications, offering robust, scalable, and flexible ingress traffic management.  Ready to optimize your Kubernetes ingress with Envoy Gateway? [Speak to our experts today to learn how Envoy Gateway can elevate your infrastructure ›](https://tetr8.io/teg-access)

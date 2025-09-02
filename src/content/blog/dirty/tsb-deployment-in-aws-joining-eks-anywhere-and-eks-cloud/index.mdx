@@ -1,0 +1,146 @@
+---
+title: "Deploying Tetrate Service Bridge for Hybrid Infrastructures Spanning Amazon EKS Anywhere and Amazon EKS on the Cloud"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+One of the strengths of Kubernetes is its flexibility in terms of the target infrastructure on which it can be deployed. It can be rolled out on anything from a tiny cluster running on a laptop to large, multi-national scale-out infrastructure. Applications that run on such scaled-out infrastructure often require support for multiple clusters, regions, and even multiple cloud providers. Among our enterprise customers, we also see a trend of migrating from monolithic architectures for their applications to microservices.
+
+Migration of applications from on-prem data centers to the cloud is typically a multi-year project. In some cases, on-prem data centers are preserved and maintained for reliability and disaster recovery scenarios. However, the infrastructure teams and developers prefer consistency. As a result, the ability to provision and manage Kubernetes clusters in AWS and on-prem using identical tooling and processes is very appealing to customers.
+
+To that end, AWS offers EKS Anywhere, a way to leverage existing VMware infrastructure in on-prem data centers and operate self-managed EKS clusters with the same tooling as EKS clusters in the cloud. The project has been very successful, and the next logical step is to simplify EKS Anywhere even more by enabling the deployment of EKS directly on bare metal servers without additional layers like third-party hypervisor platforms.
+
+AWS has invited Tetrate to participate in the beta program of EKS Anywhere bare-metal edition. Tetrateâ€™s application connectivity platform, Tetrate Service Bridge (TSB), is a natural fit, built for multi-cluster, multi-region, and hybrid cluster deployments. Tetrate collaborated with AWS by testing Tetrate Service Bridge and Tetrate Istio Distribution on the pre-release platform and providing feedback.
+
+This article summarizes the steps we took to implement EKS Anywhere on Equinix Metal servers. While using Equinix Metal was the easiest way for us to study EKS Anywhere, your experience in a self-managed, on-prem data center will be largely similar.
+
+After creation, all of the clusters are onboarded to the TSB management plane so that all traffic between AWS EKS and EKS Anywhere clusters remains within the boundaries of the global service mesh. This allows business data to be efficiently distributed within the multi-cluster mesh in a secure, observable, and manageable way.
+
+To better understand the integration process and its implications, we will review each step at granular level. AWS provides clear instructions on how to implement EKS Anywhere. The focus here is more on specifics of the setup â€“ so it can be easily replicated in the customer settings
+
+## [](#equinix-metal-deployment)Equinix Metal Deployment
+
+As mentioned, we used Equinix Metal, but the experience would be similar for any other on-prem setup. Tetrateâ€™s customers use a mix of configurations, data center flavors, and cloud providers. At its core, TSB is designed to work with the heterogeneous environments in our customersâ€™ real-world application portfolios and to support such combinations out of the box.
+
+Equinix makes it simple to provision hardware nodes with the required configurations. Equinix Metal offers both CLI and Terraform deployment options, both of which work well. The Terraform approach can be completed in minutes and, after the relevant configuration variables are set, the process requires zero operator involvement.
+
+For this specific scenario, we spun up three machines. One, running Linux, serves as an admin console and DHCP/TFTP/boot server. The other two are bare metal servers configured during the boot process as Kubernetes nodes.
+
+We created two networks:
+
+*   A private network to bootstrap and provide communication between EKS-A nodes. A simple router to allow access to the internet runs on this network;
+*   A public L2 network to provide internet access to applications running on EKS Anywhere clusters.
+
+### [](#deploying-eks-anywhere-from-the-console)Deploying EKS Anywhere from the console
+
+In this section, weâ€™ll cover the steps to deploy EKS Anywhere manually, although if using Terraform, you can ignore these steps. We use this section mainly to demonstrate what happens under the hood when eksctl-anywhere bootstraps an on-prem cluster. The steps are as follows:
+
+*   Install at least the following on the admin console: kubectl, docker, and the eks-anywhere binary.
+*   Create the EKS Anywhere cluster configuration with the following commands:
+
+```
+root@eksa-console:~# export CLUSTER_NAME="tetrate-eksa"
+    root@eksa-console:~# eksctl-anywhere generate clusterconfig $CLUSTER_NAME --provider tinkerbell &gt; $CLUSTER_NAME.yaml
+```
+
+*   The configuration requires slight adjustments that obviously can be turned to variables and applied via CI/CD Pipeline. The default settings are fairly universal and in most setups will work out of the box. The eksctl-anywhere binary will connect to the AWS repository and retrieve images of the required version. Also, SSH keys for each machine are required as well as a node selector to assign nodes for roles (e.g. control/data plane nodes).
+*   Create a .csv file containing the details of the Equinix nodes similar to the following (please note that AWS is still improving the process and the final format may have different fields and a different order):
+
+![Post Image](/.netlify/images?url=_astro%2Fequinix-nodes-similar.JE7gETS6.jpg&w=819&h=69&q=100)
+
+Figure 1: Figure 1: example CSV file.
+
+![Post Image](/.netlify/images?url=_astro%2Fequinix-nodes-similar.JE7gETS6.jpg&w=819&h=69&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+Now we are ready to apply the configuration. The following command will download all necessary components to bootstrap the servers:
+
+```
+root@eksa-console:~# eksctl-anywhere create cluster -f tetrate-eksa.yaml --hardware-csv inventory.csv
+    Warning: The recommended number of control plane nodes is 3 or 5
+    Warning: The recommended number of control plane nodes is 3 or 5
+    Performing setup and validations
+    âœ… Tinkerbell Provider setup is valid
+    âœ… Validate certificate for registry mirror
+    âœ… Create preflight validations pass
+    Creating new bootstrap cluster
+    Provider specific pre-capi-install-setup on bootstrap cluster
+    Installing cluster-api providers on bootstrap cluster
+    Provider specific post-setup
+    Creating new workload cluster
+    Installing networking on workload cluster
+    Installing cluster-api providers on workload cluster
+    Installing EKS-A secrets on workload cluster
+    Installing resources on management cluster
+    Moving cluster management from bootstrap to workload cluster
+    Installing EKS-A custom components (CRD and controller) on workload cluster
+    Installing EKS-D components on workload cluster
+    Creating EKS-A CRDs instances on workload cluster
+    Installing AddonManager and GitOps Toolkit on workload cluster
+    GitOps field not specified, bootstrap flux skipped
+    Writing cluster config file
+    Deleting bootstrap cluster
+    ðŸŽ‰ Cluster created!
+```
+
+Cluster bootstrap is performed on the machine where the eksctl-anywhere command is executed. Temporarily, the whole cluster will run on the admin console host during bootstrap process. Besides typical kube-\* components, there are two more important components at play:
+
+*   [Cluster API (CAPI)](https://github.com/kubernetes-sigs/cluster-api) is used to simplify, unify, and automate the deployment of Kubernetes clusters across both EKS and EKS Anywhere. In EKS Anywhere, it offers customers a fully functional cluster that conforms to AWS EKS standards, providing the same expected results when applications are deployed on it.
+*   Built on CAPI is another component called [Cluster API Provider Tinkerbell (CAPT)](https://github.com/tinkerbell/cluster-api-provider-tinkerbell). Tinkerbell is a tool that allows a bare metal system with no OS installed to be bootstrapped to a Kubernetes node. The experience is unusual for an on-prem data center, but pretty standard for AWS:, you can boot additional EKS nodes from raw hardware with literally a single click (or command)
+
+After the temporary bootstrap cluster is up and running, it uses Tinkerbell components to boot machines listed in the hardware.csv file. After the machines are booted, they are configured as EKS control and data plane nodes. Here is what the console of the node looks like during the boot process:
+
+![EKS Control and Dataplane Nodes](/.netlify/images?url=_astro%2Feks-control-and-dataplane-nodes.BjeyAto7.jpg&w=1895&h=857)
+
+At the end of boot process, the console looks like this:
+
+![Boot the Console](/.netlify/images?url=_astro%2Fboot-the-console.BT_Iup1H.jpg&w=1329&h=420)
+
+When all the nodes are up and running, the management of the cluster is moved from the bootstrap cluster to the newly created EKS Anywhere cluster and some finalizing tasks are applied to bring the cluster into compliance with EKS Anywhere standards. A kubeconfig file is generated and may be used immediately to access the cluster. EKS Anywhere clusters are accessible the same way as an EKS cluster that is hosted in AWS.
+
+## [](#adding-tetrate-service-bridge)Adding Tetrate Service Bridge
+
+EKS Anywhere clusters are added to the TSB management plane the same way as any other Kubernetes cluster: either customized, on-prem or cloud-managed Kubernetes platforms.
+
+All microservices hosted by any cluster in TSB can be part of the same service mesh. The mesh maintains a global service inventory along with runtime data to facilitate microservice monitoring, local and cross-cluster failover, request tracing as well as authenticated, authorized, and encrypted communication between services.
+
+Application deployment and modifications are controlled via an enterprise-grade security policy model based on NISTâ€™s [Next Generation Access Control (NGAC)](/blog/rbac-vs-abac-vs-ngac/). This approach offers a dynamic and secure way to limit and separate permission of different teams and users;
+
+Additionally, the monitoring of all applications in the TSB-managed mesh is visible from a central TSB UI with multiple standard metrics for services and calls between services.
+
+### [](#onboarding-eks-anywhere-clusters-to-tetrate-service-bridge)Onboarding EKS Anywhere Clusters to Tetrate Service Bridge
+
+AWS EKS and EKS Anywhere clusters may be introduced to TSB [according to the the cluster onboarding documentation](https://docs.tetrate.io/service-bridge/setup/self-managed/onboarding-clusters). The onboarding process installs Istio and adds the cluster to the TSB management plane.
+
+![Post Image](/.netlify/images?url=_astro%2Ftsb-management-plane.CcXDg9R9.jpg&w=1867&h=371&q=100)
+
+Figure 2: Figure 2: EKS Anywhere cluster onboarded to the Tetrate Service Bridge management plane.
+
+![Post Image](/.netlify/images?url=_astro%2Ftsb-management-plane.CcXDg9R9.jpg&w=1867&h=371&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+For failover and disaster recovery, if a microservice becomes unavailable in EKS cluster, TSB can be configured to shift traffic for this service to a remote EKS Anywhere cluster and vice versa (Figure 3).
+
+![Post Image](/.netlify/images?url=_astro%2Ftraffic-shifting.47qy77QX.jpg&w=834&h=722&q=100)
+
+Figure 3: Figure 3: traffic shifting to remote clusters.
+
+![Post Image](/.netlify/images?url=_astro%2Ftraffic-shifting.47qy77QX.jpg&w=834&h=722&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+Figure 3 shows a screenshot of the runtime cluster topology screen in the Tetrate Service Bridge management interface. Of the three clusters shown in the topology, the two with the blue icon represent the AWS EKS clusters (US and Canada regions); the one with the orange icon represents an EKS Anywhere cluster running on bare metal. Traffic moves through the system as follows:
+
+*   End-user requests arrive from the internet at the Tier-1 gateway hosted in the AWS ca-central-1 EKS cluster.
+*   The application is hosted AWS us-east-2 EKS and EKS Anywhere clusters. Based on weight, locality, and other parameters, the Tier-1 gateway routes incoming requests to either the EKS or EKS Anywhere clusters.
+*   Under normal circumstances, traffic is kept as local as possible. However, since one of the microservices in us-east-2 is overloaded, as the figure shows, some requests are forwarded to the on-prem data center where EKS Anywhere serves the traffic. Even though traffic is routed across clusters, it all stays within the global mesh. Even without a VPN, the traffic is transported via secure mTLS.
+
+This is just a demonstration of the kinds of setups available today from AWS and Tetrate out of the box. While production application scenarios can be much more complex, weâ€™ve seen the majority of use-cases can be addressed today using these basic building blocks.
+
+#### [](#summary)Summary
+
+With EKS Anywhere, AWS allows customers to deploy and manage EKS clusters in the cloud and on-prem using the same tooling, processes, and practices. Tetrate deploys enterprise-grade Istio to AWS EKS and on-prem EKS Anywhere clusters alike, engaging them all in the centrally-managed global service mesh. This is a new level of flexibility offers best-in-class operational efficiency that many customers will find useful.

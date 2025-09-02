@@ -1,0 +1,49 @@
+---
+title: "How Tetrate Istio Distro Became the First FIPS-Compliant Istio Distribution"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+Federal information systems need [FedRAMP](https://www.fedramp.gov/) approval for authority to operate.  To get that approval, they must comply with the [Federal Information Processing Standards (FIPS)](https://www.nist.gov/standardsgov/compliance-faqs-federal-information-processing-standards-fips). For cryptography, this means that if you’re a U.S. government agency or a vendor or contractor supplying the government, you must use [FIPS 140-2](https://csrc.nist.gov/pubs/fips/140-2/upd2/final) compliant modules wherever encryption is required. If you want to use Istio or Envoy in those systems, you can’t use the stock community builds of Istio and Envoy, since they don’t use FIPS-compliant cryptography modules and are thus not suitable for a FedRAMP environment.
+
+Tetrate enables government organizations to meet this requirement by supplying Istio users with [the first FIPS-verified open source distribution of Istio and Envoy](/blog/tetrate-istio-distro-achieves-fips-certification/) as part of Tetrate’s [hardened and performant Tetrate Istio Distro](https://tetr8.io/tid). 
+
+In this article we will lay out the basics of FIPS compliance, what it means for Istio and Envoy, and the surest way to get to production with Istio in a FIPS-regulated environment.
+
+## [](#tldr)TL;DR
+
+*   Software used by federal information systems must be **FIPS compliant**.
+*   Stock builds of **Istio and Envoy are not FIPS compliant**.
+*   **Tetrate offers the first FIPS-certified builds of Istio and Envoy** with its open source Istio distribution, [Tetrate Istio Distro](https://tetr8.io/tid), plus enterprise support with [Tetrate Istio Subscription](https://tetr8.io/tis).
+
+**To find out more** about [FIPS](/learn/fips/istio-fips/) and Istio, download our free [_Primer on Zero Trust and FIPS for Cloud Native Applications._](https://tetr8.io/3QPMxtD)
+
+## [](#what-is-fips-and-why-does-it-matter)What Is FIPS and Why Does it Matter?
+
+FIPS is a set of standards for information processing systems that all U.S. federal agencies, contractors, and vendors must adhere to. FIPS is also widely regarded as a set of robust and trustworthy security standards that is often adopted by private sector organizations.
+
+A key part of FIPS governs cryptographic modules, the [specialized hardware, software, and firmware that encrypt data](https://csrc.nist.gov/glossary/term/Cryptographicmodule) to ensure privacy and authenticity. NIST offers the [Cryptographic Module Validation Program (CMVP)](https://csrc.nist.gov/projects/cryptographic-module-validation-program) to ensure that validated modules are safe and approved for use in federal information systems.
+
+As part of CMVP, NIST authorizes independent labs to audit cryptographic modules submitted by vendors for review. Modules that pass this review are said to be _FIPS validated_. The validation status of all modules submitted to CMVP is published via a [publicly searchable database](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search).
+
+If you want to run software that does cryptography for the U.S. government, you have to make sure its crypto modules are validated by one of those labs.
+
+## [](#golang-and-envoy-cryptography-and-fips-compliance)Golang and Envoy Cryptography and FIPS Compliance
+
+Istio and Envoy are not built against validated crypto modules by default. Because of this, the stock community builds of Istio are not FIPS-compliant, either. But, it is possible to compile against FIPS-validated crypto modules to produce a FIPS-compliant build. The trick is where to find a build of Istio that you can trust is properly compiled against FIPS-validated crypto. There are at least two ways to go about creating a distribution that can be verified by a third party as compliant with FIPS and suitable for FedRAMP. 
+
+**Fork and validate.** One way is to fork an existing crypto library and go through the process of having it validated by CMVP. The forking approach has the sole advantage of listing the vendor of the forked module in the CMVP database. Unfortunately, this approach also has significant downsides: the forked module must be maintained by the vendor and is subject to the inevitable risk that highly sensitive cryptography will drift from the more well-maintained upstream version of the module.
+
+**Reuse and verify.** The other approach—the one we took with Tetrate Istio Distro—is to compile against a crypto module that has already been validated by CMVP and then have the build process verified as FIPS-compliant by a third-party laboratory. We took this approach for TID because we think it is **by far the best for our users**. And, while this means Tetrate doesn’t show up in the CMVP database by name, we eliminate the risk of a drifting fork for our users and we offer only the smallest and most well-scrutinized footprint of sensitive cryptographic code that must be FIPS validated.
+
+## [](#tetrates-fips-verified-istio-and-envoy-builds-are-certified-for-use-in-fedramp-environments)Tetrate’s FIPS-Verified Istio and Envoy Builds Are Certified for Use in FedRAMP Environments
+
+For Tetrate Istio Distro’s FIPS-compliant builds, we compile Istio—and its data plane of Envoy proxies—to use [BoringSSL](https://boringssl.googlesource.com/boringssl/) which, in turn, [uses a core module called Boring Crypto](https://boringssl.googlesource.com/boringssl/+/master/crypto/fipsmodule/FIPS.md). Boring Crypto is FIPS 140-2 validated ([Certificate #](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/3678)[4407](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4407)). You can read about the specific details of how this is done in the [TID documentation](https://github.com/tetratelabs/istio/blob/tetrate-workflow/tetrateci/docs/fips.md).
+
+We then engage an [NVLAP-accredited testing lab](https://www.nist.gov/nvlap) to verify that our distribution uses the CMVP-validated crypto module correctly. As part of Tetrate Istio Subscription, our customers receive a certificate of compliance along with access to our FIPS-certified builds to ensure that their use of Istio satisfies FedRAMP’s requirements for authority to operate.
+
+## [](#download-our-primer-on-zero-trust-and-fips)Download Our Primer on Zero Trust and FIPS
+
+If you want to know more about FIPS and the role it plays more broadly in zero trust security, you can download our free [_Primer on Zero Trust and FIPS for Cloud Native Applications._](https://tetr8.io/3QPMxtD) If you’re interested in using Tetrate’s FIPS-compliant Istio, check out [Tetrate Istio Distro](https://tetr8.io/tid) and [Tetrate Istio Subscription](https://tetr8.io/tis), or download our PDF on [_FIPS-Certified Istio and Enterprise Support from the Founders and Maintainers of Istio and Envoy_](https://tetr8.io/3D1myJZ).

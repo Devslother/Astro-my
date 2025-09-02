@@ -1,0 +1,210 @@
+---
+title: "Mobile Premier League Migrates from VMs to K8s in AWS with Tetrate to Deliver a Better Experience to 90+ Million Gamers"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+Mobile Premier League (MPL) is India’s largest fantasy sports and online gaming platform. The Bengaluru-based startup has raised $396 million to date, according to market intelligence platform Tracxn. With offices spread across India, Singapore and New York, MPL reportedly has more than 90 million registered users on its platform. 
+
+At one time, MPL was running all of its workloads on Amazon Elastic Compute Cloud (EC2) virtual machines (VMs), using AWS Application Load Balancer to route incoming traffic to proper resources based on Uniform Resource Indicators (URIs). In an effort to modernize infrastructure and reap the agility, scalability and reliability gains of modern microservices architectures, MPL set out to shift its VM-based workloads to microservices in Kubernetes. Tetrate assisted MPL in this transition, using the VM onboarding capability in Tetrate Service Bridge (TSB) to manage the risks and complexity of migrating to new infrastructure without interrupting service to its customers.
+
+With more than 90 million gamers accessing its platform, MPL needs to be able to run its platform at scale using an architecture that is flexible, reliable and efficient. That’s why MPL joined the ranks of enterprises today that are shifting their workloads from monolithic to microservices architecture, or, phrased another way, moving from VMs to containers orchestrated by Kubernetes.
+
+## [](#the-migration-challenge-how-to-migrate-incrementally-to-reduce-risk-and-manage-complexity)The Migration Challenge: How to Migrate Incrementally to Reduce Risk and Manage Complexity
+
+In reality, the shift from VMs to containers is rarely completed in one fell swoop. The risk of failure or downtime and the complexity of migrating a whole application fleet to a new architecture and environment makes a “big bang” cutover impractical. Instead, the shift is typically made in stages where applications are migrated incrementally to mitigate risk and manage complexity.
+
+During the transition, however, the business operates a hybrid infrastructure with some components running on VMs and others in Kubernetes. Applications and services running in both environments must still somehow communicate with each other securely and reliably across infrastructure boundaries to maintain business continuity. This can pose significant operational challenges—especially for service discovery, new deployments rollout, traffic management and security policy implementation.
+
+To meet this challenge, MPL turned to Tetrate’s expertise and TSB’s ability to onboard EC2 virtual machine workloads to the Istio-based service mesh in Kubernetes—to facilitate exactly this kind of cross-boundary communication. Once enrolled in the mesh, Istio and Envoy manage traffic, security and resiliency between those VMs and Kubernetes workloads.
+
+TSB can manage workloads on heterogeneous infrastructure in on-premises data centers and public clouds like AWS, GCP and Azure. TSB supports onboarding standalone VMs as well as autoscaling groups-based pools of virtual machines.
+
+In this article, we will detail how to migrate VM-based applications to Kubernetes in AWS environments using Istio, Envoy and Tetrate Service Bridge. This article will go into detail on how Mobile Premier League (MPL)  gaming successfully advanced VM apps into the service mesh with the help of TSB. Readers will walk away understanding the architecture and procedure of onboarding an EC2 instance to a service mesh.
+
+## [](#why-onboard-vms-into-a-service-mesh)Why Onboard VMs into a Service Mesh?
+
+*   VMs are treated like a Kubernetes pod and accessed via Kubernetes service objects.
+*   VMs are assigned a strong SPIFFE identity for use in identity-based authentication and authorization operations like mTLS.
+*   Secure (mTLS) communication with other VMs and Kubernetes-based services.
+*   Leveraging features built into service mesh like mTLS, service discovery, circuit breaking, canary rollouts, traffic shaping, observability and security with other workloads.
+*   Makes VMs eligible workload for zero trust network architecture.
+*   Makes easy migration of VM-based workloads to containerized Kubernetes microservices.
+
+## [](#mpl-experience-migrating-to-kubernetes)MPL Experience Migrating to Kubernetes
+
+Prior to implementing this change with TSB, MPL was running all of its workloads in EC2 virtual machines. Its infrastructure is composed of pools of EC2 VMs and an AWS Application LoadBalancer (ALB). There are multiple Auto Scaling groups-based EC2 VMs constituting one application per group. ALB routes to these VMs based on the incoming URI. In this architecture, service discovery was managed by Consul, where Consul agents run on each virtual machine.
+
+> __We were fully in EC2 Virtual machines and our plan was to migrate all of our workloads to Kubernetes. With the help of TSB’s VM onboarding capability, this migration became very easy. We initially explored upstream Istio for this, but there we had to face a lot of config management and performance issues for each VM. However, with TSB it’s very minimal config and the VM onboarding agent did the rest for us. We could achieve our VM workloads migration to Kubernetes without any service disruption or any added complexity. Thanks to the Tetrate team who assisted us promptly when we were running into severe issues and making this transition successful.__
+> 
+>  _—Swapnil Dahiphale, MPL Senior Cloud Executive_
+
+![Post Image](/.netlify/images?url=_astro%2Finitial-deployment-architecture-1024x675.B6zGSapr.jpg&w=1024&h=675&q=100)
+
+Figure 1: Figure 1: Initial deployment architecture.
+
+![Post Image](/.netlify/images?url=_astro%2Finitial-deployment-architecture-1024x675.B6zGSapr.jpg&w=1024&h=675&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+## [](#strategies-for-migrating-ec2-workloads-to-kubernetes)Strategies for Migrating EC2 Workloads to Kubernetes 
+
+The primary objective was to migrate all of the VM-based workloads to Kubernetes. As shown in the architecture diagram (Figure 1), in one instance of production there are  > 100 VM-based applications. And each of these applications communicates to other applications with the help of consul service discovery. This direct app-to-app communication  presents an  interdependency that adds to the complexity of migrating them to Kubernetes. 
+
+To mitigate risk and to make the migration process manageable, we took an incremental approach rather than migrate all applications to Kubernetes en masse.
+
+The basic migration strategy was as follows:
+
+*   Choose  one service at a time to [migrate to Kubernetes](/blog/kubernetes-ingress-gateway-migrate/).
+    
+*   Analyze the upstream and downstream service dependency graph.
+    
+*   Migrate this service to Kubernetes and onboard it into the Istio service mesh.
+    
+*   Also onboard the virtual machines of segmented upstream and downstream applications from the dependency graph into the service mesh.
+    
+
+At the end of this process:
+
+*   We have migrated  one service (application)  to Kubernetes.
+*   All of the other VMs in the dependency graph—both upstream and downstream—are now accessible via Kubernetes service object as part of the service mesh.
+*   All components in the dependency graph—those running in upstream and downstream virtual machines as well as the service migrated to Kubernetes—use Kubernetes-style  service-to-service communication managed by Kubernetes and Istio.
+
+Using this  process, we have migrated one application to Kubernetes and the VMs in its upstream and downstream dependency graph are now part of the mesh. Those onboarded VMs have their own dependency graphs that still contain workloads  outside of the mesh. That communication continues to use the older app-to-app communication method using Consul discovery, so we operate both systems for the duration of the migration process. By repeating this process for every service, we successfully migrated all workloads to Kubernetes and were able to decommission the Consul-based infrastructure.
+
+## [](#four-phases-of-migration-to-kubernetes)Four Phases of Migration to Kubernetes
+
+### [](#phase-1-transition-individual-workloads-to-kubernetes)Phase 1: Transition Individual Workloads to Kubernetes
+
+The diagram in Figure 2 below shows that services P, Q, R and S have been advanced to Kubernetes. The VMs of upstream and downstream applications are also onboarded into the service mesh.
+
+![Post Image](/.netlify/images?url=_astro%2Ftransition-phase-1024x738.tlTkKcKr.jpg&w=1024&h=738&q=100)
+
+Figure 2: Figure 2: Transition phase.
+
+![Post Image](/.netlify/images?url=_astro%2Ftransition-phase-1024x738.tlTkKcKr.jpg&w=1024&h=738&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+Each onboarded VM runs an Envoy Proxy sidecar instance and an onboarding agent. The agent onboards this VM into the Istio service mesh enabled in application kubernetes cluster and the Envoy sidecar transparently routes traffic to other services in the mesh.   
+
+For each onboarded VM, a workload entry resource is created in this Kubernetes cluster that represents this VM as a workload resource in the mesh, like a Kubernetes pod. Within the mesh, these VM workloads are accessed via Kubernetes service objects DNS with a label selector selecting the workload entry resources. 
+
+Since we are still in the transition phase, our primary traffic entry point will be the same ALB with the same routing configuration with target groups. These target groups directly communicate to non-mesh VMs, but in the case of onboarded VMs, target groups communicate with the sidecar listener. 
+
+Once a VM is onboarded, all of its application traffic is proxied by the Envoy sidecar. To enable this, we configure the VM application to listen to the loopback interface at 127.0.0.1:`<port>` which it uses to communicate through the sidecar. DNS is configured to resolve all downstream and external services to the loopback IP 127.0.0.2 as well, as shown in Figure 3.
+
+![Post Image](/.netlify/images?url=_astro%2Fvm-onboarded.C0N3B8T7.jpg&w=670&h=531&q=100)
+
+Figure 3: Figure 3: Before and after onboarding.
+
+![Post Image](/.netlify/images?url=_astro%2Fvm-onboarded.C0N3B8T7.jpg&w=670&h=531&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+### [](#phase-2-all-vms-onboarded-to-the-mesh)Phase 2: All VMs Onboarded to the Mesh
+
+After repeating the above process, some services are fully migrated to Kubernetes and their dependent upstream and downstream applications’ VM workloads are onboarded into the mesh, accessible via Kubernetes service objects.  As we have discussed above, within the mesh all communications happens via Kubernetes service DNS. As shown in Figure 4, onboarded VMs (e.g., App\_A VMs) communicate with other Kubernetes services (e.g., Service\_P)  via service DNS. And the Kubernetes-based service (Service\_P pods) itself can communicate with other VM-based applications (e.g., App\_O VMs) using its service DNS. Service discovery is provided by the service mesh, eliminating the need for Consul in this communication path.
+
+![Post Image](/.netlify/images?url=_astro%2Fadvancing-workloads-vm-onboarded-1024x653.C9hooCrA.jpg&w=1024&h=653&q=100)
+
+Figure 4: Figure 4: Migrating workloads with all VMs onboarded.
+
+![Post Image](/.netlify/images?url=_astro%2Fadvancing-workloads-vm-onboarded-1024x653.C9hooCrA.jpg&w=1024&h=653&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+### [](#phase-3-replace-application-load-balancer-with-istio-ingress-gateway)Phase 3: Replace Application Load Balancer with Istio Ingress Gateway
+
+Istio ingress gateway provides a superset of the ALB Layer 7 capabilities with tighter Kubernetes integration for increased operational efficiency—plus, it eliminates the ongoing cost of ALB. In this scenario, Istio provides TLS termination at the gateway and automatically establishes seamless mTLS communication for traffic between services in the mesh—[a level of encryption and authentication required to achieve a Zero Trust security posture.](/blog/how-istios-mtls-traffic-encryption-works-as-part-of-a-zero-trust-security-posture/)
+
+![Post Image](/.netlify/images?url=_astro%2Falb-replacement-istio-ingress-gateway-1024x575.D6zbHBC8.jpg&w=1024&h=575&q=100)
+
+Figure 5: Figure 5: ALB replaced by Istio Ingress Gateway.
+
+![Post Image](/.netlify/images?url=_astro%2Falb-replacement-istio-ingress-gateway-1024x575.D6zbHBC8.jpg&w=1024&h=575&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+### [](#phase-4-decommission-ec2-vms)Phase 4: Decommission EC2 VMs
+
+Once EC2 VM workloads have been onboarded to the mesh, migrating them to Kubernetes is simply a matter of adding Kubernetes deployments of those applications and putting them behind the same Kubernetes service by applying the same labels selector. At this phase, we have both EC2 VMs and Kubernetes pods service traffic for the same service (Figure 6) and can begin the process of decommissioning the VM workloads.
+
+![Post Image](/.netlify/images?url=_astro%2Fphasing-out-vms-1-1024x580.BG2CMNxC.jpg&w=1024&h=580&q=100)
+
+Figure 6: Figure 6: Decommissioning VMs
+
+![Post Image](/.netlify/images?url=_astro%2Fphasing-out-vms-1-1024x580.BG2CMNxC.jpg&w=1024&h=580&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+### [](#end-state-migration-complete-all-vms-decommissioned)End State: Migration Complete, All VMs Decommissioned
+
+Once a Kubernetes based deployment is in place, we can scale down the EC2 auto scaling groups and scale up Kubernetes deployment. After rolling out all the deployments we are left with a fully migrated Kubernetes-based architecture (Figure 7).
+
+![Post Image](/.netlify/images?url=_astro%2Ffully-advanced-ink8s-1024x580.DxtiU65I.jpg&w=1024&h=580&q=100)
+
+Figure 7: Figure 7: Migration complete, all VMs decommissioned.
+
+![Post Image](/.netlify/images?url=_astro%2Ffully-advanced-ink8s-1024x580.DxtiU65I.jpg&w=1024&h=580&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+## [](#vm-onboarding-architecture-overview)VM Onboarding Architecture Overview
+
+The diagram in Figure 8 offers an overview of the full onboarding process flow:
+
+![Post Image](/.netlify/images?url=_astro%2Fvm-onboarding-architecture.CCVLTwfD.jpg&w=1467&h=677&q=100)
+
+Figure 8: Figure 8: Onboarding process flow.
+
+![Post Image](/.netlify/images?url=_astro%2Fvm-onboarding-architecture.CCVLTwfD.jpg&w=1467&h=677&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+The workload onboarding architecture takes advantage of the following components:
+
+*   **Workload Onboarding Operator**: This component is installed into the Kubernetes cluster as part of the TSB control plane.
+*   **Workload Onboarding Agent**: The agent is installed in the VM next to the VM workload. 
+*   **Workload Onboarding Endpoint** – The Workload Onboarding Agent connects to this component to register the workload in the mesh and obtain boot configuration for the Envoy sidecar.
+*   **Workload Groups:** When a workload running outside of a Kubernetes cluster is onboarded into the mesh, it is considered to join a particular [WorkloadGroup](https://istio.io/latest/docs/reference/config/networking/workload-group/). The Istio WorkloadGroup resource holds the configuration shared by all the workloads that join it. In a way, an Istio WorkloadGroup resource is to individual workloads what a Kubernetes Deployment resource is to individual Pods. WorkloadGroup enables specifying the properties of a single workload for bootstrap and provides a template for WorkloadEntry, similar to how Deployment specifies properties of workloads via Pod templates. To be able to onboard individual workloads into a given Kubernetes cluster, you must first create a respective Istio WorkloadGroup in it.
+*   **Sidecar**: An Istio sidecar is deployed next to your workload. It’ll be responsible for all ingress and egress traffic of your application.
+
+### [](#onboarding-steps)Onboarding Steps
+
+The basic steps for onboarding a workload are: 
+
+1.  Install the workload Onboarding Agent.
+2.  Install the Envoy sidecar.
+3.  Prepare and install a declarative configuration describing where to onboard the workload.
+
+For items 1 and 2, the TSB control plane-based onboarding components host their  DEB/RPM packages locally within their network. Once installation is complete, the **Workload Onboarding Agent** executes the onboarding flow according to the declarative configuration provided by the operator in step 3.
+
+Let’s use the following configuration as a concrete example:
+
+```
+---
+apiVersion: config.agent.onboarding.tetrate.io/v1alpha1
+kind: OnboardingConfiguration
+onboardingEndpoint:                           # (1)
+ host: onboarding-endpoint.your-company.corp
+workloadGroup:                                # (2)
+ namespace: bookinfo
+ name: ratings
+```
+
+Given the above configuration, the following takes place:
+
+1.  The Workload Onboarding Agent will connect to the Workload Onboarding Endpoint at [https://onboarding-endpoint.your-company.corp:15443](https://onboarding-endpoint.your-company.corp:15443) (1)
+2.  The Workload Onboarding Endpoint will authenticate the connecting Agent from the cloud-specific credentials of the VM
+3.  The Workload Onboarding Endpoint will decide whether a workload with such an identity, (i.e., the identity of the VM), is authorized to join the mesh in the given WorkloadGroup (2) in particular
+4.  The Workload Onboarding Endpoint will register a new WorkloadEntry at the Istio Control Plane to represent the workload
+5.  The Workload Onboarding Endpoint will generate the boot configuration required to start the proxy according to the respective WorkloadGroup resource (2)
+6.  The Workload Onboarding Agent will save the returned boot configuration to disk and start the sidecar
+7.  The sidecar will connect to the Istio control plane and receive its runtime configuration
+
+## [](#summary)Summary
+
+With Tetrate’s help, MPL was able to modernize their application infrastructure from VMs to Kubernetes incrementally by onboarding VMs into the Tetrate Service Bridge mesh to reduce operational complexity and risk to business continuity. As part of this transition, VM-based workloads were put behind Kubernetes services along with pods while load balancing the same ingress traffic. To see the details of VM onboarding in action, take a look at [the workload onboarding guides in the Tetrate Service Bridge documentation](https://docs.tetrate.io/service-bridge/1.6.x/setup/workload_onboarding/guides/).

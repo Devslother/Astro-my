@@ -1,0 +1,105 @@
+---
+title: "Trusting trust: Root Istio’s trust in your existing PKI"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+It comes up regularly when we talk to customers and users who want to get started with Istio. How can trust work for me? If Istio has its own Certificate Authority, and I have mine, how can I make sure that they trust each other? 
+
+To put it simply, it works by bringing Istio into your existing root of trust through an intermediate signing certificate. 
+
+If you run Istio as a demo or out of the box, it will have its own self-signed certificate– it is its own root. This is a common pain point for users who are running Istio in multiple clusters: they inadvertently create two islands with no trust, and therefore no secure communication.
+
+Here’s how you can make yourself successful by rooting Istio’s trust in your existing [PKI](/blog/multi-cluster-pki-istio-recipe-practical-example-for-a-trusted-and-scalable-pki-for-your-service-mesh/).
+
+## [](#long-story-short)**Long story short**
+
+Here’s the short version: you should root Istio’s trust in your existing PKI by creating an intermediate signing certificate for each Istio deployment (and you should have one Istio deployment per cluster). Then you’ll:
+
+1.  Enable communication across your Istio deployments
+2.  Allow for fine-grained cert revocation without forcing new certificates across your entire infrastructure at the same time (If that sounds like a major outage waiting to happen, you would be correct). 
+3.  Enable easy rotation of signing certificates. All you need to do is create a new intermediate and restart Istio with the new certificate. Because it’s in the same root of trust, everything continues to work. 
+
+Istio has to fit into your existing architecture to enable incremental adoption within organizations — adapting the mesh to your organization, not the other way round. Starting by understanding the need for an intermediate cert signing key will set you up for success, and make any infrastructure or environmental changes much smoother.
+
+## [](#short-story-longer)**Short story longer** 
+
+Starting from the beginning, here’s a quick refresher on certificate path validation. In a basic certificate, chain checks start at the trust anchor (the root) walking down to a specific identity (the leaf). The cert path validation algorithm is how we make sure that a certificate can be trusted. This happens when we connect to another machine using a secure protocol like TLS where the server presents some or all of its cert chain to us to prove its identity. If the certificate in the chain is determined to be invalid at any point, the certificate chain is rejected and there’s no trust established. However, if we reach the end of the chain without error, then the path (and therefore the certificate) is valid. Success! We can trust the server!
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-01-1024x576.CVmsjxb7.png&w=1024&h=576&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-01-1024x576.CVmsjxb7.png&w=1024&h=576&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+When the TLS handshake takes place, the path validation algorithm doesn’t care how much of the cert chain resides within our trust bundle. Based on what we bring and they provide, it only cares that we can build a chain from the server’s leaf to a root of trust within our bundle. The example above shows that the validation takes place at the certificate exchange, which is enough for the leaf to find its place within the certificate authority. 
+
+By the time you’re running Istio in production, you’ll have multiple leaves and intermediates but **only one root.**
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-02-1024x576.BAGIaS5b.png&w=1024&h=576&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-02-1024x576.BAGIaS5b.png&w=1024&h=576&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+This is why the three key benefits of rooting trust in an existing PKI are:
+
+1.  Cross-communication between Istio deployments
+2.  Fine-grained revocation
+3.  Easy cycling of certificates
+
+## [](#communication-across-istio-deployments)**Communication Across Istio Deployments** 
+
+For Istio there’s two ways to ensure communication across deployments- the easy way, and the hard way. 
+
+The hard way involves an Istio operator taking time-consuming, complicated and expensive steps to make sure that both roots are also within the other’s Certificate Authority (CA) Bundle.
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-03-1024x576.DL3XHYSI.png&w=1024&h=576&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-03-1024x576.DL3XHYSI.png&w=1024&h=576&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+The easy way is you deploy Istio with a separate intermediate signing certificate per deployment that all share the same root.
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-04-1024x576.a-UcOjRB.png&w=1024&h=576&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-04-1024x576.a-UcOjRB.png&w=1024&h=576&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+The knock-on impact of this decision is huge when it comes to both fine-grained revocation and easy cycling of certificates.
+
+## [](#fine-grained-revocation)**Fine-grained revocation**
+
+Revoking a certificate (“revocation”) marks a certificate as no longer trusted. As the cert path validation algorithm walks from leaf to root, a revocation status check is done on each cert. This enables you to revoke trust from individual components, or entire sections of your deployment.
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-05-1024x576.DWzxM5y7.png&w=1024&h=576&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2FTrust-05-1024x576.DWzxM5y7.png&w=1024&h=576&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+This is important because if a signing key is compromised, a malicious actor could impersonate your servers by presenting what your clients believe to be a valid certificate. It’s even more important in Istio, because we use certificates to identify workloads to each other – an attacker could pretend to be any service in your mesh! 
+
+Usually, handling revocation is the hardest part of managing any PKI. One of the ways Istio helps mitigate this risk is to issue very short-lived certificates. A typical revocation list can take up to 24 hours to propagate across an entire organization. Istio issues certificates that live for less than 12 hours, so there’s almost never a need to revocate an identity certificate issued by Istio. You only need to worry about the signing certificate that you created for each Istio deployment.
+
+## [](#rotating-certificates-easily)**Rotating Certificates Easily**
+
+As with revocation, certificate rotation is easier with an intermediate. The advantages include that you’ll experience less downtime if you’re able to rotate the certificate per cluster as opposed to at the root (and the associated complications publishing an updated CA bundle with that new root everywhere). And, like any good PKI, this lets you keep the root offline and stored away safely.
+
+### [](#takeaways)**Takeaways**
+
+Do it the easy way! Bring Istio into your existing root of trust to avoid pain and heartache. The intermediate signing certificate is there to make it easier and safer to adopt Istio. 
+
+### [](#resources)**Resources:**
+
+*   Tetrate offers a free class on the fundamentals of Istio at [academy.tetrate.io](https://academy.tetrate.io).
+
+*   The open source project [GetIstio](https://docs.tetrate.io/istio-distro/) is the easiest way to get started with Istio. 
+
+*   Subscribe to [www.youtube.com/tetrate](https://www.youtube.com/tetrate) for instructional videos and webinars on service mesh.
+
+Contact [learn@tetrate.io](mailto:learn@tetrate.io) or [follow Tetrate on Twitter](https://twitter.com/tetrateio) for the latest on service mesh.

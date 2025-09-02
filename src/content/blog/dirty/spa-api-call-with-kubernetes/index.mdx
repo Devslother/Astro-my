@@ -1,0 +1,73 @@
+---
+title: "The Role of Envoy Gateway When an SPA Calls Backend APIs in Kubernetes"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+## [](#the-browser-to-pod-journey)The Browser to Pod Journey
+
+Congratulations! You have a single-page app (SPA) in a browser and want it to be useful, not just pretty, so you want to retrieve, write, or analyze data by calling a service running in a Kubernetes cluster. 
+
+This article talks about the journey of a request from the browser to a backend service running in Kubernetes and the role of Envoy Gateway in handling the requests.
+
+![Post Image](/.netlify/images?url=_astro%2FFigure_1-1024x377.ByBfLaVE.png&w=1024&h=377&q=100)
+
+Figure 1: Whither Envoy Gateway?
+
+![Post Image](/.netlify/images?url=_astro%2FFigure_1-1024x377.ByBfLaVE.png&w=1024&h=377&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+So, if the beginning of the arrow is in your browser, and the end is in a pod in Kubernetes, what are all the things in between? And what role does the Envoy Gateway component play at the edge of the Kubernetes cluster?
+
+## [](#traffic-path-summary-from-spa-to-a-kubernetes-pod)Traffic Path Summary from SPA to a Kubernetes Pod
+
+To understand the role the Envoy Gateway plays in a SPA calling APIs, we must first look at the practical components the network call goes through when it comes from the browser:
+
+*   **DNS** **Resolution**—Since you don’t want your pretty web app to call an IP address, you registered a domain name to resolve to an IP address. For example, awesome.example.com is just a pretty name for an IP. What’s cool about DNS is that we can have it resolved to many IPs or change it later, so if we one day decide to migrate it all to a different place and get new IPs, the app code doesn’t have to change.
+*   **External LoadBalancer**—You must have wondered where you would get that IP address for the DNS Registration in the first place, which awesome.example.com would point to. Assuming you are using a cloud provider like GCP, AWS, or Azure, you are likely using one of the external load balancers that the cloud providers offer. If you are using AWS, let’s assume you use a low-cost option like an [NLB](/blog/using-envoy-gateway-with-aws-alb-or-nlb/). _See this article for how to use NLB with Envoy Gateway in AWS:_ [How to Use Envoy Gateway with AWS NLB for Maximum Throughput with Minimum Resources](/blog/envoy-gateway-with-aws-nlb/) 
+*   **Kubernetes Gateway**—The biggest reason you picked a low-feature, low-cost option like an AWS NLB is that you picked a cloud provider-agnostic, feature-rich Kubernetes Gateway. In this example, you picked Envoy Gateway. You did this because you want to have all the complicated routing and security logic configured cloud-natively in Kubernetes rather than using a vendor-locked Cloud Provider Load Balancer to handle that logic. (_See this link for how to get started with Envoy Gateway using the Tetrate Enterprise Gateway installation charts:_ [Get Started with the TEG Demo Installation](https://docs.tetrate.io/envoy-gateway/howto/demo-chart))
+*   **Kubernetes Service**—The Gateway receives the traffic and checks where it is supposed to go based on a header, a path, or the hostname like awesome.example.com to send it to the correct Kubernetes Service. You may be doing a release of a new build version of the service and want to send 10% of traffic to the latest version. The Gateway now tells Kubernetes which service to send the request to, and then Kubernetes leverages its internal service routing capabilities to get it to a ready Pod.
+*   **Kubernetes Pod**—The request arrives at the Pod, where the containerized application processes it, and the smart business logic happens. Then, a response is generated and travels back to the browser. Services abstract our access to Pods because a service might have a small number of idle pods ready to serve traffic, but when there is a high traffic load, the Kubernetes system will start spinning up more pods to handle more concurrent requests.
+
+![Post Image](/.netlify/images?url=_astro%2FFigure_2-2-1024x346.DSkXvbAw.png&w=1024&h=346&q=100)
+
+Figure 2: Traffic path summary from SPA to a Kubernetes Pod.
+
+![Post Image](/.netlify/images?url=_astro%2FFigure_2-2-1024x346.DSkXvbAw.png&w=1024&h=346&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+## [](#component-summary)Component Summary
+
+Image could not be loaded
+
+Image could not be loaded in lightbox
+
+×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+\## What Does Envoy Gateway Do?
+
+When considering the incoming traffic at the edge of the Kubernetes cluster, Envoy Gateway can handle several important jobs. These include traffic management, traffic control, access control, and observability, all of which are crucial for efficient and secure traffic handling.
+
+Here is a summary of some common jobs Envoy Gateway can do for you:
+
+*   **Traffic Management**
+    *   Routing logic
+    *   Load balancing
+    *   Canary releases and traffic splitting
+*   **Traffic Control**
+    *   Rate limiting and throttling
+    *   Circuit breaking and retry policies
+    *   WAF integration
+*   **Access Control**
+    *   JSON Web Token (JWT) validation
+    *   Basic Auth
+    *   mTLS
+*   **Observability**
+    *   Integration with monitoring and visualization tooling like Prometheus and Grafana
+    *   Extensive logging

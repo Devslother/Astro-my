@@ -6,13 +6,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "snarf": "node bloggypants/snarf.js",
+    "snarf-learn": "node bloggypants/scripts/batch-html-to-mdx-learn.js",
+    "snarf-resources": "node bloggypants/scripts/batch-html-to-mdx-resources.js",
+    "snarf-blog": "node bloggypants/scripts/batch-html-to-mdx-blog.js"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^2.2.1",
     "astro": "^5.9.2",
     "classnames": "^2.5.1",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "jsdom": "^26.1.0",
+    "turndown": "^7.2.1"
   },
   "devDependencies": {
     "@astrojs/vercel": "^8.2.5",

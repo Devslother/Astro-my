@@ -1,0 +1,153 @@
+---
+title: "Implement Zero Trust Network for Microservices using TSB"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+Today, every major organization is going through a massive digital transformation, adopting cloud, mobile, microservices, and container technologies to deliver services efficiently, meet critical business demands, and catch up with market expectations. Organizations’ Platform and DevOps teams have to model distributed and multi-cloud applications and services accessible from anywhere and anytime to be agile. This has given rise to two significant trends within the organizations:
+
+1.  As a growing number of organizations adopt multi-cloud, they deploy their applications into the public cloud (Google, Amazon, Azure, etc.), which means that the data is out of their perceived safety of on-prem data centers.
+2.  Organizations use [microservices](/learn/what-are-microservices/) and distributed architecture to achieve agility and scale. 
+
+However, application developers now need to address a new set of reliability and security concerns as an increased number of dependencies are consumed via network calls. When centralized systems were in use, network and endpoint security were easy to achieve and manage a decade ago. The security team could adequately secure the perimeter using a firewall. With the new trend of scattered data in multi-cloud and distributed workloads due to microservices, IT security organizations need to assess their security posture and rethink their network architecture. Of course, security is not a one-man or one department job; it is a shared responsibility among the IT Security, DevOps, and Ops teams in an organization.
+
+This blog will introduce you to Zero Trust Networks and its essential elements that a leader must consider to make the network robust, free from security vulnerabilities in today’s digital transformation, and reduce potential financial losses. We will be covering the following topics in this blog: 
+
+*   [What is a Zero Trust Network?](#what-is-ztn)
+*   [Why does the industry need Zero Trust Network more than ever?](#need-for-ztn)
+*   [Key elements for implementing a Zero Trust Network](#elements-for-ztn)
+*   [How can Tetrate Service Bridge (TSB) help out of the box?](#tsb-for-ztn)
+
+## [](#what-is-a-zero-trust-network)What is a Zero Trust Network?
+
+Zero trust is a guiding principle that emphasizes that IT organizations build network architecture without trusting any person, application, or device. In this context, ‘Zero’ trust means ‘no implicit’ trust. Enterprise IT cannot assume that external and internal entities are trustworthy, or a one-time assessment of the security risk of any entity will be enough (entities can be applications, people, or traffic).
+
+Zero trust is usually associated with network security, as trust comes into the picture only when there is an exchange of data. Zero trust networking is a method to identify the trustworthiness of any external entity through authentication and monitoring of each network access attempt. 
+
+[**White Paper: Zero Trust Architecture** Get your copy](/resource/zero-trust-architecture-white-paper/)
+
+### [](#why-is-zero-trust-network-important-more-than-ever)Why is Zero Trust Network important more than ever?
+
+We want to highlight the most common reasons Zero Trust Networking is more important than ever.
+
+#### [](#data-breaches-in-the-cloud-are-prevalent-now)Data breaches in the cloud are prevalent now
+
+Data breaches are going up YoY, damaging companies’ reputations. Still fresh in my mind, a watershed event is Solarwinds Attack in 2020. Solarwinds Orion, a SaaS-based network monitoring tool, was compromised, the trojan was introduced using a malware attack to get hold of the entire network infrastructure. Although there was no collateral damage like stealing sensitive data or files from any enterprise, the intrusion was found across domains and geographies. Phishing attacks and malware attacks on clouds are usually hard to detect even for advanced companies and are likely to go up in the future. As per the [recent findings](https://www.verizon.com/business/resources/reports/dbir/2021/masters-guide/) by Verizon, cloud breaches have surpassed on-prem data breaches- 73% of cybersecurity incidents involved external cloud assets in 2021. And one standard recommendation for CISO would be to apply the principles of Zero Trust Network as soon as possible to avoid security breaches. 
+
+#### [](#distributed-workloads-arent-secured-either-thanks-to-runtime-vector-attack)Distributed Workloads aren’t secured either, thanks to runtime vector attack
+
+Though organizations are adopting Kubernetes technology faster than ever, they are not 100% security proof. There are frequent breaches and hacks of Kubernetes and containerized applications. As per [2021 reports by RedHat](https://www.redhat.com/en/resources/kubernetes-adoption-security-market-trends-overview), 90% of the respondents had experienced a security incident involving their container and Kubernetes environments over the previous year.
+
+One of the common reasons for the failure of distributed systems is the vector attack of Kubernetes clusters in the runtime (or real-time) and brings new sets of security challenges. If a hacker breaches a single Kubernetes container, they will attempt to breach the whole cluster, a complex vector attack. The National Security Agency (NSA) states that hackers target Kubernetes to [steal data and computation power](https://www.zdnet.com/article/hacker-target-kubernetes-to-steal-data-and-processing-power-now-the-nsa-has-tips-to-protect-yourself/).
+
+The root cause is often implicit trust, assuming inter-cluster resources are trusted and insecure network communication within the cluster is safe.
+
+#### [](#security-configuration-is-not-a-developer-core-competency)Security configuration is not a developer core competency
+
+Although Kubernetes brings agility and scale to the infrastructure and app delivery landscape, it is challenging to ensure security. One might argue that there are inherent security features in Kubernetes like RBAC using ClusterRoleBinding, TLS for Kubernetes services, etc. should be sufficient. However, Kubernetes needs a lot of configurations to make a workload secure from external and internal threats. For example, enforcing TLS between pods would require the maintenance of hundreds of TLS certificates at some point.
+
+And developers who are already focused on developing business functionality may not prioritize security issues. A recent report on [State of Kubernetes Security](https://www.redhat.com/en/blog/state-kubernetes-security) by Red Hat shows that the majority of the security incidents faced by large organizations are related to misconfigurations, major vulnerability, and suffered from runtime secured incidents.
+
+#### [](#application-delivery-has-attained-velocity-with-cicd-while-security-has-not)Application delivery has attained velocity with CI/CD, while security has not
+
+With CI/CD processes, delivery orchestration tools, GitOps style deployments, the DevOps team has accelerated their pace of software delivery. Many organizations can deploy applications into production daily (often within hours if needed). This rate of innovation is suitable for organizations to thrive and grow, but a lack of focus on robust security and compliance can introduce vulnerabilities.  
+
+Most of the organizations we talk to have gradually evolved in their DevOps journey and have started adopting DevSecOps by integrating security checks into their SDLC process. As a practice, their DevOps team, compliance managers, security managers, network administrators collaborate to discuss security requirements and architect threat models before deployment.
+
+### [](#key-elements-for-implementing-a-zero-trust-network)Key elements for implementing a Zero Trust Network
+
+There are many frameworks suggested by different security organizations, analysts, and authors. For instance, Forrester suggests Zero Trust Extended (ZTX model) and advocates protecting different conduits of data to protect the data itself. Gartner has a concept called Continuous Adaptive Risk and Trust Assessment (CARTA) which focuses heavily on analyzing risk postures associated with identity and devices. 
+
+We believe that there isn’t any one-size-fits-all framework that will apply to all scenarios and all organizations. We provide a Zero Trust framework for securing networks and applications for enterprises that develop and deploy their application using the microservice paradigm.  
+
+Tetrate has collaborated with the [National Institute of Standards and Technology (NIST)](https://www.nist.gov/news-events/events/2022/01/zta-and-devsecops-cloud-native-applications-virtual) to develop standards for Federal agencies to implement [zero-trust architecture](/learn/zero-trust/zero-trust-architecture/) for their microservices.
+
+_You can read the detailed guide to implement zero trust in microservices, in the NIST Special Publications co-authored by NIST and Tetrate – [Security Strategies for Microservices](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204.pdf), [Building Secure Microservice using Service Mesh Architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204A.pdf), [Attributed-based access control for microservices using Service mesh](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204B-draft.pdf), [Implementation of DevSecOps for a Microservice using Service Mesh](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-204C-draft.pdf), and Zero Trust Architecture._
+
+For CISOs and CTOs, based on the above research documents, we advocate a Continuous Security framework to achieve Zero Trust in their microservice & service mesh and avoid data breaches. Under the framework, there are 4 key elements one should consider:
+
+![Post Image](/.netlify/images?url=_astro%2FZero-Trust-Network-Framework-for-microservices.BeIm7pLG.png&w=975&h=548&q=100)
+
+Figure 1: Zero Trust Network Framework for microservices
+
+![Post Image](/.netlify/images?url=_astro%2FZero-Trust-Network-Framework-for-microservices.BeIm7pLG.png&w=975&h=548&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+#### [](#1-secure-network)1\. Secure Network
+
+The number one priority for the DevSecOps team is to secure the network and data integrity. Traffic to your application can come from any location- both inside and outside enterprise-owned networks. No device or request should be trusted irrespective of whether they belong to the enterprise network. All communication should be done in an encrypted, authenticated, and authorized manner to protect the confidentiality of data and prevent malicious actors from stealing data from the network.
+
+#### [](#2-secure-resources)2\. Secure Resources
+
+Resources can be small applications (services or workloads) that can send traffic to other applications inside a network. A network may comprise multiple services, and each service would talk to other services using API calls over the network for carrying out certain business functions and logic. Trust on each service must be evaluated, based on an established resource identity, before access is granted to send the request for processing. Authentication and authorization checks service identity must happen for a session, and services should not inherit access to all resources by default.
+
+#### [](#3-secure-users)3\. Secure Users
+
+Threats to an application can be placed by internal or external users. This is why the trustworthiness of each requester is evaluated through proper authentication before access is granted. Like securing resources, access to users should be granted with the least privileges needed to complete the task and also should be session-based. Of course, various users would receive access rights based on their roles. DevOps team and security should be cautious about assigning permissions, defining roles, and governance to users to avoid security and compliance threats. 
+
+#### [](#4-maximize-visibility)4\. Maximize Visibility
+
+To implement Zero Trust Network, IT Security organizations must continuously evaluate the security posture of their IT landscape, especially microservices, in real time. To react to any security incidents, the security team must be equipped with proper information and visibility for faster diagnosis and triage. There should be a proper mechanism to trace and isolate corrupted or vulnerable resources or users or devices from the resources in the enterprise network. 
+
+## [](#how-to-implement-zero-trust-using-tetrate-service-bridge-tsb-)How to implement Zero Trust using Tetrate Service Bridge (TSB) ?
+
+[Tetrate Service Bridge(TSB)](/tetrate-service-bridge/) enables security, agility, and observability for all edge-to-workload applications and APIs via one cloud-agnostic centralized platform. It provides built-in security and centralized visibility and governance across all environments for platform owners yet empowers developers to make local decisions for their applications. 
+
+TSB augments Istio and Envoy into enterprise-grade service mesh by providing FIPS-certified builds for your application and cloud platform, life-cycle management of Istio and Envoy, and other enhancements for increased usability.  
+
+Tetrate Service Bridge(TSB) sits at the application edge and is responsible for controlling request-level traffic across all your compute clusters, traffic shifting among multi-cloud, Kubernetes, and traditional compute clusters and providing north-south API gateway functionality. TSB also provides a global management plane with [NGAC](/blog/rbac-vs-abac-vs-ngac/) framework to define security policies and configuration, fetch telemetry, and handle the lifecycle of Istio and Envoy across your entire network topology. With TSB, the security team can take security out of the application code stack and put it in the transparent network layer where they belong- avoiding the developer’s bandwidth to change code for security.
+
+DevOps team can still carry on their plan to deploy the application into multi-cloud faster as per business demand while security can have the central control of security policies for the microservices. Let us see how TSB components can help in achieving security:
+
+![Post Image](/.netlify/images?url=_astro%2Ftsb-implementation-of-ngac-8.BiWPzbjL.png&w=1920&h=1539&q=100)
+
+Figure 2: Implementation of Zero Trust Network for Microservices using TSB
+
+![Post Image](/.netlify/images?url=_astro%2Ftsb-implementation-of-ngac-8.BiWPzbjL.png&w=1920&h=1539&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+TSB offers to secure your resource, network, user and to maximize visibility:
+
+#### [](#1-secure-naming-for-service-to-service-authorization-to-secure-resources)1\. Secure Naming for service-to-service authorization to secure resources
+
+As Tetrate Service Bridge (TSB) is built on Istio, by default it provides secure naming to ensure workloads (VMs and Pods) belong to the same microservice. TSB creates service identities for each workload (VMs or pods) and stores the information in secure name information. Server identities are encoded in certificates, but service names are retrieved through the discovery service or DNS. The secure naming information maps the server identities to the service names. A mapping of identity from (say) service A to service name B means “A is authorized to talk to service B”. 
+
+#### [](#2-mtls-based-authentication-of-services-to-secure-network)2\. mTLS based authentication of services to secure network
+
+TSB offers Istio peer-to-peer authentication resources to verify clients making the connection to secure workloads. It enables you to implement the mTLS authentication in your service mesh by Envoy proxies, a small application working alongside each service (also known as sidecar proxy). Client-side Envoy proxy does the hand-shaking with the service side Envoy proxy, and only when the mutual TLS connection is established, the traffic is moved from the client-side to the server-side. 
+
+mTLS based authentication is called peer-to-peer (P2P) authentication and does not require any service code changes. mTLS based p2p authentication provides each service to have a strong identification to enable interoperability across clusters and multi-cloud. Security managers can now define mTLS based authentication policies in the TSB management plane to encrypt service-to-service communication in the network. With a secured network there is no chance of a man-in-the-middle attack. 
+
+TSB provides a certificate management system to automatically generate, distribute and rotate private keys and certificates to decrypt the data in the request. 
+
+#### [](#3-jwt-based-authentication-to-secure-apps-from-internal-and-external-users)3\. JWT based authentication to secure apps from internal and external users
+
+For end-user authentication to verify the credential attached to the request, TSB provides existing Istio resources ( also called Request Authentication). Security managers can now leverage Istio resources to verify credentials by validating the JSON web token (JWT). The token will have the location of the token, issuer details, and public JSON web key set. Security managers can specify authentication policies and rules as per their organization standards, and TSB will reject or accept user requests based on the match of the token with the policies. 
+
+Since TSB Global management uses Istio, it provides the flexibility to connect with authentication providers of your choice like OpenID Connect providers, for example, KeyCloak, OAuth 2.0, Google Auth, Firebase Auth, etc.
+
+#### [](#4-authorization-policies-for-access-controls-to-secure-resources-and-users)4\. Authorization policies for access controls to secure resources, and users
+
+TSB authorization policies allow security managers to create access controls across service mesh, namespace, and workloads. Say, an authentic user has entered into a premise but should be restricted to take any action in the premise. 
+
+Security managers can now define granular rules (such as allow, deny or customize request) wrt Workload-to-workload and end-user-to-workload authorization using a single resource; it is easy to use and maintain. The best part is Istio authorization policies in TSB support communication frameworks such as gRPC, HTTP, HTTPS and HTTP/2, TCP natively.
+
+#### [](#5-observability-and-real-time-visibility)5\. Observability and real-time visibility
+
+Tetrate Service Bridge (TSB) allows security managers to proactively monitor and measure the integrity and security posture of microservice. The TSB control plane generates runtime **telemetry** which helps security personnel, network administrators, and SRE to constantly track the behavior of services. Apart from generating metrics, TSB also provides runtime **observability** like traffic flows to each service and service dependencies. TSB management plane provides visibility into information such as who is authorized to use what all services, what is being encrypted, etc.
+
+The security team can now see how each service is interacting with other services, and in case of a malicious attack, they can quickly isolate subverted applications before it damages their reputation, and then prepare patches to release. Furthermore, TSB generates **audit logs** for a chosen time period that provides a complete view of the how, what, when, and location of each access information. Audit logs help the auditors, and security managers to trace potential security breaches or any policy violations, and help find the root cause of issues quickly.
+
+##### [](#conclusion)Conclusion
+
+If the security team can protect the network, verify the identity of services and users in each transaction, and attain 360-degree visibility for faster reaction in case of incidents, they have attained Zero Trust for microservices. With Zero Trust architecture, security teams can eliminate the risk of stealing the data (user credentials, network access, and the ability to move laterally) from the network. On the other hand, end-users can get a consistent, stable, and, more importantly, secured experience, irrespective of their location, what endpoints they are using, or whether their applications are on-premises or in the cloud.
+
+In case you are interested:
+
+1.  Register for the upcoming security conference on [ZTA and DevSecOps for Cloud-Native Applications](https://csrc.nist.gov/Events/2022/3rd-multi-cloud-annual-conference-devsecops-and-zt) 
+2.  Read more about how [TSB offering can help you achieve Zero Trust in your microservices](/zero-trust/)
+3.  Download our whitepaper to know [Why use istio service mesh to implement Zero Trust Security](/resource/zero-trust-architecture-white-paper/)

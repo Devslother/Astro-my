@@ -1,0 +1,45 @@
+---
+title: "Gartner’s CASCE Proposal for Securing Composite Applications"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+## [](#background)Background
+
+Many applications today rely on components from multiple providers, accessed via web APIs – referred to as “composite applications,” [according to Techopedia](https://www.techopedia.com/definition/169/composite-applications#:~:text=Composite%20applications%20are%20applications%20built,assembled%20to%20provide%20business%20capability.&text=Using%20a%20composite%20application%20can%20relieve%20a%20user%20from%20switching%20between%20applications.). Securing these applications, including communication across components, is challenging. 
+
+Now Gartner is promoting a solution to these challenges in a report, [2021 Gartner® Innovation Insight for Comprehensive Secure Connectivity for Composite Applications](https://drive.google.com/file/d/10FF7Hp8Mnq1zYt7ClFRSEpD3Em1uhy0Q/view). The report describes composite applications as “a security architecture challenge” and proposes techniques “to implement these applications with greater consistency, flexibility and integrity.” Joe Skorupa of [Gartner](/blog/tetrate-recognized-in-gartners-hype-cycle-for-zero-trust-networking-2023/) also spoke about these issues at the third annual [ZTA and DevSecOps for Cloud-Native Applications conference](https://www.nist.gov/news-events/events/2022/01/zta-and-devsecops-cloud-native-applications-virtual), held in January. (Mr. Secorro’s talk was not recorded.) 
+
+We at Tetrate have been thinking about these same issues, and talking to our colleagues in the industry about them, for some time, and we have come to similar conclusions as Gartner. As a result, most, if not all of Gartner’s proposed recommendations are already implemented in Tetrate Service Bridge, and are available out of the box to Tetrate customers.
+
+## [](#key-challenges)Key challenges
+
+Organizations are building applications that incorporate components from multiple second- and third-party providers, predominantly via web APIs. This can be as simple as storing data in AWS S3, or as complex as building an AI application that draws heavily on services provided by Google Cloud Platform for machine learning. 
+
+This reliance on components outside the control of the organization presents new security challenges: 
+
+*   The more components, the greater the **attack surface**. 
+*   Use of external components makes it harder to ensure **compliance** with relevant regulations and standards.
+*   Developers **lack the knowledge and expertise** to implement appropriate networking and security policies across the composite app
+*   Networking and security teams **lack the means** to ensure policy implementation and control enforcement across the app
+*   The difficulty of enforcing network policies on outside components may require **blocking them** or **relaxing important policy requirements** – and either choice needs to be explicitly rendered in enforceable and auditable policy
+
+## [](#key-recommendations)Key recommendations
+
+Gartner is proposing CASCE as a solution. CASCE offers the following recommendations. Software engineering leaders must:
+
+*   Use a common repository for networking policies to support consistency in all communications
+*   Ensure that policy is enforced consistently across applications
+*   Use distributed API gateways and private networks to enforce policies, reducing points of contact and ensuring control 
+*   Ensure strong identity authentication for end users (for instance, via OAuth) as well as application components (for instance, via SPIFFE and SPIRE). 
+*   Ensure **consistent policy and context** across heterogeneous environments.
+
+## [](#why-tetrate)Why Tetrate?
+
+Tetrate has been primarily concerned with security, agility, and business continuity within a service mesh. These are outstanding features in both the Istio open source project and Tetrate Service Bridge, our application connectivity platform. 
+
+CASCE works to ensure that these advantages are not lost in communications between a secure service mesh, such as one based on Istio and using TSB, and outside components. It ensures that all participants in a composite application are working together to live up to the same high standards. 
+
+If you are working on composite applications, you may want to learn more about service mesh as a critical architectural component, and ways to ensure high standards across your internal and external application components, as set forth in CASCE. If so, we urge you to [contact Tetrate](/contact-us/) for a discussion.

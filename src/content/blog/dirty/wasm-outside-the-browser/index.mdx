@@ -1,0 +1,68 @@
+---
+title: "Why WebAssembly is innovative even outside the browser"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+WebAssembly (Wasm) has many applications in the cloud-native world today – WASI, edge cloud computing, Proxy-Wasm, and cloud-native runtime for serverless functions, to name a few. The question is, why has WebAssembly become so popular?
+
+To answer this, let’s begin by looking at the basic properties of WebAssembly.
+
+WebAssembly is a safe, portable, and low-level binary instruction format. To elaborate on a few of the key properties of WebAssembly, it’s:
+
+*   **Safe:** It can safely run untrusted codes in a sandbox environment.
+*   **Open:** This means that it is embeddable. It has a customizable interface with external environments. For example, in WASI, WebAssembly can run on abstracted operating system platforms. Another example is Proxy-Wasm: the Wasm module communicates with external proxy applications to manipulate or handle traffic such as HTTP, UDP, or TCP traffic.
+*   **Portable:** It is usable across environments and is architecture-independent.
+*   **Polyglot:** It can be compiled from many programming languages.
+
+It’s also fast.
+
+![Post Image](/.netlify/images?url=_astro%2Fvenn-takaya-100.CO6xxgga.jpg&w=1001&h=1000&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2Fvenn-takaya-100.CO6xxgga.jpg&w=1001&h=1000&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+There are clearly other existing solutions to achieve goals similar to what WebAssembly does, but as we will see, each of these solutions has certain limitations:
+
+*   **NaCI** is Google’s software fault isolation (SFI) solution. It is safe, embeddable, and polyglot. It can run untrusted codes with the application of SFI techniques. However, since NaCl is based on native binary, it is not a portable solution.
+*   **eBPF** is a safe, embeddable, and portable program primarily used for kernels. However, due to its strict limitations, it is hardly polyglot.
+*   **Lua** is a powerful embeddable scripting language, but it’s not polyglot either.
+*   **Native Library Formats** are embeddable. However, they are not safe or portable.
+*   **Java** is a versatile language that runs anywhere. The downside is that isolated entities are not Java’s first-class citizens.
+
+Accordingly, none of these alternative solutions demonstrates all the properties embodied in WebAssembly. On the other hand, WebAssembly is as portable as Java, as safe as NaCl or Seccomp, as embeddable as Lua, and as polyglot as Native Library. Compared to existing solutions on the market, WebAssembly is an excellent new solution with a well-rounded design that aims to meet multiple goals simultaneously. While other existing solutions are lacking in some respect, WebAssembly emerges as a successful solution to achieve what the others cannot. To sum up, WebAssembly’s unique strengths help it stand out among the crowd in the cloud-native world.
+
+## [](#strengthening-application-extensibility-and-security-with-webassembly)**Strengthening application extensibility and security with WebAssembly**
+
+Like Executable and Linkable Format (ELF), the object format of the executable file in Linux, WebAssembly is an object format. As Linux defines what APIs an executable file can use, the external Wasm embedded interface defines the functions and symbols imported/exported by a Wasm module. This gives rise to various interface types for WebAssembly.
+
+Embedding WebAssembly in applications is important for the following reasons. First, WebAssembly provides secure extensibility mechanisms for applications. Second, application and Wasm modules communicate through bi-directional ABI and API. Lastly, WebAssembly allows users to install extensions securely, portably, and in any language.
+
+Two prime examples of a Wasm embedded interface are: WebAssembly for Proxies (Proxy-Wasm), and the WASI executable interface. 
+
+## [](#how-envoys-extensibility-evolves-with-proxy-wasm)**How Envoy’s extensibility evolves with Proxy-Wasm**
+
+For the purpose of this article, let’s focus on the secure extension mechanism of Proxy-Wasm. Powered by WebAssembly, Proxy-Wasm is an extensibility interface for proxy servers. Envoy serves as the reference implementation. Proxy-Wasm provides a secure and portable way to manipulate proxy traffic.
+
+Before WebAssembly, Envoy offered the static C++ library as its extension mechanism. No isolation was provided, and C++ was the only language that was supported. Therefore, updating an extension used to always require a rebuild.
+
+Ever since its adoption of WebAssembly, Envoy’s extension has been able to run securely in an isolated environment. This approach has the distinct advantage of being language-independent, and there is full support for dynamic loading extensions.
+
+WebAssembly brings secure extensibility mechanisms to cloud-native applications. Envoy and Istio provide a secure extensibility mechanism for application meshes powered by Proxy-Wasm. With WebAssembly, you can write your Envoy extensions, such as custom authorization and authentication, as well as logging.
+
+## [](#recap)**Recap**
+
+WebAssembly’s unmatched strength of being embeddable, safe, polyglot, and portable all at the same time have led to the development of various Wasm interfaces. As we have seen, a secure extensibility mechanism is typically found in these interfaces. The extensibility mechanism for proxies, Proxy-Wasm, is an excellent example that allows users to extend their application meshes securely. With its unique set of advantages, WebAssembly is sure to continue to bring about new secure extensibility mechanisms to the cloud-native landscape.
+
+_This article is based on a_ [_sponsored keynote_](https://www.youtube.com/watch?v=SRXEuJJR0XE&list=PLj6h78yzYM2MDtQzXYpQEzP80Pw4iRMNy&index=15) _by Takaya Saeki, Tetrate Engineer, for Cloud Native Wasm Day EU 2021._
+
+## [](#resources)**Resources**
+
+*   [Wasm Modules and Envoy Extensibility Explained – Part 1](/blog/wasm-modules-and-envoy-extensibility-explained-part-1/)
+*   [How to get started with Envoy extensions: Wasm and GetEnvoy](/blog/how-to-get-started-with-envoy-extensions-wasm-and-getenvoy/)
+*   [What can WebAssembly do for your Application Security and Extensibility](/blog/what-can-webassembly-do-for-your-application-security-and-extensibility-2/)
+*   [CNCF Cloud Native Wasm Day EU 2021 playlist](https://www.youtube.com/watch?v=llf9b_UGQ1k&list=PLj6h78yzYM2MDtQzXYpQEzP80Pw4iRMNy)
+*   [Istio Weekly Episode 7 on Developing Envoy Wasm Extensions](https://www.youtube.com/watch?v=JIq8wujlG9s) (July 22, 2021)

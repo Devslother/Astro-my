@@ -1,0 +1,551 @@
+---
+title: "Implementing HTTP/2 CONNECT Tunnels with Envoy: Concepts and Practical Guide"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+​​​​​As part of my recent exploration into Istio Ambient mode, I discovered that the HTTP/2 CONNECT method is a core technology for creating tunnels that enable transparent traffic interception and forwarding. HTTP/2 CONNECT tunnel is a powerful tool that can create an efficient tunnel in an existing HTTP/2 connection for transmitting raw TCP data. This article shows how to implement the basic functions of HTTP/2 CONNECT tunnel using Envoy through a simple Demo.
+
+## [](#what-is-http2-connect-and-hbone-tunnel)What Is HTTP/2 CONNECT and HBONE Tunnel?
+
+The HTTP/2 CONNECT method provides a standardized approach for creating tunnels to transparently transmit data. In Istio Ambient mode, it offers an efficient way for proxy data planes to communicate. HBONE (HTTP-Based Overlay Network Environment) tunnel, built on HTTP/2 CONNECT, is Istio’s implementation for transparent traffic interception and forwarding. Using HBONE, data can securely traverse the tunnel via HTTP/2, offering a sidecar-less alternative. This innovative design simplifies the management and deployment of service meshes.
+
+HBONE, specific to Istio, is a secure tunneling protocol for communication between Istio components. Its current implementation incorporates three open standards:
+
+*   **HTTP/2**
+*   **HTTP CONNECT**
+*   **Mutual TLS (mTLS)**
+
+HTTP CONNECT establishes the tunnel, mTLS encrypts the connection, and HTTP/2 multiplexes streams within the secure tunnel while transmitting stream-level metadata. For more details, see the [_HBONE documentation_](https://istio.io/latest/docs/ambient/architecture/hbone/).
+
+## [](#basic-principles-of-http2-connect-tunnel-creation)Basic Principles of HTTP/2 CONNECT Tunnel Creation
+
+The HTTP/2 CONNECT method creates a VPN-like tunnel for secure data transmission. The basic steps are as follows:
+
+1.  The client sends a standard TCP connection or HTTP request to the proxy.
+2.  The proxy sends an HTTP/2 CONNECT request to the target server on behalf of the client.
+3.  If the server allows tunnel creation, it responds with an HTTP/2 200 OK.
+4.  Data flows bidirectionally between the client, proxy, and server through the tunnel.
+
+This method ensures secure and transparent data transmission, particularly suited for scenarios requiring efficient communication and end-to-end encryption.
+
+Below is a diagram showing the basic process of creating a tunnel using the HTTP/2 CONNECT method:
+
+![Post Image](/_astro/f1.D6hi_rVx.svg)
+
+Figure 1: Figure 1: The basic process of establishing a tunnel using the HTTP2 Connect method.
+
+![Post Image](/_astro/f1.D6hi_rVx.svg) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+## [](#demo-establishing-an-http2-connect-tunnel-with-envoy)Demo: Establishing an HTTP/2 CONNECT Tunnel with Envoy
+
+In this demo:
+
+*   The **client** sends a text message to the **Envoy proxy**, which forwards it to the **server** through an **HTTP/2 CONNECT tunnel**.
+*   The **server** processes and replies to the message, with **Envoy** facilitating secure communication.
+*   The **client** remains unaware of the tunnel’s existence, experiencing a seamless connection.
+
+Below is the architecture for this demo. To simplify the setup, we will configure TLS only for the server:
+
+![Post Image](/_astro/f2.DbxSGAYE.svg)
+
+Figure 2: Figure 2: Architecture diagram
+
+![Post Image](/_astro/f2.DbxSGAYE.svg) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+### [](#directory-structure)Directory Structure
+
+The complete directory structure of this example is as follows:
+
+```
+envoy-http2-tunnel/
+├── certs/
+│   ├── openssl.cnf
+│   ├── server.crt
+│   ├── server.key
+├── client/
+│   └── client.js
+├── docker-compose.yml
+├── envoy.yaml
+└── server/
+	├── Dockerfile
+	└── server.js
+```
+
+### [](#key-steps-in-the-demo-setup)Key Steps in the Demo Setup
+
+1.  **Generate Certificates:** Create self-signed certificates using OpenSSL.
+2.  **Configure Envoy:** Define Envoy settings to accept client TCP connections and establish tunnels with the server.
+3.  **Implement the Server:** Use Node.js to build an HTTP/2 server that processes client messages.
+4.  **Implement the Client:** Use Node.js to build a client that sends messages to the Envoy proxy.
+5.  **Deploy Services:** Use Docker Compose to orchestrate Envoy and the server.
+6.  **Test Communication:** Verify message flow from client to server and back through the HTTP/2 CONNECT tunnel.
+
+By following this guide, you can establish efficient, transparent, and secure traffic tunnels using HTTP/2 CONNECT, a cornerstone of Istio’s Ambient mode and HBONE technology.
+
+### [](#environment-preparation)Environment Preparation
+
+#### [](#1-install-nodejs)_1\. Install Node.js_
+
+Ensure that **Node.js** (version >= **10.10.0**) is installed on your system, as the _http2_ module became stable starting with this version.
+
+*   **Download Link:** [_Node.js Official Website_](https://nodejs.org/)
+
+#### [](#2-install-docker-and-docker-compose)_2\. Install Docker and Docker Compose_
+
+*   **Docker Download Link:** [_Docker Official Website_](https://www.docker.com/get-started)
+*   **Docker Compose Download Link:** [_Docker Compose Official Documentation_](https://docs.docker.com/compose/install/)
+
+#### [](#3-create-a-project-directory)_3\. Create a Project Directory_
+
+Create a new directory in your workspace and navigate to it:
+
+```
+mkdir envoy-http2-tunnel
+cd envoy-http2-tunnel
+```
+
+### [](#generating-a-self-signed-certificate)Generating a Self-Signed Certificate
+
+To enable encrypted communication between Envoy and the server, we need to generate a self-signed certificate with the correct configuration.
+
+#### [](#1-create-the-certificates-directory-and-openssl-configuration-file)_1\. Create the Certificates Directory and OpenSSL Configuration File_
+
+Create the _certs_ directory:
+
+```
+mkdir certs
+cd certs
+```
+
+Create an _openssl.cnf_ file with the following content:
+
+```
+[ req ]
+default_bits   	= 2048
+default_md     	= sha256
+prompt         	= no
+distinguished_name = dn
+req_extensions 	= req_ext
+
+[ dn ]
+C        	= US
+ST       	= California
+L        	= San Francisco
+O        	= My Company
+OU       	= My Division
+CN       	= server
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1   = server
+DNS.2   = localhost
+```
+
+#### [](#2-generate-the-key-and-certificate)_2\. Generate the Key and Certificate_
+
+Run the following command to generate the key and certificate:
+
+```
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout server.key -out server.crt -config openssl.cnf
+```
+
+This will generate the _server.key_ and _server.crt_ files in the _certs_ directory.
+
+### [](#configuring-the-envoy-proxy)Configuring the Envoy Proxy
+
+We need to configure Envoy to accept plain TCP connections from the client and forward the data to the server through an HTTP/2 CONNECT tunnel.
+
+#### [](#1-create-the-envoy-configuration-file)_1\. Create the Envoy Configuration File_
+
+In the project root directory, create a file named _envoy.yaml_ with the following content:
+
+```
+static_resources:
+  listeners:
+  - name: listener_0
+    address:
+      socket_address:
+        protocol: TCP
+        address: 0.0.0.0
+        port_value: 10000
+    filter_chains:
+    - filters:
+      - name: envoy.filters.network.tcp_proxy
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
+          stat_prefix: tcp_stats
+          cluster: tunnel_cluster
+          tunneling_config:
+            hostname: server:8080
+          access_log:
+          - name: envoy.access_loggers.stdout
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
+              log_format:
+                json_format:
+                  start_time: "%START_TIME%"
+                  method: "%REQ(:METHOD)%"
+                  path: "%REQ(X-ENVOY-ORIGINAL-PATH?:PATH)%"
+                  protocol: "%PROTOCOL%"
+                  response_code: "%RESPONSE_CODE%"
+                  response_flags: "%RESPONSE_FLAGS%"
+                  bytes_received: "%BYTES_RECEIVED%"
+                  bytes_sent: "%BYTES_SENT%"
+                  duration: "%DURATION%"
+                  upstream_service_time: "%RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)%"
+                  x_forwarded_for: "%REQ(X-FORWARDED-FOR)%"
+                  user_agent: "%REQ(USER-AGENT)%"
+                  request_id: "%REQ(X-REQUEST-ID)%"
+                  upstream_host: "%UPSTREAM_HOST%"
+                  upstream_cluster: "%UPSTREAM_CLUSTER%"
+                  downstream_local_address: "%DOWNSTREAM_LOCAL_ADDRESS%"
+                  downstream_remote_address: "%DOWNSTREAM_REMOTE_ADDRESS%"
+  clusters:
+  - name: tunnel_cluster
+    connect_timeout: 5s
+    type: LOGICAL_DNS
+    lb_policy: ROUND_ROBIN
+    transport_socket:
+      name: envoy.transport_sockets.tls
+      typed_config:
+        "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+        sni: server
+        common_tls_context:
+          validation_context:
+            trusted_ca:
+              filename: "/certs/server.crt"
+          alpn_protocols: [ "h2" ]
+    http2_protocol_options: {}
+    load_assignment:
+      cluster_name: tunnel_cluster
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: server
+                port_value: 8080
+```
+
+#### [](#2-key-highlights-of-the-configuration)_2\. Key Highlights of the Configuration_
+
+*   **TCP Proxy Listener:** Listens for incoming TCP connections on port _10000_ and forwards traffic to the upstream server.
+*   **HTTP/2 Tunnel:** Configures Envoy to use HTTP/2 CONNECT for tunneling traffic to the server.
+*   **TLS Encryption:** Enables secure communication between Envoy and the upstream server using the generated _server.crt_ and _server.key_.
+*   **Access Logs:** Configures detailed logs for request and response metrics.
+
+Next, proceed to set up the server and client components to test the tunnel functionality.
+
+### [](#implementing-the-server)Implementing the Server
+
+#### [](#1-create-the-server-directory-and-files)_1\. Create the Server Directory and Files_
+
+Create the _server_ directory in the project root:
+
+```
+mkdir server
+```
+
+Inside the _server_ directory, create _server.js_ and _Dockerfile_.
+
+#### [](#2-write-serverjs)_2\. Write_ server.js
+
+Add the following code to _server/server.js_:
+
+```
+const http2 = require('http2');
+const fs = require('fs');
+
+const server = http2.createSecureServer({
+  key: fs.readFileSync('/certs/server.key'),
+  cert: fs.readFileSync('/certs/server.crt'),
+});
+
+server.on('stream', (stream, headers) => {
+  const method = headers[':method'];
+  const path = headers[':path'];
+
+  if (method === 'CONNECT') {
+    console.log(`Received CONNECT request for ${path}`);
+
+    // Respond with 200 to establish the tunnel
+    stream.respond({
+      ':status': 200,
+    });
+
+    // Handle data within the tunnel
+    stream.on('data', (chunk) => {
+      const message = chunk.toString();
+      console.log(`Received from client: ${message}`);
+
+      // Respond to the client
+      const response = `Echo from server: ${message}`;
+      stream.write(response);
+    });
+
+    stream.on('end', () => {
+      console.log('Stream ended by client.');
+      stream.end();
+    });
+  } else {
+    // Return 404 for non-CONNECT requests
+    stream.respond({
+      ':status': 404,
+    });
+    stream.end();
+  }
+});
+
+// Start the server and listen on port 8080
+server.listen(8080, () => {
+  console.log('Secure HTTP/2 server is listening on port 8080');
+});
+```
+
+**Notes:**
+
+*   It listens for the _secureConnection_ event to process TLS-secured sockets.
+*   The server reads incoming data from the socket, processes client messages, and sends responses.
+
+#### [](#3-create-the-dockerfile)_3\. Create the_ Dockerfile
+
+Add the following content to _server/Dockerfile_:
+
+```
+FROM node:14
+
+WORKDIR /app
+
+COPY server.js .
+
+EXPOSE 8080
+
+CMD ["node", "server.js"]
+```
+
+### [](#implementing-the-client)Implementing the Client
+
+#### [](#1-create-the-client-directory-and-files)_1\. Create the Client Directory and Files_
+
+Create the _client_ directory in the project root:
+
+```
+const net = require('net');
+
+// Create a TCP connection to Envoy
+const client = net.createConnection({ port: 10000 }, () => {
+  console.log('Connected to Envoy.');
+
+  // Send messages to the server
+  let counter = 1;
+  const interval = setInterval(() => {
+	const message = `Message ${counter} from client!`;
+	client.write(message);
+	counter += 1;
+  }, 1000);
+
+  // Close the connection
+  setTimeout(() => {
+	clearInterval(interval);
+	client.end();
+  }, 5000);
+});
+
+client.on('data', (data) => {
+  console.log(`Received from server: ${data.toString()}`);
+});
+
+client.on('end', () => {
+  console.log('Disconnected from server.');
+});
+
+client.on('error', (err) => {
+  console.error('Client error:', err);
+});
+```
+
+**Explanation:**
+
+*   The **client** establishes a standard TCP connection with **Envoy** and sends text messages.
+*   The existence of this client is only to trigger Envoy to establish a tunnel with the server.
+
+### [](#creating-the-docker-compose-file)Creating the Docker Compose File
+
+Create _docker-compose.yml_ in the project root:
+
+```
+version: '3.8'
+
+services:
+  envoy:
+    image: envoyproxy/envoy:v1.32.1
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+      - ./certs:/certs  # Mount the certificates directory
+    ports:
+      - "10000:10000"
+    networks:
+      - envoy_network
+    depends_on:
+      - server
+    command: /usr/local/bin/envoy -c /etc/envoy/envoy.yaml --service-cluster envoy --log-level debug
+
+  server:
+    build:
+      context: ./server
+    networks:
+      - envoy_network
+    expose:
+      - "8080"
+    volumes:
+      - ./certs:/certs  # Mount the certificates directory
+
+networks:
+  envoy_network:
+```
+
+This configuration sets up both the Envoy proxy and the server to operate within the same Docker network, facilitating seamless communication.
+
+### [](#running-the-example)Running the Example
+
+#### [](#1-start-docker-compose)_1\. Start Docker Compose_
+
+In the project root directory, run:
+
+```
+docker-compose up --build
+```
+
+**Expected Output:**
+
+*   **Envoy Container:** Displays startup information and debug logs.
+*   **Server Container:** Displays _Secure HTTP/2 server is listening on port 8080_.
+
+#### [](#2-run-the-client)_2\. Run the Client_
+
+Open a new terminal, navigate to the _client_ directory:
+
+```
+cd client
+```
+
+Run the client:
+
+```
+node client.js
+```
+
+**Expected Output:**
+
+```
+Connected to Envoy.
+Received from server: Echo from server: Message 1 from client!
+Received from server: Echo from server: Message 2 from client!
+Received from server: Echo from server: Message 3 from client!
+Received from server: Echo from server: Message 4 from client!
+Received from server: Echo from server: Message 5 from client!
+```
+
+Disconnected from server.
+
+#### [](#3-check-server-logs)_3\. Check Server Logs_
+
+In the Docker Compose output, you should see logs from the server:
+
+```
+envoy_1   | {"downstream_remote_address":"192.168.65.1:46306","path":null,"request_id":null,"bytes_sent":160,"protocol":null,"upstream_service_time":null,"bytes_received":88,"response_code":0,"user_agent":null,"downstream_local_address":"172.21.0.3:10000","upstream_host":"172.21.0.2:8080","start_time":"2024-12-03T11:37:59.542Z","upstream_cluster":"tunnel_cluster","duration":5012,"response_flags":"-","method":null,"x_forwarded_for":null}
+server_1  | Secure HTTP/2 server is listening on port 8080
+server_1  | New secure connection established.
+server_1  | Received from client: Message 1 from client!
+server_1  | Received from client: Message 2 from client!
+server_1  | Received from client: Message 3 from client!
+server_1  | Received from client: Message 4 from client!
+server_1  | Received from client: Message 5 from client!
+server_1  | Connection ended by client.
+```
+
+#### [](#4-check-envoy-logs)_4\. Check Envoy Logs_
+
+In Envoy’s logs, you can see records of the connection established with the server using the **HTTP/2 CONNECT tunnel**.
+
+### [](#testing-the-communication)Testing the Communication
+
+*   **The client** sends text messages to **Envoy** over a TCP connection.
+*   **Envoy** forwards the client’s TCP traffic to the **server** via an **HTTP/2 CONNECT tunnel**.
+*   **The server** receives the messages, processes them, and replies to the client.
+*   **Envoy** relays the server’s responses back to the **client** through the tunnel.
+*   **The client** receives the responses from server.
+
+### [](#notes)Notes
+
+*   **Certificate Management:** Ensure the certificates are properly configured and used in both Envoy and the server.
+*   **Docker Networking:** Use Docker Compose-defined networks to allow containers to communicate using service names.
+*   **Port Conflicts:** Ensure ports _10000_ (Envoy) and _8080_ (server) are not occupied.
+*   **TLS Configuration:** In this example, communication between Envoy and the server is secured with TLS and HTTP/2.
+
+## [](#tunnel-establishment-process)Tunnel Establishment Process
+
+The following diagram illustrates the interaction between the client, Envoy proxy, and server, showing how data is transmitted and the tunnel connection is established:
+
+![Post Image](/_astro/f3.Cnp7Y5Dp.svg)
+
+Figure 3: Figure 3: Tunnel Establishment Process
+
+![Post Image](/_astro/f3.Cnp7Y5Dp.svg) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+Explanation:
+
+1.  **Client connects to Envoy via TCP:**
+
+*   The client sends a TCP connection request to Envoy.
+    
+*   Envoy accepts the connection and creates a new TCP proxy session (ConnectionId: 0).
+    
+*   **Envoy establishes a connection with the server:**
+    
+    *   Envoy connects to the upstream cluster _tunnel\_cluster_, creating a new connection (ConnectionId: 1).
+*   **Establishing the HTTP/2 CONNECT tunnel:**
+    
+    *   Envoy establishes an HTTP/2 connection with the server.
+    *   Envoy sends an HTTP/2 CONNECT request with the target hostname _server:8080_.
+    *   The server responds with _200 OK_, successfully establishing the tunnel.
+*   **Data transmission:**
+    
+    *   **Message exchange loop:**
+        *   The client sends data (_Message N_) to Envoy.
+        *   Envoy forwards the data through the tunnel to the server.
+        *   The server processes the data and responds (_Echo Message N_).
+        *   Envoy forwards the response back to the client.
+    *   **Logging:**
+        *   The server logs each received message, e.g., _Received from client: Message N from client!_.
+*   **Closing the connection:**
+    
+    *   The client sends a FIN request to close the connection.
+    *   Envoy forwards the FIN request to the server, closing the tunnel.
+    *   The server acknowledges the FIN with an ACK.
+    *   Envoy sends the ACK to the client, completing the connection closure.
+*   **Logging:**
+    
+    *   Envoy logs the closure of connections, including ConnectionId and stats.
+    *   The server logs the closure, e.g., _Stream ended by client._.
+
+## [](#conclusion)Conclusion
+
+Although this is an introductory example, it provides a solid foundation for understanding and further exploring the HTTP/2 CONNECT tunnel function. In the next blog, I will explain the tunnel implemented by two Envoy proxies and take you to further understand the HBONE transparent tunnel in the Istio ambient mode.
+
+## [](#references)References
+
+*   [_HTTP upgrades — envoy 1.33.0-dev-6d8d0b documentation_](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/http/upgrades)
+*   [_envoy/configs/proxy\_connect.yaml at 6d8d0b0ee2cc267b2cd9f57eb952863ddc8e49c3 · envoyproxy/envoy · GitHub_](https://github.com/envoyproxy/envoy/blob/6d8d0b0ee2cc267b2cd9f57eb952863ddc8e49c3/configs/proxy_connect.yaml)

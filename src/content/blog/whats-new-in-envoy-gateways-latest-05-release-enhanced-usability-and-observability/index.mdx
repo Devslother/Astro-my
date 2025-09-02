@@ -1,0 +1,55 @@
+---
+title: "What’s New in Envoy Gateway’s Latest 0.5 Release: Enhanced Usability and Observability"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+[Envoy Gateway](/envoy-gateway/) recently reached its latest milestone with [the release of version 0.5](https://github.com/envoyproxy/gateway/releases/tag/v0.5.0), a major step forward in usability and performance for [the Envoy Proxy-based Gateway API implementation](/blog/why-the-gateway-api-is-the-unified-future-of-ingress-for-kubernetes-and-service-mesh/).The theme of v0.5 is observability and scale—with some important follow-ons from [the previous theme](/blog/envoy-gateway-0-4-0-extending-the-api-for-customization/) to bolster usability.
+
+## [](#new-observability-improvements)New Observability Improvements
+
+New in this release is the exposure of telemetry data—metrics, logs, and traces—from the Envoy data plane. Envoy’s rich set of telemetry data has been the cornerstone of the observability capabilities of service meshes like Istio that are now available in Envoy Gateway. Read [the Proxy Observability Guide for more details](https://gateway.envoyproxy.io/v0.5/user/proxy-observability/).
+
+## [](#new-usability-improvements)New Usability Improvements
+
+Envoy Gateway now supports direct configuration of Envoy proxies via Envoy Gateway’s [EnvoyPatchPolicy API](https://gateway.envoyproxy.io/v0.5/api/extension_types/#envoypatchpolicy). This allows users familiar with Envoy xDS configuration to take advantage of the full set of Envoy capabilities—e.g., adding Envoy’s CORS filter—in Envoy Gateway ahead of official support in either the Gateway API or Envoy Gateway extensions. 
+
+While this is as yet an unstable API, it allows advanced users to leverage the full power of Envoy Proxy using functionality not exposed by Envoy Gateway APIs today.
+
+Read [the Envoy Patch Policy Guide for details and a quick start](https://gateway.envoyproxy.io/v0.5/user/envoy-patch-policy/).
+
+## [](#notable-miscellanea)Notable Miscellanea
+
+See the [release notes](https://github.com/envoyproxy/gateway/releases/tag/v0.5.0) and [release announcement](https://gateway.envoyproxy.io/v0.5/contributions/releasing/) for full details, but a number of other improvements worth noting include:
+
+*   **API updates:** Upgraded to [Gateway API v0.7.1](https://github.com/kubernetes-sigs/gateway-api/releases/tag/v0.7.1)
+*   **Documentation updates:** [a new guide for Helm installation](https://gateway.envoyproxy.io/v0.5/install/install-helm/), [using cert-manager for TLS termination](https://gateway.envoyproxy.io/v0.5/user/tls-cert-manager/), and a guide for [generating certificates to terminate TLS for multiple FQDNs per listener](https://gateway.envoyproxy.io/v0.5/user/secure-gateways/#sni-based-certificate-selection).
+*   **Installation updates:** Added support for bring-your-own TLS certs, improved default Envoy Proxy CPU and memory configuration, support for configuring [labels and annotations for the Envoy Gateway controller with Helm](https://gateway.envoyproxy.io/latest/install/install-helm/).
+*   **Deployment configuration updates:** Support for [distinct rate limiting based on IP addresses](https://gateway.envoyproxy.io/contributions/design/rate-limit/#rate-limit-based-on-jwt-claims), [rate limiting based on JWT claims](https://gateway.envoyproxy.io/contributions/design/rate-limit/#rate-limit-based-on-jwt-claims) and support for [configuring Envoy Proxy as a NodePort type service](https://gateway.envoyproxy.io/latest/api/extension_types/).
+
+## [](#coming-up)Coming Up
+
+Watch this space in the coming weeks for hands-on articles currently in the works taking Envoy Gateway’s new capabilities through their paces, especially:
+
+*   Customizing [Envoy Fleet Service Annotations](https://gateway.envoyproxy.io/v0.4/user/customize-envoyproxy/#customize-envoyproxy-service-annotations) to link the K8s Service with [AWS Network Load Balancer (NLB)](/blog/using-envoy-gateway-with-aws-alb-or-nlb-load-balancer/) 
+*   [Envoy Fleet Pod Annotations](https://gateway.envoyproxy.io/v0.4/user/customize-envoyproxy/#customize-envoyproxy-pod-annotations): Envoy Gateway and Istio configuration with Gateway API in the same cluster, pairing Envoy Gateway ingress rate limiting and backend mTLS with Istio
+*   Using [EnvoyPatchPolicy](https://gateway.envoyproxy.io/v0.5/user/envoy-patch-policy) to implement powerful Envoy Proxy features like WASM plugins, CORS filter, etc.
+*   Highlighting [Proxy Observability](https://gateway.envoyproxy.io/v0.5/user/proxy-observability/) scenarios.
+
+## [](#what-to-look-for-in-envoy-gateways-next-release)What to Look for in Envoy Gateway’s Next Release
+
+The theme for the next release is “Preparation for GA.” In concert with the work of developing a general availability release, here’s a hint at select new features and capabilities:
+
+*   [Multi-cluster routing using ServiceImport as a BackendRef](https://github.com/envoyproxy/gateway/issues/9)
+*   [Introduction of a TrafficPolicy API to support advanced features such as load balancing, CORS and retries](https://github.com/envoyproxy/gateway/issues/1492)
+*   [Seamless control plane and data plane upgrades](https://github.com/envoyproxy/gateway/issues/1710).
+
+Stay tuned.
+
+If you’re new to service mesh and Kubernetes security, we have a bunch of free online courses [available at Tetrate Academy](https://tetr8.io/academy) that will quickly get you up to speed with Istio and Envoy.
+
+If you’re looking for a fast way to get to production with Istio, check out [Tetrate Istio Distribution (TID)](https://tetr8.io/tid). TID is Tetrate’s hardened, fully upstream Istio distribution, with FIPS-verified builds and support available. It’s a great way to get started with Istio knowing you have a trusted distribution to begin with, have an expert team supporting you, and also have the option to get to FIPS compliance quickly if you need to.
+
+Once you have Istio up and running, you will probably need simpler ways to manage and secure your services beyond what’s available in Istio, that’s where Tetrate Service Bridge comes in. You can learn more about how Tetrate Service Bridge makes service mesh more secure, manageable, and resilient [here](https://tetr8.io/tsb), or [contact us for a quick demo](https://tetr8.io/contact).

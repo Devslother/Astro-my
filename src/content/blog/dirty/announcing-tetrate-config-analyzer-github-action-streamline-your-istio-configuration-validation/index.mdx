@@ -1,0 +1,121 @@
+---
+title: "Announcing Tetrate Config Analyzer GitHub Action: Streamline Your Istio Configuration Validation"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+We are excited to announce the release of the Tetrate Config Analyzer (TCA) GitHub Action, now available exclusively for [Tetrate Istio Subscription](https://docs.tetrate.io/istio-subscription/tools/tca/github-action) (TIS) customers. This powerful tool enables teams to validate and analyze their Istio service mesh configurations directly within their GitHub workflows. This integration brings TCA’s robust configuration analysis capabilities into your CI/CD pipeline, helping catch potential issues before they reach production.
+
+## [](#availability)Availability
+
+The TCA GitHub Action is a premium feature available exclusively to Tetrate Istio Subscription (TIS) customers. TIS provides enterprise-grade Istio distribution with extended support, security features, and tools like TCA. To access the TCA GitHub Action:
+
+*   You must have an active [Tetrate Istio Subscription](https://docs.tetrate.io/istio-subscription/introduction/)
+*   Valid TIS credentials are required for authentication
+*   Contact your Tetrate representative for subscription details
+
+## [](#why-tca-github-action)Why TCA GitHub Action?
+
+Managing Istio configurations at scale can be challenging. Configuration errors can lead to service disruptions, security vulnerabilities, and compliance issues. The TCA GitHub Action addresses these challenges by:
+
+*   Automating configuration validation as part of your CI/CD workflow
+*   Providing early detection of misconfigurations and potential issues
+*   Ensuring compliance with Istio best practices
+*   Reducing the risk of deploying problematic configurations to production
+
+## [](#key-features)Key Features
+
+### [](#flexible-operating-modes)Flexible Operating Modes
+
+The TCA GitHub Action supports three distinct operating modes to accommodate different validation scenarios:
+
+*   **Hybrid Mode**: Validates new configurations against your existing cluster context, ensuring compatibility with your running environment.
+*   **Local-Only Mode**: Performs initial validation of configuration files without requiring cluster access, perfect for early development stages.
+*   **Cluster Mode**: Analyzes deployed configurations in your cluster, ideal for continuous monitoring and compliance checks.
+
+### [](#seamless-github-integration)Seamless GitHub Integration
+
+The action integrates naturally with GitHub’s pull request workflow:
+
+*   Automatically comments on pull requests with analysis results
+*   Provides detailed markdown-formatted reports
+*   Can be configured to fail CI/CD pipelines when critical issues are detected
+*   Supports scheduled runs for regular cluster configuration scans
+
+## [](#getting-started)Getting Started
+
+To start using the TCA GitHub Action, you’ll need:
+
+*   Valid Tetrate Istio Subscription (TIS) credentials ([contact us](/demo-request/) to learn more)
+*   Access to a Kubernetes cluster with Istio installed (for hybrid and cluster modes)
+*   Istio configuration files to analyze
+
+Here’s a simple example of how to use the action in hybrid mode:
+
+```
+name: Validate Istio Configs
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  analyze-configs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate Istio Configs
+        id: tca
+        uses: tetratelabs/tca-action@main
+        with:
+          tis-password: ${{ secrets.TIS_PASSWORD }}
+          mesh-config: "./config.yaml"
+          kube-config: ${{ secrets.KUBECONFIG }}
+
+      - name: Comment on PR
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          file-path: ${{ steps.tca.outputs.result-file }}
+
+      - name: Optionally Fail if there are errors
+        run: |
+          if [ ${{ env.error-count }} -gt 0 ]; then
+            exit 1
+          fi
+```
+
+After running the TCA GitHub Action, it automatically creates a detailed report as a comment on your pull request.
+
+![Post Image](/.netlify/images?url=_astro%2Fimage-7-1024x653.BIkFiK8J.png&w=1024&h=653&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2Fimage-7-1024x653.BIkFiK8J.png&w=1024&h=653&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+This automated feedback mechanism ensures that your team can quickly identify and address any configuration issues directly within your GitHub workflow, improving collaboration and reducing the time needed for configuration reviews.
+
+## [](#best-practices)Best Practices
+
+To get the most out of the TCA GitHub Action, we recommend:
+
+*   **Regular Scanning:** Set up scheduled runs to continuously validate your cluster configurations
+*   **Pre-deployment Validation**: Include TCA checks in your pre-deployment pipeline
+*   **Comprehensive Testing**: Use hybrid mode to ensure new configurations work with your existing environment
+*   **Version Pinning**: Specify exact versions of TCA for reproducible results
+
+## [](#future-roadmap)Future Roadmap
+
+We’re committed to enhancing the TCA GitHub Action with more features and capabilities. Our roadmap includes:
+
+*   Enhanced reporting capabilities
+*   Additional validation rules and checks
+*   Improved integration with other CI/CD tools
+
+## [](#get-started-today)Get Started Today
+
+The TCA GitHub Action is available now and ready to help you improve your Istio configuration management. [Contact us](/demo-request/) about Tetrate Istio Subscription  to get started, and check out our [comprehensive documentation](https://docs.tetrate.io/istio-subscription/tools/tca/github-action) for detailed setup instructions and best practices.
+
+For TIS customers who need support or have feature requests, please contact Tetrate support. We’re excited to see how you’ll use the TCA GitHub Action to improve your service mesh operations!

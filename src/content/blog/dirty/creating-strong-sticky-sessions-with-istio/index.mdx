@@ -1,0 +1,193 @@
+---
+title: "Creating Strong Sticky Sessions with Istio"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+author: "Tetrate Team"
+categories: ["blog"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+Sticky HTTP sessions enable stateful interactions between a client and a server when, for example, there’s a login or a shopping cart that needs to be kept across requests for further checkout. Istio has roughly two ways of helping you achieve sticky sessions: consistentHash loadbalancing or Stateful sessions.
+
+In this post you will learn how to easily implement stateful sessions in a step by step and evidence-based style using Istio v1.22.
+
+![](/images/icons/inline-promo-icon.svg)
+
+Tetrate offers an enterprise-ready, 100% upstream distribution of Istio, Tetrate Istio Subscription (TIS). TIS is the easiest way to get started with Istio for production use cases. TIS+, a hosted Day 2 operations solution for Istio, adds a global service registry, unified Istio metrics dashboard, and self-service troubleshooting.
+
+[Learn more](/products/tetrate-istio-subscription)
+
+## [](#consistent-hash)Consistent Hash
+
+ConsistentHash configuration is exposed by Istio API and configured in the DestinationRule manifests. As described by the documentation: _“Consistent Hash-based load balancing can be used to provide soft session affinity based on HTTP headers, cookies or other properties. The affinity to a particular destination host may be lost when one or more hosts are added/removed from the destination service_” ([Destination Rule](https://istio.io/latest/docs/reference/config/networking/destination-rule/#LoadBalancerSettings-ConsistentHashLB)).
+
+This means that each client is assigned a backend pod to which all further requests will be redirected as long as the backend pods count remains the same. If your backend scales up or down, the hash table needs to be recalculated and some of the clients will lose their sessions and be reassigned to another pod, even if their assigned backend is running ok (more details here [Consistent hashing](https://en.wikipedia.org/wiki/Consistent_hashing) ). From the user’s perpsective, its like suddenly being logged out of an account.
+
+This config is useful when your backend count is very stable or you don’t care about occasional lost sessions.
+
+## [](#stateful-session)Stateful Session
+
+On the other side, stateful session is a more strict way of maintaining sessions as the backend pod is not selected based on the hash ring but on the specific data the client presents as a header or as a cookie. This is done by Envoy’s `stateful_session` http filter overwriting the result of the loadbalancing based on a session state that maps the backend to the current request’s session.
+
+## [](#sticky-session-implementation-in-istio)Sticky Session Implementation in Istio
+
+Strong sticky sessions can be implemented in two ways: directly applying an EnvoyFilter resource to the gateways or using Istio’s built-in high level configs. In this tutorial we’ll use the second option because of its simplicity, and using a header-based session, although a cookie-based config is also available.
+
+First, you need to change `PILOT_ENABLE_PERSISTENT_SESSION_FILTER` environmental variable to true in _istiod_:
+
+```
+kubectl edit deploy istiod -n istio-system
+```
+
+And add the following at `.spec.template.spec.containers.discovery.env`:
+
+```
+- name: PILOT_ENABLE_PERSISTENT_SESSION_FILTER
+          value: "true"
+```
+
+By doing this, _istiod_ adds the `stateful_session` filter in the http listener to its data plane gateways:
+
+```
+istioctl pc l <gateway pod> -n istio-ingress | grep -C2 stateful_session
+        - name: envoy.filters.http.stateful_session
+          typedConfig:
+            '@type': type.googleapis.com/envoy.extensions.filters.http.stateful_session.v3.StatefulSession
+        - name: envoy.filters.http.router
+--
+        - name: envoy.filters.http.stateful_session
+          typedConfig:
+            '@type': type.googleapis.com/envoy.extensions.filters.http.stateful_session.v3.StatefulSession
+        - name: envoy.filters.http.router
+```
+
+In this particular example, there are two matches because there is one listener for `0.0.0.0_80` and a second one for `0.0.0.0_8080`.
+
+Once you confirm the filters are in place, its time to decide which services need stateful sessions. In this case, it is _helloworld_ in the _helloworld_ namespace, and the header to watch is `x-session-header`. So, a label `istio.io/persistent-session-header: x-session-header` is added to it:
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: helloworld
+    istio.io/persistent-session-header: x-session-header <-- HERE
+    service: helloworld
+  name: helloworld
+...
+```
+
+By doing this, Istio will automatically push new configs, this time to the relevant `virtual_host` for the _helloworld_ app:
+
+```
+—————»  ns:helloworld ❯ istioctl pc r <gateway pod> -n istio-ingress -oyaml | grep -B30 -A7 envoy.filters.http.stateful_session
+  virtualHosts:
+  - domains:
+    - '*'
+    includeRequestAttemptCount: true
+    name: '*:80'
+    routes:
+    - decorator:
+        operation: helloworld.helloworld.svc.cluster.local:5000/hello
+      match:
+        caseSensitive: true
+        path: /hello
+      metadata:
+        filterMetadata:
+          istio:
+            config: /apis/networking.istio.io/v1alpha3/namespaces/helloworld/virtual-service/helloworld
+      route:
+        cluster: outbound|5000||helloworld.helloworld.svc.cluster.local
+        maxGrpcTimeout: 0s
+        retryPolicy:
+          hostSelectionRetryMaxAttempts: "5"
+          numRetries: 2
+          retriableStatusCodes:
+          - 503
+          retryHostPredicate:
+          - name: envoy.retry_host_predicates.previous_hosts
+            typedConfig:
+              '@type': type.googleapis.com/envoy.extensions.retry.host.previous_hosts.v3.PreviousHostsPredicate
+          retryOn: connect-failure,refused-stream,unavailable,cancelled,retriable-status-codes
+        timeout: 0s
+      typedPerFilterConfig:
+        envoy.filters.http.stateful_session: # <-- HERE starts the session config
+          '@type': type.googleapis.com/envoy.extensions.filters.http.stateful_session.v3.StatefulSessionPerRoute
+          statefulSession:
+            sessionState:
+              name: envoy.http.stateful_session.header
+              typedConfig:
+                '@type': type.googleapis.com/envoy.extensions.http.stateful_session.header.v3.HeaderBasedSessionState
+                name: x-session-header
+```
+
+This particular _helloworld_ app has 6 replicas:
+
+```
+—————»  ns:helloworld ❯ kubectl get po -owide
+NAME                             READY   STATUS    RESTARTS       AGE    IP            NODE                NOMINATED NODE   READINESS GATES
+helloworld-v1-b6c45f55-8hlrc     2/2     Running   2 (110s ago)   72m    10.244.1.4    tetrate22-worker    <none>           <none>
+helloworld-v1-b6c45f55-c582z     2/2     Running   2 (110s ago)   72m    10.244.1.3    tetrate22-worker    <none>           <none>
+helloworld-v1-b6c45f55-gs5ms     2/2     Running   2 (110s ago)   164m   10.244.1.5    tetrate22-worker    <none>           <none>
+helloworld-v1-b6c45f55-qgjp8     2/2     Running   2 (110s ago)   72m    10.244.2.14   tetrate22-worker2   <none>           <none>
+helloworld-v1-b6c45f55-s9cc2     2/2     Running   2 (110s ago)   72m    10.244.2.5    tetrate22-worker2   <none>           <none>
+helloworld-v2-79d5467d55-hshj5   2/2     Running   2 (110s ago)   164m   10.244.2.12   tetrate22-worker2   <none>           <none>
+```
+
+Now, when calling the Gateway exposed in a local machine, you can tell a header `x-session-header` is returned:
+
+```
+—————»  ns:helloworld ❯ curl localhost:8080/hello -v
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> GET /hello HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.81.0
+> Accept: */*
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< server: istio-envoy
+< x-envoy-upstream-service-time: 67
+< x-session-header: MTAuMjQ0LjEuNDo1MDAw <-- HERE is our header
+<
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+* Connection #0 to host localhost left intact
+[14:59:48] ~ ()
+  —————»  ns:helloworld ❯
+```
+
+And if you decode it, it will show you the internal IP:Port to access the pod `helloworld-v1-b6c45f55-8hlrc`:
+
+```
+—————»  ns:helloworld ❯ echo "MTAuMjQ0LjEuNDo1MDAw" | base64 -d
+10.244.1.4:5000%
+```
+
+## [](#caveats)Caveats
+
+### [](#client-must-handle-the-response-header)Client Must Handle the Response Header
+
+In order for the sticky session to work, the client must provide in each subsequent request the session header it received from the backend. So, in this scenario, the header `"x-session-header: MTAuMjQ0LjEuNDo1MDAw"` must be added:
+
+```
+—————»  ns:helloworld ❯ while true; do curl localhost:8080/hello -H "x-session-header: MTAuMjQ0LjEuNDo1MDAw"; sleep 2; done
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+Hello version: v1, instance: helloworld-v1-b6c45f55-8hlrc
+...
+```
+
+### [](#possible-compromised-load-balancing)Possible Compromised Load Balancing
+
+As there is a fixed backend for each client, this may come with unbalanced load on some backends in, for example, an upscaling scenario where you need to take load off a shaky pod, but the traffic will not be routed to the new replicas.
+
+### [](#security-implications)Security Implications
+
+The Envoy stateful session filter has an unknown security posture and should be used in an environment where both down and upstream sides are trusted. Also, it is worth noting that malicious agents could hand pick which backend they want to be responded from.
