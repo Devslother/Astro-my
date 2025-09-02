@@ -6,12 +6,12 @@ import styles from './Article.module.css';
 import clsx from "clsx";
 import TableOfContents from './toc/TableOfContents.astro';
 import ShareButton from "../../../components/Button/ShareButton.astro"
-import Figure from './figure/Figure.astro';
-import Quote from './quote/Quote.astro';
-import Admonition from './admonition/Admonition.astro';
-import InlinePromo from './inlinepromo/InlinePromo.astro';
+import Figure from '@/components/content/figure/Figure.astro';
+import Quote from '@/components/content/quote/Quote.astro';
+import Admonition from '@/components/content/admonition/Admonition.astro';
+import InlinePromo from '@/components/content/inlinepromo/InlinePromo.astro';
 import Icon from '@/components/icon/Icon.astro';
-import Code from './code/Code.astro';
+import Code from '@/components/content/code/Code.astro';
 import Related from './related/Related.astro';
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";

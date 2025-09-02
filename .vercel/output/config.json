@@ -1,0 +1,90 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/(.*)/$",
+			"headers": {
+				"Location": "/$1"
+			},
+			"status": 308
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"src": "^/_server-islands/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/learn/categories/([^/]+?)/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/learn/categories/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/learn/page/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/learn/search$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/learn/search(?:/(.*?))?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/learn$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/posts/post-1$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/posts/post-2$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/posts/post-3$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/products/agent-operations-director$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/products/tetrate-application-gateway$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/products/tetrate-istio-subscription$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/resources$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/solutions/financial-services$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/$",
+			"dest": "_render"
+		}
+	]
+}

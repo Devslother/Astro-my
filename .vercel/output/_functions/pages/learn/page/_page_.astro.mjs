@@ -1,0 +1,63 @@
+import { d as createAstro, c as createComponent, r as renderComponent, b as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_BorwNW6a.mjs';
+import 'kleur/colors';
+import { c as $$Layout } from '../../../chunks/Layout_7tzu6nPn.mjs';
+import { $ as $$Cta } from '../../../chunks/Cta_CQMAX1Bj.mjs';
+import { $ as $$Hero, a as $$List } from '../../../chunks/List_DtjCeJio.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_UKccoAbA.mjs';
+export { renderers } from '../../../renderers.mjs';
+
+const $$Astro = createAstro("https://astro-my.vercel.app/");
+const prerender = false;
+async function getStaticPaths() {
+  const POSTS_PER_PAGE = 9;
+  const articles = await getCollection("learn", ({ data }) => {
+    return data.draft !== true ;
+  });
+  const totalPages = Math.ceil((articles.length - 1) / POSTS_PER_PAGE);
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: (i + 1).toString() }
+  }));
+}
+const $$page = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
+  Astro2.self = $$page;
+  const POSTS_PER_PAGE = 9;
+  const { page } = Astro2.params;
+  const currentPage = parseInt(page);
+  const articles = await getCollection("learn", ({ data }) => {
+    return data.draft !== true ;
+  });
+  const normalizeToArray = (field) => {
+    if (!field) return [];
+    return Array.isArray(field) ? field : [field];
+  };
+  const allCategories = [
+    ...new Set(articles.flatMap((resource) => normalizeToArray(resource.data.categories)))
+  ];
+  const filteredArticles = articles.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+  );
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const endIndex = startIndex + POSTS_PER_PAGE;
+  const paginatedArticles = filteredArticles.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(filteredArticles.length / POSTS_PER_PAGE);
+  if (currentPage && currentPage === 1) {
+    return Astro2.redirect("/learn");
+  }
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Learning Center", "description": "Tetrate's Learning Center: Discover expert insights, tutorials, and resources to elevate your understanding and implementation. Dive in now!", "headerClass": "nav__with__bg", "bodyClass": "learn-page" }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "Hero", $$Hero, {})} ${maybeRenderHead()}<div data-articles-wrapper class="articles-wrapper"> ${renderComponent($$result2, "List", $$List, { "articles": paginatedArticles, "totalPages": totalPages, "currentPage": currentPage, "allCategories": allCategories, "noQuery": true, "hasResults": true })} </div> ${renderComponent($$result2, "Cta", $$Cta, {})} ` })}`;
+}, "/Users/svetaco/Documents/Astro-my/src/pages/learn/page/[page].astro", void 0);
+const $$file = "/Users/svetaco/Documents/Astro-my/src/pages/learn/page/[page].astro";
+const $$url = "/learn/page/[page]";
+
+const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+	__proto__: null,
+	default: $$page,
+	file: $$file,
+	getStaticPaths,
+	prerender,
+	url: $$url
+}, Symbol.toStringTag, { value: 'Module' }));
+
+const page = () => _page;
+
+export { page };
