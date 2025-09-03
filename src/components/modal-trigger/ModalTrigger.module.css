@@ -1,0 +1,12 @@
+.modalTrigger__link {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 36px;
+}
+
+.resource__download {
+  width: 170px; /* Фиксированная ширина */
+  gap: 3px; /* Меньший отступ между элементами */
+}

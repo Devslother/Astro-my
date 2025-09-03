@@ -18,10 +18,12 @@
     "classnames": "^2.5.1",
     "gray-matter": "^4.0.3",
     "jsdom": "^26.1.0",
-    "turndown": "^7.2.1"
+    "turndown": "^7.2.1",
+    "yup": "^1.7.0"
   },
   "devDependencies": {
     "@astrojs/vercel": "^8.2.5",
+    "@types/yup": "^0.29.14",
     "typescript": "^5.8.3"
   }
 }

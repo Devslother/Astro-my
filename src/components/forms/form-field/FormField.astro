@@ -1,0 +1,40 @@
+---
+import styles from "./FormField.module.scss";
+
+interface Props {
+	id: string;
+	label: string;
+	placeholder?: string;
+	type?: "text" | "email" | "password" | "number" | "tel" | "url" | "search" | "date" | "time" | "datetime-local" | "month" | "week";
+	required?: boolean;
+  dataField?: string; 
+}
+
+const { 
+  id, 
+  label, 
+  placeholder, 
+  type = "text" as const, 
+  required = false,
+  dataField = id,
+} = Astro.props;
+---
+
+<div class={styles.field}>
+	<label for={id} class={styles.label}>
+		{label}
+		{required && <span class={styles.required}>*</span>}
+	</label>
+	<input
+		id={id}
+		name={id}
+		type={type}
+		placeholder={placeholder}
+		required={required}
+    data-field={dataField}
+    data-required={required}
+		data-error="false"
+		class={styles.input}
+	/>
+	<div data-error-message class={styles['input-error-message']}></div>
+</div>

@@ -1,0 +1,34 @@
+---
+import styles from './HubspotForm.module.css';
+
+const { portalId, formId } = Astro.props;
+---
+
+<div
+	id="hubspot-form-container"
+	class={styles.hubspot__form__container}
+	data-portal-id={portalId}
+	data-form-id={formId}
+/>
+
+<script>
+	import initHubspotForm from '@/utils/hubspotForm.client.ts';
+
+  function setupHubspotForm() {
+		const container = document.getElementById('hubspot-form-container');
+		if (!container) return;
+
+		const portalId = container.dataset.portalId;
+		const formId = container.dataset.formId;
+
+		if (portalId && formId) {
+			initHubspotForm(portalId, formId);
+		} else {
+			console.warn('Missing portalId or formId in data attributes');
+		}
+	}
+
+  window.addEventListener('load', setupHubspotForm);
+
+	document.addEventListener('astro:page-load', setupHubspotForm);
+</script>

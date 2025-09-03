@@ -1,0 +1,187 @@
+---
+import Modal from '@/components/modal/Modal.astro';
+import FormField from '../form-field/FormField.astro';
+import styles from './RequestForm.module.css';
+import clsx from 'clsx';
+import Button from '@/components/Button/Button.astro';
+import ReCaptchaSVG from '@/assets/learn/reCaptcha.svg';
+import HubspotEmbedForm from '../hubspot-form/HubspotForm.astro';
+
+export interface Props {
+	title?: string;
+	portalId: string;
+	formId: string;
+	lastFields?: { id: string; label: string; placeholder?: string; type?: string }[];
+	businessObjectives?: string[];
+	isModal?: boolean;
+	isDownloadBtn?: boolean;
+	downloadLink?: string;
+	useHubspotEmbed?: boolean;
+}
+
+const {
+	title, portalId, formId,
+	lastFields = [],
+	businessObjectives = [],
+	isModal = false,
+	isDownloadBtn = false,
+	downloadLink = '',
+	useHubspotEmbed = false,
+} = Astro.props;
+---
+
+<div class={clsx(
+  styles.container,
+  isModal && styles.container__modal
+)}>
+  { (!isDownloadBtn && title) && (
+    <h2 class={clsx(
+      "text__heading--h6",
+      "text__heading--h5-md",
+      "text__heading--h4-lg",
+      styles.title,
+    )}>
+      {title}
+    </h2>)
+  }
+
+  <Modal id="success-modal" isForm={false}>
+    <div class={styles.submission__wrapper}>
+      <h4 class={clsx(
+        "text__heading--h6",
+        "text__heading--h5-md",
+        "text__heading--h4-lg",
+        styles.modal__title
+      )}>
+        {isDownloadBtn
+          ? "Your download will start shortly."
+          : "Thank you for reaching out!"}
+      </h4>
+      <p class="color-gray-900">
+        {isDownloadBtn
+          ? "The file will start downloading in a few seconds. If it doesn’t, click the button below."
+          : "One of our experts will contact you shortly to discuss your needs and answer your questions."}
+      </p>
+      <Button 
+        variant="primary" 
+        size="sm" 
+        class={styles.modal__submit} 
+        type="button"
+        data-modal-close
+        data-download={isDownloadBtn ? downloadLink : ''}
+      >
+        {isDownloadBtn ? 'Download' : 'Got it'}
+      </Button>
+    </div>
+  </Modal>
+
+  <Modal id="error-modal" isForm={false}>
+		<div class={styles.submission__wrapper}>
+			<h4 class={clsx(
+        "text__heading--h6",
+        "text__heading--h5-md",
+        "text__heading--h4-lg",
+        styles.modal__title
+      )}>
+				Oops! Something went wrong.
+			</h4>
+			<p class="color-gray-900">Please try again later.</p>
+			<Button
+				variant="primary"
+				size="sm"
+				class={styles.modal__submit}
+				type="button"
+				data-modal-close
+			>
+				Try again
+			</Button>
+		</div>
+	</Modal>
+
+  { useHubspotEmbed ? (
+		<HubspotEmbedForm portalId={portalId} formId={formId} title={title} />
+	) : (
+		<form 
+      id="pricing-form" 
+      class={styles.form} 
+      novalidate
+      data-portal={portalId} 
+      data-form={formId}
+      data-download={downloadLink} 
+      data-download-btn={isDownloadBtn}
+    >
+
+			<div class={styles.fields_wrapper}>
+				<FormField id="firstname" label="First name:" required />
+				<FormField id="lastname" label="Last name:" required />
+				<FormField id="email" label="Email:" required type="email" />
+				<FormField id="jobtitle" label="Job title:" required />
+				<FormField id="company" label="Company:" required />
+
+				{ businessObjectives.length > 0 &&
+					<div class={styles.field__objectives}>
+						<label class={styles.field__label}>
+							What is your business objective?
+						</label>
+						<div class={styles.tags__container}>
+							{ businessObjectives.map(obj => (
+								<label class={styles.objective__wrapper}>
+									<input 
+                    type="checkbox" 
+                    value={obj} 
+                    name="objectives" 
+                    class={styles.visually__hidden}
+                   />
+									<span class={styles.objective__tag}>{obj}</span>
+								</label>
+							)) }
+						</div>
+					</div>
+				}
+
+				{ lastFields.map(f => (
+					<FormField
+						id={f.id}
+						label={f.label}
+						placeholder={f.placeholder}
+						type={(f.type ?? 'text') as "text" | "email" | "password" | "number" | "tel" | "url" | "search" | "date" | "time" | "datetime-local" | "month" | "week"}
+					/>
+				)) }
+
+				{ isDownloadBtn &&
+					<div class="text__body--14 color-gray-900">
+						No thanks,&nbsp;
+						<a href={downloadLink} class="color-blue-500-important" rel="nofollow">
+							take me to the download
+						</a>
+					</div>
+				}
+			</div>
+
+			<div class={styles.policy__captcha}>
+				<p class="text__body--14 color-gray-900">
+					Tetrate uses your contact info to share product updates. You can unsubscribe anytime. Learn more in our
+					<a href="/privacy" class="color-blue-500-important">Privacy Policy</a>.
+				</p>
+				<div class={styles.form__captcha}>
+					<ReCaptchaSVG />
+				</div>
+			</div>
+
+			<Button 
+        variant="primary" 
+        size="lg" 
+        type="submit" 
+        class={styles.form__submit} 
+      >
+				{ isDownloadBtn ? 'Download' : 'Submit' }
+			</Button>
+		</form>
+		)
+	}
+</div>
+
+<script>
+	import initRequestForm from '../../../utils/requestForm.client.ts';
+	initRequestForm();
+</script>

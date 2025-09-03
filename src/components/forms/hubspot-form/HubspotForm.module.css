@@ -1,0 +1,289 @@
+/* Заголовки формы (h1-h6) */
+.hubspot__form__container h1,
+.hubspot__form__container h2,
+.hubspot__form__container h3,
+.hubspot__form__container h4,
+.hubspot__form__container h5,
+.hubspot__form__container h6 {
+  color: #0a0d0f;
+  font-family: Poppins, sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30.8px;
+  letter-spacing: -0.28px;
+  margin-bottom: 20px;
+}
+
+/* Основной контейнер формы */
+.hubspot__form__container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Контейнер для двух колонок полей */
+.hubspot__form__container form .form-columns-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Контейнер поля формы (label + input) */
+.hubspot__form__container form .hs-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #3b3d3f;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21px;
+  height: 100%;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* Контейнер ввода (input, select, textarea) */
+.hubspot__form__container form .hs-form-field .input {
+  margin: 0 !important;
+}
+
+/* Список опций для radio/checkbox полей */
+.hubspot__form__container form .hs-form-field .input ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  list-style: none; /* убирает маркеры (точки, цифры, символы) у списков */
+  padding: 0;
+  margin: 0;
+}
+
+/* Кастомные радио-кнопки */
+.hubspot__form__container form .hs-form-field input[type="radio"] {
+  position: relative;
+  border-radius: 50%;
+  appearance: none; /* убирает стандартные браузерные стили у элементов формы */
+  border: 1px solid #cecfcf;
+  width: 12px !important;
+  height: 12px !important;
+  margin: 7px 9px 7px 7px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Точка внутри выбранной радио-кнопки */
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  background: black;
+  border-radius: 50%;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Поля ввода (text, password, email) */
+.hubspot__form__container form .hs-form-field input[type="text"],
+.hubspot__form__container form .hs-form-field input[type="password"],
+.hubspot__form__container form .hs-form-field input[type="email"] {
+  display: flex;
+  width: 100% !important;
+  padding: 10px 16px;
+  color: var(--color-black);
+  border: 1px solid var(--color-gray-500);
+  align-items: center;
+  border-radius: 12px;
+  font-family: Poppins, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  height: 56px;
+  outline: none;
+}
+
+/* Стили для автозаполнения браузера */
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="text"]:-webkit-autofill,
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="password"]:-webkit-autofill,
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="email"]:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset !important;
+  box-shadow: 0 0 0 1000px #fff inset !important;
+  -webkit-text-fill-color: #000 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Плейсхолдеры полей ввода */
+.hubspot__form__container form .hs-form-field input[type="text"]::placeholder,
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="password"]::placeholder,
+.hubspot__form__container form .hs-form-field input[type="email"]::placeholder {
+  overflow: hidden;
+  color: #cecfcf;
+  text-overflow: ellipsis;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* Плейсхолдеры при фокусе */
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="text"]:focus::placeholder,
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="password"]:focus::placeholder,
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="email"]:focus::placeholder {
+  overflow: hidden;
+  color: #cecfcf;
+  text-overflow: ellipsis;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* Состояние hover для полей ввода */
+.hubspot__form__container form .hs-form-field input[type="text"]:hover,
+.hubspot__form__container form .hs-form-field input[type="password"]:hover,
+.hubspot__form__container form .hs-form-field input[type="email"]:hover {
+  border: 1px solid var(--color-black);
+}
+
+/* Состояние focus для полей ввода */
+.hubspot__form__container form .hs-form-field input[type="text"]:focus,
+.hubspot__form__container form .hs-form-field input[type="password"]:focus,
+.hubspot__form__container form .hs-form-field input[type="email"]:focus {
+  border: 1px solid var(--color-black);
+}
+
+/* Состояние ошибки для полей ввода */
+.hubspot__form__container form .hs-form-field input[type="text"].input-error,
+.hubspot__form__container
+  form
+  .hs-form-field
+  input[type="password"].input-error,
+.hubspot__form__container form .hs-form-field input[type="email"].input-error {
+  border: 1px solid var(--color-error) !important;
+}
+
+/* Контейнер для согласия с условиями */
+.hubspot__form__container form .legal-consent-container {
+  margin-top: 20px;
+}
+
+/* Контейнер для отображения радио-кнопок */
+.hubspot__form__container form .hs-form-radio-display {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+}
+
+/* Контейнер для группы радио-кнопок */
+.hubspot__form__container form .hs-fieldtype-radio {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* richtext (описания полей) */
+.hubspot__form__container form .hs-richtext {
+  color: #3b3d3f;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+/* Ссылки в richtext */
+.hubspot__form__container form .hs-richtext a {
+  color: var(--color-blue-500) !important;
+}
+
+/* Контейнер кнопки отправки */
+.hubspot__form__container form .hs_submit {
+  position: relative;
+  width: fit-content;
+  margin-top: 16px;
+}
+
+/* Кнопка отправки формы */
+.hubspot__form__container form .hs-button {
+  position: relative;
+  display: flex;
+  height: 48px;
+  width: 146px;
+  padding: 0 32px;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 21.6px;
+  border-radius: 100px;
+  background-color: #ff5500;
+  border: none;
+  cursor: pointer;
+}
+
+/* Состояние hover для кнопки отправки */
+.hubspot__form__container form .hs-button:hover {
+  background: #ff671b;
+}
+
+/* Состояние active для кнопки отправки */
+.hubspot__form__container form .hs-button:active {
+  background: #f73;
+}
+
+/* Сообщения об ошибках */
+.hubspot__form__container form .hs-error-msgs {
+  list-style: none;
+  padding: 0;
+  color: #f36863;
+  font-family: Poppins, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 15.6px;
+  margin: 4px 0 0;
+}
+
+/* Адаптивность для планшетов и десктопов */
+@media (width >= 768px) {
+  /* Двухколоночная раскладка на больших экранах */
+  .hubspot__form__container form .form-columns-2 {
+    flex-direction: row;
+  }
+
+  /* Убираем ограничение ширины для fieldset */
+  .hubspot__form__container form fieldset {
+    max-width: unset;
+  }
+}

@@ -1,0 +1,32 @@
+---
+import Icon from '../icon/Icon.astro';
+import styles from './Modal.module.css';
+import clsx from 'clsx';
+
+const { id, isForm = false } = Astro.props;
+---
+
+<dialog id={id} class={styles.overlay}>
+  <div class={styles.wrapper} data-modal-wrapper>
+    <div class={clsx(
+      styles.content,
+      isForm && styles.content__form
+    )}>
+      <button 
+        class={clsx(
+          styles.close,
+          isForm && styles.close__form
+        )}
+        data-modal-close 
+        aria-label="Close modal"
+      >
+         <Icon 
+          name="close" 
+          width={24} 
+          height={24} 
+          color="var(--color-gray-700)"
+        />
+      </button>
+    </div>
+  </div>
+</dialog>

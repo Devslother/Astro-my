@@ -1,0 +1,96 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  background: rgb(0 0 0 / 50%);
+  height: 100%;
+  overflow-y: auto;
+  margin: 0;
+  max-width: unset;
+  max-height: unset;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  height: fit-content;
+  max-height: 90%;
+  margin: 0 auto;
+  padding: 32px 20px 20px;
+  background: var(--color-white);
+  border: 1px solid #e7e7e7;
+  border-radius: 16px;
+  max-width: 335px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.content__form {
+  padding: 0;
+  text-align: left;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close svg {
+  width: 24px;
+  height: 24px;
+}
+
+.close svg path {
+  stroke: var(--color-gray-700);
+}
+
+.close__form {
+  top: 5px;
+  right: 0;
+}
+
+@media (width >= 768px) {
+  .content {
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 650px;
+  }
+
+  .content__form {
+    padding: 0;
+  }
+
+  .close svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .close__form {
+    top: 10px;
+    right: -50px;
+  }
+
+  .close__form svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .close__form svg path {
+    stroke: var(--color-white);
+  }
+}

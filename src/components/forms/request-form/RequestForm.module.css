@@ -1,0 +1,175 @@
+// container
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding: 20px;
+  background: linear-gradient(180deg, #fff 0%, rgb(255 255 255 / 10%) 100%);
+  border: 1px solid #e7e7e7;
+  box-shadow: 0 6px 40px 0 rgb(206 206 206 / 60%);
+  border-radius: 16px;
+  height: fit-content;
+  overflow: auto;
+}
+
+.container__modal {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e7e7e7 !important;
+  box-shadow: unset;
+  border-radius: 16px;
+  height: 100%;
+}
+
+@media (width >= 768px) {
+  .container {
+    padding: 30px 40px;
+  }
+
+  .container__modal {
+    padding: 40px;
+  }
+}
+
+@media (height <= 800px) {
+  .container {
+    gap: 24px;
+  }
+
+  .form {
+    gap: 24px;
+  }
+}
+
+// title
+.title {
+  line-height: 26px;
+}
+
+@media (width >= 768px) {
+  .title {
+    line-height: 27.6px;
+  }
+}
+
+@media (width >= 1024px) {
+  .title {
+    line-height: 30.8px;
+  }
+}
+
+// modal
+.submission__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 auto;
+  max-width: 424px;
+}
+
+.modal__title {
+  margin: 0 auto;
+  max-width: 223px;
+}
+
+@media (width >= 768px) {
+  .modal__title {
+    max-width: unset;
+  }
+}
+
+.modal__submit {
+  width: 108px;
+  margin: 0 auto;
+}
+
+// form
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+@media (height <= 800px) {
+  .form {
+    gap: 24px;
+  }
+}
+
+// fields__wrapper
+.fields__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// field__objectives
+.field__objectives {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field__label {
+  color: var(--color-gray-900);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tags__container {
+  display: flex;
+  gap: 6px 4px;
+  flex-wrap: wrap;
+}
+
+.objective__wrapper {
+  position: relative; /* Создает контекст позиционирования */
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* cкрытый input */
+.visually__hidden {
+  position: absolute; /* Позиционируется относительно .objective_wrapper */
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* визуальный тег */
+.objective__tag {
+  display: inline-block; /* Обычное позиционирование */
+  padding: 8px 16px;
+  color: var(--color-gray-800);
+  background-color: var(--color-gray-200);
+  border-radius: 20px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.objective__wrapper input:checked ~ .objective__tag {
+  background-color: #0a0d0f;
+  color: var(--color-white);
+}
+
+.policy__captcha {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// form__captcha
+.form__captcha {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.08), 0 0 5px #808080;
+  height: 60px;
+  width: 256px;
+}
+
+// button submit
+.form__submit {
+  padding: 16px 32px;
+  align-self: flex-start;
+}

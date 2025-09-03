@@ -1,0 +1,72 @@
+---
+import clsx from 'clsx';
+import styles from './ModalTrigger.module.css';
+import Icon from '../icon/Icon.astro';
+import Button from '../Button/Button.astro';
+import DownloadSVG from '@/components/svgs/download.astro';
+import Modal from '../modal/Modal.astro';
+import RequestForm from '../forms/request-form/RequestForm.astro';
+
+export interface Props {
+	linkText: string;
+	formId: string;
+	portalId: string;
+	isDownloadBtn?: boolean;
+	downloadLink?: string;
+	useHubspotEmbed?: boolean;
+	title?: string
+}
+
+const {
+	linkText,
+	formId,
+	portalId,
+	isDownloadBtn = false,
+	downloadLink = '',
+	useHubspotEmbed = false,
+	title,
+} = Astro.props;
+
+const modalId = `modal-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+{!isDownloadBtn ? (
+<button
+	class={clsx(
+    "text__body--16-semibold",
+    styles.modaltrigger__link
+  )}
+	data-modal-open={modalId}
+	type="button"
+>
+	{linkText}
+  <Icon 
+    name="arrow-right" 
+    width={24} height={24} 
+    color="var(--color-orange-500)"
+    />
+</button>
+) : (
+	<Button
+    variant="primary" 
+    size="sm" 
+    class={styles.resource__download} 
+    type="button"
+    data-modal-open={modalId}
+  >
+    Download
+    <DownloadSVG />
+  </Button>       
+)}
+
+<Modal id={modalId} isForm>
+	<RequestForm
+		title={linkText}
+		formId={formId}
+		portalId={portalId}
+		isModal
+		isDownloadBtn={isDownloadBtn}
+		downloadLink={downloadLink}
+		useHubspotEmbed={useHubspotEmbed}
+	/>
+</Modal>

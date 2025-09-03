@@ -36,6 +36,18 @@ const {
 		<slot />
 	<script is:inline src="/scripts/dynamicSearch.js"></script>
 		<Footer />
+
+		<!-- Initialize modals and forms -->
+		<script>
+			import initModals from '../utils/modal.client.ts';
+			import initRequestForm from '../utils/requestForm.client.ts';
+			
+			// Initialize modals
+			initModals();
+			
+			// Initialize request forms
+			initRequestForm();
+		</script>
 	</body>
 </html>
 
