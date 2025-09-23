@@ -72,7 +72,7 @@ function main() {
       const stat = fs.statSync(fullPath);
       if (stat.isDirectory()) {
         findFiles(fullPath);
-      } else if (item.endsWith(".mdx")) {
+      } else if (item.endsWith(".md")) {
         files.push(fullPath);
       }
     }
@@ -81,7 +81,7 @@ function main() {
   findFiles(sourceDir);
 
   if (files.length === 0) {
-    console.log("No .mdx files found to process");
+    console.log("No .md files found to process");
     return;
   }
 

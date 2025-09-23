@@ -225,6 +225,44 @@ function extractAuthor(document) {
   return author.getAttribute("content")?.trim() || "";
 }
 
+// извлекаем категории из главного файла index.html
+function extractCategoriesFromIndex() {
+  const indexPath = path.join(config.sourceRoot, "index.html");
+  if (!fs.existsSync(indexPath)) return {};
+
+  const content = fs.readFileSync(indexPath, "utf8");
+  const dom = new JSDOM(content);
+  const document = dom.window.document;
+
+  const categoryMap = {};
+
+  // Находим все элементы с data-categories
+  const elements = document.querySelectorAll("[data-categories]");
+
+  elements.forEach((element) => {
+    const slug = element.getAttribute("data-slug");
+    const categoriesString = element.getAttribute("data-categories");
+
+    if (slug && categoriesString) {
+      // Разделяем категории по запятым и очищаем от HTML entities
+      const categories = categoriesString
+        .split(",")
+        .map((cat) => cat.trim())
+        .map((cat) => cat.replace(/&amp;/g, "&"))
+        .filter((cat) => cat.length > 0);
+
+      categoryMap[slug] = categories;
+    }
+  });
+
+  return categoryMap;
+}
+
+// извлекаем категории для конкретного ресурса
+function extractCategories(document, slug, categoryMap) {
+  return categoryMap[slug] || ["resources"];
+}
+
 // извлекаем контент из HTML
 function extractContent(document) {
   const content = document.querySelector(".resource__content");
@@ -249,7 +287,7 @@ function createSlug(url) {
 }
 
 // основная функция обработки
-async function processFile(filePath) {
+async function processFile(filePath, categoryMap) {
   console.log(`Processing: ${filePath}`);
 
   const content = fs.readFileSync(filePath, "utf8");
@@ -269,6 +307,7 @@ async function processFile(filePath) {
   const description = extractDescription(document);
   const date = extractDate(document);
   const author = extractAuthor(document);
+  const categories = extractCategories(document, slug, categoryMap);
   const ogImage = extractOgImage(document);
   const resourceImage = extractResourceImage(document);
   const htmlContent = extractContent(document);
@@ -308,7 +347,7 @@ async function processFile(filePath) {
     date: date || null,
     author: author || null,
     featuredImage: featuredImage || null,
-    categories: config.categories,
+    categories: categories,
     excerpt: description || "",
   };
 
@@ -342,7 +381,7 @@ ${markdownContent}`;
   fs.mkdirSync(targetDir, { recursive: true });
 
   // Сохраняем файл
-  const targetPath = path.join(targetDir, "index.mdx");
+  const targetPath = path.join(targetDir, "index.md");
   fs.writeFileSync(targetPath, mdxContent);
 
   console.log(`✅ Created: ${targetPath}`);
@@ -363,6 +402,13 @@ async function main() {
   fs.mkdirSync(config.targetRoot, { recursive: true });
   fs.mkdirSync(config.imagesTargetRoot, { recursive: true });
 
+  // Извлекаем карту категорий из главного файла
+  console.log("📋 Extracting categories from index.html...");
+  const categoryMap = extractCategoriesFromIndex();
+  console.log(
+    `Found categories for ${Object.keys(categoryMap).length} resources`
+  );
+
   // Находим все HTML файлы
   const files = glob.sync(path.join(config.sourceRoot, "**/*.html"));
 
@@ -375,7 +421,7 @@ async function main() {
 
   // Обрабатываем каждый файл
   for (const file of files) {
-    await processFile(file);
+    await processFile(file, categoryMap);
   }
 
   console.log("\n🎉 Resources HTML to MDX conversion with images completed!");
