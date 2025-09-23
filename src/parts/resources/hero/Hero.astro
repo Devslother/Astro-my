@@ -1,0 +1,113 @@
+---
+import SearchInput from '@/components/search-input/SearchInput.astro';
+import styles from './Hero.module.css'
+import clsx from 'clsx';
+import type { CollectionEntry } from 'astro:content';
+import Figure from '@/components/content/figure/Figure.astro';
+import Icon from '@/components/icon/Icon.astro';
+import CategoriesFilter from '../categories-filter/CategoriesFilter.astro';
+
+interface Props {
+	featuredResource: CollectionEntry<"resources"> | undefined;
+}
+
+const { featuredResource } = Astro.props;
+
+if (!featuredResource) {
+	throw new Error("Missing `featuredResource` prop in Hero");
+}
+
+const {
+	data: { title, featuredImage, categories, hubspotFormId },
+	slug
+} = featuredResource;
+
+const decodedTitle = decodeURIComponent(title);
+
+// Нормализую categories в массив
+const categoriesArray = Array.isArray(categories) 
+  ? categories 
+  : categories ? [categories] : [];
+---
+
+<section class={styles.hero}>
+  <div class={styles.container}>
+    <div class={styles.heading}>
+      <h1 class={clsx(
+        'text__heading--h4',
+        'text__heading--h3-lg',
+        'text__heading--h3-md',
+        styles.title
+      )}>
+        Tetrate Resources
+      </h1>
+      <div class={styles.filter}>
+        <div class={styles.categories}>
+          {
+            categoriesArray.length > 0 && 
+              <CategoriesFilter 
+                categories={categoriesArray} 
+              />
+          }
+        </div>
+          
+        <SearchInput 
+          placeholder="Enter keywords..." 
+          containerClass={styles.resource__input}  
+          baseUrl="/resources/search"
+        />
+      </div>
+    </div>
+
+    <a href={`/resources/${slug}`} class={styles.news__card}>
+      <div class={styles.featuredImage}>
+        {featuredImage && (
+          <Figure
+            source={featuredImage}
+            alt={decodedTitle}
+            width={800}
+            height={400}
+            lightbox={false}
+            loading="eager"
+          />
+        )}
+      </div>
+      <div class={styles.content}>
+        <span 
+          class={clsx(
+            'text__body--14-medium',
+            styles.tag
+          )}
+        >
+          Featured
+        </span>
+        
+        <h2 class={clsx(
+          'text__heading--h6',
+          'text__heading--h3-lg',
+          'text__heading--h4-md',
+          styles.title
+        )}>
+          {decodedTitle}
+        </h2>
+
+        <div 
+          class={clsx(
+            'text__body--16-medium',
+            'text__body--16-semibold-lg',
+            'text__body--16-medium-md',
+            styles.cta
+          )}
+        >
+          Learn more
+          <Icon 
+          name="arrow-right" 
+          width={24} 
+          height={24}
+          color="var(--color-white)" 
+          />
+        </div>
+      </div>
+    </a>
+  </div>
+</section>

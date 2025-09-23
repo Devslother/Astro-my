@@ -11,6 +11,7 @@ interface Props {
   height?: number | string;
   index?: number;
   lightbox?: boolean;
+  loading?: "lazy" | "eager";
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   index,
   width,
   height,
+  loading = "lazy",
 } = Astro.props;
 
 const alt = Astro.props.alt ?? 'Image';
@@ -62,14 +64,14 @@ const intrinsicHeight = isAstroAsset ? imageAsset.height : 600;
           class={styles.image}
           quality={90}
           densities={[1, 2]}
-          loading="lazy"
+          loading={loading}
         />
       ) : (
         <img
           src={displaySrc}
           alt={alt}
           class={`${styles.image} ${isSVG ? styles.imageSvg : ''}`}
-          loading="lazy"
+          loading={loading}
           {...(!isSVG ? { width: intrinsicWidth, height: intrinsicHeight } : {})}
           style={isSVG ? 'width:100%;height:auto;max-width:100%;' : undefined}
           draggable="false"

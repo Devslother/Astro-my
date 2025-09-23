@@ -1,0 +1,26 @@
+---
+title: "IDC Spotlight: Meeting the Need for Modern Application Networking"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+featuredImage: "/images/resources/Meeting-the-Need-for-Modern-Application-Networking-Cover._2n07qSr.png"
+categories: ["resources"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+![Post Image](/.netlify/images?url=_astro%2FMeeting-the-Need-for-Modern-Application-Networking-Cover._2n07qSr.png&w=612&h=792&q=100)
+
+![Post Image](/.netlify/images?url=_astro%2FMeeting-the-Need-for-Modern-Application-Networking-Cover._2n07qSr.png&w=612&h=792&q=100) ×
+
+document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+
+### [](#idc-spotlight)IDC Spotlight
+
+The time to modernize network infrastructure and operations for Kubernetes and cloud native environments is now.
+
+Market demand for cloud native application networking is growing and will be broad-based and ubiquitous in the coming years. As organizations advance to the next stage of their digital transformation journeys, they encounter an array of daunting challenges. Many of these challenges involve the need to implement a truly digital infrastructure that can accommodate an increasingly distributed application landscape that extends across heterogeneous application environments, including on-premises data centers and clouds.
+
+Learn the benefits of using a comprehensive and full-featured platform for application layer networking that include:
+
+*   Business agility and flexibility
+*   Faster time to market for applications and services
+*   Greater digital resilience (proactive rather than reactive)
+*   Abstracted, comprehensive connectivity and security

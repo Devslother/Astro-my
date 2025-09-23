@@ -1,0 +1,12 @@
+---
+title: "Tetrate Service Bridge Data Sheet"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+featuredImage: "/images/resources/TSB-Data-Sheet-Cover-Image.CuydeVHr.png"
+categories: ["resources"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+### [](#tetrate-service-bridge)Tetrate Service Bridge
+
+Tetrate Service Bridge unifies and simplifies the connectivity, security, observability and reliability for your entire application fleet—across Kubernetes clusters, virtual machines, bare metal servers and across clouds and on-premises deployments.  
+TSB is also a “bridge” between your organization—its people, teams, and applications—and your compute infrastructure, making it easy to assign consistent policies and access rights so your teams can safely control application resources.

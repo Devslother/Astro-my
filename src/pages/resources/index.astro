@@ -1,71 +1,76 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Cta from '@/parts/learn/cta/Cta.astro';
+import Hero from '@/parts/resources/hero/Hero.astro';
+import List from '@/parts/resources/list/List.astro';
+import { getCollection } from "astro:content";
+import { ClientRouter } from 'astro:transitions';
 
-// Получаем все resources
-const resources = await getCollection('resources');
+const ITEMS_PER_PAGE = 9;
+const currentPage = 1;
+
+// получаю все статьи
+const resources = await getCollection("resources", ({ data }) =>
+	import.meta.env.PROD ? data.draft !== true : true
+);
+
+// сортирую их по дате (с проверкой наличия даты)
+const filteredResources = resources.sort((a, b) => {
+	// Если у ресурса нет даты, ставлю его в конец
+	if (!a.data.date && !b.data.date) return 0;
+	if (!a.data.date) return 1;
+	if (!b.data.date) return -1;
+	
+	// Сортирую по дате (новые сверху)
+	return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf();
+});
+
+const normalizeToArray = (field: unknown) => {
+	if (!field) return [];
+	return Array.isArray(field) ? field : [field];
+};
+
+// создаю массив всех категорий
+const allCategories = [
+	...new Set(resources.flatMap((resource) => normalizeToArray(resource.data.categories))),
+];
+
+// Сначала ищу статью с slug "teg-data-sheet"
+const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
+
+// Если нашла - использую ее, если нет - беру первую статью из массива
+const featuredResource = foundResource ?? resources[0];
+
+const resourcesWithoutFeatured = filteredResources.filter(
+	(resource) => resource !== featuredResource
+);
+
+// пагинация
+const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+const endIndex = startIndex + ITEMS_PER_PAGE;
+const paginatedResources = resourcesWithoutFeatured.slice(startIndex, endIndex);
+const totalPages = Math.ceil(resourcesWithoutFeatured.length / ITEMS_PER_PAGE);
+
 ---
 
-<Layout title="Resources">
-  <main>
-    <div class="container">
-      <h1>Resources</h1>
-      <p>Welcome to our resources section.</p>
-      
-      {resources.length > 0 ? (
-        <div class="resources-grid">
-          {resources.map((resource) => (
-            <div class="resource-card">
-              <h3>{resource.data.title}</h3>
-              {resource.data.description && (
-                <p>{resource.data.description}</p>
-              )}
-              {resource.data.date && (
-                <p class="date">{new Date(resource.data.date).toLocaleDateString()}</p>
-              )}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>No resources available yet.</p>
-      )}
-    </div>
-  </main>
-</Layout>
+<Layout
+  title="Resources for Kubernetes Ingress and Enterprise Istio Support" 
+  description="Access Tetrate's extensive resources covering everything from microservices security to service mesh technology. Stay informed with our diverse range of articles, whitepapers, and guides." 
+  headerClass="nav__with__bg"
+  bodyClass="learn-page"
+>
+    <Hero featuredResource={featuredResource} />
+  <div data-articles-wrapper class="articles-wrapper">
+    <List
+      resources={paginatedResources}
+      totalPages={totalPages}
+      currentPage={currentPage}
+      baseUrl="/resources" 
+    />
+  </div>
+  <Cta />
 
-<style>
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  
-  .resources-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  
-  .resource-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1.5rem;
-    background: white;
-  }
-  
-  .resource-card h3 {
-    margin: 0 0 1rem 0;
-    color: #333;
-  }
-  
-  .resource-card p {
-    margin: 0.5rem 0;
-    color: #666;
-  }
-  
-  .date {
-    font-size: 0.9rem;
-    color: #999;
-  }
-</style>
+  <Fragment slot="head">
+    <ClientRouter />
+  </Fragment>
+</Layout>

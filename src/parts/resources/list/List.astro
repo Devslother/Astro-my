@@ -1,0 +1,122 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import styles from './List.module.css';
+import clsx from 'clsx';
+import Noposts from '@/assets/learn/no-posts.svg';
+import Grid from '@/components/Grid/Grid.astro';
+import Pagination from '../pagination/Pagination.astro';
+import ResourceCard from '../resources-card/ResourceCard.astro';
+
+interface Props {
+	resources: CollectionEntry<"resources">[];
+	currentPage: number;
+	totalPages: number;
+	baseUrl?: string;
+	query?: string;
+}
+
+const normalizeToString = (field: unknown) => {
+	if (!field) return "";
+	return Array.isArray(field) ? field.join(",") : field.toString();
+};
+
+const { 
+  resources, 
+  currentPage, 
+  totalPages, 
+  baseUrl, 
+  query,
+} = Astro.props;
+---
+
+<Grid>
+  <div class={styles.list}>
+    <div class={styles.container}>
+      {
+        resources.length > 0 ? (
+          resources.map((resource) => (
+            <div
+              data-post
+              data-title={resource.data.title?.toLowerCase() ?? ""}
+              data-slug={resource.slug?.toLowerCase() ?? ""}
+              data-categories={normalizeToString(resource.data.categories).toLowerCase()}
+            >
+              <ResourceCard resource={resource} />
+            </div>
+          ))
+        ) : (
+          <div 
+            class={styles.noposts}
+            data-noposts
+          >
+            <Noposts />
+            <h2 class={clsx(
+              'text__heading--h6',
+              'text__heading--h6-lg',
+              'text__heading--h6-md',
+            )}>
+              No results found
+            </h2>
+            <p class={clsx(
+              'text__body--16',
+              'text__body--16--lg',
+              'text__body--16--md',
+              styles.text
+            )}>
+              Please try adjust your filter criteria.
+            </p>
+          </div>
+        )
+      }
+    </div>
+
+    <div data-pagination-wrapper>
+      {totalPages > 1 && (
+        <Pagination
+          data-pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          baseUrl={baseUrl}
+          query={query}
+        />
+      )}
+    </div>
+  </div>
+</Grid>
+
+<script is:inline>
+	(() => {
+		const cards = document.querySelectorAll("[data-post]");
+		const input = document.getElementById("search-dynamic");
+
+		if (!input) return;
+
+		function handleSearch(query) {
+			const q = query.toLowerCase();
+			let matchesFound = false;
+
+			cards.forEach((card) => {
+				const title = card.dataset.title ?? "";
+				const slug = card.dataset.slug ?? "";
+				const categories = card.dataset.categories ?? "";
+
+				const matches =
+					title.includes(q) ||
+					slug.includes(q) ||
+					categories.includes(q);
+
+				card.style.display = matches ? "" : "none";
+				if (matches) matchesFound = true;
+			});
+
+			const noPosts = document.querySelector("[data-noposts]");
+			if (noPosts) {
+				noPosts.style.display = matchesFound ? "none" : "block";
+			}
+		}
+
+		input.addEventListener("input", (e) => {
+			handleSearch(e.target.value);
+		});
+	})();
+</script>

@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 
+import { ClientRouter } from 'astro:transitions';
 import Layout from '@/layouts/Layout.astro';
 import Cta from '@/parts/learn/cta/Cta.astro';
 import Hero from '@/parts/learn/hero/Hero.astro';
@@ -72,5 +73,9 @@ if (currentPage && currentPage === 1) {
 		/>
 	</div>
 	<Cta />
+
+	<Fragment slot="head">
+		<ClientRouter />
+	</Fragment>
 </Layout>
 

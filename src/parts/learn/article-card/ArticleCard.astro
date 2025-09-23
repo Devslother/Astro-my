@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const { title, featuredImage, excerpt, description } = article.data; // ← берём description
+const { title, featuredImage, excerpt, description } = article.data; // берy description
 const decodedTitle = decodeURIComponent(title);
 
 // тип картинки

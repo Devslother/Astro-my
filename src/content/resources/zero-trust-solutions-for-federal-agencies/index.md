@@ -1,0 +1,15 @@
+---
+title: "Tetrate Zero Trust Solutions for Federal Agencies"
+description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+featuredImage: "/images/resources/Tetrate-Zero-Trust-Solution-Brief-Cover.B-OXMus1.png"
+categories: ["resources"]
+excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+---
+
+Modernize and strengthen your cybersecurity posture, reduce risk and better control access, assets and users while meeting U.S. federal government mandates for Zero Trust architecture.
+
+**At a glance**:
+
+*   A Zero Trust approach helps organizations modernize and strengthen their security environment in order to limit or prevent attacks
+*   An Executive Order on improving the nation’s cybersecurity instructed the government to move towards Zero Trust by 2024
+*   The service mesh provides essential capabilities for effective Zero Trust.

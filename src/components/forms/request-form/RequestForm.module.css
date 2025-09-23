@@ -1,4 +1,4 @@
-// container
+/* container */
 .container {
   display: flex;
   flex-direction: column;
@@ -44,7 +44,7 @@
   }
 }
 
-// title
+/* title */
 .title {
   line-height: 26px;
 }
@@ -61,7 +61,7 @@
   }
 }
 
-// modal
+/* modal */
 .submission__wrapper {
   display: flex;
   flex-direction: column;
@@ -86,7 +86,7 @@
   margin: 0 auto;
 }
 
-// form
+/* form */
 .form {
   display: flex;
   flex-direction: column;
@@ -99,14 +99,14 @@
   }
 }
 
-// fields__wrapper
+/* fields__wrapper */
 .fields__wrapper {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-// field__objectives
+/* field__objectives */
 .field__objectives {
   display: flex;
   flex-direction: column;
@@ -161,14 +161,14 @@
   gap: 20px;
 }
 
-// form__captcha
+/* form__captcha */
 .form__captcha {
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.08), 0 0 5px #808080;
   height: 60px;
   width: 256px;
 }
 
-// button submit
+/* button submit */
 .form__submit {
   padding: 16px 32px;
   align-self: flex-start;

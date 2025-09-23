@@ -1,0 +1,95 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import styles from './ResourceCard.module.css'
+import Figure from '@/components/content/figure/Figure.astro';
+import clsx from 'clsx';
+import Icon from '@/components/icon/Icon.astro';
+
+interface Props {
+	resource: CollectionEntry<"resources">;
+}
+
+const { resource } = Astro.props;
+
+if (!resource) {
+	throw new Error("Resource not found");
+}
+
+const { title, featuredImage, categories, date, description } = resource.data;
+
+const decodedTitle = decodeURIComponent(title);
+const dateObj = date ? new Date(date) : null;
+const formattedDate = dateObj ? dateObj.toLocaleDateString("en-US", {
+	month: "short",
+	day: "numeric",
+	year: "numeric",
+}) : null;
+---
+
+<article class={styles.card}>
+  <a href={`/resources/${resource.slug}`} class={styles.link}>
+    <div>
+      {featuredImage && (
+         <div class={styles.featuredImage}>
+            <Figure
+              source={featuredImage}
+              width={340}
+					    height={178}
+              lightbox={false}
+              alt={decodedTitle}
+            />
+        </div>
+      )}
+    </div>
+
+    <div class={styles.content}>
+      <div class={styles.meta}>
+				{categories && (
+					<div class={styles.category}>{categories}</div>
+				)}
+				{
+					formattedDate && dateObj && (
+						<>
+							<div class={styles.metadivider}/>
+							<time class={styles.date} datetime={dateObj.toISOString()}>
+								{formattedDate}
+							</time>
+						</>
+					)
+				}
+			</div>
+      <h3 class={clsx(
+        'text__heading--h6',
+        'text__heading--h5-lg',
+        'text__heading--h6-md',
+        styles.title
+      )}>
+        {decodedTitle}
+      </h3>
+       
+      <p class={clsx(
+        'text__body--14',
+        'text__body--12-md',
+        'text__body--14-lg',
+        styles.excerpt
+      )}>
+        {description  ?? "Explore this resource to learn more."}
+      </p>
+      <span 
+        class={clsx(
+          'text__body--16-semibold',
+          styles.cta
+        )} 
+        style={{ color: 'var(--color-black)' }}
+      >
+        Start now
+        <Icon 
+          name="arrow-right" 
+          width={24} 
+          height={24} 
+          color="var(--color-orange-500)"
+        />
+			</span>
+    </div>
+  </a>
+</article>

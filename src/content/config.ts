@@ -1,6 +1,7 @@
 import { defineCollection, z } from "astro:content";
 
 const blogCollection = defineCollection({
+  type: "content",
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -17,23 +18,26 @@ const blogCollection = defineCollection({
 });
 
 const resourcesCollection = defineCollection({
+  type: "content",
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      categories: z.string().optional(),
+      categories: z.union([z.string(), z.array(z.string())]).optional(),
       featuredImage: image().optional(),
       coverImg: image().optional(),
-      date: z.date(),
+      date: z.date().optional(),
       hubspotFormId: z.string().optional(),
       draft: z.boolean().optional().default(false),
       downloadLink: z.string().optional(),
       description: z.string().optional(),
+      excerpt: z.string().optional(),
       modalFormLinkText: z.string().optional(),
       modalFormId: z.string().optional(),
     }),
 });
 
 const learnCollection = defineCollection({
+  type: "content",
   schema: ({ image }) =>
     z.object({
       title: z.string(),

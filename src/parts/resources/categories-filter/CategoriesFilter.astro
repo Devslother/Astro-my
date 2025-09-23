@@ -1,33 +1,35 @@
 ---
-import Icon from '@/components/icon/Icon.astro';
-import styles from './CategoriesFilter.module.css'
-import clsx from 'clsx';
 import { slugify } from '@/utils/slugify';
-
+import styles from './CategoriesFilter.module.css';
+import clsx from 'clsx';
+import Icon from '@/components/icon/Icon.astro';
 
 interface Props {
 	categories: string[];
 	currentCategory?: string;
 }
 
-const { currentCategory, categories } = Astro.props;
+const { categories, currentCategory } = Astro.props;
 
 const uniqueCategories = [...new Set(
   categories.flatMap(cat => cat.split(',').map(c => c.trim()))
 )].sort((a, b) => a.localeCompare(b));
 
 const slugToLabel = Object.fromEntries(uniqueCategories.map((cat) => [slugify(cat), cat]));
-const selectedLabel = currentCategory ? (slugToLabel[currentCategory] ?? currentCategory) : "Select category";
+
+const selectedLabel = currentCategory
+  ? (slugToLabel[currentCategory] ?? currentCategory)
+  : "Select topic";
 ---
 
-<div class={styles.filter}>
-     <button 
+  <div class={styles.filter}>
+    <button 
       type="button" 
       id="category-button" 
       aria-haspopup="listbox" 
       aria-expanded="false"
       class={styles.select__btn}
-     >
+    >
       <span class={clsx(
         'text__body--16',
         styles.label,
@@ -40,7 +42,7 @@ const selectedLabel = currentCategory ? (slugToLabel[currentCategory] ?? current
         height={24} 
         color="var(--color-gray-800)"
         class={styles.arrow}
-       />
+      />
     </button>
 
     <div 
@@ -51,44 +53,43 @@ const selectedLabel = currentCategory ? (slugToLabel[currentCategory] ?? current
     >
       {uniqueCategories.map((category: string) => (
         <a 
+          href={`/resources/category/${slugify(category)}`}
           role="option"
           class={styles.option}
-          href={`/learn/categories/${slugify(category)}`}
           aria-selected={category === currentCategory}
           data-value={slugify(category)}
-          data-option
         >
           {category}
         </a>
       ))}
     </div>
 
-  <button 
-    id="clear-filters" 
-    type="button"
-    style="display: none;"
-    class={clsx(
-      'text__body--16',
-      styles.reset
-    )}
-  >
-    Clear
-    <Icon 
-      name="close" 
-      width={20} 
-      height={20} 
-      color="var(--color-gray-700)"
-     />
-  </button>
-</div>
+    <button 
+      id="clear-filters" 
+      type="button"
+      style="display: none;"
+      class={clsx(
+        'text__body--16',
+        styles.reset
+      )}
+    >
+      Clear
+      <Icon 
+        name="close" 
+        width={20} 
+        height={20} 
+        color="var(--color-gray-700)"
+      />
+    </button>
+  </div>
 
 <script is:inline type="application/json" id="category-map" set:html={JSON.stringify(slugToLabel)} />
 
 <script>
   import { initCategoryFilter } from '@/utils/categoryFilter.js';
   
-  // Инициализация для learn
+  // Инициализация для resources
   document.addEventListener('DOMContentLoaded', () => {
-    initCategoryFilter("/learn", "Select category");
+    initCategoryFilter("/resources", "Select topic");
   });
 </script>

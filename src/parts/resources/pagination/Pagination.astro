@@ -8,16 +8,38 @@ interface Props {
 	currentPage: number;
 	totalPages: number;
 	baseUrl: string;
+	query?: string;
 }
 
-const { currentPage, totalPages, baseUrl = "/learn" } = Astro.props;
+const { currentPage, totalPages, baseUrl, query } = Astro.props;
 
 const getPageUrl = (page:number) => {
-	const currentUrl = new URL(Astro.url);
-	const queryString = currentUrl.search;
+	//Формирую базовый путь страницы для learn
+    let pagePath: string;
+    
+    if (page === 1) {
+        // Для первой страницы использую baseUrl без номера
+        pagePath = baseUrl;
+    } else {
+       // Для остальных страниц добавляю /page/номер
+      pagePath = `${baseUrl}/page/${page}`;
+    }
+    
+    // Приоритет query параметра
+    if (query) {
+        return `${pagePath}?${query}`;
+    }
 
-	const pagePath = page === 1 ? baseUrl : `${baseUrl}/page/${page}`;
-	return `${pagePath}${queryString}`;
+	// Запасной вариант: использую текущие параметры URL
+    const currentUrl = new URL(Astro.url);
+    const searchParams = currentUrl.searchParams.toString();
+    
+    if (searchParams) {
+        return `${pagePath}?${searchParams}`;
+    }
+    
+    // Без параметров: просто путь
+    return pagePath; // /learn/2
 };
 
 const getVisiblePages = (current: number, total: number) => {
@@ -40,26 +62,27 @@ const getVisiblePages = (current: number, total: number) => {
 <nav data-pagination class={styles.pagination} aria-label="Pagination">
   <ul class={styles.list}>
     {
-			currentPage > 1 && (
-				<li class={styles.item}>
+      currentPage > 1 && (
+        <li class={styles.item}>
           <a
-						href={getPageUrl(currentPage - 1)}
-						class={clsx(styles.link, styles['link--prev'])}
-						aria-label="Previous page"
-						data-astro-reload
-					>
-            <ArrowLeft class={clsx(
-							styles.arrow,
-							'arrow-pag'
-							)}
-						/>
+            href={getPageUrl(currentPage - 1)}
+            class={clsx(styles.link, styles['link--prev'])}
+            aria-label="Previous page"
+            data-astro-reload
+          >
+            <ArrowLeft
+              class={clsx(
+                styles.arrow,
+                'arrow-pag'
+              )}
+            />
           </a>
         </li>
-			)
-		}
+      )
+    }
 
-		{
-			getVisiblePages(currentPage, totalPages).map((pageNum, index, array) => (
+    {
+			getVisiblePages(currentPage, totalPages).map((pageNum, index) => (
         <li class={styles.item}>
           {pageNum === null ? (
 						<button

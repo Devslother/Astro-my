@@ -1,0 +1,34 @@
+---
+export const prerender = true;
+
+import { getCollection, type CollectionEntry } from "astro:content";
+import Layout from '@/layouts/Layout.astro';
+import Cta from '@/parts/learn/cta/Cta.astro';
+import Resource from '@/parts/resources/resources-item/Resource.astro';
+
+export async function getStaticPaths() {
+  const resources: CollectionEntry<"resources">[] = await getCollection("resources");
+  return resources.map((resource) => ({
+    params: { slug: resource.slug },
+    props: { resource },
+  }))
+}
+
+const { resource } = Astro.props;
+
+if (!resource) {
+	return Astro.redirect("/resources");
+}
+
+const ogImage = resource.data.featuredImage || "/og-image.png";
+const decodedTitle = decodeURIComponent(resource.data.title);
+---
+
+<Layout 
+ title={decodedTitle}  
+ bodyClass="post-body" 
+ ogImage={ogImage} 
+ >
+  <Resource resource={resource} />
+  <Cta />
+</Layout>
