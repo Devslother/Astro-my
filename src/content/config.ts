@@ -25,7 +25,10 @@ const resourcesCollection = defineCollection({
       categories: z.union([z.string(), z.array(z.string())]).optional(),
       featuredImage: image().optional(),
       coverImg: image().optional(),
-      date: z.date().optional(),
+      date: z
+        .string()
+        .transform((str) => new Date(str))
+        .optional(),
       hubspotFormId: z.string().optional(),
       draft: z.boolean().optional().default(false),
       downloadLink: z.string().optional(),

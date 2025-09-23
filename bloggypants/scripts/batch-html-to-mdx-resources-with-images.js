@@ -208,13 +208,27 @@ function extractDescription(document) {
 }
 
 // извлекаем дату из HTML
-function extractDate(document) {
-  const date = document.querySelector(
+function extractDate(document, slug, dateMap) {
+  // Сначала пробуем найти в dateMap (из index.html)
+  if (dateMap && dateMap[slug]) {
+    return dateMap[slug];
+  }
+
+  // Затем пробуем найти в meta тегах
+  const metaDate = document.querySelector(
     'meta[property="article:published_time"]'
   );
-  if (!date) return "";
+  if (metaDate) {
+    return metaDate.getAttribute("content")?.trim() || "";
+  }
 
-  return date.getAttribute("content")?.trim() || "";
+  // Ищем в элементах time
+  const timeElement = document.querySelector("time[datetime]");
+  if (timeElement) {
+    return timeElement.getAttribute("datetime")?.trim() || "";
+  }
+
+  return "";
 }
 
 // извлекаем автора из HTML
@@ -225,18 +239,19 @@ function extractAuthor(document) {
   return author.getAttribute("content")?.trim() || "";
 }
 
-// извлекаем категории из главного файла index.html
+// извлекаем категории и даты из главного файла index.html
 function extractCategoriesFromIndex() {
   const indexPath = path.join(config.sourceRoot, "index.html");
-  if (!fs.existsSync(indexPath)) return {};
+  if (!fs.existsSync(indexPath)) return { categories: {}, dates: {} };
 
   const content = fs.readFileSync(indexPath, "utf8");
   const dom = new JSDOM(content);
   const document = dom.window.document;
 
   const categoryMap = {};
+  const dateMap = {};
 
-  // Находим все элементы с data-categories
+  // Находим все элементы с data-categories и data-slug
   const elements = document.querySelectorAll("[data-categories]");
 
   elements.forEach((element) => {
@@ -252,10 +267,19 @@ function extractCategoriesFromIndex() {
         .filter((cat) => cat.length > 0);
 
       categoryMap[slug] = categories;
+
+      // Ищем дату в элементе time
+      const timeElement = element.querySelector("time[datetime]");
+      if (timeElement) {
+        const datetime = timeElement.getAttribute("datetime");
+        if (datetime) {
+          dateMap[slug] = datetime;
+        }
+      }
     }
   });
 
-  return categoryMap;
+  return { categories: categoryMap, dates: dateMap };
 }
 
 // извлекаем категории для конкретного ресурса
@@ -287,7 +311,7 @@ function createSlug(url) {
 }
 
 // основная функция обработки
-async function processFile(filePath, categoryMap) {
+async function processFile(filePath, categoryMap, dateMap) {
   console.log(`Processing: ${filePath}`);
 
   const content = fs.readFileSync(filePath, "utf8");
@@ -305,7 +329,7 @@ async function processFile(filePath, categoryMap) {
   // Извлекаем метаданные
   const title = extractTitle(document);
   const description = extractDescription(document);
-  const date = extractDate(document);
+  const date = extractDate(document, slug, dateMap);
   const author = extractAuthor(document);
   const categories = extractCategories(document, slug, categoryMap);
   const ogImage = extractOgImage(document);
@@ -402,12 +426,14 @@ async function main() {
   fs.mkdirSync(config.targetRoot, { recursive: true });
   fs.mkdirSync(config.imagesTargetRoot, { recursive: true });
 
-  // Извлекаем карту категорий из главного файла
-  console.log("📋 Extracting categories from index.html...");
-  const categoryMap = extractCategoriesFromIndex();
+  // Извлекаем карты категорий и дат из главного файла
+  console.log("📋 Extracting categories and dates from index.html...");
+  const { categories: categoryMap, dates: dateMap } =
+    extractCategoriesFromIndex();
   console.log(
     `Found categories for ${Object.keys(categoryMap).length} resources`
   );
+  console.log(`Found dates for ${Object.keys(dateMap).length} resources`);
 
   // Находим все HTML файлы
   const files = glob.sync(path.join(config.sourceRoot, "**/*.html"));
@@ -421,7 +447,7 @@ async function main() {
 
   // Обрабатываем каждый файл
   for (const file of files) {
-    await processFile(file, categoryMap);
+    await processFile(file, categoryMap, dateMap);
   }
 
   console.log("\n🎉 Resources HTML to MDX conversion with images completed!");
