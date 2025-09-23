@@ -239,10 +239,10 @@ function extractAuthor(document) {
   return author.getAttribute("content")?.trim() || "";
 }
 
-// извлекаем категории и даты из главного файла index.html
+// извлекаем категории, даты и информацию о формах из главного файла index.html
 function extractCategoriesFromIndex() {
   const indexPath = path.join(config.sourceRoot, "index.html");
-  if (!fs.existsSync(indexPath)) return { categories: {}, dates: {} };
+  if (!fs.existsSync(indexPath)) return { categories: {}, dates: {}, forms: {} };
 
   const content = fs.readFileSync(indexPath, "utf8");
   const dom = new JSDOM(content);
@@ -250,6 +250,7 @@ function extractCategoriesFromIndex() {
 
   const categoryMap = {};
   const dateMap = {};
+  const formMap = {};
 
   // Находим все элементы с data-categories и data-slug
   const elements = document.querySelectorAll("[data-categories]");
@@ -279,12 +280,45 @@ function extractCategoriesFromIndex() {
     }
   });
 
-  return { categories: categoryMap, dates: dateMap };
+  return { categories: categoryMap, dates: dateMap, forms: formMap };
 }
 
 // извлекаем категории для конкретного ресурса
 function extractCategories(document, slug, categoryMap) {
   return categoryMap[slug] || ["resources"];
+}
+
+// извлекаем информацию о формах из HTML
+function extractFormData(document, slug) {
+  const formData = {
+    hubspotFormId: "",
+    modalFormId: "",
+    modalFormLinkText: "",
+    downloadLink: "",
+    useHubspotEmbed: false
+  };
+
+  // Ищем HubSpot форму
+  const hubspotForm = document.querySelector('[data-portal-id][data-form-id]');
+  if (hubspotForm) {
+    formData.hubspotFormId = hubspotForm.getAttribute('data-form-id') || "";
+    formData.useHubspotEmbed = true;
+  }
+
+  // Ищем ссылку для скачивания
+  const downloadButton = document.querySelector('[data-download]');
+  if (downloadButton) {
+    formData.downloadLink = downloadButton.getAttribute('data-download') || "";
+  }
+
+  // Ищем модальную форму в конце статьи
+  const modalLink = document.querySelector('.resource__download-link, .js-open-download');
+  if (modalLink) {
+    formData.modalFormLinkText = modalLink.textContent?.trim() || "Get more information";
+    formData.modalFormId = formData.hubspotFormId; // Используем тот же ID формы
+  }
+
+  return formData;
 }
 
 // извлекаем контент из HTML
@@ -311,7 +345,7 @@ function createSlug(url) {
 }
 
 // основная функция обработки
-async function processFile(filePath, categoryMap, dateMap) {
+async function processFile(filePath, categoryMap, dateMap, formMap) {
   console.log(`Processing: ${filePath}`);
 
   const content = fs.readFileSync(filePath, "utf8");
@@ -334,6 +368,7 @@ async function processFile(filePath, categoryMap, dateMap) {
   const categories = extractCategories(document, slug, categoryMap);
   const ogImage = extractOgImage(document);
   const resourceImage = extractResourceImage(document);
+  const formData = extractFormData(document, slug);
   const htmlContent = extractContent(document);
 
   if (!htmlContent) {
@@ -373,6 +408,11 @@ async function processFile(filePath, categoryMap, dateMap) {
     featuredImage: featuredImage || null,
     categories: categories,
     excerpt: description || "",
+    hubspotFormId: formData.hubspotFormId || null,
+    modalFormId: formData.modalFormId || null,
+    modalFormLinkText: formData.modalFormLinkText || null,
+    downloadLink: formData.downloadLink || null,
+    useHubspotEmbed: formData.useHubspotEmbed || false,
   };
 
   // Убираем пустые поля
@@ -380,7 +420,8 @@ async function processFile(filePath, categoryMap, dateMap) {
     if (
       frontmatter[key] === null ||
       frontmatter[key] === "" ||
-      frontmatter[key] === ">"
+      frontmatter[key] === ">" ||
+      (key === "useHubspotEmbed" && frontmatter[key] === false)
     ) {
       delete frontmatter[key];
     }
@@ -426,14 +467,15 @@ async function main() {
   fs.mkdirSync(config.targetRoot, { recursive: true });
   fs.mkdirSync(config.imagesTargetRoot, { recursive: true });
 
-  // Извлекаем карты категорий и дат из главного файла
-  console.log("📋 Extracting categories and dates from index.html...");
-  const { categories: categoryMap, dates: dateMap } =
+  // Извлекаем карты категорий, дат и форм из главного файла
+  console.log("📋 Extracting categories, dates and form data from index.html...");
+  const { categories: categoryMap, dates: dateMap, forms: formMap } =
     extractCategoriesFromIndex();
   console.log(
     `Found categories for ${Object.keys(categoryMap).length} resources`
   );
   console.log(`Found dates for ${Object.keys(dateMap).length} resources`);
+  console.log(`Found form data for ${Object.keys(formMap).length} resources`);
 
   // Находим все HTML файлы
   const files = glob.sync(path.join(config.sourceRoot, "**/*.html"));
@@ -447,7 +489,7 @@ async function main() {
 
   // Обрабатываем каждый файл
   for (const file of files) {
-    await processFile(file, categoryMap, dateMap);
+    await processFile(file, categoryMap, dateMap, formMap);
   }
 
   console.log("\n🎉 Resources HTML to MDX conversion with images completed!");
