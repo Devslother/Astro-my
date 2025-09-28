@@ -19,12 +19,12 @@ const blogCollection = defineCollection({
 
 const resourcesCollection = defineCollection({
   type: "content",
-  schema: ({ image }) =>
+  schema: () =>
     z.object({
       title: z.string(),
       categories: z.union([z.string(), z.array(z.string())]).optional(),
-      featuredImage: image().optional(),
-      coverImg: image().optional(),
+      featuredImage: z.string().optional(),
+      coverImg: z.string().optional(),
       date: z
         .string()
         .transform((str) => new Date(str))
@@ -41,13 +41,13 @@ const resourcesCollection = defineCollection({
 
 const learnCollection = defineCollection({
   type: "content",
-  schema: ({ image }) =>
+  schema: () =>
     z.object({
       title: z.string(),
       excerpt: z.string().optional(),
-      featuredImage: image().optional(),
+      featuredImage: z.string().optional(),
       categories: z.union([z.string(), z.array(z.string())]).optional(),
-      date: z.date(),
+      date: z.date().optional(),
       description: z.string().optional(),
       draft: z.boolean().optional().default(false),
     }),

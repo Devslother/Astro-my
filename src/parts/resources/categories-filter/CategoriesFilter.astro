@@ -33,7 +33,7 @@ const selectedLabel = currentCategory
       <span class={clsx(
         'text__body--16',
         styles.label,
-        { [styles.selected]: currentCategory }
+        { [styles.selected]: currentCategory && selectedLabel !== "Select topic" }
       )}>
         {selectedLabel}
       </span>
@@ -90,6 +90,11 @@ const selectedLabel = currentCategory
   
   // Инициализация для resources
   document.addEventListener('DOMContentLoaded', () => {
+    initCategoryFilter("/resources", "Select topic");
+  });
+  
+  // Инициализация при навигации Astro
+  document.addEventListener('astro:page-load', () => {
     initCategoryFilter("/resources", "Select topic");
   });
 </script>

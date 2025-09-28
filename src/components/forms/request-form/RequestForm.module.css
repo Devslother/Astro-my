@@ -106,6 +106,25 @@
   gap: 16px;
 }
 
+/* Группировка полей по два в ряд на tablet и desktop */
+@media (width >= 768px) {
+  .fields__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Поле company (5-е поле) занимает всю ширину */
+  .fields__wrapper > :nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  /* Все элементы после 5-го (businessObjectives и др.) занимают всю ширину */
+  .fields__wrapper > :nth-child(n + 6) {
+    grid-column: 1 / -1;
+  }
+}
+
 /* field__objectives */
 .field__objectives {
   display: flex;
@@ -155,21 +174,16 @@
   color: var(--color-white);
 }
 
-.policy__captcha {
+.policy {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* form__captcha */
-.form__captcha {
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.08), 0 0 5px #808080;
-  height: 60px;
-  width: 256px;
-}
-
 /* button submit */
 .form__submit {
-  padding: 16px 32px;
+  padding: 12px 24px;
   align-self: flex-start;
+  border-radius: 4px;
+  font-size: 12px;
 }

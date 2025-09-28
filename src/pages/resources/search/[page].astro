@@ -1,0 +1,95 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Cta from '@/parts/learn/cta/Cta.astro';
+import Hero from '@/parts/resources/hero/Hero.astro';
+import List from '@/parts/resources/list/List.astro';
+import { getCollection } from 'astro:content';
+import { ClientRouter } from 'astro:transitions';
+
+export const prerender = false;
+
+const POSTS_PER_PAGE = 9;
+
+export async function getStaticPaths() {
+	const resources = await getCollection("resources", ({ data }) =>
+		import.meta.env.PROD ? data.draft !== true : true
+	);
+	const totalPages = Math.ceil(resources.length / POSTS_PER_PAGE);
+	return Array.from({ length: totalPages }, (_, i) => ({
+		params: { page: (i + 1).toString() },
+	}));
+}
+
+const { page } = Astro.params;
+const currentPage = parseInt(page);
+
+const url = new URL(Astro.request.url);
+const query = url.searchParams.get("q")?.toLowerCase() ?? "";
+
+if (!query) {
+	return Astro.redirect("/resources");
+}
+
+const resources = await getCollection("resources", ({ data }) =>
+	import.meta.env.PROD ? data.draft !== true : true
+);
+
+const normalizeToArray = (field: unknown) =>
+	Array.isArray(field) ? field : field ? [field] : [];
+
+const allCategories = [
+	...new Set(resources.flatMap((r) => normalizeToArray(r.data.categories))),
+];
+
+const filteredResources = resources.filter((resource) => {
+		const title = resource.data.title?.toLowerCase() ?? "";
+		const categories = normalizeToArray(resource.data.categories)
+			.map((c) => c.toLowerCase())
+			.join(" ");
+		return title.includes(query) || categories.includes(query);
+	})
+	.sort((a, b) => {
+		if (!a.data.date && !b.data.date) return 0;
+		if (!a.data.date) return 1;
+		if (!b.data.date) return -1;
+		
+		return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf();
+	});
+
+const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+const endIndex = startIndex + POSTS_PER_PAGE;
+const paginatedResources = filteredResources.slice(startIndex, endIndex);
+const totalPages = Math.ceil(filteredResources.length / POSTS_PER_PAGE);
+
+// Создаю featured resource (как на главной странице)
+const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
+const featuredResource = foundResource ?? resources[0];
+---
+
+<Layout
+	title="Resources"
+	description="Search our resource center"
+	headerClass="nav__with__bg"
+	bodyClass="learn-page"
+>
+  <Hero 
+    featuredResource={featuredResource} 
+    allCategories={allCategories} 
+    currentCategory={undefined}
+   />
+   
+   <div data-articles-wrapper class="articles-wrapper">
+     <List
+       resources={paginatedResources}
+       totalPages={totalPages}
+       currentPage={currentPage}
+       baseUrl="/resources/search"
+     />
+   </div>
+   
+   <Cta />
+
+	<Fragment slot="head">
+		<ClientRouter />
+	</Fragment>
+</Layout>

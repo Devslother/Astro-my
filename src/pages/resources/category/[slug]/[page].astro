@@ -37,11 +37,17 @@ if (!category) {
 
 const isSearching = query.length > 0;
 
-// разделяю featured и остальные статьи
-let featuredResource: any;
+// Сначала ищу статью с slug "teg-data-sheet" (как на главной странице)
+const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
+const featuredResource = foundResource ?? resources[0];
+
+// Фильтрую остальные статьи по категории и поиску
 const filtered: any[] = [];
 
 for (const resource of resources) {
+  // Пропускаю featured resource
+  if (resource === featuredResource) continue;
+  
   // проверяю категорию
   const articleCategories = normalizeToArray(resource.data.categories)
     .map((c: string) => c.trim().toLowerCase());
@@ -62,21 +68,11 @@ for (const resource of resources) {
     if (!matchesQuery) continue;
   }
 
-  // если статья подходит - добавляю в featured или в основной список
-  if (!featuredResource && resource.slug === "teg-data-sheet") {
-    featuredResource = resource;
-  } else {
-    filtered.push(resource);
-  }
-}
-
-// если "teg-data-sheet" не нашёлся, назначаю первый
-if (!featuredResource && filtered.length > 0) {
-  featuredResource = filtered.shift();
+  filtered.push(resource);
 }
 
 // сортирую по дате
-filtered.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+filtered.sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
 
 // пагинация
 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -89,14 +85,13 @@ const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   description="Filtered resources" 
   headerClass="nav__with__bg"
 >
-	<Hero featuredResource={featuredResource} />
+	<Hero featuredResource={featuredResource} allCategories={allCategories} currentCategory={category} />
 	<div data-articles-wrapper class="articles-wrapper">
 		<List
 			resources={paginatedResources}
 			totalPages={totalPages}
 			currentPage={currentPage}
 			baseUrl={`/resources/category/${slug}`}
-			query={query ? `q=${encodeURIComponent(query)}` : ""}
 		/>
 	</div>
 	<Cta />

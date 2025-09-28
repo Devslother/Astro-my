@@ -14,7 +14,8 @@ export interface Props {
 	isDownloadBtn?: boolean;
 	downloadLink?: string;
 	useHubspotEmbed?: boolean;
-	title?: string
+	title?: string;
+	size?: 'sm' | 'lg';
 }
 
 const {
@@ -25,6 +26,7 @@ const {
 	downloadLink = '',
 	useHubspotEmbed = false,
 	title,
+	size = 'sm',
 } = Astro.props;
 
 const modalId = `modal-${Math.random().toString(36).slice(2, 9)}`;
@@ -34,7 +36,7 @@ const modalId = `modal-${Math.random().toString(36).slice(2, 9)}`;
 <button
 	class={clsx(
     "text__body--16-semibold",
-    styles.modaltrigger__link
+    styles.modalTrigger__link
   )}
 	data-modal-open={modalId}
 	type="button"
@@ -49,7 +51,7 @@ const modalId = `modal-${Math.random().toString(36).slice(2, 9)}`;
 ) : (
 	<Button
     variant="primary" 
-    size="sm" 
+    size={size} 
     class={styles.resource__download} 
     type="button"
     data-modal-open={modalId}

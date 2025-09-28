@@ -1,16 +1,17 @@
 ---
 title: "Zero Trust Architecture White Paper"
+featuredImage: "/images/resources/zta-white-paper-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/ZTA-White-Paper-Cover.BmuTkzJc.png"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+hubspotFormId: "1455b6e5-5546-40a9-959a-8c37e2ea38ed"
+modalFormId: "1455b6e5-5546-40a9-959a-8c37e2ea38ed"
+modalFormLinkText: "Get CVE Alerts and Patches"
+downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/Resources%20and%20PDFs/White%20Papers/Tetrate-Zero-Trust-Architecture-White-Paper.pdf"
+useHubspotEmbed: true
 ---
 
-![Post Image](/.netlify/images?url=_astro%2FZTA-White-Paper-Cover.BmuTkzJc.png&w=612&h=792&q=100)
-
-![Post Image](/.netlify/images?url=_astro%2FZTA-White-Paper-Cover.BmuTkzJc.png&w=612&h=792&q=100) ×
-
-document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+![Post Image](/images/resources/zta-white-paper-cover.webp)
 
 [Zero trust security](/learn/zero-trust/what-is-zero-trust-security/) is getting a lot of attention—and for good reason. It’s a paradigm shift in security architectures that addresses significant problems with protecting the highly dynamic, distributed systems driving today’s cloud-native applications.
 

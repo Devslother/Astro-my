@@ -1,12 +1,14 @@
 ---
 title: "FIPS-Certified Istio and Enterprise Support from the Founders and Maintainers of Istio and Envoy"
+featuredImage: "/images/resources/tis-cover-image.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/TIS__cover_image.C8b5VEj8.png"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 ---
 
-The first thing you need to know when using open source software in mission-critical applications is how you’re going to get support and guidance if something goes wrong. For Istio, the most widely- deployed service mesh, Tetrate has you covered.
+![Post Image](/images/resources/tis-cover-image.webp)
+
+The first thing you need to know when using open source software in mission-critical applications is how you're going to get support and guidance if something goes wrong. For Istio, the most widely- deployed service mesh, Tetrate has you covered.
 
 Tetrate Istio Subscription (TIS) delivers the confidence you need to use Istio and Envoy in production environments. TIS includes Tetrate Istio Distro (TID), Istio lifecycle management and production Istio support.
 

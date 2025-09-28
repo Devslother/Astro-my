@@ -1,16 +1,19 @@
 ---
 title: "Tetrate PCI DSS 4.0 Guide"
+featuredImage: "/images/resources/tetrate-pci-dss-guide-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/Tetrate-PCI-DSS-4.0-Guide-Cover-Page.sIn8nE0C.png"
-categories: ["resources"]
+date: "2025-04-16T00:00:00.000Z"
+categories: ["compliance"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+hubspotFormId: "70d39d9f-f428-4ac9-bc80-ef5e937575d1"
+modalFormId: "70d39d9f-f428-4ac9-bc80-ef5e937575d1"
+modalFormLinkText: "Get CVE Alerts and Patches"
+downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/Resources%20and%20PDFs/White%20Papers/Tetrate%20Service%20Bridge%20PCI%20DSS%20Guide.pdf"
+useHubspotEmbed: true
 ---
 
-![Post Image](/.netlify/images?url=_astro%2FTetrate-PCI-DSS-4.0-Guide-Cover-Page.sIn8nE0C.png&w=2550&h=3300&q=100)
+![Post Image](/images/resources/tetrate-pci-dss-guide-cover.webp)
 
-![Post Image](/.netlify/images?url=_astro%2FTetrate-PCI-DSS-4.0-Guide-Cover-Page.sIn8nE0C.png&w=2550&h=3300&q=100) ×
-
-document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
 
 The Payment Card Industry Data Security Standard (PCI DSS) establishes stringent requirements to protect cardholder data and ensure the integrity of payment systems. As businesses increasingly adopt cloud-native, distributed architectures, meeting [PCI](/blog/istio-for-pci-compliance-implementing-pci-dss-4-0-1-with-service-mesh-security/) DSS compliance becomes more complex, particularly in managing the Cardholder Data Environment (CDE) across hybrid and multi-cloud infrastructures.
 

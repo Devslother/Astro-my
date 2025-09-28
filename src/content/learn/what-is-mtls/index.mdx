@@ -1,8 +1,8 @@
 ---
 title: "What Is mTLS"
-description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+description: "Mutual TLS (mTLS) is a variation on transport layer security (TLS). Traditional TLS is the successor to secure sockets layer (SSL) and is the most widely deployed standard for secure communication, most visibly in HTTPS."
 categories: ["learn"]
-excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+excerpt: "Mutual TLS (mTLS) is a variation on transport layer security (TLS). Traditional TLS is the successor to secure sockets layer (SSL) and is the most widely deployed standard for secure communication, most visibly in HTTPS."
 ---
 
 Mutual TLS (mTLS) is a variation on transport layer security (TLS). Traditional TLS is the successor to secure sockets layer (SSL) and is the most widely deployed standard for secure communication, most visibly in HTTPS. TLS establishes secure communication that is both confidential (resistant to eavesdropping) and authentic (resistant to tampering) between a server that needs to prove its identity to its clients. But, in situations where both parties need to prove their identity to each other—such as between microservices in a [Kubernetes](/learn/kubernetes/what-is-kubernetes-ingress/) application—TLS isn’t sufficient. mTLS is used in cases where **both parties must prove their identities to each other**.  mTLS extends the security provided by [TLS](/blog/istio-gateway-upgrade-challenges-how-we-solved-tls-issues-and-ensured-seamless-service-delivery/) by adding mutual authentication between the client and the server.
@@ -15,11 +15,11 @@ Since mTLS is essentially two-way TLS, it’s helpful to understand how TLS work
 
 TLS is built on top of TCP as the session layer in the OSI model and provides the encryption for multiple application-layer protocols such as the HTTPS we see when browsing the web (Figure 1).
 
-![Post Image](/.netlify/images?url=_astro%2Fimage.Bjuizrr7.png&w=1023&h=558&q=90)
+![Post Image](/images/learn/image.Bjuizrr7.png)
 
 Figure 1: Figure 1. The unencrypted HTTP protocol vs the HTTPS protocol which uses TLS for encryption.
 
-![Post Image](/.netlify/images?url=_astro%2Fimage.Bjuizrr7.png&w=1023&h=558&q=100) ×
+![Post Image](/images/learn/image.Bjuizrr7.png) ×
 
 document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
 
@@ -35,11 +35,11 @@ There are two main types of encryption: symmetric encryption and asymmetric encr
 
 Symmetric cryptography uses a single secret key to encrypt and decrypt messages. The secret key must be shared between the client and the server, but it must be kept secret (only the client and server  know what it is) since anyone with the secret key can read the messages.Symmetric cryptography is less computationally intensive than asymmetric encryption, but it has some disadvantages, especially with regard to key management. For client-server communication, the key must be shared securely between the client and server—which is hard to do securely over a network, especially across  public networks like the Internet. Also, the shared key must also be kept secret, since anyone with the key can decrypt the ciphertext. For these reasons, **TLS and mTLS use asymmetric encryption to establish a secure channel, then switch to the more efficient symmetric cryptography to encrypt the rest of the communication.**
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-1-1024x505-1.CF83VIak.png&w=1024&h=505&q=90)
+![Post Image](/images/learn/image-1-1024x505-1.CF83VIak.png)
 
 Figure 2: Figure 2. TLS uses different encryption methods for establishing connections and transmitting data.
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-1-1024x505-1.CF83VIak.png&w=1024&h=505&q=100) ×
+![Post Image](/images/learn/image-1-1024x505-1.CF83VIak.png) ×
 
 document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
 
@@ -102,11 +102,11 @@ When a client initiates a secure connection with a server, they perform a TLS ha
 
 Figure 3 below represents a simplified version of what happens during the TLS handshake.
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-2-1024x313-1.DrvfUkVQ.png&w=1024&h=313&q=90)
+![Post Image](/images/learn/image-2-1024x313-1.DrvfUkVQ.png)
 
 Figure 3: Figure 3. Simplified TLS handshake flow.
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-2-1024x313-1.DrvfUkVQ.png&w=1024&h=313&q=100) ×
+![Post Image](/images/learn/image-2-1024x313-1.DrvfUkVQ.png) ×
 
 document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
 
@@ -160,11 +160,11 @@ If you want the details of NIST’s standards for microservices security and how
 
 Figure 4 depicts the security architecture of Istio. This figure clearly shows that at the entry point, JSON Web Token (JWT) + TLS authentication and encryption are used, and that mTLS is enabled between all services within the Istio mesh.
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-3-1024x350-1.oxB8193x.png&w=1024&h=350&q=90)
+![Post Image](/images/learn/image-3-1024x350-1.oxB8193x.png)
 
 Figure 4: Figure 4. Istio mTLS flow.
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-3-1024x350-1.oxB8193x.png&w=1024&h=350&q=100) ×
+![Post Image](/images/learn/image-3-1024x350-1.oxB8193x.png) ×
 
 document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
 

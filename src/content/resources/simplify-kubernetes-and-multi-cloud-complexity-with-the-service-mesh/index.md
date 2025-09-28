@@ -1,10 +1,22 @@
 ---
+
+
+
+
 title: "Simplify Kubernetes and Multi-Cloud Complexity with the Service Mesh"
+featuredImage: "/images/resources/zero-trust-fips-cover.png"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/Simplify-Kubernetes-and-Multi-Cloud-Complexity-with-the-Service-Mesh-Cover-Page-791x1024.DarXz_pR.png"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+hubspotFormId: "e986753a-68e1-4aec-8837-742310040589"
+modalFormId: "e986753a-68e1-4aec-8837-742310040589"
+modalFormLinkText: "Get CVE Alerts and Patches"
+downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/Resources%20and%20PDFs/White%20Papers/Simplify%20Kubernetes%20and%20Multi-Cloud%20Complexity%20with%20the%20Service%20Mesh.pdf"
+useHubspotEmbed: true
 ---
+
+![Post Image](/images/resources/zero-trust-fips-cover.png)
+
 
 As today’s enterprises shift to the cloud, [Kubernetes](/faq/what-does-kubernetes-do/) has emerged as the de facto platform for running containerized microservices. And while Kubernetes operates as a single cluster in many deployments, [enterprises](/resource/service-mesh-handbook/) and federal agencies inevitably run their applications on a complex, often confusing, architecture of multiple clusters deployed to a hybrid of multiple cloud providers and private data centers. This approach creates a new set of challenges. How do your services find each other? How do they communicate securely? How do you enforce access and communication policies? How do you troubleshoot and monitor health? Even on a single cluster, these are not trivial concerns. In a multi or hybrid-cloud environment, the complexity can be overwhelming.
 

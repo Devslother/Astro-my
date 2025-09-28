@@ -46,3 +46,9 @@
 .arrow {
   flex-shrink: 0;
 }
+
+.link--ellipsis {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

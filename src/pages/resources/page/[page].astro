@@ -37,6 +37,16 @@ const sortedResources = resources.sort(
 	(a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0)
 );
 
+const normalizeToArray = (field: unknown) => {
+	if (!field) return [];
+	return Array.isArray(field) ? field : [field];
+};
+
+// создаю массив всех категорий
+const allCategories = [
+	...new Set(resources.flatMap((resource) => normalizeToArray(resource.data.categories))),
+];
+
 // Сначала ищу статью с slug "teg-data-sheet"
 const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
 
@@ -65,7 +75,7 @@ if (currentPage && currentPage === 1) {
 	headerClass="nav__with__bg"
 	bodyClass="resources-page"
 >
-  <Hero featuredResource={featuredResource} />
+  <Hero featuredResource={featuredResource} allCategories={allCategories} currentCategory={undefined} />
   <div data-resources-wrapper class="resources-wrapper">
     <List 
       resources={paginatedResources}

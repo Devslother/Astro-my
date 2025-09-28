@@ -242,7 +242,8 @@ function extractAuthor(document) {
 // извлекаем категории, даты и информацию о формах из главного файла index.html
 function extractCategoriesFromIndex() {
   const indexPath = path.join(config.sourceRoot, "index.html");
-  if (!fs.existsSync(indexPath)) return { categories: {}, dates: {}, forms: {} };
+  if (!fs.existsSync(indexPath))
+    return { categories: {}, dates: {}, forms: {} };
 
   const content = fs.readFileSync(indexPath, "utf8");
   const dom = new JSDOM(content);
@@ -295,26 +296,29 @@ function extractFormData(document, slug) {
     modalFormId: "",
     modalFormLinkText: "",
     downloadLink: "",
-    useHubspotEmbed: false
+    useHubspotEmbed: false,
   };
 
   // Ищем HubSpot форму
-  const hubspotForm = document.querySelector('[data-portal-id][data-form-id]');
+  const hubspotForm = document.querySelector("[data-portal-id][data-form-id]");
   if (hubspotForm) {
-    formData.hubspotFormId = hubspotForm.getAttribute('data-form-id') || "";
+    formData.hubspotFormId = hubspotForm.getAttribute("data-form-id") || "";
     formData.useHubspotEmbed = true;
   }
 
   // Ищем ссылку для скачивания
-  const downloadButton = document.querySelector('[data-download]');
+  const downloadButton = document.querySelector("[data-download]");
   if (downloadButton) {
-    formData.downloadLink = downloadButton.getAttribute('data-download') || "";
+    formData.downloadLink = downloadButton.getAttribute("data-download") || "";
   }
 
   // Ищем модальную форму в конце статьи
-  const modalLink = document.querySelector('.resource__download-link, .js-open-download');
+  const modalLink = document.querySelector(
+    ".resource__download-link, .js-open-download"
+  );
   if (modalLink) {
-    formData.modalFormLinkText = modalLink.textContent?.trim() || "Get more information";
+    formData.modalFormLinkText =
+      modalLink.textContent?.trim() || "Get more information";
     formData.modalFormId = formData.hubspotFormId; // Используем тот же ID формы
   }
 
@@ -468,9 +472,14 @@ async function main() {
   fs.mkdirSync(config.imagesTargetRoot, { recursive: true });
 
   // Извлекаем карты категорий, дат и форм из главного файла
-  console.log("📋 Extracting categories, dates and form data from index.html...");
-  const { categories: categoryMap, dates: dateMap, forms: formMap } =
-    extractCategoriesFromIndex();
+  console.log(
+    "📋 Extracting categories, dates and form data from index.html..."
+  );
+  const {
+    categories: categoryMap,
+    dates: dateMap,
+    forms: formMap,
+  } = extractCategoriesFromIndex();
   console.log(
     `Found categories for ${Object.keys(categoryMap).length} resources`
   );

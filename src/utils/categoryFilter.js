@@ -34,7 +34,13 @@ export function initCategoryFilter(
       const categoriesSpan = document.querySelector("#category-button span");
       if (categoriesSpan) {
         categoriesSpan.textContent = defaultText;
-        categoriesSpan.classList.remove("selected");
+        // Нахожу и удаляю класс selected по частичному совпадению
+        const selectedClass = Array.from(categoriesSpan.classList).find((cls) =>
+          cls.includes("selected")
+        );
+        if (selectedClass) {
+          categoriesSpan.classList.remove(selectedClass);
+        }
       }
     };
   }
@@ -105,7 +111,31 @@ export function updateContent(url, basePath, defaultText = "Select category") {
       );
       if (categoryButtonSpan) {
         categoryButtonSpan.textContent = label;
-        categoryButtonSpan.classList.toggle("selected", !!slug);
+
+        // Находим класс selected по частичному совпадению (CSS modules)
+        const selectedClass = Array.from(categoryButtonSpan.classList).find(
+          (cls) => cls.includes("selected")
+        );
+
+        if (label === defaultText) {
+          // Убираем класс selected если это defaultText
+          if (selectedClass) {
+            categoryButtonSpan.classList.remove(selectedClass);
+          }
+        } else {
+          // Добавляем класс selected если это не defaultText
+          if (!selectedClass) {
+            // Находим класс label для добавления selected
+            const labelClass = Array.from(categoryButtonSpan.classList).find(
+              (cls) => cls.includes("label")
+            );
+            if (labelClass) {
+              // Добавляем selected к имени класса label (CSS modules)
+              const selectedClassName = labelClass.replace("label", "selected");
+              categoryButtonSpan.classList.add(selectedClassName);
+            }
+          }
+        }
       }
       toggleClearButtonVisibility(defaultText);
 

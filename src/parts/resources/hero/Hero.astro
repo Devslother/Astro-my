@@ -1,5 +1,5 @@
 ---
-import SearchInput from '@/components/search-input/SearchInput.astro';
+import ResourcesSearchInput from '@/components/search-input/ResourcesSearchInput.astro';
 import styles from './Hero.module.css'
 import clsx from 'clsx';
 import type { CollectionEntry } from 'astro:content';
@@ -9,9 +9,11 @@ import CategoriesFilter from '../categories-filter/CategoriesFilter.astro';
 
 interface Props {
 	featuredResource: CollectionEntry<"resources"> | undefined;
+	allCategories?: string[];
+	currentCategory?: string;
 }
 
-const { featuredResource } = Astro.props;
+const { featuredResource, allCategories = [], currentCategory } = Astro.props;
 
 if (!featuredResource) {
 	throw new Error("Missing `featuredResource` prop in Hero");
@@ -23,11 +25,6 @@ const {
 } = featuredResource;
 
 const decodedTitle = decodeURIComponent(title);
-
-// Нормализую categories в массив
-const categoriesArray = Array.isArray(categories) 
-  ? categories 
-  : categories ? [categories] : [];
 ---
 
 <section class={styles.hero}>
@@ -44,22 +41,23 @@ const categoriesArray = Array.isArray(categories)
       <div class={styles.filter}>
         <div class={styles.categories}>
           {
-            categoriesArray.length > 0 && 
+            allCategories.length > 0 && 
               <CategoriesFilter 
-                categories={categoriesArray} 
+                categories={allCategories} 
+                currentCategory={currentCategory}
               />
           }
         </div>
           
-        <SearchInput 
+        <ResourcesSearchInput 
           placeholder="Enter keywords..." 
           containerClass={styles.resource__input}  
-          baseUrl="/resources/search"
+          baseUrl="/resources/search/1"
         />
       </div>
     </div>
 
-    <a href={`/resources/${slug}`} class={styles.news__card}>
+    <a href={`/resources/${slug}`} class={styles.resource__card}>
       <div class={styles.featuredImage}>
         {featuredImage && (
           <Figure

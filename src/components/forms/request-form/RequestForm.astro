@@ -4,7 +4,6 @@ import FormField from '../form-field/FormField.astro';
 import styles from './RequestForm.module.css';
 import clsx from 'clsx';
 import Button from '@/components/Button/Button.astro';
-import ReCaptchaSVG from '@/assets/learn/reCaptcha.svg';
 import HubspotEmbedForm from '../hubspot-form/HubspotForm.astro';
 
 export interface Props {
@@ -111,12 +110,12 @@ const {
       data-download-btn={isDownloadBtn}
     >
 
-			<div class={styles.fields_wrapper}>
-				<FormField id="firstname" label="First name:" required />
-				<FormField id="lastname" label="Last name:" required />
-				<FormField id="email" label="Email:" required type="email" />
-				<FormField id="jobtitle" label="Job title:" required />
-				<FormField id="company" label="Company:" required />
+			<div class={styles.fields__wrapper}>
+				<FormField id="firstname" label="First name" required />
+				<FormField id="lastname" label="Last name" required />
+				<FormField id="email" label="Company email" required type="email" />
+				<FormField id="jobtitle" label="Job title" required />
+				<FormField id="company" label="Company name" />
 
 				{ businessObjectives.length > 0 &&
 					<div class={styles.field__objectives}>
@@ -151,21 +150,18 @@ const {
 				{ isDownloadBtn &&
 					<div class="text__body--14 color-gray-900">
 						No thanks,&nbsp;
-						<a href={downloadLink} class="color-blue-500-important" rel="nofollow">
+						<a href={downloadLink} class="color-blue-500-important" rel="nofollow" target="_blank">
 							take me to the download
 						</a>
 					</div>
 				}
 			</div>
 
-			<div class={styles.policy__captcha}>
+			<div class={styles.policy}>
 				<p class="text__body--14 color-gray-900">
-					Tetrate uses your contact info to share product updates. You can unsubscribe anytime. Learn more in our
+					Tetrate needs the contact information you provide to us to contact you about our products and services. You may unsubscribe from these communications at anytime. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, check out our
 					<a href="/privacy" class="color-blue-500-important">Privacy Policy</a>.
 				</p>
-				<div class={styles.form__captcha}>
-					<ReCaptchaSVG />
-				</div>
 			</div>
 
 			<Button 
@@ -174,7 +170,7 @@ const {
         type="submit" 
         class={styles.form__submit} 
       >
-				{ isDownloadBtn ? 'Download' : 'Submit' }
+			Submit
 			</Button>
 		</form>
 		)

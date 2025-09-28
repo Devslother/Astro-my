@@ -1,31 +1,33 @@
 ---
 title: "Zero Trust, FIPS and FedRAMP for Kubernetes and Cloud Native Applications"
+featuredImage: "/images/resources/zero-trust-fips-cover.png"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/zero_trust_fips_cover.S0ek3YU3.png"
-categories: ["resources"]
+date: "2024-11-28T00:00:00.000Z"
+categories: ["zero trust"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+hubspotFormId: "dc7e3dbc-8c2f-4855-873b-3072f4941816"
+modalFormId: "dc7e3dbc-8c2f-4855-873b-3072f4941816"
+modalFormLinkText: "Get CVE Alerts and Patches"
+downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/Primer%20on%20Zero%20Trust%20and%20FIPS%20for%20Cloud%20Native%20Applications/Tetrate%20Primer%20on%20Zero%20Trust%20and%20FIPS%20for%20Cloud%20Native%20Applications.pdf"
+useHubspotEmbed: true
 ---
 
-![Post Image](/.netlify/images?url=_astro%2FZero-Trust-FIPS-and-FedRAMP-for-Cloud-Native-Applications.ZNsUaInf.jpg&w=1024&h=576&q=100)
-
-![Post Image](/.netlify/images?url=_astro%2FZero-Trust-FIPS-and-FedRAMP-for-Cloud-Native-Applications.ZNsUaInf.jpg&w=1024&h=576&q=100) ×
-
-document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+![Post Image](/images/resources/Zero-Trust-FIPS-and-FedRAMP-for-Cloud-Native-Applications.ZNsUaInf.jpg)
 
 ## [](#executive-summary)Executive Summary
 
-*   Enterprise information security architecture has become increasingly important as information systems have evolved into critical business assets.
-*   Zero trust network architecture is emerging as a **preferred approach** for enterprises to secure both their traditional and modern, cloud-native applications. A key component of zero trust architecture is **encryption in transit**.
-*   The Istio service mesh acts as a **security kernel** for distributed applications and serves as the foundation of a zero trust architecture, including providing comprehensive encryption in transit between system components.
-*   Tetrate offers the first **FIPS-verified distribution** of Istio specifically designed for organizations requiring [FedRAMP](/blog/new-guide-to-zero-trust-fips-and-fedramp-for-cloud-native-applications-from-tetrate/) authorization and other organizations in regulated environments where the stock builds of Istio and Envoy aren’t suitable.
-*   The Federal Information Processing Standards (FIPS) are the **information security standards** for the U.S. federal government. Information systems built and run by federal agencies, contractors, and vendors are required to adhere to FIPS.
-*   FIPS is also widely regarded as a set of robust and trustworthy security standards that is often **adopted by private sector organizations**.
-*   The National Institute of Standards and Technology (NIST), the standards body responsible for defining FIPS, runs a program (CMVP) to validate that cryptographic modules adhere to FIPS standards and are suitable for use in U.S. federal agency information systems. Those modules are said to be **_FIPS validated_**. Software certified by a CMVP-accredited laboratory as using FIPS-validated modules correctly is said to be **_FIPS verified_**.
-*   Tetrate offers a 100% upstream distribution of Istio and Envoy called [**Tetrate Istio Distro (TID)**](/tetrate-istio-subscription/) that is the first to be FIPS verified.
+- Enterprise information security architecture has become increasingly important as information systems have evolved into critical business assets.
+- Zero trust network architecture is emerging as a **preferred approach** for enterprises to secure both their traditional and modern, cloud-native applications. A key component of zero trust architecture is **encryption in transit**.
+- The Istio service mesh acts as a **security kernel** for distributed applications and serves as the foundation of a zero trust architecture, including providing comprehensive encryption in transit between system components.
+- Tetrate offers the first **FIPS-verified distribution** of Istio specifically designed for organizations requiring [FedRAMP](/blog/new-guide-to-zero-trust-fips-and-fedramp-for-cloud-native-applications-from-tetrate/) authorization and other organizations in regulated environments where the stock builds of Istio and Envoy aren’t suitable.
+- The Federal Information Processing Standards (FIPS) are the **information security standards** for the U.S. federal government. Information systems built and run by federal agencies, contractors, and vendors are required to adhere to FIPS.
+- FIPS is also widely regarded as a set of robust and trustworthy security standards that is often **adopted by private sector organizations**.
+- The National Institute of Standards and Technology (NIST), the standards body responsible for defining FIPS, runs a program (CMVP) to validate that cryptographic modules adhere to FIPS standards and are suitable for use in U.S. federal agency information systems. Those modules are said to be **_FIPS validated_**. Software certified by a CMVP-accredited laboratory as using FIPS-validated modules correctly is said to be **_FIPS verified_**.
+- Tetrate offers a 100% upstream distribution of Istio and Envoy called [**Tetrate Istio Distro (TID)**](/tetrate-istio-subscription/) that is the first to be FIPS verified.
 
 ## [](#why-information-security-architecture-is-important)Why Information Security Architecture Is Important
 
-Information security architecture has become increasingly important as information systems have evolved into critical business assets. Cyber crime [has reached industrial scale](https://www.csoonline.com/article/572923/the-strange-business-of-cybercrime.html) at the same time that business-critical functionality is growing more  sophisticated and powerful. 
+Information security architecture has become increasingly important as information systems have evolved into critical business assets. Cyber crime [has reached industrial scale](https://www.csoonline.com/article/572923/the-strange-business-of-cybercrime.html) at the same time that business-critical functionality is growing more  sophisticated and powerful.
 
 That power comes with greater complexity: there are more pieces and parts that need to communicate with each other over networks and more places where those components and users can operate outside the traditional data center and fortified network perimeter. These pieces, parts, people, places—and their access to each other—must all be secured.
 
@@ -75,11 +77,11 @@ _Note: FedRAMP authorizations already in the_ initiation _or_ continuous monitor
 
 Broadly, here’s what’s new in Rev. 5:
 
-*   **Expansion to 20 control families**  (from 18 in Rev. 4), with some controls being restructured and renumbered. The control families are also realigned to better match current security threats and technology trends.
-*   **Expansion of scope to include privacy controls** in addition to security controls to reflect the growing importance of privacy protection in information systems.
-*   **Greater emphasis on supply chain risk management** and includes controls related to software supply chain security, reflecting the increasing importance of securing the software development and distribution process.
-*   **Better alignment with other cybersecurity and privacy frameworks** such as NIST’s [Cybersecurity Framework (CSF)](https://www.nist.gov/cyberframework) and  [Privacy Framework](https://www.nist.gov/privacy-framework).
-*   **Increased Emphasis on continuous monitoring and improvement** of security and privacy controls, aligning with modern cybersecurity practices.
+- **Expansion to 20 control families**  (from 18 in Rev. 4), with some controls being restructured and renumbered. The control families are also realigned to better match current security threats and technology trends.
+- **Expansion of scope to include privacy controls** in addition to security controls to reflect the growing importance of privacy protection in information systems.
+- **Greater emphasis on supply chain risk management** and includes controls related to software supply chain security, reflecting the increasing importance of securing the software development and distribution process.
+- **Better alignment with other cybersecurity and privacy frameworks** such as NIST’s [Cybersecurity Framework (CSF)](https://www.nist.gov/cyberframework) and  [Privacy Framework](https://www.nist.gov/privacy-framework).
+- **Increased Emphasis on continuous monitoring and improvement** of security and privacy controls, aligning with modern cybersecurity practices.
 
 ## [](#tetrate-istio-is-the-fastest-way-to-fedramp-ato-including-rev-5)Tetrate Istio Is the Fastest Way to FedRAMP ATO (Including Rev. 5)
 
@@ -87,13 +89,13 @@ FedRAMP Rev. 5 requires FIPS-validated encryption for data in transit. While Ist
 
 ## [](#what-is-fips)What Is FIPS?
 
-FIPS is a set of standards for information processing systems that all U.S. federal agencies, contractors, and vendors must adhere to. FIPS is also widely regarded as a set of robust and trustworthy security standards that is often adopted by private sector organizations. 
+FIPS is a set of standards for information processing systems that all U.S. federal agencies, contractors, and vendors must adhere to. FIPS is also widely regarded as a set of robust and trustworthy security standards that is often adopted by private sector organizations.
 
 A key part of FIPS governs cryptographic modules, the specialized [hardware, software, and/or firmware](https://csrc.nist.gov/glossary/term/Cryptographicmodule) that encrypt data to ensure privacy and authenticity. NIST offers a validation program for cryptographic modules to ensure that validated modules are safe and approved for use in federal information systems.
 
 **FIPS.** [Federal Information Processing Standards](https://www.nist.gov/standardsgov/compliance-faqs-federal-information-processing-standards-fips) are the information security standards for the federal government defined by the National Institute of Standards and Technology (NIST) in accordance with the Federal Information Security Management Act (FISMA). As part of FIPS, the standards for cryptography are evolving, with the [FIPS 140-2](https://csrc.nist.gov/pubs/fips/140-2/upd2/final) document currently in effect and [FIPS 140-3](https://csrc.nist.gov/pubs/fips/140-3/final) published but not yet required by [authorizing officials (AOs)](https://csrc.nist.gov/glossary/term/ao), the officials who grant [authorization to operate (ATO)](https://csrc.nist.gov/glossary/term/authorization_to_operate), which is required to run any software for government use.
 
-**CMVP.** The [Cryptographic Module Validation Program (CMVP)](https://csrc.nist.gov/projects/cryptographic-module-validation-program), a joint effort between NIST and the Canadian Centre for Cyber Security, promotes the use of validated cryptographic modules. CMVP tracks crypto implementations that have been validated by auditors to conform to FIPS 140-2 and/or 140-3. 
+**CMVP.** The [Cryptographic Module Validation Program (CMVP)](https://csrc.nist.gov/projects/cryptographic-module-validation-program), a joint effort between NIST and the Canadian Centre for Cyber Security, promotes the use of validated cryptographic modules. CMVP tracks crypto implementations that have been validated by auditors to conform to FIPS 140-2 and/or 140-3.
 
 **FedRAMP.** [FedRAMP](https://www.fedramp.gov/), the most common ATO in the U.S. government, requires the use of FIPS 140-2 validated modules for encrypting data in transit and at rest.
 
@@ -101,7 +103,7 @@ A key part of FIPS governs cryptographic modules, the specialized [hardware, sof
 
 **FIPS validation**. As part of CMVP, NIST authorizes independent labs to audit cryptographic modules submitted for review. Modules that pass this review are said to be **_FIPS validated_**. The validation status of all modules submitted to CMVP is published via a [publicly searchable database](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search).
 
-**FIPS verification.** Software that uses FIPS-validated cryptographic modules may need additional verification from an accredited testing lab that those cryptographic modules are used correctly in order to be authorized by a program like FedRAMP. Such software is said to be **_FIPS verified_**. 
+**FIPS verification.** Software that uses FIPS-validated cryptographic modules may need additional verification from an accredited testing lab that those cryptographic modules are used correctly in order to be authorized by a program like FedRAMP. Such software is said to be **_FIPS verified_**.
 
 This approach to achieving federal authorization is a safer alternative to forking a module for independent FIPS validation. The forking approach has the sole advantage of listing the vendor of the forked module in the CMVP database. In contrast, the verification approach (what Tetrate does for Tetrate Istio Distro) offers the **smallest possible footprint of sensitive code** that must be FIPS validated and avoids the inevitable risk that a fork will drift from the more well-maintained upstream version of the module.
 

@@ -1,26 +1,27 @@
 ---
 title: "Current State and Future of the Istio Service Mesh"
+featuredImage: "/images/resources/istio-service-mesh-book-cover.jpg"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/istio-service-mesh-book-cover.Dk7DjVar.jpg"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+hubspotFormId: "4f9c50e9-feb4-423a-ad36-9dd109a43791"
+modalFormId: "4f9c50e9-feb4-423a-ad36-9dd109a43791"
+modalFormLinkText: "Get CVE Alerts and Patches"
+downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/Istio%20Book/The-Current-State-and-Future-of-the-Istio-Service-Mesh.pdf"
+useHubspotEmbed: true
 ---
 
 ### [](#insights-into-the-history-and-future-of-istio)Insights into the History and Future of Istio
 
-![Post Image](/.netlify/images?url=_astro%2Fistio-service-mesh-book-cover.Dk7DjVar.jpg&w=632&h=817&q=100)
-
-![Post Image](/.netlify/images?url=_astro%2Fistio-service-mesh-book-cover.Dk7DjVar.jpg&w=632&h=817&q=100) ×
-
-document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+![Post Image](/images/resources/istio-service-mesh-book-cover.jpg)
 
 Cloud native is rapidly gaining ground in the cloud and open source, and service mesh has become a critical part of the cloud native technology stack. Istio is one of the most popular service mesh today, and has been open source for over five years since 2017.
 
 This book takes you through the historical motivation for the emergence of the service mesh, the evolution of Istio, and the Istio open source ecosystem. This book provides detailed information on
 
-*   The rise of service mesh technology is due to the popularity of Kubernetes, microservices, DevOps, and cloud native architectures.
-*   The emergence of Kubernetes and programmable proxies, which laid a solid foundation for Istio.
-*   While eBPF can accelerate transparent traffic hijacking in Istio, it cannot replace the sidecar in the service mesh.
-*   The future of Istio lies in building a zero trust network based on the hybrid cloud.
+- The rise of service mesh technology is due to the popularity of Kubernetes, microservices, DevOps, and cloud native architectures.
+- The emergence of Kubernetes and programmable proxies, which laid a solid foundation for Istio.
+- While eBPF can accelerate transparent traffic hijacking in Istio, it cannot replace the sidecar in the service mesh.
+- The future of Istio lies in building a zero trust network based on the hybrid cloud.
 
 With the entry of Istio into CNCF and the introduction of the latest Ambient Mesh, we can expect that Istio will be easier to adopt, and its future will be more extensive.

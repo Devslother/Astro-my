@@ -43,6 +43,12 @@
   padding: 0 1rem;
 }
 
+.link--ellipsis {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 .arrow {
   flex-shrink: 0;
 }

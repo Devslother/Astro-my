@@ -1,6 +1,0 @@
----
-title: "ServiceMeshCon: Service Mesh Everywhere"
-description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-categories: ["resources"]
-excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
----

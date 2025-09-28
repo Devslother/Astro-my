@@ -1,7 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import styles from './ResourceCard.module.css'
-import Figure from '@/components/content/figure/Figure.astro';
 import clsx from 'clsx';
 import Icon from '@/components/icon/Icon.astro';
 
@@ -28,19 +27,16 @@ const formattedDate = dateObj ? dateObj.toLocaleDateString("en-US", {
 
 <article class={styles.card}>
   <a href={`/resources/${resource.slug}`} class={styles.link}>
-    <div>
-      {featuredImage && (
-         <div class={styles.featuredImage}>
-            <Figure
-              source={featuredImage}
-              width={340}
-					    height={178}
-              lightbox={false}
-              alt={decodedTitle}
-            />
-        </div>
-      )}
-    </div>
+    {featuredImage && (
+      <div class={styles.card__image}>
+         <img
+					src={featuredImage as string}
+					loading="lazy"
+					alt={decodedTitle}
+					class={styles.image}
+				/>
+      </div>
+    )}
 
     <div class={styles.content}>
       <div class={styles.meta}>

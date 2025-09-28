@@ -1,8 +1,8 @@
 ---
 title: "What Is the Kubernetes Gateway API?"
-description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+description: "The Kubernetes Gateway API, aka \"Gateway API\", is a Kubernetes API specification defining a standard way to configure and manage application traffic routing in Kubernetes clusters."
 categories: ["learn"]
-excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+excerpt: "The Kubernetes Gateway API, aka \"Gateway API\", is a Kubernetes API specification defining a standard way to configure and manage application traffic routing in Kubernetes clusters."
 ---
 
 ## [](#overview)Overview
@@ -11,7 +11,7 @@ The [Kubernetes Gateway API](/learn/what-is-the-kubernetes-gateway-api/), aka �
 
 Conceived as a successor to the earlier Ingress API, Gateway API aims to enhance the configuration and management of Kubernetes ingress, service discovery, load balancing, and traffic routing by providing a unified and extensible API that integrates with Kubernetes’ native resources such as Services, Endpoints, and Ingresses. While there is no default implementation of the Gateway API out of the box in Kubernetes, there is [a wide range of commercial and open-source implementations available](https://gateway-api.sigs.k8s.io/implementations/), including the Istio service mesh and Envoy Gateway.
 
-![](/images/icons/inline-promo-icon.svg)
+![](/images/icons/inline-promo-icon.png)
 
 Tetrate offers an enterprise-ready, 100% upstream distribution of Istio, Tetrate Istio Subscription (TIS). TIS is the easiest way to get started with Istio for production use cases. TIS+, a hosted Day 2 operations solution for Istio, adds a global service registry, unified Istio metrics dashboard, and self-service troubleshooting.
 
@@ -83,9 +83,9 @@ The Gateway API is a collection of API resources: GatewayClass, Gateway, HTTPRou
 
 In addition, the Gateway API achieves configuration decoupling by separating resource objects that people can manage in different roles. The following diagram shows the roles and objects in the Gateway API:
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-24-1024x792.B_d9O0P_.png&w=1024&h=792&q=90)
+![Post Image](/images/learn/image-24-1024x792.B_d9O0P_.png)
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-24-1024x792.B_d9O0P_.png&w=1024&h=792&q=100) ×
+![Post Image](/images/learn/image-24-1024x792.B_d9O0P_.png) ×
 
 document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
 
@@ -132,9 +132,9 @@ Similar to Ingress, Gateway uses `gatewayClassName` to declare the controller it
 
 When you apply the above configuration, Istio will automatically create a load-balancing gateway for you. The following diagram shows the workflow of the Gateway API:
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-25-1024x597.RH4paVnt.png&w=1024&h=597&q=90)
+![Post Image](/images/learn/image-25-1024x597.RH4paVnt.png)
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-25-1024x597.RH4paVnt.png&w=1024&h=597&q=100) ×
+![Post Image](/images/learn/image-25-1024x597.RH4paVnt.png) ×
 
 document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
 
@@ -152,9 +152,9 @@ From the above steps, we can see that the Gateway API has a clear division of ro
 
 The following diagram shows the route flow after it is accessed at the gateway and processed:
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-26-1024x536.BHR5eMJj.png&w=1024&h=536&q=90)
+![Post Image](/images/learn/image-26-1024x536.BHR5eMJj.png)
 
-![Post Image](/.netlify/images?url=_astro%2Fimage-26-1024x536.BHR5eMJj.png&w=1024&h=536&q=100) ×
+![Post Image](/images/learn/image-26-1024x536.BHR5eMJj.png) ×
 
 document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
 

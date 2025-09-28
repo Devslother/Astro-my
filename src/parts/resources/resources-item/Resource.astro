@@ -41,12 +41,12 @@ const decodedTitle = decodeURIComponent(title);
           )
         }
         {
-          featuredImage && downloadLink && (
+          featuredImage && (
             <div class={styles.image}>
-              {
-                coverImg && coverImg.src && 
-                <img src={coverImg.src} alt={decodedTitle} />
-              }
+              <img 
+                src={typeof featuredImage === 'string' ? featuredImage : featuredImage.src} 
+                alt={decodedTitle} 
+              />
             </div>
           )
         }
@@ -59,6 +59,7 @@ const decodedTitle = decodeURIComponent(title);
               isDownloadBtn={true} 
               downloadLink={downloadLink} 
               useHubspotEmbed={useHubspotEmbed}
+              size="lg"
              />
           )
         }
@@ -69,7 +70,7 @@ const decodedTitle = decodeURIComponent(title);
               rel="nofollow noreferrer" 
               target="_blank" 
               variant="primary"
-					    size="md"
+					    size="lg"
               class={styles.download}
             >
               Download

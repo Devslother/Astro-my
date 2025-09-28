@@ -59,7 +59,7 @@ const totalPages = Math.ceil(resourcesWithoutFeatured.length / ITEMS_PER_PAGE);
   headerClass="nav__with__bg"
   bodyClass="learn-page"
 >
-    <Hero featuredResource={featuredResource} />
+    <Hero featuredResource={featuredResource} allCategories={allCategories} currentCategory={undefined} />
   <div data-articles-wrapper class="articles-wrapper">
     <List
       resources={paginatedResources}
@@ -74,3 +74,4 @@ const totalPages = Math.ceil(resourcesWithoutFeatured.length / ITEMS_PER_PAGE);
     <ClientRouter />
   </Fragment>
 </Layout>
+

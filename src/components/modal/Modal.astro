@@ -27,6 +27,9 @@ const { id, isForm = false } = Astro.props;
           color="var(--color-gray-700)"
         />
       </button>
+      <div class={styles.formContent}>
+        <slot />
+      </div>
     </div>
   </div>
 </dialog>

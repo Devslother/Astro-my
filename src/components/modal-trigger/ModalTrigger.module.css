@@ -10,3 +10,15 @@
   width: 170px; /* Фиксированная ширина */
   gap: 3px; /* Меньший отступ между элементами */
 }
+
+/* Стили для кнопки в контенте - только убираем обводку, фон и центрируем стрелку */
+.modalTrigger__link {
+  border: none !important;
+  background-color: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.modalTrigger__link svg {
+  align-self: center;
+}

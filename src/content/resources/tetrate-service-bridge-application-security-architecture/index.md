@@ -1,10 +1,22 @@
 ---
+
+
+
+
 title: "Tetrate Service Bridge Application Security Architecture"
+featuredImage: "/images/resources/tetrate-service-bridge-security-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/Tetrate-Service-Bridge-Application-Security-Architecture-Cover-Image-791x1024.r3rpvVGE.png"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+hubspotFormId: "7f1d96ff-237b-4d1d-a917-a02f67894a1a"
+modalFormId: "7f1d96ff-237b-4d1d-a917-a02f67894a1a"
+modalFormLinkText: "Get CVE Alerts and Patches"
+downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/Resources%20and%20PDFs/White%20Papers/Tetrate%20Service%20Bridge%20Application%20Security%20Architecture.pdf"
+useHubspotEmbed: true
 ---
+
+![Post Image](/images/resources/tetrate-service-bridge-security-cover.webp)
+
 
 Many enterprises and government agencies strive to achieve a zero trust architecture, recognizing that traditional perimeter-based security is no longer sufficient in today’s threat landscape. The zero trust mindset acknowledges that attackers could potentially infiltrate any network. Therefore, the focus shifts to containing and mitigating attacks both spatially and temporally. To achieve this at runtime, you need to be performing at minimum five checks on every hop between components in your infrastructure:
 

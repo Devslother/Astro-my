@@ -1,16 +1,18 @@
 ---
 title: "Informatica Gains Enterprise-level Support with Tetrate and Hardens Security"
+featuredImage: "/images/resources/aws-tetrate-case-study.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/download-aws-tetrate-case-study.CJPpcK2o.jpg"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 ---
+
+![Post Image](/images/resources/aws-tetrate-case-study.webp)
 
 ## [](#executive-summary)Executive Summary
 
 Informatica, an enterprise cloud data management leader, empowers more than 5,000 customers to realize the transformative power of data. As a software provider, many of its applications are broken down into microservices. To manage them, Informatica uses Istio, an open-source service mesh platform for distributed applications. But, as Informatica scaled to roughly 300 clusters on Amazon Elastic Kubernetes Service (Amazon EKS), product teams were challenged with continuous update cycles and security certificates. Plus, Istio lacked the compliance necessary to build in AWS GovCloud. Tetrate provided Informatica with enterprise-level support to improve and streamline operations and harden security for AWS GovCloud.
 
-* * *
+---
 
 ## [](#about-informatica)About Informatica
 
@@ -27,24 +29,24 @@ As Informatica continued to grow and the number of Kubernetes clusters on Amazon
 Tetrate Istio Subscription (TIS) is built on top of open source Istio and solves for these operational inefficiencies. Not only did Tetrate help Informatica accelerate and streamline service mesh adoption throughout the organization, its Zero Trust security model provided multi-layer security for microservices and eliminated the time and effort required to manage authentication certificates at scale while delivering end-to-end FIPS compliance.
 
 > “With Tetrate, we achieved FIPS compliance, elevated our security standards and streamlined the process of scaling on Amazon EKS. Informatica now benefits from enterprise-level support by Tetrate for our 300 clusters on Amazon EKS, which allows developers and engineers to focus on building and deploying applications rather than the complexities of network configurations and security.”
-> 
+>
 > — Deepak Deore, DevOps Architect, Informatica
 
 As Informatica upgraded its Istio instances, Tetrate provided weekly calls with engineers to resolve technical issues and disruptions, ensuring a smooth implementation and top-notch support.
 
 ## [](#benefits)Benefits
 
-*   **Secured end-to-end FIPS compliance for AWS GovCloud**
-*   **Decreased manual effort of building ARM Images that run on AWS Graviton from 3-4 days to a few seconds**
-*   **Obtained customized Helm charts for its 300 Amazon EKS clusters, replacing the Istioctl command line tool that was incompatible with the team’s GitHub process and inconsistent with its Kubernetes configuration applications**
-*   **Improved business agility, enhanced security, and FIPS compliance**
+- **Secured end-to-end FIPS compliance for AWS GovCloud**
+- **Decreased manual effort of building ARM Images that run on AWS Graviton from 3-4 days to a few seconds**
+- **Obtained customized Helm charts for its 300 Amazon EKS clusters, replacing the Istioctl command line tool that was incompatible with the team’s GitHub process and inconsistent with its Kubernetes configuration applications**
+- **Improved business agility, enhanced security, and FIPS compliance**
 
 ## [](#results)Results
 
-*   Informatica now receives enterprise-level support from Tetrate for 300+ clusters on Amazon EKS
-*   Developers and engineers can focus on building and deploying applications, not network configuration and security
-*   Streamlined operations and improved security posture for AWS GovCloud workloads
+- Informatica now receives enterprise-level support from Tetrate for 300+ clusters on Amazon EKS
+- Developers and engineers can focus on building and deploying applications, not network configuration and security
+- Streamlined operations and improved security posture for AWS GovCloud workloads
 
-* * *
+---
 
 [Download the full case study (PDF)](https://tetrate.io/wp-content/uploads/2023/06/AWS-Tetrate-Informatica-Case-Study.pdf)

@@ -1,10 +1,17 @@
 ---
 title: "Five Essential Strategies for Deploying Service Mesh on Amazon EKS"
+featuredImage: "/images/resources/amazon-eks-service-mesh-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/Five-Essential-Amazon-EKS-Security-and-Availability-Strategies-with-a-Service-Mesh-Cover-768x1024.RFkSF5ne.png"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+hubspotFormId: "30e70f6a-7027-4727-a27c-2c5798b226c5"
+modalFormId: "30e70f6a-7027-4727-a27c-2c5798b226c5"
+modalFormLinkText: "Get CVE Alerts and Patches"
+downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/Resources%20and%20PDFs/White%20Papers/Five%20Essential%20Amazon%20EKS%20Security%20and%20Availability%20Strategies%20with%20a%20Service%20Mesh.pdf"
+useHubspotEmbed: true
 ---
+
+![Post Image](/images/resources/amazon-eks-service-mesh-cover.webp)
 
 Virtually all organizations are adopting cloud infrastructure, either augmenting their on- prem footprint or wholesale migrating away from on-prem in favor of more flexibility. Indeed many organizations are creating their entire infrastructure in the cloud from day 1! As of the time of this writing, Amazon Web Services (AWS) holds the largest market share amongst cloud providers. When running workloads in the cloud, many organizations
 

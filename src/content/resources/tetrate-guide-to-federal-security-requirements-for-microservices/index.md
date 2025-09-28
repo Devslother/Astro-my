@@ -1,16 +1,17 @@
 ---
 title: "Tetrate’s Guide to Federal Security Requirements for Microservices"
+featuredImage: "/images/resources/nist-security-standards-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/NIST-Security-Standards-for-Microservices-Cover.CLkq842b.png"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
+hubspotFormId: "255c3c71-af5c-466b-9ca3-9c7f85a44df4"
+modalFormId: "255c3c71-af5c-466b-9ca3-9c7f85a44df4"
+modalFormLinkText: "Get CVE Alerts and Patches"
+downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/NIST%20SP%20800-204%20Series%20Requirements%20Guide.pdf"
+useHubspotEmbed: true
 ---
 
-![Post Image](/.netlify/images?url=_astro%2FNIST-Security-Standards-for-Microservices-Cover.CLkq842b.png&w=792&h=612&q=100)
-
-![Post Image](/.netlify/images?url=_astro%2FNIST-Security-Standards-for-Microservices-Cover.CLkq842b.png&w=792&h=612&q=100) ×
-
-document.addEventListener("click", (e) => { const trigger = e.target.closest("\[data-lightbox-trigger\]"); const close = e.target.closest("\[data-lightbox-close\]"); if (trigger) { e.preventDefault(); const figure = trigger.closest("figure"); const lightbox = figure?.querySelector("\[data-lightbox\]"); if (lightbox) { lightbox.classList.remove("lightbox--closing"); lightbox.classList.add("active"); document.body.style.overflow = "hidden"; } } if (close) { e.preventDefault(); const lightbox = e.target.closest("\[data-lightbox\]"); if (lightbox) { lightbox.classList.add("lightbox--closing"); lightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { lightbox.classList.remove("lightbox--closing"); }, 300); } } }); // Close lightbox on ESC key document.addEventListener("keydown", (e) => { if (e.key === "Escape") { const activeLightbox = document.querySelector(".lightbox.active"); if (activeLightbox) { activeLightbox.classList.add("lightbox--closing"); activeLightbox.classList.remove("active"); document.body.style.overflow = ""; setTimeout(() => { activeLightbox.classList.remove("lightbox--closing"); }, 300); } } });
+![Post Image](/images/resources/nist-security-standards-cover.webp)
 
 ### [](#nist-sp-800-204-series-requirements-guide)NIST SP 800-204 Series Requirements Guide
 

@@ -1,10 +1,17 @@
 ---
+
+
+
+
 title: "Tetrate Service Bridge Data Sheet"
+featuredImage: "/images/resources/tsb-data-sheet-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
-featuredImage: "/images/resources/TSB-Data-Sheet-Cover-Image.CuydeVHr.png"
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 ---
+
+![Post Image](/images/resources/tsb-data-sheet-cover.webp)
+
 
 ### [](#tetrate-service-bridge)Tetrate Service Bridge
 
