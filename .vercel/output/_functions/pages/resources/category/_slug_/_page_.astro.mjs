@@ -17,14 +17,21 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const currentPage = parseInt(page || "1");
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
+  async function getAllResources() {
+    try {
+      return await getCollection(
+        "resources",
+        ({ data }) => true ? data.draft !== true : true
+      );
+    } catch (error) {
+      console.error("Error getting resources collection:", error);
+      throw new Error("Failed to load resources");
+    }
+  }
   let allResources;
   try {
-    allResources = await getCollection(
-      "resources",
-      ({ data }) => true ? data.draft !== true : true
-    );
+    allResources = await getAllResources();
   } catch (error) {
-    console.error("Error getting resources collection:", error);
     return new Response("Failed to load resources", { status: 500 });
   }
   const normalizeToArray = (field) => {

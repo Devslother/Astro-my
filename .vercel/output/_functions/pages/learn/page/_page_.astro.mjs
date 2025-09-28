@@ -15,13 +15,20 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const POSTS_PER_PAGE = 9;
   const { page } = Astro2.params;
   const currentPage = parseInt(page);
+  async function getArticles() {
+    try {
+      return await getCollection("learn", ({ data }) => {
+        return true ? data.draft !== true : true;
+      });
+    } catch (error) {
+      console.error("Error getting learn collection:", error);
+      throw new Error("Failed to load articles");
+    }
+  }
   let articles;
   try {
-    articles = await getCollection("learn", ({ data }) => {
-      return true ? data.draft !== true : true;
-    });
+    articles = await getArticles();
   } catch (error) {
-    console.error("Error getting learn collection:", error);
     return new Response("Failed to load articles", { status: 500 });
   }
   const normalizeToArray = (field) => {

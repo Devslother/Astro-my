@@ -18,11 +18,18 @@ const $$slug = createComponent(async ($$result, $$props, $$slots) => {
     if (!field) return [];
     return Array.isArray(field) ? field : [field];
   };
+  async function getAllArticles() {
+    try {
+      return await getCollection("learn");
+    } catch (error) {
+      console.error("Error getting learn collection:", error);
+      throw new Error("Failed to load articles");
+    }
+  }
   let allArticles;
   try {
-    allArticles = await getCollection("learn");
+    allArticles = await getAllArticles();
   } catch (error) {
-    console.error("Error getting learn collection:", error);
     return new Response("Failed to load articles", { status: 500 });
   }
   const allCategories = [

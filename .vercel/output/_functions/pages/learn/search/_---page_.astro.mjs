@@ -25,11 +25,18 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
   const normalizeToArray = (val) => Array.isArray(val) ? val : val ? [val] : [];
+  async function getAllArticles() {
+    try {
+      return await getCollection("learn");
+    } catch (error) {
+      console.error("Error getting learn collection:", error);
+      throw new Error("Failed to load articles");
+    }
+  }
   let allArticles;
   try {
-    allArticles = await getCollection("learn");
+    allArticles = await getAllArticles();
   } catch (error) {
-    console.error("Error getting learn collection:", error);
     return new Response("Failed to load articles", { status: 500 });
   }
   const filteredArticles = allArticles.filter(({ data, slug }) => {
