@@ -17,33 +17,6 @@ const normalizeToArray = (field: unknown): string[] => {
 	return value.split(',').map(c => c.trim()).filter(Boolean);
 };
 
-export async function getStaticPaths() {
-	const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
-
-	const categories = [...new Set(articles.flatMap((article) => normalizeToArray(article.data.categories)))];
-
-	const paths = [];
-
-	for (const category of categories) {
-		const categorySlug = slugify(category);
-		const articlesInCategory = articles.filter((article) => {
-			const articleCategories = normalizeToArray(article.data.categories);
-			return articleCategories.includes(category);
-		});
-
-		const totalPages = Math.ceil(articlesInCategory.length / ITEMS_PER_PAGE);
-
-		for (let i = 2; i <= totalPages; i++) {
-			paths.push({
-				params: { slug: categorySlug, page: i.toString() },
-			});
-		}
-	}
-
-	return paths;
-}
 
 const { slug, page } = Astro.params;
 const currentPage = parseInt(page as string);

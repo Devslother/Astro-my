@@ -11,19 +11,6 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 const POSTS_PER_PAGE = 9;
 
-export async function getStaticPaths() {
-	const POSTS_PER_PAGE = 9;
-
-	const articles = await getCollection("learn", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
-
-	const totalPages = Math.ceil((articles.length - 1) / POSTS_PER_PAGE);
-
-	return Array.from({ length: totalPages }, (_, i) => ({
-		params: { page: (i + 1).toString() },
-	}));
-}
 
 const { page } = Astro.params;
 const currentPage = parseInt(page);

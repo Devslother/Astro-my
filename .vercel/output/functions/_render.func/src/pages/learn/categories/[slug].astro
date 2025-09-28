@@ -16,21 +16,6 @@ const normalizeToArray = (field: unknown) => {
 	return Array.isArray(field) ? field : [field];
 };
 
-export async function getStaticPaths() {
-	const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
-
-	const categories = [
-		...new Set(articles.flatMap((article) =>
-			normalizeToArray(article.data.categories).flatMap(cat => cat.split(',').map((c: string) => c.trim()))
-		)),
-	];
-
-	return categories.map((category) => ({
-		params: { slug: slugify(category).toLowerCase() },
-	}));
-}
 
 let allArticles: CollectionEntry<"learn">[];
 try {

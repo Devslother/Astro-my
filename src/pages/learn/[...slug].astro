@@ -14,11 +14,11 @@ export async function getStaticPaths() {
     articles = await getCollection("learn");
   } catch (error) {
     console.error('Error getting learn collection:', error);
-    return new Response('Failed to load articles', { status: 500 });
+    return []; // Возвращаем пустой массив в случае ошибки
   }
   return articles.map((article) => ({
-  params: { slug: article.slug }
-}));
+    params: { slug: article.slug }
+  }));
 }
 
 const slugParam = Astro.params.slug;
