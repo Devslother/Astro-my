@@ -1,8 +1,8 @@
-import { d as createAstro, c as createComponent, r as renderComponent, b as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_BorwNW6a.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { g as getCollection } from '../../../chunks/_astro_content_UKccoAbA.mjs';
-import { c as $$Layout } from '../../../chunks/Layout_7tzu6nPn.mjs';
-import { $ as $$Hero, a as $$List } from '../../../chunks/List_DtjCeJio.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_BGf8VsMb.mjs';
+import { c as $$Layout } from '../../../chunks/Grid_BWtxofxJ.mjs';
+import { $ as $$Hero, a as $$List } from '../../../chunks/List_9-QDVv2Q.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");

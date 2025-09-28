@@ -1,9 +1,11 @@
-import { d as createAstro, c as createComponent, r as renderComponent, b as renderTemplate, m as maybeRenderHead } from '../../../../chunks/astro/server_BorwNW6a.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { c as $$Layout } from '../../../../chunks/Layout_7tzu6nPn.mjs';
-import { $ as $$Cta } from '../../../../chunks/Cta_CQMAX1Bj.mjs';
-import { s as slugify, $ as $$Hero, a as $$List } from '../../../../chunks/List_DtjCeJio.mjs';
-import { g as getCollection } from '../../../../chunks/_astro_content_UKccoAbA.mjs';
+import { c as $$Layout } from '../../../../chunks/Grid_BWtxofxJ.mjs';
+import { $ as $$Cta } from '../../../../chunks/Cta_DtiOLuDi.mjs';
+import { $ as $$Hero, a as $$List } from '../../../../chunks/List_9-QDVv2Q.mjs';
+import { s as slugify } from '../../../../chunks/arrow-left_DFDgFZ_G.mjs';
+import { g as getCollection } from '../../../../chunks/_astro_content_BGf8VsMb.mjs';
+import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_DHx4b7Fz.mjs';
 export { renderers } from '../../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
@@ -41,7 +43,7 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const { slug, page } = Astro2.params;
   const currentPage = parseInt(page);
   if (currentPage === 1) {
-    return Astro2.redirect(`/learn/category/${slug}`, 301);
+    return Astro2.redirect(`/learn/categories/${slug}`, 301);
   }
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
@@ -72,7 +74,7 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const paginatedArticles = filteredArticles.slice(startIndex, startIndex + ITEMS_PER_PAGE2);
   const noQuery = !isSearching;
   const hasResults = filteredArticles.length > 0;
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": `Learning Center | ${currentCategory} | Page ${currentPage}`, "description": `Page ${currentPage} of articles in the ${currentCategory} category.`, "headerClass": "nav__with__bg" }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "Hero", $$Hero, {})} ${maybeRenderHead()}<div data-articles-wrapper class="articles-wrapper"> ${renderComponent($$result2, "List", $$List, { "articles": paginatedArticles, "totalPages": totalPages, "currentPage": currentPage, "allCategories": allCategories, "currentCategory": currentCategory, "baseUrl": `/learn/category/${slug}`, "noQuery": noQuery, "hasResults": hasResults })} </div> ${renderComponent($$result2, "Cta", $$Cta, {})} ` })}`;
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": `Learning Center | ${currentCategory} | Page ${currentPage}`, "description": `Page ${currentPage} of articles in the ${currentCategory} category.`, "headerClass": "nav__with__bg" }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "Hero", $$Hero, {})} ${maybeRenderHead()}<div data-articles-wrapper class="articles-wrapper"> ${renderComponent($$result2, "List", $$List, { "articles": paginatedArticles, "totalPages": totalPages, "currentPage": currentPage, "allCategories": allCategories, "currentCategory": currentCategory, "baseUrl": `/learn/categories/${slug}`, "noQuery": noQuery, "hasResults": hasResults })} </div> ${renderComponent($$result2, "Cta", $$Cta, {})}  `, "head": async ($$result2) => renderTemplate`${renderComponent($$result2, "Fragment", Fragment, { "slot": "head" }, { "default": async ($$result3) => renderTemplate` ${renderComponent($$result3, "ClientRouter", $$ClientRouter, {})} ` })}` })}`;
 }, "/Users/svetaco/Documents/Astro-my/src/pages/learn/categories/[slug]/[page].astro", void 0);
 const $$file = "/Users/svetaco/Documents/Astro-my/src/pages/learn/categories/[slug]/[page].astro";
 const $$url = "/learn/categories/[slug]/[page]";

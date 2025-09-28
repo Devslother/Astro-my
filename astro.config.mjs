@@ -3,7 +3,6 @@ import vercel from "@astrojs/vercel";
 
 export default defineConfig({
   adapter: vercel(),
-  output: "server",
   site: "https://astro-my.vercel.app/",
   markdown: {
     shikiConfig: {

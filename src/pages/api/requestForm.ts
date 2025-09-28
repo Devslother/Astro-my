@@ -111,7 +111,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Skip CAPTCHA validation for integration tests
     // первые три строки добавлены, потому что нет ключей reCAPTCHA
-    const recaptchaSecret = import.meta.env.RECAPTCHA_SECRET;
+    const recaptchaSecret = import.meta.env.RECAPTCHA_SECRET_KEY;
     const captchaDisabled = !recaptchaSecret || isIntegrationTest;
 
     if (!captchaDisabled) {
@@ -126,7 +126,7 @@ export const POST: APIRoute = async ({ request }) => {
         );
       }
 
-      const recaptchaSecret = import.meta.env.RECAPTCHA_SECRET;
+      const recaptchaSecret = import.meta.env.RECAPTCHA_SECRET_KEY;
       if (!recaptchaSecret) {
         return new Response(
           JSON.stringify({ message: "Missing reCAPTCHA secret on server" }),

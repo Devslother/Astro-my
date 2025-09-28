@@ -1,4 +1,4 @@
-import { d as createAstro, c as createComponent } from '../../chunks/astro/server_BorwNW6a.mjs';
+import { c as createAstro, a as createComponent } from '../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
 import 'clsx';
 export { renderers } from '../../renderers.mjs';

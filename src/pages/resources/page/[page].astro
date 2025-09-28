@@ -10,6 +10,7 @@ const POSTS_PER_PAGE = 9;
 
 // функция для генерации статических путей
 export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 9;
   // получаю все статьи для генерации на этапе сборки
   const resources: CollectionEntry<"resources">[] = await getCollection("resources", ({ data }) => {
     return import.meta.env.PROD ? data.draft !== true : true;

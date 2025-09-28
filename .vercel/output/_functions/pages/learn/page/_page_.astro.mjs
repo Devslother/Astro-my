@@ -1,9 +1,10 @@
-import { d as createAstro, c as createComponent, r as renderComponent, b as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_BorwNW6a.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { c as $$Layout } from '../../../chunks/Layout_7tzu6nPn.mjs';
-import { $ as $$Cta } from '../../../chunks/Cta_CQMAX1Bj.mjs';
-import { $ as $$Hero, a as $$List } from '../../../chunks/List_DtjCeJio.mjs';
-import { g as getCollection } from '../../../chunks/_astro_content_UKccoAbA.mjs';
+import { $ as $$ClientRouter } from '../../../chunks/ClientRouter_DHx4b7Fz.mjs';
+import { c as $$Layout } from '../../../chunks/Grid_BWtxofxJ.mjs';
+import { $ as $$Cta } from '../../../chunks/Cta_DtiOLuDi.mjs';
+import { $ as $$Hero, a as $$List } from '../../../chunks/List_9-QDVv2Q.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_BGf8VsMb.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
@@ -44,7 +45,7 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   if (currentPage && currentPage === 1) {
     return Astro2.redirect("/learn");
   }
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Learning Center", "description": "Tetrate's Learning Center: Discover expert insights, tutorials, and resources to elevate your understanding and implementation. Dive in now!", "headerClass": "nav__with__bg", "bodyClass": "learn-page" }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "Hero", $$Hero, {})} ${maybeRenderHead()}<div data-articles-wrapper class="articles-wrapper"> ${renderComponent($$result2, "List", $$List, { "articles": paginatedArticles, "totalPages": totalPages, "currentPage": currentPage, "allCategories": allCategories, "noQuery": true, "hasResults": true })} </div> ${renderComponent($$result2, "Cta", $$Cta, {})} ` })}`;
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Learning Center", "description": "Tetrate's Learning Center: Discover expert insights, tutorials, and resources to elevate your understanding and implementation. Dive in now!", "headerClass": "nav__with__bg", "bodyClass": "learn-page" }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "Hero", $$Hero, {})} ${maybeRenderHead()}<div data-articles-wrapper class="articles-wrapper"> ${renderComponent($$result2, "List", $$List, { "articles": paginatedArticles, "totalPages": totalPages, "currentPage": currentPage, "allCategories": allCategories, "noQuery": true, "hasResults": true })} </div> ${renderComponent($$result2, "Cta", $$Cta, {})}  `, "head": async ($$result2) => renderTemplate`${renderComponent($$result2, "Fragment", Fragment, { "slot": "head" }, { "default": async ($$result3) => renderTemplate` ${renderComponent($$result3, "ClientRouter", $$ClientRouter, {})} ` })}` })}`;
 }, "/Users/svetaco/Documents/Astro-my/src/pages/learn/page/[page].astro", void 0);
 const $$file = "/Users/svetaco/Documents/Astro-my/src/pages/learn/page/[page].astro";
 const $$url = "/learn/page/[page]";
