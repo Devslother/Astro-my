@@ -8,13 +8,6 @@ import List from '@/parts/learn/list/List.astro';
 
 const ITEMS_PER_PAGE = 9;
 
-export async function getStaticPaths() {
-	// Генерируем пути для первых 10 страниц поиска
-	return Array.from({ length: 10 }, (_, i) => ({
-		params: { page: [(i + 1).toString()] },
-	}));
-}
-
 const pageSegments = Astro.params.page ?? [];
 let currentPage = 1;
 

@@ -1,11 +1,10 @@
-import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_DH2DkwbL.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_tJGUTV3t.mjs';
 import 'kleur/colors';
-import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_DHx4b7Fz.mjs';
-import { g as getCollection } from '../../../../chunks/_astro_content_BGf8VsMb.mjs';
-import { c as $$Layout } from '../../../../chunks/Grid_BWtxofxJ.mjs';
-import { $ as $$Hero, a as $$List } from '../../../../chunks/List_BCs-CvEE.mjs';
-import { $ as $$Cta } from '../../../../chunks/Cta_DtiOLuDi.mjs';
-import { s as slugify } from '../../../../chunks/arrow-left_DFDgFZ_G.mjs';
+import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_xEeMg09M.mjs';
+import { g as getCollection } from '../../../../chunks/_astro_content_CAQ5_t1n.mjs';
+import { c as $$Layout } from '../../../../chunks/Grid_DBS8SqEi.mjs';
+import { $ as $$Hero, a as $$List } from '../../../../chunks/List_Dv5ayJLh.mjs';
+import { $ as $$Cta } from '../../../../chunks/Cta_DbZD441L.mjs';
 export { renderers } from '../../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
@@ -18,10 +17,16 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const currentPage = parseInt(page || "1");
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
-  const allResources = await getCollection(
-    "resources",
-    ({ data }) => data.draft !== true 
-  );
+  let allResources;
+  try {
+    allResources = await getCollection(
+      "resources",
+      ({ data }) => true ? data.draft !== true : true
+    );
+  } catch (error) {
+    console.error("Error getting resources collection:", error);
+    return new Response("Failed to load resources", { status: 500 });
+  }
   const normalizeToArray = (field) => {
     if (!field) return [];
     return Array.isArray(field) ? field : [field];
@@ -31,14 +36,16 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
       (resource) => normalizeToArray(resource.data.categories).map((c) => c.trim())
     ))
   ];
-  const category = allCategories.find((c) => slugify(c) === slug?.toLowerCase());
+  const category = allCategories.find(
+    (c) => c.trim().toLowerCase().replace(/\s+/g, "-") === slug?.toLowerCase()
+  );
   if (!category) {
     return new Response(null, { status: 404 });
   }
   const featuredResource = allResources.find((resource) => resource.slug === "teg-data-sheet") ?? allResources[0];
   const filteredResources = allResources.filter((resource) => {
     if (resource === featuredResource) return false;
-    const resourceCategories = normalizeToArray(resource.data.categories).map((c) => slugify(c.trim()).toLowerCase());
+    const resourceCategories = normalizeToArray(resource.data.categories).map((c) => c.trim().toLowerCase().replace(/\s+/g, "-"));
     const isInCategory = resourceCategories.includes(slug.toLowerCase());
     if (!isInCategory) return false;
     if (query) {

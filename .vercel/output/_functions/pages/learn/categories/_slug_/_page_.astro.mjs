@@ -1,11 +1,11 @@
-import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_DH2DkwbL.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_tJGUTV3t.mjs';
 import 'kleur/colors';
-import { c as $$Layout } from '../../../../chunks/Grid_BWtxofxJ.mjs';
-import { $ as $$Cta } from '../../../../chunks/Cta_DtiOLuDi.mjs';
-import { $ as $$Hero, a as $$List } from '../../../../chunks/List_9-QDVv2Q.mjs';
-import { s as slugify } from '../../../../chunks/arrow-left_DFDgFZ_G.mjs';
-import { g as getCollection } from '../../../../chunks/_astro_content_BGf8VsMb.mjs';
-import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_DHx4b7Fz.mjs';
+import { c as $$Layout } from '../../../../chunks/Grid_DBS8SqEi.mjs';
+import { $ as $$Cta } from '../../../../chunks/Cta_DbZD441L.mjs';
+import { $ as $$Hero, a as $$List } from '../../../../chunks/List_C680U_kN.mjs';
+import { s as slugify } from '../../../../chunks/arrow-left_DM11I3C-.mjs';
+import { g as getCollection } from '../../../../chunks/_astro_content_CAQ5_t1n.mjs';
+import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_xEeMg09M.mjs';
 export { renderers } from '../../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
@@ -23,7 +23,7 @@ async function getStaticPaths() {
       return articleCategories.includes(category);
     });
     const totalPages = Math.ceil(articlesInCategory.length / ITEMS_PER_PAGE);
-    for (let i = 1; i <= totalPages; i++) {
+    for (let i = 2; i <= totalPages; i++) {
       paths.push({
         params: { slug: categorySlug, page: i.toString() }
       });

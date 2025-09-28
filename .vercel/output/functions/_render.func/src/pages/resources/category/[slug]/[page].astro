@@ -20,9 +20,15 @@ const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 
 // Получаем все ресурсы
-const allResources = await getCollection("resources", ({ data }) =>
-	import.meta.env.PROD ? data.draft !== true : true
-);
+let allResources;
+try {
+	allResources = await getCollection("resources", ({ data }) =>
+		import.meta.env.PROD ? data.draft !== true : true
+	);
+} catch (error) {
+	console.error('Error getting resources collection:', error);
+	return new Response('Failed to load resources', { status: 500 });
+}
 
 // Простая нормализация
 const normalizeToArray = (field: unknown) => {
@@ -37,8 +43,10 @@ const allCategories = [
 	)),
 ];
 
-// Находим текущую категорию
-const category = allCategories.find(c => slugify(c) === slug?.toLowerCase());
+// Находим текущую категорию - упрощенная версия
+const category = allCategories.find(c => 
+	c.trim().toLowerCase().replace(/\s+/g, '-') === slug?.toLowerCase()
+);
 
 // Если категория не найдена, возвращаем 404
 if (!category) {
@@ -53,9 +61,9 @@ const filteredResources = allResources.filter((resource) => {
 	// Пропускаем featured resource
 	if (resource === featuredResource) return false;
 	
-	// Проверяем категорию
+	// Проверяем категорию - упрощенная версия
 	const resourceCategories = normalizeToArray(resource.data.categories)
-		.map((c: string) => slugify(c.trim()).toLowerCase());
+		.map((c: string) => c.trim().toLowerCase().replace(/\s+/g, '-'));
 	
 	const isInCategory = resourceCategories.includes(slug.toLowerCase());
 	if (!isInCategory) return false;

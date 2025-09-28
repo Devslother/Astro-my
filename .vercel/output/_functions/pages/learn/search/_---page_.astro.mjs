@@ -1,17 +1,12 @@
-import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_DH2DkwbL.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_tJGUTV3t.mjs';
 import 'kleur/colors';
-import { g as getCollection } from '../../../chunks/_astro_content_BGf8VsMb.mjs';
-import { c as $$Layout } from '../../../chunks/Grid_BWtxofxJ.mjs';
-import { $ as $$Hero, a as $$List } from '../../../chunks/List_9-QDVv2Q.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_CAQ5_t1n.mjs';
+import { c as $$Layout } from '../../../chunks/Grid_DBS8SqEi.mjs';
+import { $ as $$Hero, a as $$List } from '../../../chunks/List_C680U_kN.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
 const prerender = false;
-async function getStaticPaths() {
-  return Array.from({ length: 10 }, (_, i) => ({
-    params: { page: [(i + 1).toString()] }
-  }));
-}
 const $$ = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$;
@@ -57,7 +52,6 @@ const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 	__proto__: null,
 	default: $$,
 	file: $$file,
-	getStaticPaths,
 	prerender,
 	url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));

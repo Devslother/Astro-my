@@ -61,6 +61,10 @@
 		{
 			"src": "^/resources/search$",
 			"dest": "_render"
+		},
+		{
+			"src": "^/resources/test-category$",
+			"dest": "_render"
 		}
 	]
 }
