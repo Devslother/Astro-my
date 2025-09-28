@@ -11,122 +11,72 @@ export const prerender = false;
 
 const ITEMS_PER_PAGE = 9;
 
-export async function getStaticPaths() {
-	const resources = await getCollection("resources", ({ data }) =>
-		import.meta.env.PROD ? data.draft !== true : true
-	);
-	
-	const normalizeToArray = (field: unknown) => (Array.isArray(field) ? field : field ? [field] : []);
-	
-	const allCategories = [
-		...new Set(resources.flatMap((resource) => 
-			normalizeToArray(resource.data.categories).map((c: string) => c.trim())
-		)),
-	];
-
-	const paths = [];
-
-	for (const category of allCategories) {
-		const categorySlug = slugify(category);
-		const resourcesInCategory = resources.filter((resource) => {
-			const articleCategories = normalizeToArray(resource.data.categories)
-				.map((c: string) => c.trim().toLowerCase());
-			return articleCategories.some(cat => slugify(cat) === categorySlug.toLowerCase());
-		});
-
-		const totalPages = Math.ceil(resourcesInCategory.length / ITEMS_PER_PAGE);
-
-		for (let i = 1; i <= totalPages; i++) {
-			paths.push({
-				params: { slug: categorySlug, page: i.toString() },
-			});
-		}
-	}
-
-	return paths;
-}
-
+// Простая обработка параметров
 const { slug, page } = Astro.params;
+const currentPage = parseInt(page || "1");
 
-if (!slug || !page) {
-	return new Response(null, { status: 400 });
-}
-
-const currentPage = parseInt(page);
-if (isNaN(currentPage) || currentPage < 1) {
-	return new Response(null, { status: 400 });
-}
-
+// Простая обработка поиска
 const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 
-const resources = await getCollection("resources", ({ data }) =>
+// Получаем все ресурсы
+const allResources = await getCollection("resources", ({ data }) =>
 	import.meta.env.PROD ? data.draft !== true : true
 );
 
-const normalizeToArray = (field: unknown) => (Array.isArray(field) ? field : field ? [field] : []);
+// Простая нормализация
+const normalizeToArray = (field: unknown) => {
+	if (!field) return [];
+	return Array.isArray(field) ? field : [field];
+};
 
-// создаю список всех категорий
+// Получаем все категории
 const allCategories = [
-	...new Set(resources.flatMap((resource) => 
+	...new Set(allResources.flatMap((resource) => 
 		normalizeToArray(resource.data.categories).map((c: string) => c.trim())
 	)),
 ];
 
-// нахожу текущую категорию по slug
-const category = allCategories.find(c => slugify(c) === slug.toLowerCase());
+// Находим текущую категорию
+const category = allCategories.find(c => slugify(c) === slug?.toLowerCase());
+
+// Если категория не найдена, редиректим на главную
 if (!category) {
-	return new Response(null, { status: 404 });
+	return Astro.redirect("/resources");
 }
 
-const isSearching = query.length > 0;
+// Featured resource
+const featuredResource = allResources.find(resource => resource.slug === "teg-data-sheet") ?? allResources[0];
 
-// Сначала ищу статью с slug "teg-data-sheet" (как на главной странице)
-const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
-const featuredResource = foundResource ?? resources[0];
+// Простая фильтрация
+const filteredResources = allResources.filter((resource) => {
+	// Пропускаем featured resource
+	if (resource === featuredResource) return false;
+	
+	// Проверяем категорию
+	const resourceCategories = normalizeToArray(resource.data.categories)
+		.map((c: string) => slugify(c.trim()).toLowerCase());
+	
+	const isInCategory = resourceCategories.includes(slug.toLowerCase());
+	if (!isInCategory) return false;
+	
+	// Проверяем поиск
+	if (query) {
+		const title = (resource.data.title ?? "").toLowerCase();
+		const resourceSlug = resource.slug.toLowerCase();
+		return title.includes(query) || resourceSlug.includes(query);
+	}
+	
+	return true;
+});
 
-// Фильтрую остальные статьи по категории и поиску
-const filtered: any[] = [];
+// Сортировка по дате
+filteredResources.sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
 
-for (const resource of resources) {
-  // Пропускаю featured resource
-  if (resource === featuredResource) continue;
-  
-  // проверяю категорию
-  const articleCategories = normalizeToArray(resource.data.categories)
-    .map((c: string) => c.trim().toLowerCase());
-  
-  // проверяю, соответствует ли статья выбранной категории
-  const isInCategory = articleCategories.some(cat => 
-    slugify(cat) === slug.toLowerCase()
-  );
-  if (!isInCategory) continue;
-
-  // проверяю поиск
-  if (isSearching) {
-    const title = (resource.data.title ?? "").toLowerCase();
-    const resourceSlug = resource.slug.toLowerCase();
-    const catsString = articleCategories.join(" ").toLowerCase();
-    
-    const matchesQuery = title.includes(query) || resourceSlug.includes(query) || catsString.includes(query);
-    if (!matchesQuery) continue;
-  }
-
-  filtered.push(resource);
-}
-
-// сортирую по дате
-filtered.sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
-
-// пагинация
-const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
-
-if (currentPage > totalPages && totalPages > 0) {
-	return new Response(null, { status: 404 });
-}
-
+// Пагинация
+const totalPages = Math.ceil(filteredResources.length / ITEMS_PER_PAGE);
 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-const paginatedResources = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+const paginatedResources = filteredResources.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 ---
 
 <Layout
