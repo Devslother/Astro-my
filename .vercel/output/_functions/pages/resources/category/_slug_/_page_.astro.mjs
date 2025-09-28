@@ -33,7 +33,7 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   ];
   const category = allCategories.find((c) => slugify(c) === slug?.toLowerCase());
   if (!category) {
-    return Astro2.redirect("/resources");
+    return new Response(null, { status: 404 });
   }
   const featuredResource = allResources.find((resource) => resource.slug === "teg-data-sheet") ?? allResources[0];
   const filteredResources = allResources.filter((resource) => {

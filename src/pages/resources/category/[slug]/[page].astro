@@ -40,9 +40,9 @@ const allCategories = [
 // Находим текущую категорию
 const category = allCategories.find(c => slugify(c) === slug?.toLowerCase());
 
-// Если категория не найдена, редиректим на главную
+// Если категория не найдена, возвращаем 404
 if (!category) {
-	return Astro.redirect("/resources");
+	return new Response(null, { status: 404 });
 }
 
 // Featured resource
