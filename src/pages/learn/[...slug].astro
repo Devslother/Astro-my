@@ -9,7 +9,13 @@ import Cta from '@/parts/learn/cta/Cta.astro';
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const articles: CollectionEntry<"learn">[] = await getCollection("learn");
+  let articles: CollectionEntry<"learn">[];
+  try {
+    articles = await getCollection("learn");
+  } catch (error) {
+    console.error('Error getting learn collection:', error);
+    return new Response('Failed to load articles', { status: 500 });
+  }
   return articles.map((article) => ({
   params: { slug: article.slug }
 }));

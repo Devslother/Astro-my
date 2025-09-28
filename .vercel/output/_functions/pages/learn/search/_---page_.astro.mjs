@@ -1,8 +1,8 @@
-import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_tJGUTV3t.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { g as getCollection } from '../../../chunks/_astro_content_CAQ5_t1n.mjs';
-import { c as $$Layout } from '../../../chunks/Grid_DBS8SqEi.mjs';
-import { $ as $$Hero, a as $$List } from '../../../chunks/List_C680U_kN.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_BGf8VsMb.mjs';
+import { c as $$Layout } from '../../../chunks/Grid_BWtxofxJ.mjs';
+import { $ as $$Hero, a as $$List } from '../../../chunks/List_9-QDVv2Q.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
@@ -25,7 +25,13 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
   const normalizeToArray = (val) => Array.isArray(val) ? val : val ? [val] : [];
-  const allArticles = await getCollection("learn");
+  let allArticles;
+  try {
+    allArticles = await getCollection("learn");
+  } catch (error) {
+    console.error("Error getting learn collection:", error);
+    return new Response("Failed to load articles", { status: 500 });
+  }
   const filteredArticles = allArticles.filter(({ data, slug }) => {
     const title = (data.title ?? "").toLowerCase();
     const cats = normalizeToArray(data.categories).join(" ").toLowerCase();

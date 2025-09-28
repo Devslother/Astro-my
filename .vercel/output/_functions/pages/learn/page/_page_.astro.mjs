@@ -1,10 +1,10 @@
-import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../chunks/astro/server_tJGUTV3t.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { $ as $$ClientRouter } from '../../../chunks/ClientRouter_xEeMg09M.mjs';
-import { c as $$Layout } from '../../../chunks/Grid_DBS8SqEi.mjs';
-import { $ as $$Cta } from '../../../chunks/Cta_DbZD441L.mjs';
-import { $ as $$Hero, a as $$List } from '../../../chunks/List_C680U_kN.mjs';
-import { g as getCollection } from '../../../chunks/_astro_content_CAQ5_t1n.mjs';
+import { $ as $$ClientRouter } from '../../../chunks/ClientRouter_DHx4b7Fz.mjs';
+import { c as $$Layout } from '../../../chunks/Grid_BWtxofxJ.mjs';
+import { $ as $$Cta } from '../../../chunks/Cta_DtiOLuDi.mjs';
+import { $ as $$Hero, a as $$List } from '../../../chunks/List_9-QDVv2Q.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_BGf8VsMb.mjs';
 export { renderers } from '../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
@@ -25,9 +25,15 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const POSTS_PER_PAGE = 9;
   const { page } = Astro2.params;
   const currentPage = parseInt(page);
-  const articles = await getCollection("learn", ({ data }) => {
-    return data.draft !== true ;
-  });
+  let articles;
+  try {
+    articles = await getCollection("learn", ({ data }) => {
+      return true ? data.draft !== true : true;
+    });
+  } catch (error) {
+    console.error("Error getting learn collection:", error);
+    return new Response("Failed to load articles", { status: 500 });
+  }
   const normalizeToArray = (field) => {
     if (!field) return [];
     return Array.isArray(field) ? field : [field];

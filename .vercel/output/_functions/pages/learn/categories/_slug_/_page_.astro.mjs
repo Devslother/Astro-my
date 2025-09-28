@@ -1,11 +1,11 @@
-import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_tJGUTV3t.mjs';
+import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { c as $$Layout } from '../../../../chunks/Grid_DBS8SqEi.mjs';
-import { $ as $$Cta } from '../../../../chunks/Cta_DbZD441L.mjs';
-import { $ as $$Hero, a as $$List } from '../../../../chunks/List_C680U_kN.mjs';
-import { s as slugify } from '../../../../chunks/arrow-left_DM11I3C-.mjs';
-import { g as getCollection } from '../../../../chunks/_astro_content_CAQ5_t1n.mjs';
-import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_xEeMg09M.mjs';
+import { c as $$Layout } from '../../../../chunks/Grid_BWtxofxJ.mjs';
+import { $ as $$Cta } from '../../../../chunks/Cta_DtiOLuDi.mjs';
+import { $ as $$Hero, a as $$List } from '../../../../chunks/List_9-QDVv2Q.mjs';
+import { s as slugify } from '../../../../chunks/arrow-left_DFDgFZ_G.mjs';
+import { g as getCollection } from '../../../../chunks/_astro_content_BGf8VsMb.mjs';
+import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_DHx4b7Fz.mjs';
 export { renderers } from '../../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
@@ -48,7 +48,13 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
   const isSearching = query.length > 0;
-  const allArticles = await getCollection("learn");
+  let allArticles;
+  try {
+    allArticles = await getCollection("learn");
+  } catch (error) {
+    console.error("Error getting learn collection:", error);
+    return new Response("Failed to load articles", { status: 500 });
+  }
   const allCategories = [...new Set(allArticles.flatMap((article) => normalizeToArray2(article.data.categories)))];
   const currentCategory = allCategories.find(
     (c) => slugify(c) === slug?.toLowerCase()

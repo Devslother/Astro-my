@@ -32,7 +32,13 @@ export async function getStaticPaths() {
 	}));
 }
 
-const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
+let allArticles: CollectionEntry<"learn">[];
+try {
+	allArticles = await getCollection("learn");
+} catch (error) {
+	console.error('Error getting learn collection:', error);
+	return new Response('Failed to load articles', { status: 500 });
+}
 
 const allCategories = [
 	...new Set(allArticles.flatMap((article) =>
@@ -43,7 +49,7 @@ const allCategories = [
 const { slug } = Astro.params;
 const category = allCategories.find(c => slugify(c) === slug.toLowerCase());
 
-if (!category) throw new Error(`No category found for slug: ${slug}`);
+if (!category) return new Response(null, { status: 404 });
 
 const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
@@ -88,7 +94,7 @@ const hasResults = filteredArticles.length > 0;
 			currentPage={currentPage}
 			allCategories={allCategories}
 			currentCategory={category}
-			baseUrl={`/learn/category/${slug}`}
+			baseUrl={`/learn/categories/${slug}`}
 			noQuery={noQuery}
   		hasResults={hasResults}
 		/>

@@ -28,7 +28,13 @@ const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 const normalizeToArray = (val: unknown) =>
 	Array.isArray(val) ? val : val ? [val] : [];
 
-const allArticles: CollectionEntry<"learn">[] =  await getCollection("learn");
+let allArticles: CollectionEntry<"learn">[];
+try {
+	allArticles = await getCollection("learn");
+} catch (error) {
+	console.error('Error getting learn collection:', error);
+	return new Response('Failed to load articles', { status: 500 });
+}
 
 const filteredArticles = allArticles
 	.filter(({ data, slug }) => {

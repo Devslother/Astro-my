@@ -1,8 +1,8 @@
-import { c as createAstro, a as createComponent, d as renderTemplate, m as maybeRenderHead, b as addAttribute, e as renderComponent, s as spreadAttributes, A as AstroError, U as UnknownContentCollectionError, j as RenderUndefinedEntryError, u as unescapeHTML, k as renderUniqueStylesheet, l as renderScriptElement, n as createHeadAndContent } from './astro/server_tJGUTV3t.mjs';
+import { c as createAstro, a as createComponent, d as renderTemplate, m as maybeRenderHead, b as addAttribute, e as renderComponent, s as spreadAttributes, A as AstroError, U as UnknownContentCollectionError, i as RenderUndefinedEntryError, u as unescapeHTML, j as renderUniqueStylesheet, k as renderScriptElement, l as createHeadAndContent } from './astro/server_DH2DkwbL.mjs';
 import { s as styles } from './_slug_.69c0ae58_xwuYw9Uh.mjs';
-import { e as $$Icon } from './Grid_DBS8SqEi.mjs';
+import { e as $$Icon } from './Grid_BWtxofxJ.mjs';
 import { r as removeBase, i as isRemotePath, p as prependForwardSlash } from './index_DY4PQEDO.mjs';
-import { $ as $$Image, V as VALID_INPUT_FORMATS } from './_astro_assets_DmEacORf.mjs';
+import { $ as $$Image, V as VALID_INPUT_FORMATS } from './_astro_assets_DHuMASIq.mjs';
 import { escape } from 'html-escaper';
 import { Traverse } from 'neotraverse/modern';
 import pLimit from 'p-limit';
@@ -317,7 +317,7 @@ const CONTENT_LAYER_IMAGE_REGEX = /__ASTRO_IMAGE_="([^"]+)"/g;
 async function updateImageReferencesInBody(html, fileName) {
   const { default: imageAssetMap } = await import('./content-assets_DleWbedO.mjs');
   const imageObjects = /* @__PURE__ */ new Map();
-  const { getImage } = await import('./_astro_assets_DmEacORf.mjs').then(n => n._);
+  const { getImage } = await import('./_astro_assets_DHuMASIq.mjs').then(n => n._);
   for (const [_full, imagePath] of html.matchAll(CONTENT_LAYER_IMAGE_REGEX)) {
     try {
       const decodedImagePath = JSON.parse(imagePath.replaceAll("&#x22;", '"'));

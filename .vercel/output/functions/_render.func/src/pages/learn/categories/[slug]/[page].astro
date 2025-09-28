@@ -56,7 +56,13 @@ const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 const isSearching = query.length > 0;
 
-const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
+let allArticles: CollectionEntry<"learn">[];
+try {
+	allArticles = await getCollection("learn");
+} catch (error) {
+	console.error('Error getting learn collection:', error);
+	return new Response('Failed to load articles', { status: 500 });
+}
 
 const allCategories = [...new Set(allArticles.flatMap((article) => normalizeToArray(article.data.categories)))];
 
