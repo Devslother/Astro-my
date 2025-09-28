@@ -22,5 +22,15 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/resources/category/([^/]+)",
+      "destination": "/resources/category/$1/1"
+    },
+    {
+      "source": "/learn/categories/([^/]+)",
+      "destination": "/learn/categories/$1/1"
+    }
   ]
 }

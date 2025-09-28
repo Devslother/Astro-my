@@ -10,8 +10,52 @@ import { slugify } from '@/utils/slugify';
 export const prerender = false;
 
 const ITEMS_PER_PAGE = 9;
+
+export async function getStaticPaths() {
+	const resources = await getCollection("resources", ({ data }) =>
+		import.meta.env.PROD ? data.draft !== true : true
+	);
+	
+	const normalizeToArray = (field: unknown) => (Array.isArray(field) ? field : field ? [field] : []);
+	
+	const allCategories = [
+		...new Set(resources.flatMap((resource) => 
+			normalizeToArray(resource.data.categories).map((c: string) => c.trim())
+		)),
+	];
+
+	const paths = [];
+
+	for (const category of allCategories) {
+		const categorySlug = slugify(category);
+		const resourcesInCategory = resources.filter((resource) => {
+			const articleCategories = normalizeToArray(resource.data.categories)
+				.map((c: string) => c.trim().toLowerCase());
+			return articleCategories.some(cat => slugify(cat) === categorySlug.toLowerCase());
+		});
+
+		const totalPages = Math.ceil(resourcesInCategory.length / ITEMS_PER_PAGE);
+
+		for (let i = 1; i <= totalPages; i++) {
+			paths.push({
+				params: { slug: categorySlug, page: i.toString() },
+			});
+		}
+	}
+
+	return paths;
+}
+
 const { slug, page } = Astro.params;
+
+if (!slug || !page) {
+	return new Response(null, { status: 400 });
+}
+
 const currentPage = parseInt(page);
+if (isNaN(currentPage) || currentPage < 1) {
+	return new Response(null, { status: 400 });
+}
 
 const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
@@ -75,9 +119,14 @@ for (const resource of resources) {
 filtered.sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
 
 // пагинация
+const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+
+if (currentPage > totalPages && totalPages > 0) {
+	return new Response(null, { status: 404 });
+}
+
 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 const paginatedResources = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
 ---
 
 <Layout

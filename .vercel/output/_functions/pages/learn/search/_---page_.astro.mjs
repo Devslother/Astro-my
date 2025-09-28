@@ -7,6 +7,11 @@ export { renderers } from '../../../renderers.mjs';
 
 const $$Astro = createAstro("https://astro-my.vercel.app/");
 const prerender = false;
+async function getStaticPaths() {
+  return Array.from({ length: 10 }, (_, i) => ({
+    params: { page: [(i + 1).toString()] }
+  }));
+}
 const $$ = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$;
@@ -52,6 +57,7 @@ const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
 	__proto__: null,
 	default: $$,
 	file: $$file,
+	getStaticPaths,
 	prerender,
 	url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));

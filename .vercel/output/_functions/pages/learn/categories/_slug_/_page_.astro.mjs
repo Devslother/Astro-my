@@ -23,7 +23,7 @@ async function getStaticPaths() {
       return articleCategories.includes(category);
     });
     const totalPages = Math.ceil(articlesInCategory.length / ITEMS_PER_PAGE);
-    for (let i = 2; i <= totalPages; i++) {
+    for (let i = 1; i <= totalPages; i++) {
       paths.push({
         params: { slug: categorySlug, page: i.toString() }
       });
