@@ -23,6 +23,11 @@ const allArticles: CollectionEntry<"learn">[] = await getCollection("learn", ({ 
 	return import.meta.env.PROD ? data.draft !== true : true;
 });
 
+// Проверяем, что коллекция не пустая
+if (!allArticles || allArticles.length === 0) {
+	return new Response(null, { status: 404 });
+}
+
 const allCategories = [
 	...new Set(allArticles.flatMap((article) =>
 		normalizeToArray(article.data.categories)
@@ -59,6 +64,11 @@ const filteredArticles = allArticles
 		const dateB = b.data.date ? new Date(b.data.date).valueOf() : 0;
 		return dateB - dateA;
 	});
+
+// Проверяем, что есть отфильтрованные результаты
+if (!filteredArticles || filteredArticles.length === 0) {
+	return new Response(null, { status: 404 });
+}
 
 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 const endIndex = startIndex + ITEMS_PER_PAGE;

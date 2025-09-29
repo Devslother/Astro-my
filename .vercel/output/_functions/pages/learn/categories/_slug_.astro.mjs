@@ -23,6 +23,9 @@ const $$slug = createComponent(async ($$result, $$props, $$slots) => {
   const allArticles = await getCollection("learn", ({ data }) => {
     return data.draft !== true ;
   });
+  if (!allArticles || allArticles.length === 0) {
+    return new Response(null, { status: 404 });
+  }
   const allCategories = [
     ...new Set(allArticles.flatMap(
       (article) => normalizeToArray(article.data.categories)
@@ -49,6 +52,9 @@ const $$slug = createComponent(async ($$result, $$props, $$slots) => {
     const dateB = b.data.date ? new Date(b.data.date).valueOf() : 0;
     return dateB - dateA;
   });
+  if (!filteredArticles || filteredArticles.length === 0) {
+    return new Response(null, { status: 404 });
+  }
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const paginatedArticles = filteredArticles.slice(startIndex, endIndex);

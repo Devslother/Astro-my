@@ -35,6 +35,11 @@ const allArticles: CollectionEntry<"learn">[] = await getCollection("learn", ({ 
 	return import.meta.env.PROD ? data.draft !== true : true;
 });
 
+// Проверяем, что коллекция не пустая
+if (!allArticles || allArticles.length === 0) {
+	return new Response(null, { status: 404 });
+}
+
 const filteredArticles = allArticles
 	.filter(({ data, slug }) => {
 		const title = (data.title ?? "").toLowerCase();

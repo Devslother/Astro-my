@@ -34,6 +34,11 @@ const resources = await getCollection("resources", ({ data }) =>
 	import.meta.env.PROD ? data.draft !== true : true
 );
 
+// Проверяем, что коллекция не пустая
+if (!resources || resources.length === 0) {
+	return new Response(null, { status: 404 });
+}
+
 const normalizeToArray = (field: unknown): string[] => {
 	if (!field) return [];
 	const value = Array.isArray(field) ? field.join(',') : field.toString();

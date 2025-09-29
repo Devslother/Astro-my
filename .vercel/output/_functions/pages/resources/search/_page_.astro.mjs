@@ -34,6 +34,9 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
     "resources",
     ({ data }) => data.draft !== true 
   );
+  if (!resources || resources.length === 0) {
+    return new Response(null, { status: 404 });
+  }
   const normalizeToArray = (field) => {
     if (!field) return [];
     const value = Array.isArray(field) ? field.join(",") : field.toString();

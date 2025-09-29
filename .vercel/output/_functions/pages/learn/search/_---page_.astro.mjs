@@ -32,6 +32,9 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   const allArticles = await getCollection("learn", ({ data }) => {
     return data.draft !== true ;
   });
+  if (!allArticles || allArticles.length === 0) {
+    return new Response(null, { status: 404 });
+  }
   const filteredArticles = allArticles.filter(({ data, slug }) => {
     const title = (data.title ?? "").toLowerCase();
     const cats = normalizeToArray(data.categories).join(" ").toLowerCase();
