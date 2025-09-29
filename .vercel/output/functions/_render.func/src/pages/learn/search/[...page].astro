@@ -1,0 +1,75 @@
+---
+export const prerender = false;
+
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/parts/learn/hero/Hero.astro';
+import List from '@/parts/learn/list/List.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+const ITEMS_PER_PAGE = 9;
+
+const pageSegments = Astro.params.page ?? [];
+let currentPage = 1;
+
+if (pageSegments.length === 0) {
+	const url = new URL(Astro.request.url);
+	const q = url.searchParams.get("q");
+	return Astro.redirect(q ? `/learn/search/1?q=${encodeURIComponent(q)}` : `/learn/search/1`);
+}
+
+const pageNum = parseInt(pageSegments[0]);
+if (!isNaN(pageNum) && pageNum > 0) {
+	currentPage = pageNum;
+}
+
+const url = new URL(Astro.request.url);
+const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
+
+const normalizeToArray = (val: unknown) =>
+	Array.isArray(val) ? val : val ? [val] : [];
+
+const allArticles: CollectionEntry<"learn">[] =  await getCollection("learn");
+
+const filteredArticles = allArticles
+	.filter(({ data, slug }) => {
+		const title = (data.title ?? "").toLowerCase();
+		const cats = normalizeToArray(data.categories).join(" ").toLowerCase();
+		return title.includes(query) || slug.toLowerCase().includes(query) || cats.includes(query);
+	})
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const noQuery = !query;
+const hasResults = filteredArticles.length > 0;
+
+const allCategories = [
+	...new Set(allArticles.flatMap(a => normalizeToArray(a.data.categories))),
+];
+
+const start = (currentPage - 1) * ITEMS_PER_PAGE;
+const pageArr = filteredArticles.slice(start, start + ITEMS_PER_PAGE);
+const total = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+
+if (currentPage > total && total !== 0) {
+	return new Response(null, { status: 404 });
+}
+---
+
+<Layout
+	title="Tetrate Search Results"
+	description="Search results"
+	headerClass="nav__with__bg"
+>
+	<Hero />
+	<div class="articles-wrapper">
+		<List
+			articles={pageArr}
+			currentPage={currentPage}
+			totalPages={total}
+			allCategories={allCategories}
+			currentCategory=""
+			baseUrl="/learn/search/1"
+			noQuery={noQuery}
+			hasResults={hasResults}
+		/>
+	</div>
+</Layout>

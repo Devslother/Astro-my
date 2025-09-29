@@ -16,8 +16,8 @@ export default defineConfig({
       },
     },
     define: {
-      "process.env.RECAPTCHA_SITE_KEY": JSON.stringify(
-        process.env.RECAPTCHA_SITE_KEY
+      "process.env.PUBLIC_RECAPTCHA_SITE_KEY": JSON.stringify(
+        process.env.PUBLIC_RECAPTCHA_SITE_KEY
       ),
       "process.env.RECAPTCHA_SECRET_KEY": JSON.stringify(
         process.env.RECAPTCHA_SECRET_KEY

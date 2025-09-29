@@ -13,7 +13,7 @@
 Set these in Vercel dashboard under Project Settings > Environment Variables:
 
 ```
-RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
+PUBLIC_RECAPTCHA_SITE_KEY=your_recaptcha_site_key_here
 RECAPTCHA_SECRET_KEY=your_recaptcha_secret_key_here
 ```
 

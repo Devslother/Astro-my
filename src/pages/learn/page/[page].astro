@@ -1,26 +1,14 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { ClientRouter } from 'astro:transitions';
-import Layout from '../../layouts/Layout.astro';
-import Hero from '../../parts/learn/hero/Hero.astro';
-import List from '../../parts/learn/list/List.astro';
-import Cta from '../../parts/learn/cta/Cta.astro';
+import Layout from '@/layouts/Layout.astro';
+import Hero from '@/parts/learn/hero/Hero.astro';
+import List from '@/parts/learn/list/List.astro';
+import Cta from '@/parts/learn/cta/Cta.astro';
 
 const POSTS_PER_PAGE = 9;
 
-export async function getStaticPaths() {
-	const POSTS_PER_PAGE = 9;
-
-	const articles = await getCollection("learn", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
-
-	const totalPages = Math.ceil((articles.length - 1) / POSTS_PER_PAGE);
-
-	return Array.from({ length: totalPages }, (_, i) => ({
-		params: { page: (i + 1).toString() },
-	}));
-}
+export const prerender = false;
 
 const { page } = Astro.params;
 const currentPage = parseInt(page);
@@ -29,9 +17,10 @@ const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ dat
 	return import.meta.env.PROD ? data.draft !== true : true;
 });
 
-const normalizeToArray = (field: unknown) => {
+const normalizeToArray = (field: unknown): string[] => {
 	if (!field) return [];
-	return Array.isArray(field) ? field : [field];
+	const value = Array.isArray(field) ? field.join(',') : field.toString();
+	return value.split(',').map(c => c.trim()).filter(Boolean);
 };
 
 const allCategories = [
@@ -58,12 +47,16 @@ if (currentPage && currentPage === 1) {
 	headerClass="nav__with__bg"
 >
 	<Hero />
-	<div class="articles-wrapper">
+	<div data-articles-wrapper class="articles-wrapper">
 		<List
 			articles={paginatedArticles}
 			totalPages={totalPages}
 			currentPage={currentPage}
 			allCategories={allCategories}
+			currentCategory=""
+			baseUrl="/learn"
+			noQuery={true}
+			hasResults={true}
 		/>
 	</div>
 	<Cta />

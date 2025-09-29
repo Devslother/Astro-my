@@ -19,9 +19,8 @@
     // не создаю URL заранее
     let fetchUrl;
     if (!query) {
-      // остаюсь там, где была (категория или /learn)
-      const fallback = window.__lastNonSearchUrl || baseUrl || "/learn";
-      fetchUrl = new URL(fallback, location.origin);
+      // При очистке поиска всегда возвращаемся на главную страницу /learn
+      fetchUrl = new URL(baseUrl || "/learn", location.origin);
     } else {
       fetchUrl = new URL(baseUrl || "/learn/search/1", location.origin);
       fetchUrl.searchParams.set("q", query);
@@ -34,11 +33,13 @@
       })
       .then((html) => {
         const doc = new DOMParser().parseFromString(html, "text/html");
-        const newWrapper = doc.querySelector("[data-articles-wrapper]");
+        const newWrapper =
+          doc.querySelector("[data-articles-wrapper]") ||
+          doc.querySelector(".articles-wrapper");
         const noPosts = doc.querySelector("[data-noposts]");
-        const currentWrapper = document.querySelector(
-          "[data-articles-wrapper]"
-        );
+        const currentWrapper =
+          document.querySelector("[data-articles-wrapper]") ||
+          document.querySelector(".articles-wrapper");
         const currentNoPosts = document.querySelector("[data-noposts]");
 
         const cursorPos = input.selectionStart ?? input.value.length;
@@ -63,8 +64,15 @@
           "",
           fetchUrl.pathname + fetchUrl.search
         );
-        if (!fetchUrl.pathname.startsWith("/learn/search")) {
+        // Сохраняем URL только если это не страница поиска и не главная страница
+        if (
+          !fetchUrl.pathname.startsWith("/learn/search") &&
+          fetchUrl.pathname !== "/learn"
+        ) {
           window.__lastNonSearchUrl = fetchUrl.pathname + fetchUrl.search;
+        } else if (fetchUrl.pathname === "/learn") {
+          // Сбрасываем сохраненный URL при возврате на главную
+          window.__lastNonSearchUrl = null;
         }
 
         toggleIcons(input, "ready");

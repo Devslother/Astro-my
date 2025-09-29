@@ -1,1 +1,0 @@
-import{i as e}from"./categoryFilter.Cw_EXF_8.js";document.addEventListener("DOMContentLoaded",()=>{e("/resources","Select topic")});document.addEventListener("astro:page-load",()=>{e("/resources","Select topic")});

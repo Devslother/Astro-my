@@ -72,8 +72,13 @@ export function initCategoryFilter(
 export function toggleClearButtonVisibility(defaultText = "Select category") {
   const categoriesSpan = document.querySelector("#category-button span");
   const clearButton = document.getElementById("clear-filters");
-  if (!clearButton) return;
-  const selected = categoriesSpan?.textContent?.trim() !== defaultText;
+
+  if (!clearButton || !categoriesSpan) return;
+
+  const currentText = categoriesSpan.textContent?.trim();
+  const selected = currentText !== defaultText;
+
+  // Показываем кнопку Clear если выбрана категория
   clearButton.style.display = selected ? "inline-flex" : "none";
 }
 
@@ -83,29 +88,50 @@ export function updateContent(url, basePath, defaultText = "Select category") {
     ? JSON.parse(categoryMapEl.textContent)
     : {};
 
+  // Проверяем, является ли URL страницей поиска
+  const isSearchPage = url.includes("/search/");
+
   fetch(url)
-    .then((res) => res.text())
+    .then((res) => {
+      return res.text();
+    })
     .then((html) => {
       const doc = new DOMParser().parseFromString(html, "text/html");
-      const newFilters = doc.querySelector(".filters");
-      const newResources = doc.querySelector("[data-articles-wrapper]");
-      const currentFilters = document.querySelector(".filters");
-      const currentResources = document.querySelector(
-        "[data-articles-wrapper]"
-      );
+      // Ищем фильтры по более широким селекторам
+      const newFilters = doc.querySelector("[class*='filter']");
+      const newResources =
+        doc.querySelector("[data-articles-wrapper]") ||
+        doc.querySelector(".articles-wrapper");
 
-      if (newFilters && currentFilters) currentFilters.replaceWith(newFilters);
-      if (newResources && currentResources)
+      const currentFilters = document.querySelector("[class*='filter']");
+      const currentResources =
+        document.querySelector("[data-articles-wrapper]") ||
+        document.querySelector(".articles-wrapper");
+
+      if (newFilters && currentFilters) {
+        // Вместо replaceWith, заменяем только содержимое
+        currentFilters.innerHTML = newFilters.innerHTML;
+      }
+      if (newResources && currentResources) {
         currentResources.replaceWith(newResources);
+      }
+
+      // Переинициализируем поисковые поля после замены контента - убрано, вызываем в конце
 
       window.history.pushState({}, "", url);
 
-      const urlParts = url.split("/");
-      const categoryPath = basePath === "/learn" ? "/categories" : "/category";
-      const slug = url.includes(`${basePath}${categoryPath}`)
-        ? decodeURIComponent(urlParts[urlParts.length - 1])
-        : null;
-      const label = categoryMap[slug] || defaultText;
+      // Определяем категорию только если это не страница поиска
+      let label = defaultText;
+      if (!isSearchPage) {
+        const urlParts = url.split("/");
+        const categoryPath =
+          basePath === "/learn" ? "/categories" : "/category";
+        const slug = url.includes(`${basePath}${categoryPath}`)
+          ? decodeURIComponent(urlParts[urlParts.length - 1])
+          : null;
+        label = categoryMap[slug] || defaultText;
+      }
+
       const categoryButtonSpan = document.querySelector(
         "#category-button span"
       );
@@ -137,10 +163,15 @@ export function updateContent(url, basePath, defaultText = "Select category") {
           }
         }
       }
-      toggleClearButtonVisibility(defaultText);
 
+      // Повторно инициализируем фильтры после обновления контента
       initCategoryFilter(basePath, defaultText);
       if (window.initSearchInputs) window.initSearchInputs();
+
+      // Обновляем видимость кнопки Clear после полной инициализации
+      setTimeout(() => {
+        toggleClearButtonVisibility(defaultText);
+      }, 100);
     });
 }
 

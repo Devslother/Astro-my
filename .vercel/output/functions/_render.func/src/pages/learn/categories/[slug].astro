@@ -1,0 +1,105 @@
+---
+export const prerender = false;
+
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { slugify } from '../../../utils/slugify';
+import { ClientRouter } from 'astro:transitions';
+import Layout from '../../../layouts/Layout.astro';
+import Hero from '../../../parts/learn/hero/Hero.astro';
+import List from '../../../parts/learn/list/List.astro';
+import Cta from '../../../parts/home/cta/Cta.astro';
+
+const ITEMS_PER_PAGE = 9;
+const currentPage = 1;
+
+const normalizeToArray = (field: unknown): string[] => {
+	if (!field) return [];
+	const value = Array.isArray(field) ? field.join(',') : field.toString();
+	return value.split(',').map(c => c.trim()).filter(Boolean);
+};
+
+export async function getStaticPaths() {
+	const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	const categories = [
+		...new Set(articles.flatMap((article) =>
+			normalizeToArray(article.data.categories)
+		)),
+	];
+
+	return categories.map((category) => ({
+		params: { slug: slugify(category) },
+		props: { category, allArticles: articles },
+	}));
+}
+
+const { slug } = Astro.params;
+
+const allArticles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+});
+
+const allCategories = [
+	...new Set(allArticles.flatMap((article) =>
+		normalizeToArray(article.data.categories)
+	)),
+];
+
+const category = allCategories.find(c => slugify(c).toLowerCase() === slug?.toLowerCase());
+
+if (!category) {
+	return new Response(null, { status: 404 });
+}
+
+const url = new URL(Astro.request.url);
+const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
+
+const isSearching = query.length > 0;
+
+const filteredArticles = allArticles
+	.filter((article) => {
+		const categoriesArray = normalizeToArray(article.data.categories)
+			.map((c: string) => c.trim().toLowerCase());
+		const inCategory = categoriesArray.includes(category.toLowerCase());
+		if (!inCategory) return false;
+
+		if (!isSearching) return true;
+
+		const title = (article.data.title ?? "").toLowerCase();
+		const slug = article.slug.toLowerCase();
+		const cats = categoriesArray.join(",");
+		return title.includes(query) || slug.includes(query) || cats.includes(query);
+	})
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+const endIndex = startIndex + ITEMS_PER_PAGE;
+const paginatedArticles = filteredArticles.slice(startIndex, endIndex);
+const totalPages = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
+
+const noQuery = !isSearching;
+const hasResults = filteredArticles.length > 0;
+---
+
+<Layout
+	title="Learning Center"
+	description="Tetrate's Learning Center: Discover expert insights, tutorials, and resources to elevate your understanding and implementation. Dive in now!"
+	headerClass="nav__with__bg"
+>
+	<Hero />
+	<div class="articles-wrapper">
+		<List
+			articles={paginatedArticles}
+			totalPages={totalPages}
+			currentPage={currentPage}
+			allCategories={allCategories}
+			currentCategory={category}
+			baseUrl={`/learn/categories/${slug}`}
+			noQuery={noQuery}
+  		hasResults={hasResults}
+		/>
+	</div>
+	<Cta />
+</Layout>
