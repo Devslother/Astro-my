@@ -19,9 +19,7 @@ const normalizeToArray = (field: unknown): string[] => {
 
 const { slug } = Astro.params;
 
-const allArticles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
-	return import.meta.env.PROD ? data.draft !== true : true;
-});
+const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
 
 // Проверяем, что коллекция не пустая
 if (!allArticles || allArticles.length === 0) {
