@@ -20,12 +20,16 @@ const resources = await getCollection("resources", ({ data }) =>
 	import.meta.env.PROD ? data.draft !== true : true
 );
 
-const normalizeToArray = (field: unknown) => (Array.isArray(field) ? field : field ? [field] : []);
+const normalizeToArray = (field: unknown): string[] => {
+	if (!field) return [];
+	const value = Array.isArray(field) ? field.join(',') : field.toString();
+	return value.split(',').map(c => c.trim()).filter(Boolean);
+};
 
 // создаю список всех категорий
 const allCategories = [
 	...new Set(resources.flatMap((resource) => 
-		normalizeToArray(resource.data.categories).map((c: string) => c.trim())
+		normalizeToArray(resource.data.categories)
 	)),
 ];
 
@@ -50,7 +54,7 @@ for (const resource of resources) {
   
   // проверяю категорию
   const articleCategories = normalizeToArray(resource.data.categories)
-    .map((c: string) => c.trim().toLowerCase());
+    .map((c: string) => c.toLowerCase());
   
   // проверяю, соответствует ли статья выбранной категории
   const isInCategory = articleCategories.some(cat => 

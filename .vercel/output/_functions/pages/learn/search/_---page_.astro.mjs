@@ -24,8 +24,14 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   }
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
-  const normalizeToArray = (val) => Array.isArray(val) ? val : val ? [val] : [];
-  const allArticles = await getCollection("learn");
+  const normalizeToArray = (field) => {
+    if (!field) return [];
+    const value = Array.isArray(field) ? field.join(",") : field.toString();
+    return value.split(",").map((c) => c.trim()).filter(Boolean);
+  };
+  const allArticles = await getCollection("learn", ({ data }) => {
+    return data.draft !== true ;
+  });
   const filteredArticles = allArticles.filter(({ data, slug }) => {
     const title = (data.title ?? "").toLowerCase();
     const cats = normalizeToArray(data.categories).join(" ").toLowerCase();
@@ -44,7 +50,6 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
   }
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Tetrate Search Results", "description": "Search results", "headerClass": "nav__with__bg" }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "Hero", $$Hero, {})} ${maybeRenderHead()}<div class="articles-wrapper"> ${renderComponent($$result2, "List", $$List, { "articles": pageArr, "currentPage": currentPage, "totalPages": total, "allCategories": allCategories, "currentCategory": "", "baseUrl": "/learn/search/1", "noQuery": noQuery, "hasResults": hasResults })} </div> ` })}`;
 }, "/Users/svetaco/Documents/Astro-my/src/pages/learn/search/[...page].astro", void 0);
-
 const $$file = "/Users/svetaco/Documents/Astro-my/src/pages/learn/search/[...page].astro";
 const $$url = "/learn/search/[...page]";
 

@@ -34,8 +34,11 @@ const resources = await getCollection("resources", ({ data }) =>
 	import.meta.env.PROD ? data.draft !== true : true
 );
 
-const normalizeToArray = (field: unknown) =>
-	Array.isArray(field) ? field : field ? [field] : [];
+const normalizeToArray = (field: unknown): string[] => {
+	if (!field) return [];
+	const value = Array.isArray(field) ? field.join(',') : field.toString();
+	return value.split(',').map(c => c.trim()).filter(Boolean);
+};
 
 const allCategories = [
 	...new Set(resources.flatMap((r) => normalizeToArray(r.data.categories))),

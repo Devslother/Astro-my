@@ -25,9 +25,10 @@ const filteredResources = resources.sort((a, b) => {
 	return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf();
 });
 
-const normalizeToArray = (field: unknown) => {
+const normalizeToArray = (field: unknown): string[] => {
 	if (!field) return [];
-	return Array.isArray(field) ? field : [field];
+	const value = Array.isArray(field) ? field.join(',') : field.toString();
+	return value.split(',').map(c => c.trim()).filter(Boolean);
 };
 
 // создаю массив всех категорий

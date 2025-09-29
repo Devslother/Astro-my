@@ -34,7 +34,11 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
     "resources",
     ({ data }) => data.draft !== true 
   );
-  const normalizeToArray = (field) => Array.isArray(field) ? field : field ? [field] : [];
+  const normalizeToArray = (field) => {
+    if (!field) return [];
+    const value = Array.isArray(field) ? field.join(",") : field.toString();
+    return value.split(",").map((c) => c.trim()).filter(Boolean);
+  };
   const allCategories = [
     ...new Set(resources.flatMap((r) => normalizeToArray(r.data.categories)))
   ];

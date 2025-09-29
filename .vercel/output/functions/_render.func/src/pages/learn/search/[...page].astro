@@ -25,10 +25,15 @@ if (!isNaN(pageNum) && pageNum > 0) {
 const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 
-const normalizeToArray = (val: unknown) =>
-	Array.isArray(val) ? val : val ? [val] : [];
+const normalizeToArray = (field: unknown): string[] => {
+	if (!field) return [];
+	const value = Array.isArray(field) ? field.join(',') : field.toString();
+	return value.split(',').map(c => c.trim()).filter(Boolean);
+};
 
-const allArticles: CollectionEntry<"learn">[] =  await getCollection("learn");
+const allArticles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+});
 
 const filteredArticles = allArticles
 	.filter(({ data, slug }) => {

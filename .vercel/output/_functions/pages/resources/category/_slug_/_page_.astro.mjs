@@ -22,10 +22,14 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
     "resources",
     ({ data }) => data.draft !== true 
   );
-  const normalizeToArray = (field) => Array.isArray(field) ? field : field ? [field] : [];
+  const normalizeToArray = (field) => {
+    if (!field) return [];
+    const value = Array.isArray(field) ? field.join(",") : field.toString();
+    return value.split(",").map((c) => c.trim()).filter(Boolean);
+  };
   const allCategories = [
     ...new Set(resources.flatMap(
-      (resource) => normalizeToArray(resource.data.categories).map((c) => c.trim())
+      (resource) => normalizeToArray(resource.data.categories)
     ))
   ];
   const category = allCategories.find((c) => slugify(c) === slug.toLowerCase());
@@ -38,7 +42,7 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const filtered = [];
   for (const resource of resources) {
     if (resource === featuredResource) continue;
-    const articleCategories = normalizeToArray(resource.data.categories).map((c) => c.trim().toLowerCase());
+    const articleCategories = normalizeToArray(resource.data.categories).map((c) => c.toLowerCase());
     const isInCategory = articleCategories.some(
       (cat) => slugify(cat) === slug.toLowerCase()
     );
