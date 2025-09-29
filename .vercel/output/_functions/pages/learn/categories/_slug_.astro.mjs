@@ -44,7 +44,11 @@ const $$slug = createComponent(async ($$result, $$props, $$slots) => {
     const slug2 = article.slug.toLowerCase();
     const cats = categoriesArray.join(",");
     return title.includes(query) || slug2.includes(query) || cats.includes(query);
-  }).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  }).sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).valueOf() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).valueOf() : 0;
+    return dateB - dateA;
+  });
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const paginatedArticles = filteredArticles.slice(startIndex, endIndex);

@@ -15,13 +15,16 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   Astro2.self = $$page;
   const ITEMS_PER_PAGE = 9;
   const { slug, page } = Astro2.params;
-  const currentPage = parseInt(page);
+  const currentPage = parseInt(page || "1") || 1;
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
   const resources = await getCollection(
     "resources",
     ({ data }) => data.draft !== true 
   );
+  if (!resources || resources.length === 0) {
+    return new Response(null, { status: 404 });
+  }
   const normalizeToArray = (field) => {
     if (!field) return [];
     const value = Array.isArray(field) ? field.join(",") : field.toString();
@@ -37,10 +40,7 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
     return new Response(null, { status: 404 });
   }
   const isSearching = query.length > 0;
-  const foundResource = resources.find((resource) => resource.slug === "teg-data-sheet");
-  const featuredResource = foundResource ?? resources[0];
   const filtered = resources.filter((resource) => {
-    if (resource === featuredResource) return false;
     const articleCategories = normalizeToArray(resource.data.categories).map((c) => c.toLowerCase());
     const isInCategory = articleCategories.some(
       (cat) => slugify(cat) === slug.toLowerCase()
@@ -56,6 +56,10 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
     return true;
   });
   filtered.sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
+  const featuredResource = filtered.find((resource) => resource.slug === "teg-data-sheet") ?? filtered[0];
+  if (!filtered || filtered.length === 0) {
+    return new Response(null, { status: 404 });
+  }
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedResources = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
