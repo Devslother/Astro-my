@@ -16,15 +16,9 @@ const currentPage = parseInt(page);
 const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 
-let resources;
-try {
-	resources = await getCollection("resources", ({ data }) =>
-		import.meta.env.PROD ? data.draft !== true : true
-	);
-} catch (error) {
-	console.error('Error getting resources collection:', error);
-	return new Response(null, { status: 500 });
-}
+const resources = await getCollection("resources", ({ data }) =>
+	import.meta.env.PROD ? data.draft !== true : true
+);
 
 const normalizeToArray = (field: unknown): string[] => {
 	if (!field) return [];
@@ -40,16 +34,9 @@ const allCategories = [
 ];
 
 // нахожу текущую категорию по slug
-let category;
-try {
-	category = allCategories.find(c => slugify(c as string) === slug.toLowerCase());
-} catch (error) {
-	console.error('Error finding category:', error);
-	return new Response(null, { status: 500 });
-}
+const category = allCategories.find(c => slugify(c as string) === slug.toLowerCase());
 
 if (!category) {
-	console.log('Category not found. Slug:', slug, 'Available categories:', allCategories);
 	return new Response(null, { status: 404 });
 }
 
@@ -60,12 +47,10 @@ const foundResource = resources.find(resource => resource.slug === "teg-data-she
 const featuredResource = foundResource ?? resources[0];
 
 // Фильтрую остальные статьи по категории и поиску
-const filtered: any[] = [];
-
-try {
-	for (const resource of resources) {
+const filtered = resources
+	.filter((resource) => {
 		// Пропускаю featured resource
-		if (resource === featuredResource) continue;
+		if (resource === featuredResource) return false;
   
 		// проверяю категорию
 		const articleCategories = normalizeToArray(resource.data.categories)
@@ -75,24 +60,20 @@ try {
 		const isInCategory = articleCategories.some(cat => 
 			slugify(cat) === slug.toLowerCase()
 		);
-		if (!isInCategory) continue;
+		if (!isInCategory) return false;
 
-  // проверяю поиск
-  if (isSearching) {
-    const title = (resource.data.title ?? "").toLowerCase();
-    const resourceSlug = resource.slug.toLowerCase();
-    const catsString = articleCategories.join(" ").toLowerCase();
-    
-    const matchesQuery = title.includes(query) || resourceSlug.includes(query) || catsString.includes(query);
-    if (!matchesQuery) continue;
-  }
+		// проверяю поиск
+		if (isSearching) {
+			const title = (resource.data.title ?? "").toLowerCase();
+			const resourceSlug = resource.slug.toLowerCase();
+			const catsString = articleCategories.join(" ").toLowerCase();
+			
+			const matchesQuery = title.includes(query) || resourceSlug.includes(query) || catsString.includes(query);
+			if (!matchesQuery) return false;
+		}
 
-		filtered.push(resource);
-	}
-} catch (error) {
-	console.error('Error filtering resources:', error);
-	return new Response(null, { status: 500 });
-}
+		return true;
+	});
 
 // сортирую по дате
 filtered.sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
