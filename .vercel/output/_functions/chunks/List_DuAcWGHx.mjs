@@ -1,17 +1,17 @@
-import { c as createComponent, a as createAstro, b as renderTemplate, r as renderComponent, d as addAttribute, m as maybeRenderHead, e as renderScript, u as unescapeHTML, F as Fragment } from './astro/server_BPJnkSgl.mjs';
+import { c as createAstro, a as createComponent, d as renderTemplate, e as renderComponent, b as addAttribute, m as maybeRenderHead, r as renderScript, u as unescapeHTML, F as Fragment } from './astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { b as $$Icon, c as $$Grid } from './Grid_4bd4D1Eq.mjs';
+import { e as $$Icon, $ as $$Grid } from './Grid_CjoLSW0o.mjs';
 import { s as styles } from './_page_.000ecce2_lomUklzL.mjs';
 import clsx from 'clsx';
 import { s as styles$1, a as styles$2, b as styles$3, c as styles$4, d as styles$5 } from './_page_.6e316770_guNkrw9w.mjs';
-import { $ as $$Figure } from './_astro_content_BjYV4lKw.mjs';
-import { s as slugify, A as ArrowLeft, a as ArrowRight, N as Noposts } from './arrow-left_BerUHB0T.mjs';
+import { $ as $$Figure } from './_astro_content_C7ilPGdO.mjs';
+import { s as slugify, A as ArrowLeft, a as ArrowRight, N as Noposts } from './arrow-left_BR8tjvq-.mjs';
 
 var __freeze$2 = Object.freeze;
 var __defProp$2 = Object.defineProperty;
 var __template$2 = (cooked, raw) => __freeze$2(__defProp$2(cooked, "raw", { value: __freeze$2(cooked.slice()) }));
 var _a$2;
-const $$Astro$5 = createAstro();
+const $$Astro$5 = createAstro("https://astro-my.vercel.app");
 const $$ResourcesSearchInput = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$5, $$props, $$slots);
   Astro2.self = $$ResourcesSearchInput;
@@ -63,7 +63,7 @@ var __freeze$1 = Object.freeze;
 var __defProp$1 = Object.defineProperty;
 var __template$1 = (cooked, raw) => __freeze$1(__defProp$1(cooked, "raw", { value: __freeze$1(cooked.slice()) }));
 var _a$1;
-const $$Astro$4 = createAstro();
+const $$Astro$4 = createAstro("https://astro-my.vercel.app");
 const $$CategoriesFilter = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$4, $$props, $$slots);
   Astro2.self = $$CategoriesFilter;
@@ -83,7 +83,7 @@ const $$CategoriesFilter = createComponent(($$result, $$props, $$slots) => {
   ), "class"), renderComponent($$result, "Icon", $$Icon, { "name": "close", "width": 20, "height": 20, "color": "var(--color-gray-700)" }), unescapeHTML(JSON.stringify(slugToLabel)), renderScript($$result, "/Users/svetaco/Documents/Astro-my/src/parts/resources/categories-filter/CategoriesFilter.astro?astro&type=script&index=0&lang.ts"));
 }, "/Users/svetaco/Documents/Astro-my/src/parts/resources/categories-filter/CategoriesFilter.astro", void 0);
 
-const $$Astro$3 = createAstro();
+const $$Astro$3 = createAstro("https://astro-my.vercel.app");
 const $$Hero = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$3, $$props, $$slots);
   Astro2.self = $$Hero;
@@ -123,7 +123,7 @@ Learn more
 ${renderComponent($$result, "Icon", $$Icon, { "name": "arrow-right", "width": 24, "height": 24, "color": "var(--color-white)" })} </div> </div> </a> </div> </section>`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/resources/hero/Hero.astro", void 0);
 
-const $$Astro$2 = createAstro();
+const $$Astro$2 = createAstro("https://astro-my.vercel.app");
 const $$Pagination = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$2, $$props, $$slots);
   Astro2.self = $$Pagination;
@@ -178,7 +178,7 @@ const $$Pagination = createComponent(($$result, $$props, $$slots) => {
   ) })} </a> </li>`} </ul> </nav>`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/resources/pagination/Pagination.astro", void 0);
 
-const $$Astro$1 = createAstro();
+const $$Astro$1 = createAstro("https://astro-my.vercel.app");
 const $$ResourceCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$ResourceCard;
@@ -216,7 +216,7 @@ var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
 var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(cooked.slice()) }));
 var _a;
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$List = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$List;

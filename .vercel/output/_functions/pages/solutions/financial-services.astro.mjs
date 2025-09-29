@@ -1,13 +1,13 @@
-import { c as createComponent, m as maybeRenderHead, d as addAttribute, r as renderComponent, b as renderTemplate, a as createAstro, u as unescapeHTML } from '../../chunks/astro/server_BPJnkSgl.mjs';
+import { a as createComponent, m as maybeRenderHead, b as addAttribute, e as renderComponent, d as renderTemplate, c as createAstro, u as unescapeHTML } from '../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { d as createSvgComponent, c as $$Grid, f as $$Button, a as $$Picture, b as $$Icon, e as $$Pattern, $ as $$Layout } from '../../chunks/Grid_4bd4D1Eq.mjs';
+import { d as createSvgComponent, $ as $$Grid, b as $$Button, a as $$Picture, e as $$Icon, g as $$Pattern, c as $$Layout } from '../../chunks/Grid_CjoLSW0o.mjs';
 import { s as styles, a as styles$1, b as styles$2, c as styles$3, d as styles$4, e as styles$5, f as styles$6 } from '../../chunks/financial-services.6ab17bf0_CW9Iioxz.mjs';
-import { $ as $$GlowButton } from '../../chunks/GlowButton_DFtT2w9N.mjs';
+import { $ as $$GlowButton } from '../../chunks/GlowButton_DlYUwGfm.mjs';
 import clsx from 'clsx';
-import { P as Product1, a as Product3 } from '../../chunks/product3_DIy4HO8j.mjs';
-import { i as imageDesktop$2, a as imageTablet$2, b as imageMobile$2 } from '../../chunks/products-bg-desktop_0jALUqjt.mjs';
-import { B as BluePattern, G as GreenPattern } from '../../chunks/green-pattern_CBTaoX2f.mjs';
-import { i as imageDesktop$3, a as imageTablet$3, b as imageMobile$3 } from '../../chunks/solves-bg-desktop_tYkorEaK.mjs';
+import { P as Product1, a as Product3 } from '../../chunks/product3_DEudmwVL.mjs';
+import { i as imageDesktop$2, a as imageTablet$2, b as imageMobile$2 } from '../../chunks/products-bg-desktop_CszXYFFP.mjs';
+import { B as BluePattern, G as GreenPattern } from '../../chunks/green-pattern_Gus9mw_Z.mjs';
+import { i as imageDesktop$3, a as imageTablet$3, b as imageMobile$3 } from '../../chunks/solves-bg-desktop_BaZ-SOn9.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const TopLeft = createSvgComponent({"meta":{"src":"/_astro/top-left.BlsA_n9o.svg","width":278,"height":196,"format":"svg"},"attributes":{"width":"278","height":"196","viewBox":"0 0 278 196","fill":"none"},"children":"\n<rect y=\"60\" width=\"136\" height=\"136\" rx=\"24\" fill=\"#EBECEC\" />\n<rect x=\"142\" width=\"136\" height=\"136\" rx=\"24\" fill=\"url(#paint0_linear_10834_83683)\" />\n<defs>\n<linearGradient id=\"paint0_linear_10834_83683\" x1=\"142\" y1=\"4.5\" x2=\"310.944\" y2=\"131.575\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#EBECEC\" />\n<stop offset=\"1\" stop-color=\"#F5F5F5\" />\n</linearGradient>\n</defs>\n"});
@@ -93,7 +93,7 @@ Talk to an Expert
 ` })} </div> </div>`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/financial/hero/Hero.astro", void 0);
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$ProductCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$ProductCard;

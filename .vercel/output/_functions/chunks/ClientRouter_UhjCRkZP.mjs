@@ -1,9 +1,9 @@
-import { c as createComponent, a as createAstro, d as addAttribute, e as renderScript, b as renderTemplate } from './astro/server_BPJnkSgl.mjs';
+import { c as createAstro, a as createComponent, b as addAttribute, r as renderScript, d as renderTemplate } from './astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
 import 'clsx';
 /* empty css                          */
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$ClientRouter = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$ClientRouter;

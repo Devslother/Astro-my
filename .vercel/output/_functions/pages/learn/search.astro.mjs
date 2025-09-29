@@ -1,9 +1,9 @@
-import { c as createComponent, a as createAstro } from '../../chunks/astro/server_BPJnkSgl.mjs';
+import { c as createAstro, a as createComponent } from '../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
 import 'clsx';
 export { renderers } from '../../renderers.mjs';
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const prerender = false;
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);

@@ -1,10 +1,10 @@
-import { c as createComponent, a as createAstro, m as maybeRenderHead, d as addAttribute, r as renderComponent, b as renderTemplate, g as renderSlot } from './astro/server_BPJnkSgl.mjs';
+import { c as createAstro, a as createComponent, m as maybeRenderHead, b as addAttribute, e as renderComponent, d as renderTemplate, f as renderSlot } from './astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
 import clsx from 'clsx';
 import { s as styles } from './agent-operations-director.04dc6e18_BiaiDvZe.mjs';
-import { f as $$Button } from './Grid_4bd4D1Eq.mjs';
+import { b as $$Button } from './Grid_CjoLSW0o.mjs';
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$GlowButton = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$GlowButton;

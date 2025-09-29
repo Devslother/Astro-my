@@ -1,11 +1,11 @@
-import { c as createComponent, m as maybeRenderHead, d as addAttribute, r as renderComponent, b as renderTemplate, a as createAstro, u as unescapeHTML } from '../../chunks/astro/server_BPJnkSgl.mjs';
+import { a as createComponent, m as maybeRenderHead, b as addAttribute, e as renderComponent, d as renderTemplate, c as createAstro, u as unescapeHTML } from '../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { d as createSvgComponent, c as $$Grid, f as $$Button, a as $$Picture, e as $$Pattern, b as $$Icon, $ as $$Layout } from '../../chunks/Grid_4bd4D1Eq.mjs';
+import { d as createSvgComponent, $ as $$Grid, b as $$Button, a as $$Picture, g as $$Pattern, e as $$Icon, c as $$Layout } from '../../chunks/Grid_CjoLSW0o.mjs';
 import { s as styles, a as styles$1, b as styles$2, c as styles$3, d as styles$4, e as styles$5, f as styles$6 } from '../../chunks/tetrate-istio-subscription.344b680a_BtwsACPG.mjs';
-import { $ as $$GlowButton } from '../../chunks/GlowButton_DFtT2w9N.mjs';
+import { $ as $$GlowButton } from '../../chunks/GlowButton_DlYUwGfm.mjs';
 import clsx from 'clsx';
-import { i as imageDesktop$1, a as imageTablet$1, b as imageMobile$1 } from '../../chunks/products-bg-desktop_0jALUqjt.mjs';
-import { i as imageDesktop$2, a as imageTablet$2, b as imageMobile$2 } from '../../chunks/solves-bg-desktop_tYkorEaK.mjs';
+import { i as imageDesktop$1, a as imageTablet$1, b as imageMobile$1 } from '../../chunks/products-bg-desktop_CszXYFFP.mjs';
+import { i as imageDesktop$2, a as imageTablet$2, b as imageMobile$2 } from '../../chunks/solves-bg-desktop_BaZ-SOn9.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const TopLeft = createSvgComponent({"meta":{"src":"/_astro/topleft.j0ZE3C_C.svg","width":319,"height":164,"format":"svg"},"attributes":{"width":"319","height":"164","viewBox":"0 0 319 164","fill":"none"},"children":"\n<rect width=\"115.582\" height=\"115.582\" rx=\"21.378\" transform=\"matrix(0.707107 -0.707107 -0.707107 -0.707107 81.7441 163.961)\" fill=\"#EBECEC\" />\n<rect width=\"115.582\" height=\"115.582\" rx=\"14.384\" transform=\"matrix(0.707107 -0.707107 -0.707107 -0.707107 236.361 163.961)\" fill=\"url(#paint0_linear_10672_163502)\" />\n<defs>\n<linearGradient id=\"paint0_linear_10672_163502\" x1=\"105.208\" y1=\"125.956\" x2=\"8.28889\" y2=\"-8.27234\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#EBECEC\" />\n<stop offset=\"1\" stop-color=\"#F5F5F5\" />\n</linearGradient>\n</defs>\n"});
@@ -95,7 +95,7 @@ Request a demo
 ` })} </div> </div>`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/istio/hero/Hero.astro", void 0);
 
-const $$Astro$1 = createAstro();
+const $$Astro$1 = createAstro("https://astro-my.vercel.app");
 const $$ProductCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$ProductCard;
@@ -191,7 +191,7 @@ Avoid lock-in, achieve compliance, and gain insights
 <br class="u-hidden u-visible--md u-visible--lg"> <span${addAttribute(styles$4.line, "class")}>fast with Tetrate Istio Subscription.</span> </p> </div> ` })}`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/istio/solves/Solves.astro", void 0);
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$WorkCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$WorkCard;

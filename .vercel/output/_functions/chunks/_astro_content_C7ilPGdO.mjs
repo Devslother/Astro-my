@@ -1,12 +1,11 @@
-import { c as createComponent, a as createAstro, b as renderTemplate, m as maybeRenderHead, d as addAttribute, r as renderComponent, s as spreadAttributes, A as AstroError, U as UnknownContentCollectionError, R as RenderUndefinedEntryError, u as unescapeHTML, h as renderUniqueStylesheet, i as renderScriptElement, j as createHeadAndContent } from './astro/server_BPJnkSgl.mjs';
+import { c as createAstro, a as createComponent, d as renderTemplate, m as maybeRenderHead, b as addAttribute, e as renderComponent, s as spreadAttributes, A as AstroError, U as UnknownContentCollectionError, i as RenderUndefinedEntryError, u as unescapeHTML, j as renderUniqueStylesheet, k as renderScriptElement, l as createHeadAndContent } from './astro/server_DH2DkwbL.mjs';
 import { s as styles } from './_slug_.69c0ae58_xwuYw9Uh.mjs';
-import { b as $$Icon } from './Grid_4bd4D1Eq.mjs';
-import { r as removeBase, i as isRemotePath, p as prependForwardSlash } from './index_DW4HPV0C.mjs';
-import { $ as $$Image, V as VALID_INPUT_FORMATS } from './_astro_assets_BfG3_QnW.mjs';
+import { e as $$Icon } from './Grid_CjoLSW0o.mjs';
+import { r as removeBase, i as isRemotePath, p as prependForwardSlash } from './index_DY4PQEDO.mjs';
+import { $ as $$Image, V as VALID_INPUT_FORMATS } from './_astro_assets_Bw4lDwXg.mjs';
 import { escape } from 'html-escaper';
 import { Traverse } from 'neotraverse/modern';
 import pLimit from 'p-limit';
-import { z } from 'zod';
 import 'kleur/colors';
 import * as devalue from 'devalue';
 
@@ -14,7 +13,7 @@ var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
 var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(cooked.slice()) }));
 var _a;
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$Figure = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$Figure;
@@ -101,7 +100,7 @@ class ImmutableDataStore {
    */
   static async fromModule() {
     try {
-      const data = await import('./_astro_data-layer-content_BlP0wvOO.mjs');
+      const data = await import('./_astro_data-layer-content_VlKkmhGL.mjs');
       if (data.default instanceof Map) {
         return ImmutableDataStore.fromMap(data.default);
       }
@@ -133,7 +132,7 @@ function dataStoreSingleton() {
 }
 const globalDataStore = dataStoreSingleton();
 
-const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_RECAPTCHA_SITE_KEY": "", "SITE": "https://astro-my.vercel.app/", "SSR": true};
+const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_RECAPTCHA_SITE_KEY": "", "SITE": "https://astro-my.vercel.app", "SSR": true};
 function createCollectionToGlobResultMap({
   globResult,
   contentDir
@@ -149,25 +148,13 @@ function createCollectionToGlobResultMap({
   }
   return collectionToGlobResultMap;
 }
-z.object({
-  tags: z.array(z.string()).optional(),
-  maxAge: z.number().optional(),
-  lastModified: z.date().optional()
-});
 function createGetCollection({
   contentCollectionToEntryMap,
   dataCollectionToEntryMap,
   getRenderEntryImport,
-  cacheEntriesByCollection,
-  liveCollections
+  cacheEntriesByCollection
 }) {
   return async function getCollection(collection, filter) {
-    if (collection in liveCollections) {
-      throw new AstroError({
-        ...UnknownContentCollectionError,
-        message: `Collection "${collection}" is a live collection. Use getLiveCollection() instead of getCollection().`
-      });
-    }
     const hasFilter = typeof filter === "function";
     const store = await globalDataStore.get();
     let type;
@@ -259,34 +246,21 @@ function emulateLegacyEntry({ legacyId, ...entry }) {
 function createGetEntry({
   getEntryImport,
   getRenderEntryImport,
-  collectionNames,
-  liveCollections
+  collectionNames
 }) {
-  return async function getEntry(collectionOrLookupObject, lookup) {
+  return async function getEntry(collectionOrLookupObject, _lookupId) {
     let collection, lookupId;
     if (typeof collectionOrLookupObject === "string") {
       collection = collectionOrLookupObject;
-      if (!lookup)
+      if (!_lookupId)
         throw new AstroError({
           ...UnknownContentCollectionError,
           message: "`getEntry()` requires an entry identifier as the second argument."
         });
-      lookupId = lookup;
+      lookupId = _lookupId;
     } else {
       collection = collectionOrLookupObject.collection;
       lookupId = "id" in collectionOrLookupObject ? collectionOrLookupObject.id : collectionOrLookupObject.slug;
-    }
-    if (collection in liveCollections) {
-      throw new AstroError({
-        ...UnknownContentCollectionError,
-        message: `Collection "${collection}" is a live collection. Use getLiveEntry() instead of getEntry().`
-      });
-    }
-    if (typeof lookupId === "object") {
-      throw new AstroError({
-        ...UnknownContentCollectionError,
-        message: `The entry identifier must be a string. Received object.`
-      });
     }
     const store = await globalDataStore.get();
     if (store.hasCollection(collection)) {
@@ -343,7 +317,7 @@ const CONTENT_LAYER_IMAGE_REGEX = /__ASTRO_IMAGE_="([^"]+)"/g;
 async function updateImageReferencesInBody(html, fileName) {
   const { default: imageAssetMap } = await import('./content-assets_DleWbedO.mjs');
   const imageObjects = /* @__PURE__ */ new Map();
-  const { getImage } = await import('./_astro_assets_BfG3_QnW.mjs').then(n => n._);
+  const { getImage } = await import('./_astro_assets_Bw4lDwXg.mjs').then(n => n._);
   for (const [_full, imagePath] of html.matchAll(CONTENT_LAYER_IMAGE_REGEX)) {
     try {
       const decodedImagePath = JSON.parse(imagePath.replaceAll("&#x22;", '"'));
@@ -372,9 +346,7 @@ async function updateImageReferencesInBody(html, fileName) {
     return Object.entries({
       ...attributes,
       src: image.src,
-      srcset: image.srcSet.attribute,
-      // This attribute is used by the toolbar audit
-      ...Object.assign(__vite_import_meta_env__, { _: process.env._ }).DEV ? { "data-image-component": "true" } : {}
+      srcset: image.srcSet.attribute
     }).map(([key, value]) => value ? `${key}="${escape(value)}"` : "").join(" ");
   });
 }
@@ -505,8 +477,6 @@ function isPropagatedAssetsModule(module) {
 
 // astro-head-inject
 
-const liveCollections = {};
-
 const contentDir = '/src/content/';
 
 const contentEntryGlob = "";
@@ -551,14 +521,12 @@ const getCollection = createGetCollection({
 	dataCollectionToEntryMap,
 	getRenderEntryImport: createGlobLookup(collectionToRenderEntryMap),
 	cacheEntriesByCollection,
-	liveCollections,
 });
 
 const getEntry = createGetEntry({
 	getEntryImport: createGlobLookup(collectionToEntryMap),
 	getRenderEntryImport: createGlobLookup(collectionToRenderEntryMap),
 	collectionNames,
-	liveCollections,
 });
 
 export { $$Figure as $, getEntry as a, getCollection as g };

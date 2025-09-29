@@ -23,11 +23,6 @@ function trimSlashes(path) {
 function isString(path) {
   return typeof path === "string" || path instanceof String;
 }
-const INTERNAL_PREFIXES = /* @__PURE__ */ new Set(["/_", "/@", "/.", "//"]);
-const JUST_SLASHES = /^\/{2,}$/;
-function isInternalPath(path) {
-  return INTERNAL_PREFIXES.has(path.slice(0, 2)) && !JUST_SLASHES.test(path);
-}
 function joinPaths(...paths) {
   return paths.filter(isString).map((path, i) => {
     if (i === 0) {
@@ -39,16 +34,8 @@ function joinPaths(...paths) {
     }
   }).join("/");
 }
-const URL_PROTOCOL_REGEX = /^(?:(?:http|ftp|https|ws):?\/\/|\/\/)/;
 function isRemotePath(src) {
-  const decoded = src.replace(/%5C/gi, "\\");
-  if (decoded[0] === "\\") {
-    return true;
-  }
-  if (/^(?:http|https|ftp|ws):\\/.test(decoded)) {
-    return true;
-  }
-  return URL_PROTOCOL_REGEX.test(decoded) || decoded.startsWith("data:");
+  return /^(?:http|ftp|https|ws):?\/\//.test(src) || src.startsWith("data:");
 }
 function slash(path) {
   return path.replace(/\\/g, "/");
@@ -189,11 +176,9 @@ const GIF = {
 
 const brandMap = {
   avif: "avif",
-  avis: "avif",
-  // avif-sequence
   mif1: "heif",
   msf1: "heif",
-  // heif-sequence
+  // hief-sequence
   heic: "heic",
   heix: "heic",
   hevc: "heic",
@@ -209,7 +194,7 @@ function detectBrands(buffer, start, end) {
       brandsDetected[brand] = 1;
     }
   }
-  if ("avif" in brandsDetected || "avis" in brandsDetected) {
+  if ("avif" in brandsDetected) {
     return "avif";
   } else if ("heic" in brandsDetected || "heix" in brandsDetected || "hevc" in brandsDetected || "hevx" in brandsDetected) {
     return "heic";
@@ -799,4 +784,4 @@ const typeHandlers = /* @__PURE__ */ new Map([
 ]);
 const types = Array.from(typeHandlers.keys());
 
-export { types as a, appendForwardSlash as b, removeTrailingForwardSlash as c, trimSlashes as d, isInternalPath as e, fileExtension as f, collapseDuplicateTrailingSlashes as g, hasFileExtension as h, isRemotePath as i, joinPaths as j, prependForwardSlash as p, removeBase as r, slash as s, typeHandlers as t };
+export { types as a, appendForwardSlash as b, removeTrailingForwardSlash as c, trimSlashes as d, collapseDuplicateTrailingSlashes as e, fileExtension as f, hasFileExtension as h, isRemotePath as i, joinPaths as j, prependForwardSlash as p, removeBase as r, slash as s, typeHandlers as t };

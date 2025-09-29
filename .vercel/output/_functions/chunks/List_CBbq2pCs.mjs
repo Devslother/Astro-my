@@ -1,10 +1,10 @@
-import { c as createComponent, m as maybeRenderHead, d as addAttribute, r as renderComponent, b as renderTemplate, a as createAstro, e as renderScript, u as unescapeHTML } from './astro/server_BPJnkSgl.mjs';
+import { a as createComponent, m as maybeRenderHead, b as addAttribute, e as renderComponent, d as renderTemplate, c as createAstro, r as renderScript, u as unescapeHTML } from './astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
 import { s as styles, a as styles$1, b as styles$2, c as styles$3, d as styles$4, e as styles$6 } from './_slug_.1783ec48_Cp6i02OL.mjs';
-import { a as $$Picture, b as $$Icon, c as $$Grid } from './Grid_4bd4D1Eq.mjs';
+import { a as $$Picture, e as $$Icon, $ as $$Grid } from './Grid_CjoLSW0o.mjs';
 import clsx from 'clsx';
-import { s as slugify, A as ArrowLeft, a as ArrowRight, N as Noposts } from './arrow-left_BerUHB0T.mjs';
-import { $ as $$Figure } from './_astro_content_BjYV4lKw.mjs';
+import { s as slugify, A as ArrowLeft, a as ArrowRight, N as Noposts } from './arrow-left_BR8tjvq-.mjs';
+import { $ as $$Figure } from './_astro_content_C7ilPGdO.mjs';
 import { s as styles$5 } from './_page_.000ecce2_lomUklzL.mjs';
 
 const imageMobile = new Proxy({"src":"/_astro/hero-mobile.BW0w1q_7.png","width":750,"height":920,"format":"png"}, {
@@ -60,7 +60,7 @@ var __freeze = Object.freeze;
 var __defProp = Object.defineProperty;
 var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(cooked.slice()) }));
 var _a;
-const $$Astro$5 = createAstro();
+const $$Astro$5 = createAstro("https://astro-my.vercel.app");
 const $$CategoriesFilter = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$5, $$props, $$slots);
   Astro2.self = $$CategoriesFilter;
@@ -80,7 +80,7 @@ const $$CategoriesFilter = createComponent(($$result, $$props, $$slots) => {
   ), "class"), renderComponent($$result, "Icon", $$Icon, { "name": "close", "width": 20, "height": 20, "color": "var(--color-gray-700)" }), unescapeHTML(JSON.stringify(slugToLabel)), renderScript($$result, "/Users/svetaco/Documents/Astro-my/src/parts/learn/categories-filter/CategoriesFilter.astro?astro&type=script&index=0&lang.ts"));
 }, "/Users/svetaco/Documents/Astro-my/src/parts/learn/categories-filter/CategoriesFilter.astro", void 0);
 
-const $$Astro$4 = createAstro();
+const $$Astro$4 = createAstro("https://astro-my.vercel.app");
 const $$CategoriesList = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$4, $$props, $$slots);
   Astro2.self = $$CategoriesList;
@@ -102,7 +102,7 @@ const $$CategoriesList = createComponent(($$result, $$props, $$slots) => {
   })} </ul> </div> ${renderScript($$result, "/Users/svetaco/Documents/Astro-my/src/parts/learn/categories-list/CategoriesList.astro?astro&type=script&index=0&lang.ts")}`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/learn/categories-list/CategoriesList.astro", void 0);
 
-const $$Astro$3 = createAstro();
+const $$Astro$3 = createAstro("https://astro-my.vercel.app");
 const $$Pagination = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$3, $$props, $$slots);
   Astro2.self = $$Pagination;
@@ -141,7 +141,7 @@ const $$Pagination = createComponent(($$result, $$props, $$slots) => {
   ) })} </a> </li>`} </ul> </nav>`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/learn/pagination/Pagination.astro", void 0);
 
-const $$Astro$2 = createAstro();
+const $$Astro$2 = createAstro("https://astro-my.vercel.app");
 const $$ArticleCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$2, $$props, $$slots);
   Astro2.self = $$ArticleCard;
@@ -169,7 +169,7 @@ Read more
 ${renderComponent($$result, "Icon", $$Icon, { "name": "arrow-right", "width": 24, "height": 24, "color": "var(--color-orange-500)" })} </span> </div> </a> </article>`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/learn/article-card/ArticleCard.astro", void 0);
 
-const $$Astro$1 = createAstro();
+const $$Astro$1 = createAstro("https://astro-my.vercel.app");
 const $$SearchInput = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$SearchInput;
@@ -197,7 +197,7 @@ const $$SearchInput = createComponent(($$result, $$props, $$slots) => {
   ) })} </label>`;
 }, "/Users/svetaco/Documents/Astro-my/src/components/search-input/SearchInput.astro", void 0);
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$List = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$List;

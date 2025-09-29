@@ -1,11 +1,11 @@
-import { c as createComponent, m as maybeRenderHead, d as addAttribute, r as renderComponent, b as renderTemplate, a as createAstro, u as unescapeHTML } from '../../chunks/astro/server_BPJnkSgl.mjs';
+import { a as createComponent, m as maybeRenderHead, b as addAttribute, e as renderComponent, d as renderTemplate, c as createAstro, u as unescapeHTML } from '../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { d as createSvgComponent, c as $$Grid, f as $$Button, a as $$Picture, e as $$Pattern, $ as $$Layout } from '../../chunks/Grid_4bd4D1Eq.mjs';
+import { d as createSvgComponent, $ as $$Grid, b as $$Button, a as $$Picture, g as $$Pattern, c as $$Layout } from '../../chunks/Grid_CjoLSW0o.mjs';
 import { s as styles, a as styles$1, b as styles$2, c as styles$3, d as styles$4, e as styles$5, f as styles$6 } from '../../chunks/tetrate-application-gateway.979f5972_CPP67qu2.mjs';
-import { $ as $$GlowButton } from '../../chunks/GlowButton_DFtT2w9N.mjs';
+import { $ as $$GlowButton } from '../../chunks/GlowButton_DlYUwGfm.mjs';
 import clsx from 'clsx';
-import { i as imageDesktop$1, a as imageTablet$1, b as imageMobile$1 } from '../../chunks/products-bg-desktop_0jALUqjt.mjs';
-import { i as imageDesktop$2, a as imageTablet$2, b as imageMobile$2 } from '../../chunks/solves-bg-desktop_tYkorEaK.mjs';
+import { i as imageDesktop$1, a as imageTablet$1, b as imageMobile$1 } from '../../chunks/products-bg-desktop_CszXYFFP.mjs';
+import { i as imageDesktop$2, a as imageTablet$2, b as imageMobile$2 } from '../../chunks/solves-bg-desktop_BaZ-SOn9.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const TopLeft = createSvgComponent({"meta":{"src":"/_astro/topleft.DaPxJE0w.svg","width":350,"height":264,"format":"svg"},"attributes":{"width":"350","height":"264","viewBox":"0 0 350 264","fill":"none"},"children":"\n<path d=\"M147.406 4.29584C142.956 1.7264 137.473 1.7264 133.022 4.29584L84.3435 32.4006C79.8931 34.9701 77.1516 39.7186 77.1516 44.8575V101.067C77.1516 106.206 79.8931 110.955 84.3435 113.524L133.022 141.629C137.473 144.198 142.956 144.198 147.406 141.629L196.085 113.524C200.536 110.955 203.277 106.206 203.277 101.067V44.8575C203.277 39.7186 200.536 34.9701 196.085 32.4006L147.406 4.29584Z\" fill=\"#EBECEC\" />\n<path d=\"M201.9 122.39C206.351 119.82 211.834 119.82 216.284 122.39L264.963 150.494C269.414 153.064 272.155 157.812 272.155 162.951V219.161C272.155 224.3 269.414 229.048 264.963 231.618L216.284 259.723C211.834 262.292 206.351 262.292 201.9 259.723L153.221 231.618C148.771 229.048 146.029 224.3 146.029 219.161V162.951C146.029 157.812 148.771 153.064 153.221 150.494L201.9 122.39Z\" fill=\"url(#paint0_linear_8269_78884)\" />\n<path d=\"M269.627 4.29584C274.077 1.7264 279.56 1.7264 284.011 4.29584L332.69 32.4006C337.14 34.9701 339.882 39.7186 339.882 44.8575V101.067C339.882 106.206 337.14 110.955 332.69 113.524L284.011 141.629C279.56 144.198 274.077 144.198 269.627 141.629L220.948 113.524C216.497 110.955 213.756 106.206 213.756 101.067V44.8575C213.756 39.7186 216.497 34.9701 220.948 32.4006L269.627 4.29584Z\" fill=\"url(#paint1_linear_8269_78884)\" />\n<path d=\"M80.2814 119.39C75.831 116.82 70.3479 116.82 65.8975 119.39L17.2185 147.494C12.7681 150.064 10.0266 154.812 10.0266 159.951V216.161C10.0266 221.3 12.7681 226.048 17.2185 228.618L65.8975 256.723C70.3479 259.292 75.831 259.292 80.2814 256.723L128.96 228.618C133.411 226.048 136.152 221.3 136.152 216.161V159.951C136.152 154.812 133.411 150.064 128.96 147.494L80.2814 119.39Z\" fill=\"#EBECEC\" />\n<defs>\n<linearGradient id=\"paint0_linear_8269_78884\" x1=\"287.453\" y1=\"195.444\" x2=\"121.893\" y2=\"163.541\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#F5F5F5\" />\n<stop offset=\"1\" stop-color=\"#EBECEC\" />\n</linearGradient>\n<linearGradient id=\"paint1_linear_8269_78884\" x1=\"355.18\" y1=\"77.3506\" x2=\"189.619\" y2=\"45.4473\" gradientUnits=\"userSpaceOnUse\">\n<stop stop-color=\"#F5F5F5\" />\n<stop offset=\"1\" stop-color=\"#EBECEC\" />\n</linearGradient>\n</defs>\n"});
@@ -87,7 +87,7 @@ Request a demo
 ` })} </div> </div>`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/app/hero/Hero.astro", void 0);
 
-const $$Astro$1 = createAstro();
+const $$Astro$1 = createAstro("https://astro-my.vercel.app");
 const $$ProductCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$ProductCard;
@@ -181,7 +181,7 @@ Autonomous Ingress <br> Orchestration Use Cases
               text__body--14-md"> ${item.text} </p> </div> </div>`)} </div> </div> ` })}`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/app/solves/Solves.astro", void 0);
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$WorkCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$WorkCard;

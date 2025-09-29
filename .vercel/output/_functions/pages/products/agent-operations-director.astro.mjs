@@ -1,11 +1,11 @@
-import { c as createComponent, m as maybeRenderHead, d as addAttribute, r as renderComponent, b as renderTemplate, a as createAstro, u as unescapeHTML } from '../../chunks/astro/server_BPJnkSgl.mjs';
+import { a as createComponent, m as maybeRenderHead, b as addAttribute, e as renderComponent, d as renderTemplate, c as createAstro, u as unescapeHTML } from '../../chunks/astro/server_DH2DkwbL.mjs';
 import 'kleur/colors';
-import { d as createSvgComponent, c as $$Grid, f as $$Button, a as $$Picture, e as $$Pattern, $ as $$Layout } from '../../chunks/Grid_4bd4D1Eq.mjs';
+import { d as createSvgComponent, $ as $$Grid, b as $$Button, a as $$Picture, g as $$Pattern, c as $$Layout } from '../../chunks/Grid_CjoLSW0o.mjs';
 import { s as styles, a as styles$1, b as styles$2, c as styles$3, d as styles$4, e as styles$5, f as styles$6 } from '../../chunks/agent-operations-director.4ac8b2ec_BKAP5rFW.mjs';
-import { $ as $$GlowButton } from '../../chunks/GlowButton_DFtT2w9N.mjs';
+import { $ as $$GlowButton } from '../../chunks/GlowButton_DlYUwGfm.mjs';
 import clsx from 'clsx';
-import { i as imageDesktop$1, a as imageTablet$1, b as imageMobile$1 } from '../../chunks/products-bg-desktop_0jALUqjt.mjs';
-import { i as imageDesktop$2, a as imageTablet$2, b as imageMobile$2 } from '../../chunks/solves-bg-desktop_tYkorEaK.mjs';
+import { i as imageDesktop$1, a as imageTablet$1, b as imageMobile$1 } from '../../chunks/products-bg-desktop_CszXYFFP.mjs';
+import { i as imageDesktop$2, a as imageTablet$2, b as imageMobile$2 } from '../../chunks/solves-bg-desktop_BaZ-SOn9.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const TopLeft = createSvgComponent({"meta":{"src":"/_astro/topleft.D_25c4IX.svg","width":314,"height":207,"format":"svg"},"attributes":{"width":"314","height":"207","viewBox":"0 0 314 207","fill":"none"},"children":"\n<g clip-path=\"url(#clip0_8620_53847)\">\n<path d=\"M-57.0602 70.5469L107.148 70.5469C119.469 70.5469 125.63 70.5469 130.336 72.9447C134.475 75.0539 137.841 78.4195 139.95 82.5591C142.348 87.2651 142.348 93.4257 142.348 105.747L142.348 108.371C142.348 120.692 142.348 126.853 144.746 131.559C146.855 135.699 150.221 139.064 154.36 141.173C159.066 143.571 165.227 143.571 177.548 143.571L294.646 143.571\" stroke=\"#CECFCF\" />\n<path d=\"M-78.9363 206.542L31.6496 206.542C43.9707 206.542 50.1313 206.542 54.8374 204.144C58.9769 202.035 62.3425 198.67 64.4517 194.53C66.8496 189.824 66.8496 183.663 66.8496 171.342L66.8496 -26.7926C66.8496 -39.1138 66.8496 -45.2743 69.2474 -49.9804C71.3567 -54.12 74.7222 -57.4855 78.8618 -59.5947C83.5679 -61.9926 89.7284 -61.9926 102.05 -61.9926L139.87 -61.9926C152.191 -61.9926 158.352 -61.9926 163.058 -64.3905C167.198 -66.4997 170.563 -69.8652 172.672 -74.0048C175.07 -78.7109 175.07 -84.8714 175.07 -97.1926L175.07 -242.25\" stroke=\"#CECFCF\" />\n<circle cx=\"17.365\" cy=\"17.365\" r=\"16.865\" transform=\"matrix(4.37114e-08 -1 -1 -4.37114e-08 312.561 161.484)\" fill=\"#E9ECEC\" stroke=\"#CECFCF\" />\n<rect x=\"90.6738\" y=\"70.5156\" width=\"33.7338\" height=\"33.7338\" rx=\"3.5\" transform=\"rotate(135 90.6738 70.5156)\" fill=\"#E9ECEC\" stroke=\"#CECFCF\" />\n</g>\n<defs>\n<clipPath id=\"clip0_8620_53847\">\n<rect width=\"449\" height=\"313\" fill=\"white\" transform=\"translate(313.02 -242) rotate(90)\" />\n</clipPath>\n</defs>\n"});
@@ -91,7 +91,7 @@ Request a demo
 ` })} </div> </div>`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/agent/hero/Hero.astro", void 0);
 
-const $$Astro$1 = createAstro();
+const $$Astro$1 = createAstro("https://astro-my.vercel.app");
 const $$ProductCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
   Astro2.self = $$ProductCard;
@@ -185,7 +185,7 @@ Use Cases
               text__body--14-md"> ${item.text} </p> </div> </div>`)} </div> </div> ` })}`;
 }, "/Users/svetaco/Documents/Astro-my/src/parts/agent/solves/Solves.astro", void 0);
 
-const $$Astro = createAstro();
+const $$Astro = createAstro("https://astro-my.vercel.app");
 const $$WorkCard = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
   Astro2.self = $$WorkCard;

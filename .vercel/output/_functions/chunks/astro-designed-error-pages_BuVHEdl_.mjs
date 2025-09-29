@@ -1,4 +1,4 @@
-import { ar as NOOP_MIDDLEWARE_HEADER, as as REDIRECT_STATUS_CODES, A as AstroError, at as ActionsReturnedInvalidDataError, _ as DEFAULT_404_COMPONENT } from './astro/server_BPJnkSgl.mjs';
+import { N as NOOP_MIDDLEWARE_HEADER, R as REDIRECT_STATUS_CODES, A as AstroError, h as ActionsReturnedInvalidDataError, D as DEFAULT_404_COMPONENT } from './astro/server_DH2DkwbL.mjs';
 import { parse, stringify } from 'devalue';
 import { escape } from 'html-escaper';
 
@@ -12,7 +12,7 @@ const ACTION_QUERY_PARAMS$1 = {
   actionName: "_action"};
 const ACTION_RPC_ROUTE_PATTERN = "/_actions/[...path]";
 
-const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_RECAPTCHA_SITE_KEY": "", "SITE": "https://astro-my.vercel.app/", "SSR": true};
+const __vite_import_meta_env__ = {"ASSETS_PREFIX": undefined, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_RECAPTCHA_SITE_KEY": "", "SITE": "https://astro-my.vercel.app", "SSR": true};
 const ACTION_QUERY_PARAMS = ACTION_QUERY_PARAMS$1;
 const codeToStatusMap = {
   // Implemented from IANA HTTP Status Code Registry
@@ -214,7 +214,7 @@ function deserializeActionResult(res) {
     error: void 0
   };
 }
-const actionResultErrorStack = /* @__PURE__ */ (function actionResultErrorStackFn() {
+const actionResultErrorStack = /* @__PURE__ */ function actionResultErrorStackFn() {
   let errorStack;
   return {
     set(stack) {
@@ -224,7 +224,7 @@ const actionResultErrorStack = /* @__PURE__ */ (function actionResultErrorStackF
       return errorStack;
     }
   };
-})();
+}();
 
 function template({
   title,
@@ -329,7 +329,7 @@ const DEFAULT_404_ROUTE = {
   component: DEFAULT_404_COMPONENT,
   generate: () => "",
   params: [],
-  pattern: /^\/404\/?$/,
+  pattern: /\/404/,
   prerender: false,
   pathname: "/404",
   segments: [[{ content: "404", dynamic: false, spread: false }]],
