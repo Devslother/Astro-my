@@ -3,8 +3,8 @@ import 'kleur/colors';
 import { $ as $$ClientRouter } from '../chunks/ClientRouter_UhjCRkZP.mjs';
 import { c as $$Layout } from '../chunks/Grid_CjoLSW0o.mjs';
 import { $ as $$Cta } from '../chunks/Cta_BdInT2Hy.mjs';
-import { $ as $$Hero, a as $$List } from '../chunks/List_CBbq2pCs.mjs';
-import { g as getCollection } from '../chunks/_astro_content_C7ilPGdO.mjs';
+import { $ as $$Hero, a as $$List } from '../chunks/List_iizjq26u.mjs';
+import { g as getCollection } from '../chunks/_astro_content_DLEUe-IA.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Index = createComponent(async ($$result, $$props, $$slots) => {

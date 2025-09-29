@@ -4,7 +4,7 @@ import { s as styles, a as styles$1, b as styles$2, c as styles$3, d as styles$4
 import { a as $$Picture, e as $$Icon, $ as $$Grid } from './Grid_CjoLSW0o.mjs';
 import clsx from 'clsx';
 import { s as slugify, A as ArrowLeft, a as ArrowRight, N as Noposts } from './arrow-left_BR8tjvq-.mjs';
-import { $ as $$Figure } from './_astro_content_C7ilPGdO.mjs';
+import { $ as $$Figure } from './_astro_content_DLEUe-IA.mjs';
 import { s as styles$5 } from './_page_.000ecce2_lomUklzL.mjs';
 
 const imageMobile = new Proxy({"src":"/_astro/hero-mobile.BW0w1q_7.png","width":750,"height":920,"format":"png"}, {

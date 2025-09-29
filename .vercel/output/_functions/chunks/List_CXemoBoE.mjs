@@ -4,7 +4,7 @@ import { e as $$Icon, $ as $$Grid } from './Grid_CjoLSW0o.mjs';
 import { s as styles } from './_page_.000ecce2_lomUklzL.mjs';
 import clsx from 'clsx';
 import { s as styles$1, a as styles$2, b as styles$3, c as styles$4, d as styles$5 } from './_page_.6e316770_guNkrw9w.mjs';
-import { $ as $$Figure } from './_astro_content_C7ilPGdO.mjs';
+import { $ as $$Figure } from './_astro_content_DLEUe-IA.mjs';
 import { s as slugify, A as ArrowLeft, a as ArrowRight, N as Noposts } from './arrow-left_BR8tjvq-.mjs';
 
 var __freeze$2 = Object.freeze;
