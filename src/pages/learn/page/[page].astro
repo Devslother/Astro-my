@@ -13,9 +13,7 @@ export const prerender = false;
 const { page } = Astro.params;
 const currentPage = parseInt(page || '1') || 1;
 
-const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
-	return import.meta.env.PROD ? data.draft !== true : true;
-});
+	const articles: CollectionEntry<"learn">[] = await getCollection("learn");
 
 const normalizeToArray = (field: unknown): string[] => {
 	if (!field) return [];

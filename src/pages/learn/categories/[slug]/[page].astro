@@ -18,9 +18,7 @@ const normalizeToArray = (field: unknown): string[] => {
 };
 
 export async function getStaticPaths() {
-	const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
-		return import.meta.env.PROD ? data.draft !== true : true;
-	});
+	const articles: CollectionEntry<"learn">[] = await getCollection("learn");
 
 	const categories = [...new Set(articles.flatMap((article) => normalizeToArray(article.data.categories)))];
 

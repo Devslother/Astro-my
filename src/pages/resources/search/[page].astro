@@ -11,9 +11,7 @@ export const prerender = false;
 const POSTS_PER_PAGE = 9;
 
 export async function getStaticPaths() {
-	const resources = await getCollection("resources", ({ data }) =>
-		import.meta.env.PROD ? data.draft !== true : true
-	);
+	const resources = await getCollection("resources");
 	const totalPages = Math.ceil(resources.length / POSTS_PER_PAGE);
 	return Array.from({ length: totalPages }, (_, i) => ({
 		params: { page: (i + 1).toString() },
@@ -30,9 +28,7 @@ if (!query) {
 	return Astro.redirect("/resources");
 }
 
-const resources = await getCollection("resources", ({ data }) =>
-	import.meta.env.PROD ? data.draft !== true : true
-);
+	const resources = await getCollection("resources");
 
 // Проверяем, что коллекция не пустая
 if (!resources || resources.length === 0) {

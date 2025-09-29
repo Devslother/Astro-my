@@ -16,9 +16,7 @@ const currentPage = parseInt(page || '1') || 1;
 const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 
-const resources = await getCollection("resources", ({ data }) =>
-	import.meta.env.PROD ? data.draft !== true : true
-);
+	const resources = await getCollection("resources");
 
 // Проверяем, что коллекция не пустая
 if (!resources || resources.length === 0) {

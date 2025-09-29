@@ -10,9 +10,7 @@ const ITEMS_PER_PAGE = 9;
 const currentPage = 1;
 
 // получаю все статьи
-const resources = await getCollection("resources", ({ data }) =>
-	import.meta.env.PROD ? data.draft !== true : true
-);
+	const resources = await getCollection("resources");
 
 // сортирую их по дате (с проверкой наличия даты)
 const filteredResources = resources.sort((a, b) => {

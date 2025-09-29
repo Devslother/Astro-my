@@ -31,9 +31,7 @@ const normalizeToArray = (field: unknown): string[] => {
 	return value.split(',').map(c => c.trim()).filter(Boolean);
 };
 
-const allArticles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
-	return import.meta.env.PROD ? data.draft !== true : true;
-});
+	const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
 
 // Проверяем, что коллекция не пустая
 if (!allArticles || allArticles.length === 0) {
