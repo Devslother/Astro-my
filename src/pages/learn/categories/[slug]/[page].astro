@@ -1,5 +1,5 @@
 ---
-export const prerender = false;
+export const prerender = true;
 
 import Layout from '@/layouts/Layout.astro';
 import Cta from '@/parts/learn/cta/Cta.astro';
@@ -17,6 +17,42 @@ const normalizeToArray = (field: unknown): string[] => {
 	return value.split(',').map(c => c.trim()).filter(Boolean);
 };
 
+export async function getStaticPaths() {
+	const ITEMS_PER_PAGE = 9;
+	
+	const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	const normalizeToArray = (field: unknown): string[] => {
+		if (!field) return [];
+		const value = Array.isArray(field) ? field.join(',') : field.toString();
+		return value.split(',').map(c => c.trim()).filter(Boolean);
+	};
+
+	const categories = [...new Set(articles.flatMap((article) => normalizeToArray(article.data.categories)))];
+
+	const paths = [];
+
+	for (const category of categories) {
+		const categorySlug = slugify(category);
+		const articlesInCategory = articles.filter((article) => {
+			const articleCategories = normalizeToArray(article.data.categories);
+			return articleCategories.includes(category);
+		});
+
+		const totalPages = Math.ceil(articlesInCategory.length / ITEMS_PER_PAGE);
+
+		for (let i = 2; i <= totalPages; i++) {
+			paths.push({
+				params: { slug: categorySlug, page: i.toString() },
+			});
+		}
+	}
+
+	return paths;
+}
+
 
 const { slug, page } = Astro.params;
 const currentPage = parseInt(page as string);
@@ -29,23 +65,8 @@ const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 const isSearching = query.length > 0;
 
-// Функция для получения статей
-async function getAllArticles() {
-	try {
-		return await getCollection("learn");
-	} catch (error) {
-		console.error('Error getting learn collection:', error);
-		throw new Error('Failed to load articles');
-	}
-}
-
 // Получаем все статьи
-let allArticles: CollectionEntry<"learn">[];
-try {
-	allArticles = await getAllArticles();
-} catch (error) {
-	return new Response('Failed to load articles', { status: 500 });
-}
+const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
 
 const allCategories = [...new Set(allArticles.flatMap((article) => normalizeToArray(article.data.categories)))];
 

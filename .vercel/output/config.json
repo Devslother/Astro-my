@@ -27,27 +27,7 @@
 			"dest": "_render"
 		},
 		{
-			"src": "^/learn/categories/([^/]+?)/([^/]+?)$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/learn/categories/([^/]+?)$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/learn/page/([^/]+?)$",
-			"dest": "_render"
-		},
-		{
 			"src": "^/learn/search$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/learn/search(?:/(.*?))?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/resources/category/([^/]+?)/([^/]+?)$",
 			"dest": "_render"
 		},
 		{

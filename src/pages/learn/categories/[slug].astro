@@ -1,5 +1,5 @@
 ---
-export const prerender = false;
+export const prerender = true;
 
 import Layout from '@/layouts/Layout.astro';
 import Cta from '@/parts/learn/cta/Cta.astro';
@@ -16,24 +16,30 @@ const normalizeToArray = (field: unknown) => {
 	return Array.isArray(field) ? field : [field];
 };
 
+export async function getStaticPaths() {
+	const articles = await getCollection("learn", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
 
-// Функция для получения статей
-async function getAllArticles() {
-	try {
-		return await getCollection("learn");
-	} catch (error) {
-		console.error('Error getting learn collection:', error);
-		throw new Error('Failed to load articles');
-	}
+	const normalizeToArray = (field: unknown) => {
+		if (!field) return [];
+		return Array.isArray(field) ? field : [field];
+	};
+
+	const categories = [
+		...new Set(articles.flatMap((article) =>
+			normalizeToArray(article.data.categories).flatMap(cat => cat.split(',').map((c: string) => c.trim()))
+		)),
+	];
+
+	return categories.map((category) => ({
+		params: { slug: slugify(category).toLowerCase() },
+	}));
 }
+
 
 // Получаем все статьи
-let allArticles: CollectionEntry<"learn">[];
-try {
-	allArticles = await getAllArticles();
-} catch (error) {
-	return new Response('Failed to load articles', { status: 500 });
-}
+const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
 
 const allCategories = [
 	...new Set(allArticles.flatMap((article) =>

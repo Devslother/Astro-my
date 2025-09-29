@@ -1,5 +1,5 @@
 ---
-export const prerender = false;
+export const prerender = true;
 
 import { ClientRouter } from 'astro:transitions';
 import Layout from '@/layouts/Layout.astro';
@@ -11,29 +11,27 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 const POSTS_PER_PAGE = 9;
 
+export async function getStaticPaths() {
+	const POSTS_PER_PAGE = 9;
+	
+	const articles = await getCollection("learn", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	const totalPages = Math.ceil((articles.length - 1) / POSTS_PER_PAGE);
+
+	return Array.from({ length: totalPages }, (_, i) => ({
+		params: { page: (i + 1).toString() },
+	}));
+}
 
 const { page } = Astro.params;
 const currentPage = parseInt(page);
 
-// Функция для получения статей
-async function getArticles() {
-	try {
-		return await getCollection("learn", ({ data }) => {
-			return import.meta.env.PROD ? data.draft !== true : true;
-		});
-	} catch (error) {
-		console.error('Error getting learn collection:', error);
-		throw new Error('Failed to load articles');
-	}
-}
-
 // Получаем статьи
-let articles: CollectionEntry<"learn">[];
-try {
-	articles = await getArticles();
-} catch (error) {
-	return new Response('Failed to load articles', { status: 500 });
-}
+const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
+	return import.meta.env.PROD ? data.draft !== true : true;
+});
 
 const normalizeToArray = (field: unknown) => {
 	if (!field) return [];

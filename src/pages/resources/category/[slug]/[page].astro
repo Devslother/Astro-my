@@ -7,9 +7,49 @@ import List from '@/parts/resources/list/List.astro';
 import Cta from '@/parts/learn/cta/Cta.astro';
 import { slugify } from '@/utils/slugify';
 
-export const prerender = false;
+export const prerender = true;
 
 const ITEMS_PER_PAGE = 9;
+
+export async function getStaticPaths() {
+	const ITEMS_PER_PAGE = 9;
+	
+	const allResources = await getCollection("resources", ({ data }) =>
+		import.meta.env.PROD ? data.draft !== true : true
+	);
+
+	const normalizeToArray = (field: unknown) => {
+		if (!field) return [];
+		return Array.isArray(field) ? field : [field];
+	};
+
+	const allCategories = [
+		...new Set(allResources.flatMap((resource) => 
+			normalizeToArray(resource.data.categories).map((c: string) => c.trim())
+		)),
+	];
+
+	const paths = [];
+
+	for (const category of allCategories) {
+		const categorySlug = category.trim().toLowerCase().replace(/\s+/g, '-');
+		const resourcesInCategory = allResources.filter((resource) => {
+			const resourceCategories = normalizeToArray(resource.data.categories)
+				.map((c: string) => c.trim().toLowerCase().replace(/\s+/g, '-'));
+			return resourceCategories.includes(categorySlug);
+		});
+
+		const totalPages = Math.ceil(resourcesInCategory.length / ITEMS_PER_PAGE);
+
+		for (let i = 1; i <= totalPages; i++) {
+			paths.push({
+				params: { slug: categorySlug, page: i.toString() },
+			});
+		}
+	}
+
+	return paths;
+}
 
 // Простая обработка параметров
 const { slug, page } = Astro.params;
@@ -19,25 +59,10 @@ const currentPage = parseInt(page || "1");
 const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 
-// Функция для получения ресурсов
-async function getAllResources() {
-	try {
-		return await getCollection("resources", ({ data }) =>
-			import.meta.env.PROD ? data.draft !== true : true
-		);
-	} catch (error) {
-		console.error('Error getting resources collection:', error);
-		throw new Error('Failed to load resources');
-	}
-}
-
 // Получаем все ресурсы
-let allResources;
-try {
-	allResources = await getAllResources();
-} catch (error) {
-	return new Response('Failed to load resources', { status: 500 });
-}
+const allResources = await getCollection("resources", ({ data }) =>
+	import.meta.env.PROD ? data.draft !== true : true
+);
 
 // Простая нормализация
 const normalizeToArray = (field: unknown) => {
