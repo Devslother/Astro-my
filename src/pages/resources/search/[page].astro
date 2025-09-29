@@ -10,6 +10,16 @@ export const prerender = false;
 
 const POSTS_PER_PAGE = 9;
 
+export async function getStaticPaths() {
+	const resources = await getCollection("resources", ({ data }) =>
+		import.meta.env.PROD ? data.draft !== true : true
+	);
+	const totalPages = Math.ceil(resources.length / POSTS_PER_PAGE);
+	return Array.from({ length: totalPages }, (_, i) => ({
+		params: { page: (i + 1).toString() },
+	}));
+}
+
 const { page } = Astro.params;
 const currentPage = parseInt(page);
 
@@ -74,6 +84,7 @@ const featuredResource = foundResource ?? resources[0];
        totalPages={totalPages}
        currentPage={currentPage}
        baseUrl="/resources/search"
+       query={query ? `q=${encodeURIComponent(query)}` : ""}
      />
    </div>
    

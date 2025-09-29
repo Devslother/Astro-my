@@ -1,19 +1,12 @@
 ---
-export const prerender = true;
+export const prerender = false;
 
-import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
 import Hero from '@/parts/learn/hero/Hero.astro';
 import List from '@/parts/learn/list/List.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const ITEMS_PER_PAGE = 9;
-
-export async function getStaticPaths() {
-	// Генерируем пути для первых 10 страниц поиска
-	return Array.from({ length: 10 }, (_, i) => ({
-		params: { page: (i + 1).toString() },
-	}));
-}
 
 const pageSegments = Astro.params.page ?? [];
 let currentPage = 1;
@@ -35,8 +28,7 @@ const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 const normalizeToArray = (val: unknown) =>
 	Array.isArray(val) ? val : val ? [val] : [];
 
-// Получаем все статьи
-const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
+const allArticles: CollectionEntry<"learn">[] =  await getCollection("learn");
 
 const filteredArticles = allArticles
 	.filter(({ data, slug }) => {
@@ -53,10 +45,9 @@ const allCategories = [
 	...new Set(allArticles.flatMap(a => normalizeToArray(a.data.categories))),
 ];
 
-const total = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
 const start = (currentPage - 1) * ITEMS_PER_PAGE;
 const pageArr = filteredArticles.slice(start, start + ITEMS_PER_PAGE);
-
+const total = Math.ceil(filteredArticles.length / ITEMS_PER_PAGE);
 
 if (currentPage > total && total !== 0) {
 	return new Response(null, { status: 404 });
@@ -69,7 +60,7 @@ if (currentPage > total && total !== 0) {
 	headerClass="nav__with__bg"
 >
 	<Hero />
-	<div data-articles-wrapper class="articles-wrapper">
+	<div class="articles-wrapper">
 		<List
 			articles={pageArr}
 			currentPage={currentPage}
@@ -82,4 +73,3 @@ if (currentPage > total && total !== 0) {
 		/>
 	</div>
 </Layout>
-

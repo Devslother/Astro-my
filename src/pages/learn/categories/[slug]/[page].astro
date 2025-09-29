@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
+export const prerender = false;
 
 import Layout from '@/layouts/Layout.astro';
 import Cta from '@/parts/learn/cta/Cta.astro';
@@ -18,17 +18,9 @@ const normalizeToArray = (field: unknown): string[] => {
 };
 
 export async function getStaticPaths() {
-	const ITEMS_PER_PAGE = 9;
-	
 	const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
-
-	const normalizeToArray = (field: unknown): string[] => {
-		if (!field) return [];
-		const value = Array.isArray(field) ? field.join(',') : field.toString();
-		return value.split(',').map(c => c.trim()).filter(Boolean);
-	};
 
 	const categories = [...new Set(articles.flatMap((article) => normalizeToArray(article.data.categories)))];
 
@@ -53,7 +45,6 @@ export async function getStaticPaths() {
 	return paths;
 }
 
-
 const { slug, page } = Astro.params;
 const currentPage = parseInt(page as string);
 
@@ -65,7 +56,6 @@ const url = new URL(Astro.request.url);
 const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 const isSearching = query.length > 0;
 
-// Получаем все статьи
 const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
 
 const allCategories = [...new Set(allArticles.flatMap((article) => normalizeToArray(article.data.categories)))];

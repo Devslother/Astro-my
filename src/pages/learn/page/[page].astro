@@ -1,19 +1,16 @@
 ---
-export const prerender = true;
-
-import { ClientRouter } from 'astro:transitions';
-import Layout from '@/layouts/Layout.astro';
-import Cta from '@/parts/learn/cta/Cta.astro';
-import Hero from '@/parts/learn/hero/Hero.astro';
-import List from '@/parts/learn/list/List.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
-
+import { ClientRouter } from 'astro:transitions';
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../parts/learn/hero/Hero.astro';
+import List from '../../parts/learn/list/List.astro';
+import Cta from '../../parts/learn/cta/Cta.astro';
 
 const POSTS_PER_PAGE = 9;
 
 export async function getStaticPaths() {
 	const POSTS_PER_PAGE = 9;
-	
+
 	const articles = await getCollection("learn", ({ data }) => {
 		return import.meta.env.PROD ? data.draft !== true : true;
 	});
@@ -28,7 +25,6 @@ export async function getStaticPaths() {
 const { page } = Astro.params;
 const currentPage = parseInt(page);
 
-// Получаем статьи
 const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
 	return import.meta.env.PROD ? data.draft !== true : true;
 });
@@ -60,17 +56,14 @@ if (currentPage && currentPage === 1) {
 	title="Learning Center"
 	description="Tetrate's Learning Center: Discover expert insights, tutorials, and resources to elevate your understanding and implementation. Dive in now!"
 	headerClass="nav__with__bg"
-  bodyClass="learn-page"
 >
 	<Hero />
-	<div data-articles-wrapper class="articles-wrapper">
+	<div class="articles-wrapper">
 		<List
 			articles={paginatedArticles}
 			totalPages={totalPages}
 			currentPage={currentPage}
 			allCategories={allCategories}
-			noQuery={true} 
-      hasResults={true}
 		/>
 	</div>
 	<Cta />
@@ -79,4 +72,3 @@ if (currentPage && currentPage === 1) {
 		<ClientRouter />
 	</Fragment>
 </Layout>
-
