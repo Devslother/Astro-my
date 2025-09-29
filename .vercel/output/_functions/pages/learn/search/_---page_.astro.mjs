@@ -36,7 +36,11 @@ const $$ = createComponent(async ($$result, $$props, $$slots) => {
     const title = (data.title ?? "").toLowerCase();
     const cats = normalizeToArray(data.categories).join(" ").toLowerCase();
     return title.includes(query) || slug.toLowerCase().includes(query) || cats.includes(query);
-  }).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  }).sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).valueOf() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).valueOf() : 0;
+    return dateB - dateA;
+  });
   const noQuery = !query;
   const hasResults = filteredArticles.length > 0;
   const allCategories = [

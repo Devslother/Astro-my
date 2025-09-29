@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 // получаю текущую страницу из url
 const { page } = Astro.params;
 // преобразую строку в число
-const currentPage = parseInt(page);
+const currentPage = parseInt(page || '1') || 1;
 
 // получаю все статьи для отображения на текущей странице
 const resources = await getCollection("resources", ({ data }) => {

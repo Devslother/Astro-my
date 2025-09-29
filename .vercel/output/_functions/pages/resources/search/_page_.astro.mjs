@@ -24,7 +24,7 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   Astro2.self = $$page;
   const POSTS_PER_PAGE2 = 9;
   const { page } = Astro2.params;
-  const currentPage = parseInt(page);
+  const currentPage = parseInt(page || "1") || 1;
   const url = new URL(Astro2.request.url);
   const query = url.searchParams.get("q")?.toLowerCase() ?? "";
   if (!query) {

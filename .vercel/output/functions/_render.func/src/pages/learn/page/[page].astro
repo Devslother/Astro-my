@@ -11,7 +11,7 @@ const POSTS_PER_PAGE = 9;
 export const prerender = false;
 
 const { page } = Astro.params;
-const currentPage = parseInt(page);
+const currentPage = parseInt(page || '1') || 1;
 
 const articles: CollectionEntry<"learn">[] = await getCollection("learn", ({ data }) => {
 	return import.meta.env.PROD ? data.draft !== true : true;
@@ -27,9 +27,11 @@ const allCategories = [
 	...new Set(articles.flatMap((resource) => normalizeToArray(resource.data.categories))),
 ];
 
-const filteredArticles = articles.sort(
-	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const filteredArticles = articles.sort((a, b) => {
+	const dateA = a.data.date ? new Date(a.data.date).valueOf() : 0;
+	const dateB = b.data.date ? new Date(b.data.date).valueOf() : 0;
+	return dateB - dateA;
+});
 
 const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
 const endIndex = startIndex + POSTS_PER_PAGE;

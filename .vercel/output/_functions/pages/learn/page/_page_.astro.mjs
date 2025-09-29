@@ -14,7 +14,7 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   Astro2.self = $$page;
   const POSTS_PER_PAGE = 9;
   const { page } = Astro2.params;
-  const currentPage = parseInt(page);
+  const currentPage = parseInt(page || "1") || 1;
   const articles = await getCollection("learn", ({ data }) => {
     return data.draft !== true ;
   });
@@ -26,14 +26,16 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const allCategories = [
     ...new Set(articles.flatMap((resource) => normalizeToArray(resource.data.categories)))
   ];
-  const filteredArticles = articles.sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-  );
+  const filteredArticles = articles.sort((a, b) => {
+    const dateA = a.data.date ? new Date(a.data.date).valueOf() : 0;
+    const dateB = b.data.date ? new Date(b.data.date).valueOf() : 0;
+    return dateB - dateA;
+  });
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
   const paginatedArticles = filteredArticles.slice(startIndex, endIndex);
   const totalPages = Math.ceil(filteredArticles.length / POSTS_PER_PAGE);
-  if (currentPage && currentPage === 1) {
+  if (currentPage === 1) {
     return Astro2.redirect("/learn");
   }
   return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": "Learning Center", "description": "Tetrate's Learning Center: Discover expert insights, tutorials, and resources to elevate your understanding and implementation. Dive in now!", "headerClass": "nav__with__bg" }, { "default": async ($$result2) => renderTemplate` ${renderComponent($$result2, "Hero", $$Hero, {})} ${maybeRenderHead()}<div data-articles-wrapper class="articles-wrapper"> ${renderComponent($$result2, "List", $$List, { "articles": paginatedArticles, "totalPages": totalPages, "currentPage": currentPage, "allCategories": allCategories, "currentCategory": "", "baseUrl": "/learn", "noQuery": true, "hasResults": true })} </div> ${renderComponent($$result2, "Cta", $$Cta, {})}  `, "head": async ($$result2) => renderTemplate`${renderComponent($$result2, "Fragment", Fragment, { "slot": "head" }, { "default": async ($$result3) => renderTemplate` ${renderComponent($$result3, "ClientRouter", $$ClientRouter, {})} ` })}` })}`;
