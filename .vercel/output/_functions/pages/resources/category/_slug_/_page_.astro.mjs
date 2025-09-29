@@ -18,10 +18,16 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
   const currentPage = parseInt(page);
   const url = new URL(Astro2.request.url);
   const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
-  const resources = await getCollection(
-    "resources",
-    ({ data }) => data.draft !== true 
-  );
+  let resources;
+  try {
+    resources = await getCollection(
+      "resources",
+      ({ data }) => true ? data.draft !== true : true
+    );
+  } catch (error) {
+    console.error("Error getting resources collection:", error);
+    return new Response(null, { status: 500 });
+  }
   const normalizeToArray = (field) => {
     if (!field) return [];
     const value = Array.isArray(field) ? field.join(",") : field.toString();
@@ -32,29 +38,41 @@ const $$page = createComponent(async ($$result, $$props, $$slots) => {
       (resource) => normalizeToArray(resource.data.categories)
     ))
   ];
-  const category = allCategories.find((c) => slugify(c) === slug.toLowerCase());
+  let category;
+  try {
+    category = allCategories.find((c) => slugify(c) === slug.toLowerCase());
+  } catch (error) {
+    console.error("Error finding category:", error);
+    return new Response(null, { status: 500 });
+  }
   if (!category) {
+    console.log("Category not found. Slug:", slug, "Available categories:", allCategories);
     return new Response(null, { status: 404 });
   }
   const isSearching = query.length > 0;
   const foundResource = resources.find((resource) => resource.slug === "teg-data-sheet");
   const featuredResource = foundResource ?? resources[0];
   const filtered = [];
-  for (const resource of resources) {
-    if (resource === featuredResource) continue;
-    const articleCategories = normalizeToArray(resource.data.categories).map((c) => c.toLowerCase());
-    const isInCategory = articleCategories.some(
-      (cat) => slugify(cat) === slug.toLowerCase()
-    );
-    if (!isInCategory) continue;
-    if (isSearching) {
-      const title = (resource.data.title ?? "").toLowerCase();
-      const resourceSlug = resource.slug.toLowerCase();
-      const catsString = articleCategories.join(" ").toLowerCase();
-      const matchesQuery = title.includes(query) || resourceSlug.includes(query) || catsString.includes(query);
-      if (!matchesQuery) continue;
+  try {
+    for (const resource of resources) {
+      if (resource === featuredResource) continue;
+      const articleCategories = normalizeToArray(resource.data.categories).map((c) => c.toLowerCase());
+      const isInCategory = articleCategories.some(
+        (cat) => slugify(cat) === slug.toLowerCase()
+      );
+      if (!isInCategory) continue;
+      if (isSearching) {
+        const title = (resource.data.title ?? "").toLowerCase();
+        const resourceSlug = resource.slug.toLowerCase();
+        const catsString = articleCategories.join(" ").toLowerCase();
+        const matchesQuery = title.includes(query) || resourceSlug.includes(query) || catsString.includes(query);
+        if (!matchesQuery) continue;
+      }
+      filtered.push(resource);
     }
-    filtered.push(resource);
+  } catch (error) {
+    console.error("Error filtering resources:", error);
+    return new Response(null, { status: 500 });
   }
   filtered.sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -66,11 +84,11 @@ const $$file = "/Users/svetaco/Documents/Astro-my/src/pages/resources/category/[
 const $$url = "/resources/category/[slug]/[page]";
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
-  __proto__: null,
-  default: $$page,
-  file: $$file,
-  prerender,
-  url: $$url
+	__proto__: null,
+	default: $$page,
+	file: $$file,
+	prerender,
+	url: $$url
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const page = () => _page;
