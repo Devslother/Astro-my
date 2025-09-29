@@ -1,14 +1,14 @@
-import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_DH2DkwbL.mjs';
+import { c as createComponent, a as createAstro, r as renderComponent, b as renderTemplate, F as Fragment, m as maybeRenderHead } from '../../../../chunks/astro/server_BPJnkSgl.mjs';
 import 'kleur/colors';
-import { c as $$Layout } from '../../../../chunks/Grid_BtOugKBn.mjs';
-import { $ as $$Cta } from '../../../../chunks/Cta_lKkS1ANY.mjs';
-import { $ as $$Hero, a as $$List } from '../../../../chunks/List_CArGOjgz.mjs';
-import { s as slugify } from '../../../../chunks/arrow-left_D0egb_vI.mjs';
-import { g as getCollection } from '../../../../chunks/_astro_content_Co6I3m48.mjs';
-import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_DHx4b7Fz.mjs';
+import { $ as $$Layout } from '../../../../chunks/Grid_4bd4D1Eq.mjs';
+import { $ as $$Cta } from '../../../../chunks/Cta_D0Ivh2Qc.mjs';
+import { $ as $$Hero, a as $$List } from '../../../../chunks/List_DRxrE65f.mjs';
+import { s as slugify } from '../../../../chunks/arrow-left_BerUHB0T.mjs';
+import { g as getCollection } from '../../../../chunks/_astro_content_BjYV4lKw.mjs';
+import { $ as $$ClientRouter } from '../../../../chunks/ClientRouter_B1Myq5Z4.mjs';
 export { renderers } from '../../../../renderers.mjs';
 
-const $$Astro = createAstro("https://astro-my.vercel.app/");
+const $$Astro = createAstro();
 const prerender = false;
 async function getStaticPaths() {
   const articles = await getCollection("learn", ({ data }) => {

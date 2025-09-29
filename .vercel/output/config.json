@@ -27,6 +27,10 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^/api/requestForm$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/learn/categories/([^/]+?)/([^/]+?)$",
 			"dest": "_render"
 		},
@@ -47,6 +51,34 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^/learn$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/posts/post-1$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/posts/post-2$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/posts/post-3$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/products/agent-operations-director$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/products/tetrate-application-gateway$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/products/tetrate-istio-subscription$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/resources/category/([^/]+?)/([^/]+?)$",
 			"dest": "_render"
 		},
@@ -55,11 +87,27 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^/resources/page/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/resources/search/([^/]+?)$",
 			"dest": "_render"
 		},
 		{
 			"src": "^/resources/search$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/resources$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/solutions/financial-services$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/$",
 			"dest": "_render"
 		}
 	]

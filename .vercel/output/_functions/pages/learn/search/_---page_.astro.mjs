@@ -1,11 +1,11 @@
-import { c as createAstro, a as createComponent, e as renderComponent, d as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_DH2DkwbL.mjs';
+import { c as createComponent, a as createAstro, r as renderComponent, b as renderTemplate, m as maybeRenderHead } from '../../../chunks/astro/server_BPJnkSgl.mjs';
 import 'kleur/colors';
-import { c as $$Layout } from '../../../chunks/Grid_BtOugKBn.mjs';
-import { $ as $$Hero, a as $$List } from '../../../chunks/List_CArGOjgz.mjs';
-import { g as getCollection } from '../../../chunks/_astro_content_Co6I3m48.mjs';
+import { $ as $$Layout } from '../../../chunks/Grid_4bd4D1Eq.mjs';
+import { $ as $$Hero, a as $$List } from '../../../chunks/List_DRxrE65f.mjs';
+import { g as getCollection } from '../../../chunks/_astro_content_BjYV4lKw.mjs';
 export { renderers } from '../../../renderers.mjs';
 
-const $$Astro = createAstro("https://astro-my.vercel.app/");
+const $$Astro = createAstro();
 const prerender = false;
 const $$ = createComponent(async ($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);

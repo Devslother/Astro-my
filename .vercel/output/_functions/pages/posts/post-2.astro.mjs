@@ -1,1 +1,6 @@
-// Contents removed by Astro as it's used for prerendering only
+import { _ as __vite_glob_0_1 } from '../../chunks/post-2_iH4Uyf5P.mjs';
+export { renderers } from '../../renderers.mjs';
+
+const page = () => __vite_glob_0_1;
+
+export { page };

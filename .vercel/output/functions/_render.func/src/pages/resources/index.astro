@@ -1,0 +1,78 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Cta from '@/parts/learn/cta/Cta.astro';
+import Hero from '@/parts/resources/hero/Hero.astro';
+import List from '@/parts/resources/list/List.astro';
+import { getCollection } from "astro:content";
+import { ClientRouter } from 'astro:transitions';
+
+const ITEMS_PER_PAGE = 9;
+const currentPage = 1;
+
+// получаю все статьи
+const resources = await getCollection("resources", ({ data }) =>
+	import.meta.env.PROD ? data.draft !== true : true
+);
+
+// сортирую их по дате (с проверкой наличия даты)
+const filteredResources = resources.sort((a, b) => {
+	// Если у ресурса нет даты, ставлю его в конец
+	if (!a.data.date && !b.data.date) return 0;
+	if (!a.data.date) return 1;
+	if (!b.data.date) return -1;
+	
+	// Сортирую по дате (новые сверху)
+	return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf();
+});
+
+const normalizeToArray = (field: unknown): string[] => {
+	if (!field) return [];
+	const value = Array.isArray(field) ? field.join(',') : field.toString();
+	return value.split(',').map(c => c.trim()).filter(Boolean);
+};
+
+// создаю массив всех категорий
+const allCategories = [
+	...new Set(resources.flatMap((resource) => normalizeToArray(resource.data.categories))),
+];
+
+// Сначала ищу статью с slug "teg-data-sheet"
+const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
+
+// Если нашла - использую ее, если нет - беру первую статью из массива
+const featuredResource = foundResource ?? resources[0];
+
+const resourcesWithoutFeatured = filteredResources.filter(
+	(resource) => resource !== featuredResource
+);
+
+// пагинация
+const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+const endIndex = startIndex + ITEMS_PER_PAGE;
+const paginatedResources = resourcesWithoutFeatured.slice(startIndex, endIndex);
+const totalPages = Math.ceil(resourcesWithoutFeatured.length / ITEMS_PER_PAGE);
+
+---
+
+<Layout
+  title="Resources for Kubernetes Ingress and Enterprise Istio Support" 
+  description="Access Tetrate's extensive resources covering everything from microservices security to service mesh technology. Stay informed with our diverse range of articles, whitepapers, and guides." 
+  headerClass="nav__with__bg"
+  bodyClass="learn-page"
+>
+    <Hero featuredResource={featuredResource} allCategories={allCategories} currentCategory={undefined} />
+  <div data-articles-wrapper class="articles-wrapper">
+    <List
+      resources={paginatedResources}
+      totalPages={totalPages}
+      currentPage={currentPage}
+      baseUrl="/resources" 
+    />
+  </div>
+  <Cta />
+
+  <Fragment slot="head">
+    <ClientRouter />
+  </Fragment>
+</Layout>
+
