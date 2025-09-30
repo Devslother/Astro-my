@@ -1,9 +1,13 @@
 import { defineConfig } from "astro/config";
-import vercel from "@astrojs/vercel";
+import netlify from "@astrojs/netlify";
 
 export default defineConfig({
   output: "server",
-  adapter: vercel(),
-  site: "https://astro-my.vercel.app",
+  adapter: netlify(),
+  site: "https://astro-my.netlify.app",
   trailingSlash: "never",
+  markdown: { shikiConfig: { theme: "nord" } },
+  vite: {
+    resolve: { alias: { "@": "/src" } },
+  },
 });
