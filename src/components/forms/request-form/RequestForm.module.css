@@ -181,7 +181,7 @@
 }
 
 /* button submit */
-.form__submit {
+.submit {
   padding: 12px 24px;
   align-self: flex-start;
   border-radius: 4px;
