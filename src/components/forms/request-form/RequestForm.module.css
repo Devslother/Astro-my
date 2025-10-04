@@ -181,9 +181,9 @@
 }
 
 /* button submit */
-.submit__btn {
-  padding: 12px 24px;
-  align-self: flex-start;
-  border-radius: 4px;
-  font-size: 12px;
+.submit {
+  padding: 12px 24px !important;
+  align-self: flex-start !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
 }
