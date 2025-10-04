@@ -70,28 +70,37 @@ import TetrateLogo from '@/assets/tetrate-logo.svg'
 
 <script>
 let lastScrollY = window.scrollY;
-  const nav = document.querySelector(".nav");
+let ticking = false;
+const nav = document.querySelector(".nav");
 
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY;
+const handleScroll = () => {
+  const currentScrollY = window.scrollY;
 
-    if (currentScrollY >= lastScrollY && currentScrollY > 100) {
-      nav?.classList.add("hidden");
-    } else {
-      nav?.classList.remove("hidden");
-    }
+  if (currentScrollY >= lastScrollY && currentScrollY > 100) {
+    nav?.classList.add("hidden");
+  } else {
+    nav?.classList.remove("hidden");
+  }
 
-    if (currentScrollY > 100) {
-			nav?.classList.add("nav__with__bg");
-		} else {
-			nav?.classList.remove("nav__with__bg");
-		}
+  if (currentScrollY > 100) {
+    nav?.classList.add("nav__with__bg");
+  } else {
+    nav?.classList.remove("nav__with__bg");
+  }
 
-    lastScrollY = currentScrollY;
-  };
+  lastScrollY = currentScrollY;
+  ticking = false;
+};
 
-  window.addEventListener("scroll", handleScroll);
-  handleScroll();
+const onScroll = () => {
+  if (!ticking) {
+    requestAnimationFrame(handleScroll);
+    ticking = true;
+  }
+};
+
+window.addEventListener("scroll", onScroll, { passive: true });
+handleScroll();
 
   const nav_mobile = document.querySelector(".nav__mobile");
 
