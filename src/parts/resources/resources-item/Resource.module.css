@@ -20,10 +20,6 @@
   padding: 0;
 }
 
-.sidebar button {
-  padding: 0 !important;
-}
-
 .tags {
   display: flex;
   gap: 10px;
