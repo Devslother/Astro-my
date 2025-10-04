@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 40px;
+  gap: 10px;
   padding: 40px 0;
 }
 
@@ -61,7 +61,7 @@
     padding: 0 20px;
     margin-top: 20px;
     max-width: 1000px;
-    margin-left: auto;
+    margin-left: 0;
     margin-right: auto;
   }
 
@@ -82,7 +82,7 @@
     width: 161px !important;
     height: 36px !important;
     padding: 0 16px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
 }
 
@@ -93,7 +93,7 @@
     grid-template-columns: 161px 1fr;
     margin-top: 0;
     max-width: 1200px;
-    margin-left: auto;
+    margin-left: 0;
     margin-right: auto;
   }
 

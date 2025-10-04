@@ -32,18 +32,19 @@
   .container {
     display: grid;
     grid-template-columns: 220px 1fr;
-    gap: 100px;
+    gap: 48px;
     align-items: start;
     justify-content: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 0 80px;
+    padding: 0 20px;
   }
 }
 
 @media (width >= 1200px) {
   .container {
     max-width: 1400px;
+    padding: 0 40px;
   }
 }
 
@@ -57,22 +58,12 @@
     display: block !important;
     position: sticky;
     top: 100px;
-    padding-left: 20px;
   }
 }
 
 /* === Кнопка Back === */
 .btn {
-  margin-bottom: 36px;
-  padding: 0 !important;
-}
-
-.btn button {
-  padding: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  margin-bottom: 24px;
 }
 
 @media (width >= 1024px) {
@@ -166,6 +157,14 @@
 
 .excerpt {
   color: var(--color-gray-800, #6c6e6f);
+  font-size: 18px;
+  line-height: 27px;
+}
+
+@media (width >= 1024px) {
+  .excerpt {
+    font-size: 20px;
+  }
 }
 
 /* === Table of Contents (мобильная версия) === */
@@ -186,7 +185,6 @@
   max-width: 100%;
   font-size: 16px;
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
 }
 
 @media (width >= 1024px) {

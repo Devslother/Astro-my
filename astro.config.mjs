@@ -9,5 +9,10 @@ export default defineConfig({
   markdown: { shikiConfig: { theme: "nord" } },
   vite: {
     resolve: { alias: { "@": "/src" } },
+    css: {
+      preprocessorOptions: {
+        scss: false,
+      },
+    },
   },
 });

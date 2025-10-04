@@ -1,0 +1,142 @@
+---
+import styles from './Products.module.css';
+import clsx from "clsx";
+import Picture from '@/components/Picture.astro';
+import imageMobile from '@/assets/financial/work/card-mobile.svg';
+import imageTablet from '@/assets/financial/work/card-tablet.svg';
+import imageDesktop from '@/assets/financial/work/card-desktop.svg';
+import Button from '@/components/Button/Button.astro';
+import Grid from '@/components/Grid/Grid.astro';
+import Icon from '@/components/icon/Icon.astro';
+import Pattern from '@/components/pattern/Pattern.astro';
+import OrangePattern from '@/assets/blog/patterns/1.svg';
+import YellowPattern from '@/assets/blog/patterns/2.svg';
+import BluePattern from '@/assets/blog/patterns/3.svg';
+import GreenPattern from '@/assets/blog/patterns/4.svg';
+import Icon1 from '@/assets/blog/icons/1.svg';
+import Icon2 from '@/assets/blog/icons/2.svg';
+import Icon3 from '@/assets/blog/icons/3.svg';
+import Icon4 from '@/assets/blog/icons/4.svg';
+
+const cards = [
+	{
+		image: Icon1,
+    pattern: OrangePattern, 
+    title: 'New to service mesh?',
+    description: 'Get up to speed with free online courses at Tetrate Academy and quickly learn Istio and Envoy.', 
+    buttonLink: 'https://academy.tetrate.io/', 
+  },
+  {
+    image: Icon2, 
+    pattern: YellowPattern, 
+    title: 'Using Kubernetes?',
+    description: 'Tetrate Enterprise Gateway for Envoy (TEG) is the easiest way to get started with Envoy Gateway for production use cases. Get the power of Envoy Proxy in an easy-to-consume package managed via the Kubernetes Gateway API.', 
+    buttonLink: '/products/tetrate-enterprise-gateway-for-envoy', 
+  },
+  {
+    image: Icon3, 
+    pattern: BluePattern, 
+    title: 'Getting started with Istio?',
+    description: 'Tetrate Istio Subscription (TIS) is the most reliable path to production, providing a complete solution for running Istio and Envoy securely in mission-critical environments. It includes:', 
+    items: ['Tetrate Istio Distro – A 100% upstream distribution of Istio and Envoy.', 'Compliance-ready – FIPS-verified and FedRAMP-ready for high-security needs.', 'Enterprise-grade support – The ONLY enterprise support for 100% upstream Istio, ensuring no vendor lock-in.'],
+    buttonLink: '/products/tetrate-istio-subscription', 
+  },
+  {
+    image: Icon4, 
+    pattern: GreenPattern, 
+    title: 'Need global visibility for Istio?',
+    description: 'TIS+ is a hosted Day 2 operations solution for Istio designed to streamline workflows for platform and support teams. It offers:', 
+    items: ['A global service dashboard', 'Multi-cluster visibility', 'Service topology visualization', 'Workspace-based access control'],
+    buttonLink: '/products/tetrate-istio-subscription-plus', 
+  }
+]
+---
+
+<div class={styles.resources}>
+  <Picture 
+    alt="bg" 
+    srcMobile={imageMobile.src}
+    srcTablet={imageTablet.src}
+    srcDesktop={imageDesktop.src}
+    class={styles.resources__bg}
+   />
+  <Grid variant="blue">
+    <div class={styles.card__container}>
+      {cards.map((card) => (
+       <div 
+         class={styles.card}
+         style={{ backgroundImage: `url(${card.pattern.src})` }}
+       >
+          <img 
+            src={card.image.src} 
+            alt="Icon" 
+            class={styles.icon}
+            width={66}
+            height={72}
+            alt=""
+            loading="lazy"
+          />
+         <div class={styles.content}>
+           <h5 
+             class={clsx(
+               'text__heading--h6',
+               'text__heading--h5-lg',
+               'text__heading--h5-md',
+               styles.title
+             )}
+           >
+             {card.title}
+           </h5>
+           <p class={clsx(
+             'text__body--14',
+             'text__body--14-md',
+             'text__body--14-lg',
+             styles.description
+           )}>
+             {card.description}
+           </p>
+           {card.items && card.items.length > 0 && (
+             <div class={styles.itemList}>
+               {card.items.map((text: string) => (
+                 <div class={styles.item}>
+                   <div class="wrapper">
+                     <Icon name="bullet" />
+                   </div>
+                   <span class={clsx(
+                     'text__body--14',
+                     'text__body--14-lg',
+                     'text__body--14-md',
+                     styles.text
+                   )}>
+                     {text}
+                   </span>
+                 </div>
+               ))}
+             </div>
+           )}
+         </div>
+        <Button 
+          variant="tertiary" 
+          size="tert" 
+          href={card.buttonLink}  
+          class={styles.card__btn}
+        >
+          <span 
+            class="text__body--16-semibold" 
+            style={{ color: 'var(--color-gray-100)' }}
+          >
+            Learn More
+          </span>
+          <Icon 
+            name="arrow-right" 
+            width={24} 
+            height={24} 
+            color="var(--color-orange-500)"
+          />
+        </Button> 
+       </div>
+      ))}
+    </div>
+  </Grid> 
+  <Pattern variant="blue" size="default" />
+</div>

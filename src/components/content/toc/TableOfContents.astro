@@ -1,0 +1,111 @@
+---
+import styles from './TableOfContents.module.css'
+import clsx from "clsx";
+import Icon from '@/assets/learn/icon.svg'
+
+interface Props {
+	className?: string;
+	headings: Array<{
+		text: string;
+		id: string;
+	}>;
+}
+
+const { className, headings } = Astro.props;
+---
+
+<nav class={clsx(styles.toc, className)} aria-label="Table of contents">
+  {headings.length > 0 && (
+		<>
+			<h2 class={clsx(
+        'text__body--14-medium',
+        'text__body--14-medium-lg',
+        'text__body--14-medium-md',
+        styles.tocTitle
+      )}>
+				<Icon
+					width={16}
+					height={18}
+				/>
+				In this article
+			</h2>
+			<ul class={styles.tocList}>
+				{headings.map((heading) => (
+					<li class={clsx(
+            'text__body--14',
+            'text__body--14-lg',
+            'text__body--14-md',
+            styles.tocItem
+          )} data-id={heading.id}>
+						<a href={`#${heading.id}`} class={styles.tocLink}>
+							{heading.text}
+						</a>
+					</li>
+				))}
+			</ul>
+		</>
+	)}
+</nav>
+
+<script is:inline define:vars={{ activeClass: styles.tocItemActive }}>
+	function initTOC() {
+		const tocItems = document.querySelectorAll("[data-id]");
+		const headings = Array.from(document.querySelectorAll("h2, h3, h4, h5, h6[id]"));
+		const links = document.querySelectorAll("a[href^='#']");
+
+		if (!tocItems.length || !headings.length) return;
+
+		let activeId = null;
+		let isManualScroll = false;
+
+		const setActive = (id) => {
+			if (activeId === id) return;
+			tocItems.forEach(li => li.classList.toggle(activeClass, li.dataset.id === id));
+			activeId = id;
+		};
+
+		const observer = new IntersectionObserver(entries => {
+			if (isManualScroll) return;
+			
+			// Получаем все видимые заголовки
+			const visible = entries.filter(e => e.isIntersecting);
+			
+			if (visible.length > 0) {
+				// Сортируем по позиции сверху вниз и берем первый (самый верхний)
+				const topVisible = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+				setActive(topVisible.target.id);
+			}
+		}, { rootMargin: '-20% 0px -20% 0px', threshold: 0 });
+
+		headings.forEach(heading => observer.observe(heading));
+
+		links.forEach(link => {
+			link.addEventListener("click", e => {
+				e.preventDefault();
+				const id = link.getAttribute("href").slice(1);
+				const target = document.getElementById(id);
+				if (target) {
+					isManualScroll = true;
+					setActive(id);
+					window.scrollTo({
+						top: target.offsetTop - 80,
+						behavior: "smooth"
+					});
+					history.pushState(null, "", `#${id}`);
+					setTimeout(() => (isManualScroll = false), 600);
+				}
+			});
+		});
+
+		// Проверяем начальный хеш
+		const initialId = location.hash?.slice(1);
+		const idToActivate = initialId && document.getElementById(initialId) ? initialId : headings[0]?.id;
+		if (idToActivate) {
+			setTimeout(() => setActive(idToActivate), 100);
+		}
+	}
+
+	document.addEventListener("DOMContentLoaded", initTOC);
+	document.addEventListener("astro:page-load", initTOC);
+</script>
+

@@ -20,18 +20,8 @@
   padding: 0;
 }
 
-.back {
-  display: flex;
-  gap: 8px;
-  cursor: pointer;
-  opacity: 1;
-  text-decoration: none;
-  transition: opacity 0.3s;
-}
-
-.back:hover {
-  opacity: 0.7;
-  transition: opacity 0.3s;
+.sidebar button {
+  padding: 0 !important;
 }
 
 .tags {
@@ -48,6 +38,9 @@
   border-radius: 18px;
   min-width: 122px;
   text-align: center;
+  text-transform: capitalize;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .image {
@@ -158,15 +151,16 @@
 }
 
 .content a:not(.btn) {
-  color: var(--color-blue-500);
+  color: var(--color-blue-500) !important;
+  text-decoration: none !important;
 }
 
 .content a:not(.btn):hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 .content a:not(.btn):active {
-  color: var(--color-blue-600);
+  color: var(--color-blue-600) !important;
 }
 
 .content em {

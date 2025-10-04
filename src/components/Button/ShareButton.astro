@@ -1,13 +1,17 @@
 ---
-export let shareUrl = "";
-export let title = "";
-
 import styles from './ShareButton.module.css'
 import clsx from "clsx";
 import IconX from '@/assets/learn/x.svg';
 import IconF from '@/assets/learn/f.svg';
 import IconIn from '@/assets/learn/in.svg';
 import IconCopy from '@/assets/learn/copy.svg';
+
+interface Props {
+  url: string;
+  title: string;
+}
+
+const { url, title } = Astro.props;
 ---
 
 <div class={styles.share}>
@@ -22,7 +26,7 @@ import IconCopy from '@/assets/learn/copy.svg';
   <div class={styles.list}>
     <a
       class={styles.button}
-      href={`https://twitter.com/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`}
+      href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Share on X"
@@ -32,7 +36,7 @@ import IconCopy from '@/assets/learn/copy.svg';
 
     <a
       class={styles.button}
-      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`}
+      href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Share on Facebook"
@@ -42,7 +46,7 @@ import IconCopy from '@/assets/learn/copy.svg';
 
     <a
       class={styles.button}
-      href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}`}
+      href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Share on LinkedIn"
@@ -50,7 +54,7 @@ import IconCopy from '@/assets/learn/copy.svg';
       <IconIn class={styles.icon} />
     </a>
 
-    <button class={styles.button} id="copyBtn" aria-label="Copy link">
+    <button class={styles.button} id="copyBtn" aria-label="Copy link" data-url={url}>
       <IconCopy class={styles.icon} />
       <span id="copiedMsg"
         class={clsx(
@@ -72,15 +76,16 @@ import IconCopy from '@/assets/learn/copy.svg';
 
     if (copyBtn && msg) {
       copyBtn.addEventListener("click", () => {
+        const urlToCopy = copyBtn.getAttribute('data-url') || window.location.href;
         navigator.clipboard
-          .writeText(window.location.href)
+          .writeText(urlToCopy)
           .then(() => {
-            // Показываем сообщение с !important
+            // Показываю сообщение с !important
             msg.style.setProperty("opacity", "1", "important");
             msg.style.setProperty("visibility", "visible", "important");
             
             setTimeout(() => {
-              // Скрываем сообщение с !important
+              // Скрываю сообщение с !important
               msg.style.setProperty("opacity", "0", "important");
               msg.style.setProperty("visibility", "hidden", "important");
             }, 2000);

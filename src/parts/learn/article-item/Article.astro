@@ -4,7 +4,7 @@ import Grid from '@/components/Grid/Grid.astro';
 import Pattern from '@/components/pattern/Pattern.astro';
 import styles from './Article.module.css';
 import clsx from "clsx";
-import TableOfContents from './toc/TableOfContents.astro';
+import TableOfContents from '@/components/content/toc/TableOfContents.astro';
 import ShareButton from "../../../components/Button/ShareButton.astro"
 import Figure from '@/components/content/figure/Figure.astro';
 import Quote from '@/components/content/quote/Quote.astro';
@@ -24,6 +24,20 @@ const currentSlug = article.slug;
 const { Content } = await article.render();
 const { title, description, featuredImage, date, author, authorImage } = article.data
 const decodedTitle = decodeURIComponent(title);
+
+// Функция для обработки description - только первое предложение с точкой
+function getFirstSentence(text: string): string {
+  if (!text) return '';
+  
+  // Убираем троеточие если есть (и обычное ... и символ …)
+  let cleanText = text.replace(/\.{3,}$/, '').replace(/…$/, '');
+  
+  // Находим первое предложение (до первой точки)
+  const firstSentence = cleanText.split('.')[0];
+  
+  // Добавляем точку в конце если её нет
+  return firstSentence.endsWith('.') ? firstSentence : firstSentence + '.';
+}
 
 const categoriesRaw = article.data.categories;
 const categories = Array.isArray(categoriesRaw)
@@ -84,8 +98,13 @@ const related = getRelatedArticles(allArticles, currentSlug, categories);
         </h1>
 
         {description && (
-          <p class={styles.excerpt}>
-            {description}
+          <p class={clsx(
+            'text__body--18',
+            'text__body--18-lg',
+            'text__body--18-md',
+            styles.excerpt)}
+          >
+            {getFirstSentence(description)}
           </p>
         )}
 
@@ -123,8 +142,8 @@ const related = getRelatedArticles(allArticles, currentSlug, categories);
 
         <div class={styles.share}>
           <ShareButton
-            shareUrl={Astro.url.href}
-            title={title}
+            url={`${Astro.site}${Astro.url.pathname}`.replace(/\/+/g, '/').replace('https:/', 'https://')}
+            title={decodedTitle}
           />
         </div>
         

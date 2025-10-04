@@ -19,6 +19,8 @@ body {
   color: var(--color-black);
   min-height: 100vh; /* Всегда занимает всю высоту экрана */
   font-family: "Poppins";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button {
