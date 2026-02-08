@@ -1,12 +1,12 @@
 ---
 title: "Tetrate Zero Trust Solutions for Federal Agencies"
-featuredImage: "/images/resources/zero-trust-fips-cover.png"
+featuredImage: "/images/resources/zero-trust-fips-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 ---
 
-![Post Image](/images/resources/zero-trust-fips-cover.png)
+![Post Image](/images/resources/zero-trust-fips-cover.webp)
 
 Modernize and strengthen your cybersecurity posture, reduce risk and better control access, assets and users while meeting U.S. federal government mandates for Zero Trust architecture.
 

@@ -1,6 +1,6 @@
 ---
 title: "Service Mesh Handbook: Tetrate’s Guide to Service Mesh for the Enterprise"
-featuredImage: "/images/resources/tetrate-service-mesh-handbook-cover.png"
+featuredImage: "/images/resources/tetrate-service-mesh-handbook-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 date: "2024-10-11T00:00:00.000Z"
 categories: ["istio & service mesh"]
@@ -12,7 +12,7 @@ downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/Whit
 useHubspotEmbed: true
 ---
 
-![Post Image](/images/resources/tetrate-service-mesh-handbook-cover.png)
+![Post Image](/images/resources/tetrate-service-mesh-handbook-cover.webp)
 
 ### [](#tetrates-guide-to-service-mesh-for-the-enterprise)Tetrate's Guide to Service Mesh for the Enterprise
 

@@ -1,6 +1,6 @@
 ---
 title: "Current State and Future of the Istio Service Mesh"
-featuredImage: "/images/resources/istio-service-mesh-book-cover.jpg"
+featuredImage: "/images/resources/istio-service-mesh-book-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
@@ -13,7 +13,7 @@ useHubspotEmbed: true
 
 ### [](#insights-into-the-history-and-future-of-istio)Insights into the History and Future of Istio
 
-![Post Image](/images/resources/istio-service-mesh-book-cover.jpg)
+![Post Image](/images/resources/istio-service-mesh-book-cover.webp)
 
 Cloud native is rapidly gaining ground in the cloud and open source, and service mesh has become a critical part of the cloud native technology stack. Istio is one of the most popular service mesh today, and has been open source for over five years since 2017.
 

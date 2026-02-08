@@ -39,13 +39,17 @@ const {
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={`${Astro.site}${ogImage}`} />
+
+		<link rel="preload" href="/fonts/Poppins-Regular.ttf" as="font" type="font/ttf" crossorigin />
+		<link rel="preload" href="/fonts/Poppins-Medium.ttf" as="font" type="font/ttf" crossorigin />
+		<link rel="preload" href="/fonts/Poppins-SemiBold.ttf" as="font" type="font/ttf" crossorigin />
 	</head>
 	
 	<body class={bodyClass}>
 		<HeaderTop />
 		<Header />
 		<slot />
-	<script is:inline src="/scripts/dynamicSearch.js"></script>
+	<script is:inline defer src="/scripts/dynamicSearch.js"></script>
 		<Footer />
 
 		<!-- Global Demo Request Modal -->
@@ -61,14 +65,38 @@ const {
 		<!-- Initialize modals and forms -->
 		<script>
 			import initModals from '../utils/modal.client.ts';
-			import initRequestForm from '../utils/requestForm.client.ts';
 			
 			// Initialize modals
 			initModals();
 			
-			// Initialize request forms
-			initRequestForm();
+			// Lazy-init request form only when demo modal is opened
+			let requestFormInitialized = false;
+			const initRequestFormLazy = async () => {
+				if (requestFormInitialized) return;
+				requestFormInitialized = true;
+				const mod = await import('../utils/requestForm.client.ts');
+				mod.default();
+			};
+
+			const maybeInitRequestForm = () => {
+				const form = document.getElementById('pricing-form');
+				if (form) initRequestFormLazy();
+			};
+
+			// If a request form is already on the page (non-modal), init immediately
+			document.addEventListener('astro:page-load', maybeInitRequestForm);
+			if (document.readyState !== 'loading') {
+				maybeInitRequestForm();
+			}
+
+			// Lazy-init when any modal is opened
+			document.addEventListener('click', (e) => {
+				const trigger = e.target?.closest?.('[data-modal-open]');
+				if (trigger) {
+					// Wait a tick so modal content is in the DOM
+					setTimeout(maybeInitRequestForm, 0);
+				}
+			});
 		</script>
 	</body>
 </html>
-

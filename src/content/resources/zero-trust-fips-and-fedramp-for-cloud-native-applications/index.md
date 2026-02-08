@@ -1,6 +1,6 @@
 ---
 title: "Zero Trust, FIPS and FedRAMP for Kubernetes and Cloud Native Applications"
-featuredImage: "/images/resources/zero-trust-fips-cover.png"
+featuredImage: "/images/resources/zero-trust-fips-cover.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 date: "2024-11-28T00:00:00.000Z"
 categories: ["zero trust"]

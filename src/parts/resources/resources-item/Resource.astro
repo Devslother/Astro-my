@@ -45,7 +45,10 @@ const decodedTitle = decodeURIComponent(title);
             <div class={styles.image}>
               <img 
                 src={typeof featuredImage === 'string' ? featuredImage : featuredImage.src} 
-                alt={decodedTitle} 
+                alt={decodedTitle}
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
               />
             </div>
           )
