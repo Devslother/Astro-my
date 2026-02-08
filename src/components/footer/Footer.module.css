@@ -156,7 +156,7 @@
   flex-direction: column-reverse;
   gap: 12px;
   padding: 20px 20px 30px 20px;
-  color: var(--color-gray-700);
+  color: var(--color-gray-900);
   justify-content: space-between;
 }
 
@@ -182,7 +182,7 @@
 }
 
 .legal__link {
-  color: var(--color-gray-700);
+  color: var(--color-gray-900);
   cursor: pointer;
   text-decoration: none;
   transition: color 0.3s ease;

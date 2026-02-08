@@ -48,7 +48,9 @@ const {
 	<body class={bodyClass}>
 		<HeaderTop />
 		<Header />
-		<slot />
+		<main id="main-content">
+			<slot />
+		</main>
 	<script is:inline defer src="/scripts/dynamicSearch.js"></script>
 		<Footer />
 

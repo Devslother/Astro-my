@@ -27,7 +27,7 @@ import TetrateLogo from '@/assets/tetrate-logo.svg'
         Request a Demo
       </Button>
 
-      <button class={clsx(styles.menu__button, 'menu__button')}>
+      <button class={clsx(styles.menu__button, 'menu__button')} aria-label="Open menu">
         <Icon name="menu" width={24} height={24} />
       </button>
     </div>
@@ -41,7 +41,7 @@ import TetrateLogo from '@/assets/tetrate-logo.svg'
           <a href="/" aria-label="Go to homepage">
             <TetrateLogo class={styles.logo} />
           </a>
-          <button class={clsx(styles.nav__close, 'nav__close')}>
+          <button class={clsx(styles.nav__close, 'nav__close')} aria-label="Close menu">
             <Icon name="close" class="close" width={24} height={24} 
             color="var(--color-black)" />
           </button>
