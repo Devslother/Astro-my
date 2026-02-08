@@ -112,6 +112,7 @@ const socials: ISocials[] = [
       <div class={styles.info}>
         <a href="/" aria-label="Go to homepage">
           <TetrateLogo class={styles.logo} />
+          <span class="visually-hidden">Tetrate</span>
         </a>
         <div class={styles.social}>
           <span class={clsx(
@@ -129,8 +130,10 @@ const socials: ISocials[] = [
                 size="md" 
                 href={item.href} 
                 class={styles.btn}
+                aria-label={item.name}
               >
                 <Icon name={item.icon} width={18} height={18} />
+                <span class="visually-hidden">{item.name}</span>
                 <span class={clsx(
                   'text__body--14-medium',
                   'text__body--14-medium-lg',
@@ -158,6 +161,7 @@ const socials: ISocials[] = [
         <div class={styles.ppmint}>Designed by
           <a href="https://peppermint.id/" aria-label="Peppermint">
             <Peppermint />
+            <span class="visually-hidden">Peppermint</span>
           </a>
         </div>
     </div>
