@@ -1,7 +1,7 @@
 ---
 title: "Guide to Federal Security Requirements for Microservices"
 newsname: "Article"
-image: "/images/resources/nist-security-standards-cover.webp"
+image: "/images/resources/nist-security-standards-cover-660.webp"
 buttonLink: "/resources/tetrate-guide-to-federal-security-requirements-for-microservices"
 ---
 

@@ -83,12 +83,6 @@ const {
 				if (form) initRequestFormLazy();
 			};
 
-			// If a request form is already on the page (non-modal), init immediately
-			document.addEventListener('astro:page-load', maybeInitRequestForm);
-			if (document.readyState !== 'loading') {
-				maybeInitRequestForm();
-			}
-
 			// Lazy-init when any modal is opened
 			document.addEventListener('click', (e) => {
 				const trigger = e.target?.closest?.('[data-modal-open]');

@@ -1,6 +1,6 @@
 ---
 title: "Tetrate’s Guide to Federal Security Requirements for Microservices"
-featuredImage: "/images/resources/nist-security-standards-cover.webp"
+featuredImage: "/images/resources/nist-security-standards-cover-660.webp"
 description: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
 categories: ["resources"]
 excerpt: "Tetrate provides trusted connectivity and control for AI. Empower developers while safeguarding the business. Built atop the proven Envoy proxy & Envoy AI Gateway."
@@ -11,7 +11,7 @@ downloadLink: "https://7637559.fs1.hubspotusercontent-na1.net/hubfs/7637559/NIST
 useHubspotEmbed: true
 ---
 
-![Post Image](/images/resources/nist-security-standards-cover.webp)
+![Post Image](/images/resources/nist-security-standards-cover-660.webp)
 
 ### [](#nist-sp-800-204-series-requirements-guide)NIST SP 800-204 Series Requirements Guide
 
