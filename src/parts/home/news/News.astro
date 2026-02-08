@@ -12,8 +12,8 @@ const posts = Object.values(postsImport).map((post: any) => ({
 ---
 <Grid>
   <div class={styles.news}>
-  {posts.map((post) => (
-    <Card data={post}>
+  {posts.map((post, index) => (
+    <Card data={post} isPriority={index === 0}>
       <post.Content />
     </Card>
   ))}

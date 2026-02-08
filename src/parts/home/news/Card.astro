@@ -4,14 +4,36 @@ import Button from '../../../components/Button/Button.astro';
 import Icon from '../../../components/icon/Icon.astro';
 import styles from './Card.module.css'
 
-const { data } = Astro.props;
+const { data, isPriority = false } = Astro.props;
+
+const buildSrcSet = (src: string) => {
+  if (!src.endsWith(".webp")) return undefined;
+  const base = src.endsWith("-660.webp")
+    ? src.replace(/-660\.webp$/, "")
+    : src.replace(/\.webp$/, "");
+  return [
+    `${base}-360.webp 360w`,
+    `${base}-720.webp 720w`,
+    `${src} 660w`,
+  ].join(", ");
+};
+
+const srcSet = buildSrcSet(data.image);
+const sizes =
+  "(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 338px";
 ---
 
 <div class={styles.card}>
     <div class={styles.card__image}>     
       <img
         src={data.image}
-        loading="lazy"
+        srcset={srcSet}
+        sizes={srcSet ? sizes : undefined}
+        loading={isPriority ? "eager" : "lazy"}
+        decoding="async"
+        fetchpriority={isPriority ? "high" : "auto"}
+        width="338"
+        height="200"
         alt={data.title}
       />
     </div>

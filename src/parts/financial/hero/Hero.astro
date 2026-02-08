@@ -1,19 +1,21 @@
 ---
 import GlowButton from '../../../components/Button/GlowButton.astro';
 import styles from './Hero.module.css';
-import imageMobile from '../../../assets/financial/hero/hero-mobile.png';
-import imageTablet from '../../../assets/financial/hero/hero-tablet.png';
-import imageDesktop from '../../../assets/financial/hero/hero-desktop.png';
+import imageMobile from '../../../assets/financial/hero/hero-mobile.webp';
+import imageTablet from '../../../assets/financial/hero/hero-tablet.webp';
+import imageDesktop from '../../../assets/financial/hero/hero-desktop.webp';
 import Picture from '../../../components/Picture.astro';
 ---
 
 <div class={styles.hero}>
   <Picture 
-  alt="bg" 
-  srcMobile={imageMobile.src}
-  srcTablet={imageTablet.src}
-  srcDesktop={imageDesktop.src}
-  class={styles.hero__bg}
+    alt="bg" 
+    srcMobile={imageMobile.src}
+    srcTablet={imageTablet.src}
+    srcDesktop={imageDesktop.src}
+    class={styles.hero__bg}
+    loading="eager"
+    fetchpriority="high"
    />
 
   <div class={styles.hero__content}>
