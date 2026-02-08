@@ -1,0 +1,81 @@
+---
+import Button from '@/components/Button/Button.astro';
+import styles from './SubscribeForm.module.css';
+import clsx from 'clsx';
+
+export interface Props {
+	portalId: string;
+	formId: string;
+}
+
+const { portalId, formId } = Astro.props;
+---
+
+<div class={styles.hero__form}>
+  <form id="subscribe-form"
+    class={styles.subscribe__form}
+    novalidate
+    data-portal={portalId}
+    data-form={formId} 
+  >
+    <input
+      class={styles.input}
+      type="email"
+      name="email"
+      placeholder="Enter your email"
+      required
+     />
+
+    <Button 
+      class={styles.submit__btn}
+      variant="primary"
+      size="md"
+      type="submit"
+      id="subscribe-submit-btn"
+    >
+			Subscribe
+		</Button>
+
+		<div class={styles.input__error__message} id="subscribe-error-message"></div>
+
+		<p class={clsx(
+      styles.policy, 
+      'text__body--12',
+      'text__body--14-md',
+      'text__body--14-lg',
+    )}>
+			By subscribing, you agree to our
+			<a href="/privacy">Privacy Policy</a>.
+		</p>
+  </form>
+
+  <div 
+    id="subscribe-success"
+    class={clsx(
+      styles.submitted__form,
+      'color-blue-500',
+      'text__body--16-medium',
+      'text__body--18-medium-md',
+      styles.hidden
+  )}>
+		Thanks for subscribing!<br />
+		Stay tuned for updates and offers.
+	</div>
+
+	<div 
+    id="subscribe-error"
+    class={clsx(
+      styles.submitted__form,
+      'color-red-500',
+      'text__body--16-medium',
+      'text__body--18-medium-md',
+      styles.hidden
+  )}>
+		An error occurred while submitting the form.
+	</div>
+</div>
+
+<script>
+  import initSubscribeForm from '../../../utils/subscribeForm.client.js';
+  initSubscribeForm();
+</script>

@@ -1,8 +1,8 @@
 ---
-title: "Envoy Gateway Fundamentals"
-newsname: "Free Training"
-image: "/images/post3.png"
-buttonLink: "https://docusaurus-site.com/blog/ml-optimization"
+title: "Current State and Future of the Istio Service Mesh"
+newsname: "Article"
+image: "/images/resources/istio-service-mesh-book-cover.jpg"
+buttonLink: "/resources/current-state-and-future-of-istio-service-mesh"
 ---
 
-New free course from Tetrate! Gain a foundational understanding of Envoy Gateway and its integration with Kubernetes to manage traffic to your services.New free course from Tetrate! Gain a foundational understanding of Envoy Gateway and its integration with Kubernetes to manage traffic to your services.
+Istio is one of the most popular service mesh today, and has been open source for over five years since 2017.

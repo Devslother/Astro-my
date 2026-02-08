@@ -13,6 +13,6 @@ useHubspotEmbed: true
 
 ![Post Image](/images/resources/zta-white-paper-cover.webp)
 
-[Zero trust security](/learn/zero-trust/what-is-zero-trust-security/) is getting a lot of attention—and for good reason. It’s a paradigm shift in security architectures that addresses significant problems with protecting the highly dynamic, distributed systems driving today’s cloud-native applications.
+Zero trust security is getting a lot of attention—and for good reason. It’s a paradigm shift in security architectures that addresses significant problems with protecting the highly dynamic, distributed systems driving today’s cloud-native applications.
 
 But, zero trust is more than just authentication and encryption on the wire. In this white paper, Zack Butcher—Tetrate founding engineer and co-author of [NIST SP 800-204a, “Building Secure Microservices-based Applications Using Service-Mesh Architecture”](https://csrc.nist.gov/pubs/sp/800/204/a/final)— offers an overview of Zero Trust for microservices applications and why a service mesh is the best way to implement it.

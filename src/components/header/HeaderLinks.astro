@@ -35,7 +35,7 @@ const { className = '' } = Astro.props;
           {item.categories.map((category) => (
             <div class={clsx(
               styles.mega_menu__column,
-              !category.items[0].description && styles.mega_menu__column__no_gap
+              category.items && !category.items[0]?.description && styles.mega_menu__column__no_gap
             )}>
               {category.title && (
                 category.url ? (
@@ -58,7 +58,7 @@ const { className = '' } = Astro.props;
                 )
               )}
 
-              {category.items.map((item) =>
+              {category.items && category.items.map((item) =>
                 item.icon === "button" ? (
                   <Button
                     variant="primary"

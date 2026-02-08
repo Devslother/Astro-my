@@ -1,8 +1,8 @@
 ---
-title: "Onboard EC2/ECS Workloads Onto Your Service Mesh with Tetrate Istio Subscription"
+title: "Guide to Federal Security Requirements for Microservices"
 newsname: "Article"
-image: "/images/post1.png"
-buttonLink: "https://tetrate.io/blog/ml-optimization"
+image: "/images/resources/nist-security-standards-cover.webp"
+buttonLink: "/resources/tetrate-guide-to-federal-security-requirements-for-microservices"
 ---
 
-In the rapidly evolving cloud-native landscape, businesses are continuously adopting microservices architectures to build scalable, resilient, and flexible applications.
+The National Institute of Standards and Technology (NIST) provides a set of security strategies for microservices. 

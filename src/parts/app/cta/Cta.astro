@@ -25,22 +25,14 @@ import Image from '../../../assets/app/cta/logo.svg';
         See Tetrate Application <br /> Gateway in action
       </h5>
       <div class={styles.btncontainer}>
-        <Button 
-          variant="secondary" 
-          size="lg" 
-          class="text__body--16-semibold" 
-          href='https://tetrate.io/contact/demo-request/'
-        >
-          Request a demo
-        </Button>
-        
         <GlowButton 
           variant="primary" 
           size="lg" 
           buttonClassName="text__body--16-semibold" 
-          href='https://tetrate.io/contact/pricing-request/'
+          data-modal-open="demo-request-modal"
+          type="button"
         >
-          Pricing Request
+          Request a Demo
         </GlowButton>
       </div>
     </div>

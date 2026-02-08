@@ -1,8 +1,8 @@
 ---
-title: "A Deep Dive into Tetrate Istio Subscription Plus (TIS+)"
-newsname: "Free Webinar – Feb 19, 4pm (EST)"
-image: "/images/post2.png"
-buttonLink: "https://docusaurus-site.com/blog/ml-optimization"
+title: "Common Vulnerabilities and Exposures Explained"
+newsname: "Article"
+image: "/images/resources/common-cover.png"
+buttonLink: "/resources/common-vulnerabilities-and-exposures-cve-explained"
 ---
 
-Join us for an insightful workshop showcasing the powerful capabilities of Tetrate Istio Subscription Plus (TIS+), designed to revolutionize service mesh management for platform engineering teams.
+A CVE is a standardized identifier assigned to a known security vulnerability in software. 

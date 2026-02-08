@@ -19,7 +19,7 @@ excerpt: >-
 
 Kubernetes has become a core component of modern application deployment by delivering flexibility, scalability, and efficiency for managing containerized applications. This article delves into [Kubernetes security](/learn/kubernetes-security-best-practices) best practices to guide technical decision-makers in fortifying their Kubernetes infrastructure against potential cybersecurity threats.
 
-We assume that readers know what Kubernetes is, the specialized language used to define components (clusters, pods, etc.), and typical use cases. We’ll proceed directly to discuss various Kubernetes security best practices and end with a short call to action pointing to [Tetrate’s Kubernetes management solutions](/kubernetes-consulting-services) and how adding them to your toolkit can simplify and enhance the [security and management of Kubernetes environments](/learn/kubernetes-security-architecture).
+We assume that readers know what Kubernetes is, the specialized language used to define components (clusters, pods, etc.), and typical use cases. We’ll proceed directly to discuss various Kubernetes security best practices and end with a short call to action pointing to Tetrate’s Kubernetes management solutions and how adding them to your toolkit can simplify and enhance the [security and management of Kubernetes environments](/learn/kubernetes-security-architecture).
 
 ## Kubernetes Network Security
 
@@ -31,7 +31,7 @@ Network security best practices for Kubernetes deployments occur at multiple lev
 
 **The API Server**. The central management interface for a Kubernetes deployment. It is critical to protect it against unauthorized access.
 
-**Authentication and Authorization Controls**. Implement [robust access control](/blog/rbac-vs-abac-vs-ngac) to provide granular access control for managing user and service account permissions.
+**Authentication and Authorization Controls**. Implement robust access control to provide granular access control for managing user and service account permissions.
 
 **Network Security Settings**. Use network policies and segmentation to control traffic flow, isolate sensitive workloads, and limit the potential attack surface available to cyber attackers.
 
@@ -49,7 +49,7 @@ In Kubernetes, microsegmentation is achieved using various techniques such as th
 
 ## Kubernetes PCI Compliance
 
-Any organization handling credit card cardholder data is required to comply with the [Payment Card Industry (PCI) regulations](/resource/meeting-pci-compliance-standards). You don’t need to operate at the consumer or retail border and collect payments directly from customers to be required to implement PCI requirements. If you handle or store cardholder data, you must be PCI compliant.
+Any organization handling credit card cardholder data is required to comply with the Payment Card Industry (PCI) regulations. You don’t need to operate at the consumer or retail border and collect payments directly from customers to be required to implement PCI requirements. If you handle or store cardholder data, you must be PCI compliant.
 
 The inherent security built into Kubernetes management containerized financial application deployments can help reduce the burden of achieving PCI compliance. Features such as implementing strict access controls, encrypting data at rest and in transit, and maintaining a [secure network architecture](/learn/kubernetes-security-architecture) directly map to PCI requirements. Kubernetes helps deliver PCI compliance through these built-in security features you will already use for basic security. It also allows you to easily integrate your deployed container-based financial applications with additional third-party security tools.
 
@@ -57,8 +57,8 @@ Some PCI requirements that Kubernetes addresses as a core part of the platform a
 
 ## Enhancing Kubernetes with Tetrate
 
-Tetrate provides tools for seamlessly implementing security, identity, [traffic management, and other policies across Kubernetes](/manage-kubernetes-complexity) clusters. The tools address the unique challenges containers and Kubernetes bring regarding complexity, security, and consistency.
+Tetrate provides tools for seamlessly implementing security, identity, []traffic management, and other policies across Kubernetes clusters. The tools address the unique challenges containers and Kubernetes bring regarding complexity, security, and consistency.
 
 Organizations cannot approach security in Kubernetes with a one-size-fits-all mentality. Instead, it requires a comprehensive strategy tailored to each environment’s specific needs and architecture. By following the best practices mentioned above, in conjunction with management solutions such as Tetrate’s Istio Service Mesh and other Kubernetes tools, organizations can build solid and secure Kubernetes ecosystems capable of supporting their most critical applications without any additional management overhead.
 
-Visit our website’s Products, Solutions, and Learn section to read more. [Reach out to us today](/contact-sales) to discuss how we can collaborate to secure and simplify managing your Kubernetes container environment.
+Visit our website’s Products, Solutions, and Learn section to read more. Reach out to us today to discuss how we can collaborate to secure and simplify managing your Kubernetes container environment.

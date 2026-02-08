@@ -19,11 +19,11 @@ useHubspotEmbed: true
 - Enterprise information security architecture has become increasingly important as information systems have evolved into critical business assets.
 - Zero trust network architecture is emerging as a **preferred approach** for enterprises to secure both their traditional and modern, cloud-native applications. A key component of zero trust architecture is **encryption in transit**.
 - The Istio service mesh acts as a **security kernel** for distributed applications and serves as the foundation of a zero trust architecture, including providing comprehensive encryption in transit between system components.
-- Tetrate offers the first **FIPS-verified distribution** of Istio specifically designed for organizations requiring [FedRAMP](/blog/new-guide-to-zero-trust-fips-and-fedramp-for-cloud-native-applications-from-tetrate/) authorization and other organizations in regulated environments where the stock builds of Istio and Envoy aren’t suitable.
+- Tetrate offers the first **FIPS-verified distribution** of Istio specifically designed for organizations requiring FedRAMP authorization and other organizations in regulated environments where the stock builds of Istio and Envoy aren’t suitable.
 - The Federal Information Processing Standards (FIPS) are the **information security standards** for the U.S. federal government. Information systems built and run by federal agencies, contractors, and vendors are required to adhere to FIPS.
 - FIPS is also widely regarded as a set of robust and trustworthy security standards that is often **adopted by private sector organizations**.
 - The National Institute of Standards and Technology (NIST), the standards body responsible for defining FIPS, runs a program (CMVP) to validate that cryptographic modules adhere to FIPS standards and are suitable for use in U.S. federal agency information systems. Those modules are said to be **_FIPS validated_**. Software certified by a CMVP-accredited laboratory as using FIPS-validated modules correctly is said to be **_FIPS verified_**.
-- Tetrate offers a 100% upstream distribution of Istio and Envoy called [**Tetrate Istio Distro (TID)**](/tetrate-istio-subscription/) that is the first to be FIPS verified.
+- Tetrate offers a 100% upstream distribution of Istio and Envoy called [**Tetrate Istio Distro (TID)**](/products/tetrate-istio-subscription) that is the first to be FIPS verified.
 
 ## [](#why-information-security-architecture-is-important)Why Information Security Architecture Is Important
 
@@ -31,15 +31,15 @@ Information security architecture has become increasingly important as informati
 
 That power comes with greater complexity: there are more pieces and parts that need to communicate with each other over networks and more places where those components and users can operate outside the traditional data center and fortified network perimeter. These pieces, parts, people, places—and their access to each other—must all be secured.
 
-Traditional security architecture has long followed the paradigm of a strong fortified perimeter with more permissive access to internal systems once a user has been authenticated, authorized, and let through the castle gates.The complexity of modern, cloud-native applications and associated risk to critical business assets and reputation has prompted many organizations (and [the U.S. federal government](/blog/us-government-endorses-zero-trust-architecture-for-security/)) to re-think their information security architecture from the ground up.
+Traditional security architecture has long followed the paradigm of a strong fortified perimeter with more permissive access to internal systems once a user has been authenticated, authorized, and let through the castle gates.The complexity of modern, cloud-native applications and associated risk to critical business assets and reputation has prompted many organizations (and the U.S. federal government) to re-think their information security architecture from the ground up.
 
 ## [](#zero-trust-architecture-is-the-future-of-enterprise-network-security)Zero Trust Architecture Is the Future of Enterprise Network Security
 
 Traditional network security relies on a strong defensive perimeter around a trusted internal network to keep bad actors out and sensitive data in. In an increasingly complex networking environment, maintaining a robust perimeter is increasingly difficult.
 
-Zero trust network architecture [is emerging as a preferred approach](/blog/us-government-endorses-zero-trust-architecture-for-security/) for enterprises to secure both their traditional and modern, cloud-native applications. Zero trust network architecture inverts the assumptions of perimeter security. In a zero trust network, every resource is protected internally as if it were exposed to the open internet.
+Zero trust network architecture is emerging as a preferred approach for enterprises to secure both their traditional and modern, cloud-native applications. Zero trust network architecture inverts the assumptions of perimeter security. In a zero trust network, every resource is protected internally as if it were exposed to the open internet.
 
-Zack Butcher, Tetrate founding engineer and co-author of [the NIST standards for microservices securit](/blog/nist-standards-for-zero-trust-the-sp-800-204-series/)[y](/blog/nist-standards-for-zero-trust-the-sp-800-204-series/), identifies the following minimum five core runtime requirements for a zero trust architecture:
+Zack Butcher, Tetrate founding engineer and co-author of the NIST standards for microservices securit, identifies the following minimum five core runtime requirements for a zero trust architecture:
 
 1.  Communication within the system, with end-users, and with external systems should be encrypted (also known as encryption in transit) to ensure authenticity, integrity, and privacy;
 2.  All service-to-service communication should be mutually authenticated;
@@ -85,7 +85,7 @@ Broadly, here’s what’s new in Rev. 5:
 
 ## [](#tetrate-istio-is-the-fastest-way-to-fedramp-ato-including-rev-5)Tetrate Istio Is the Fastest Way to FedRAMP ATO (Including Rev. 5)
 
-FedRAMP Rev. 5 requires FIPS-validated encryption for data in transit. While Istio is the de facto standard [security kernel for microservices applications](/blog/nist-standards-for-zero-trust-the-sp-800-204-series/), only Tetrate offers [a FIPS-validated distribution of Istio suitable for FedRAMP environments](/blog/how-tetrate-istio-distro-became-the-first-fips-compliant-istio-distribution/). New in FedRAMP Rev. 5 is a requirement to document cryptographic modules in use to protect data in transit and at rest. Tetrate’s Istio distribution is built into the documentation  template ([SSP Appendix Q](https://www.fedramp.gov/assets/resources/templates/SSP-Appendix-Q-Cryptographic-Modules-Table.docx)) required for all System Security Plans (SSPs)—so, you can be sure when it’s time to pass the Full Security Assessment in the FedRAMP Authorization phase , Tetrate has you covered. Tetrate Istio  is also available via approved software factories like the AWS Marketplace for GovCloud and [Platform One](https://p1.dso.mil/).
+FedRAMP Rev. 5 requires FIPS-validated encryption for data in transit. While Istio is the de facto standard security kernel for microservices applications, only Tetrate offers a FIPS-validated distribution of Istio suitable for FedRAMP environments. New in FedRAMP Rev. 5 is a requirement to document cryptographic modules in use to protect data in transit and at rest. Tetrate’s Istio distribution is built into the documentation  template ([SSP Appendix Q](https://www.fedramp.gov/assets/resources/templates/SSP-Appendix-Q-Cryptographic-Modules-Table.docx)) required for all System Security Plans (SSPs)—so, you can be sure when it’s time to pass the Full Security Assessment in the FedRAMP Authorization phase , Tetrate has you covered. Tetrate Istio  is also available via approved software factories like the AWS Marketplace for GovCloud and [Platform One](https://p1.dso.mil/).
 
 ## [](#what-is-fips)What Is FIPS?
 
@@ -111,7 +111,7 @@ This approach to achieving federal authorization is a safer alternative to forki
 
 ## [](#tetrate-istio-distro-tid-and-fips-validation)Tetrate Istio Distro (TID) and FIPS Validation
 
-[Tetrate Istio Distro](https://docs.tetrate.io/istio-distro/) is Tetrate’s hardened, performant, and fully upstream Istio distribution. It is also the first distribution of Istio to be FIPS verified for use in FedRAMP environments.
+Tetrate Istio Distro is Tetrate’s hardened, performant, and fully upstream Istio distribution. It is also the first distribution of Istio to be FIPS verified for use in FedRAMP environments.
 
 The Istio and Envoy binaries published by their respective project sites ([istio.io](https://istio.io/latest/docs/setup/getting-started/#download) and [envoyproxy.io](https://www.envoyproxy.io/docs/envoy/latest/start/install))  are not built using FIPS-validated crypto libraries. Those binaries are not approved for use by federal authorization programs such as FedRAMP.
 
@@ -129,4 +129,4 @@ Although our approach to getting FIPS validation for Istio and Envoy means Tetra
 
 When you want to deploy Istio in production, the first question is where to get your Istio distribution. Tetrate Istio Distro is Tetrate’s hardened, performant, and fully upstream Istio distribution. Teams often choose to run TID because it’s simple to use and is built and supported by Tetrate’s Istio experts (in addition to being co-creators of Istio, we also [built the official CNCF course on Istio](https://tetr8.io/3UkuTyN)).
 
-TID support and FIPS-validated builds are available as a paid subscription service, [Tetrate Istio Subscription](/tetrate-istio-subscription/). It’s a great way to get started with Istio knowing you have a trusted distribution to begin with, have an expert team supporting you, and also have the option to get to FIPS compliance quickly if you need to. [Reach out to us](/contact-us/) to start a conversation.
+TID support and FIPS-validated builds are available as a paid subscription service, [Tetrate Istio Subscription](/products/tetrate-istio-subscription). It’s a great way to get started with Istio knowing you have a trusted distribution to begin with, have an expert team supporting you, and also have the option to get to FIPS compliance quickly if you need to.

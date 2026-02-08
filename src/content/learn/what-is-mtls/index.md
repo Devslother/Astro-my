@@ -11,9 +11,9 @@ categories:
 excerpt: "Mutual TLS (mTLS) is a variation on transport layer security (TLS). Traditional TLS is the successor to secure sockets layer (SSL) and is the most widely deployed standard for secure communication, most visibly in HTTPS. TLS establishes secure communication that is both confidential (resistant to eavesdropping) and authentic (resistant to tampering) between a server that needs to prove its identity to its clients. But, in situations where both parties need to prove their identity to each other—such as between microservices in a Kubernetes application—TLS isn’t sufficient. mTLS is used in cases where both parties must prove their identities to each other.\_ mTLS extends the security provided by TLS(/blog/istio-gateway-upgrade-challenges-how-we-solved-tls-issues-and-ensured-seamless-service-delivery/) by adding mutual authentication between the client and the."
 ---
 
-Mutual TLS (mTLS) is a variation on transport layer security (TLS). Traditional TLS is the successor to secure sockets layer (SSL) and is the most widely deployed standard for secure communication, most visibly in HTTPS. TLS establishes secure communication that is both confidential (resistant to eavesdropping) and authentic (resistant to tampering) between a server that needs to prove its identity to its clients. But, in situations where both parties need to prove their identity to each other—such as between microservices in a Kubernetes application—TLS isn’t sufficient. mTLS is used in cases where **both parties must prove their identities to each other**.  mTLS extends the security provided by [TLS](/blog/istio-gateway-upgrade-challenges-how-we-solved-tls-issues-and-ensured-seamless-service-delivery) by adding mutual authentication between the client and the server.
+Mutual TLS (mTLS) is a variation on transport layer security (TLS). Traditional TLS is the successor to secure sockets layer (SSL) and is the most widely deployed standard for secure communication, most visibly in HTTPS. TLS establishes secure communication that is both confidential (resistant to eavesdropping) and authentic (resistant to tampering) between a server that needs to prove its identity to its clients. But, in situations where both parties need to prove their identity to each other—such as between microservices in a Kubernetes application—TLS isn’t sufficient. mTLS is used in cases where **both parties must prove their identities to each other**.  mTLS extends the security provided by TLS by adding mutual authentication between the client and the server.
 
-> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the easiest way to implement mTLS for cloud-native applications. [Get access now ›](/demo-request)
+> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the easiest way to implement mTLS for cloud-native applications. 
 
 ## How Does mTLS Work?
 
@@ -51,7 +51,7 @@ TLS uses a combination of symmetric and asymmetric cryptography to strike a bala
 
 The public keys used in asymmetric cryptography don’t have to be secret and can be shared publicly. But, we need a way to make sure that public keys are _authentic_—that the server you’re connecting to actually _is_ the server you think it is (and not a bad actor pretending to be that server, also known as a man-in-the-middle attack) and that the public key it gives you isn’t fake. To do this, TLS relies on a system of digitally signed certificates issued by a trusted third party called a certificate authority (CA) to prove the authenticity of the public key and the identity of the server presenting the key.
 
-This system established to support issuing, validating, and revoking public key certificates is known as a public key infrastructure (PKI) ([Recommendation ITU-T X.509 | ISO/IEC 9594-8](/external-link/)
+This system established to support issuing, validating, and revoking public key certificates is known as a public key infrastructure (PKI) (Recommendation ITU-T X.509 | ISO/IEC 9594-8)
 
 During the TLS handshake, the server presents the certificate to the client to prove the authenticity of the server’s identity and the public key attached to the certificate. The client can then use the public key attached to the certificate to encrypt messages to the server.
 
@@ -75,7 +75,7 @@ When a client connects to the server, the server sends its leaf certificate alon
 
 - **Verifying the certificate’s signature** to ensure that the certificate was actually issued by the CA and has not been tampered with.
 - **Checking the certificate’s status:** The client checks the certificate’s expiration date, as well as any other relevant information such as the domain name or the subject’s public key, to ensure that the certificate is still valid.
-- **Checking the certificate chain:** The client follows the links in the certificate chain, starting with the server’s leaf certificate, and checking each intermediate certificate in the chain. It uses the information in each certificate to [verify](/external-link/)
+- **Checking the certificate chain:** The client follows the links in the certificate chain, starting with the server’s leaf certificate, and checking each intermediate certificate in the chain. It uses the information in each certificate to verify.
 - **Validating the root certificate:** The client validates the trusted root certificate by checking that it is in its list of trusted root CAs. This ensures that the root certificate is a trusted and authoritative source of information about other certificates.
 
 ### CA Bundle
@@ -112,7 +112,7 @@ TLS is an IETF standard that evolved from secure sockets layer (SSL) developed b
 
 ## Why Do I Need mTLS?
 
-mTLS is a crucial component of a [zero trust architecture](/zero-trust). One of the tenets of zero trust networking is to assume that an attacker is already on your network. To limit the “blast radius” of an intrusion, it’s important to prevent the intruder from pivoting to other resources on your network. mTLS connections limit reconnaissance and provide for the authenticity of communication so that an intruder can’t eavesdrop, alter messages, impersonate resources, or otherwise intercept messages on your network.
+mTLS is a crucial component of a zero trust architecture. One of the tenets of zero trust networking is to assume that an attacker is already on your network. To limit the “blast radius” of an intrusion, it’s important to prevent the intruder from pivoting to other resources on your network. mTLS connections limit reconnaissance and provide for the authenticity of communication so that an intruder can’t eavesdrop, alter messages, impersonate resources, or otherwise intercept messages on your network.
 
 ## When Do I Need mTLS?
 
@@ -134,15 +134,15 @@ There may be cases where mTLS for certain connections is impractical, such as he
 
 While mTLS offers significant security advantages, it offers some implementation challenges, not least of which is establishing a secure mechanism for services to prove their identity to each other.
 
-For regular TLS, it used to be hard to manage the certificates that prove the identity of a server to its clients. With the advent of [Let’s Encrypt](/external-link/)
+For regular TLS, it used to be hard to manage the certificates that prove the identity of a server to its clients. 
 
 Rolling your own automated certificate management system is impractical and risky. Getting mTLS certificate management right is hard and the consequences of getting it wrong are bad. You need a trusted, proven way to do it. A service mesh is purpose-built to provide the infrastructure you need to safely and securely implement mTLS between services.
 
 ### Use a Service Mesh, the NIST Standard for Microservices Security
 
-In its [standards for microservices security](/external-link/)
+In its standards for microservices security.
 
-If you want the details of NIST’s standards for microservices security and how Tetrate helps meet them, check out [Tetrate’s Guide to Federal Security Requirements for Microservices](/resource/tetrate-guide-to-federal-security-requirements-for-microservices).
+If you want the details of NIST’s standards for microservices security and how Tetrate helps meet them, check out [Tetrate’s Guide to Federal Security Requirements for Microservices](/resources/tetrate-guide-to-federal-security-requirements-for-microservices).
 
 ## How Do I Implement mTLS with Istio?
 
@@ -150,22 +150,19 @@ Figure 4 depicts the security architecture of Istio. This figure clearly shows t
 
 **Figure 4.** _Istio mTLS flow_.
 
-Istio includes a built-in CA, and [Secret Discovery Service (SDS)](/external-link/)
+Istio includes a built-in CA, and Secret Discovery Service (SDS)
 
-1.  The sidecar of every service requests a certificate from Istiod on behalf of the workload at startup, and _istiod_ issues the [SVID](/external-link/)
+1.  The sidecar of every service requests a certificate from Istiod on behalf of the workload at startup, and _istiod_ issues the SVID
 2.  The sidecar of every workload intercepts all client requests within the pod.
-3.  The client sidecar starts an mTLS handshake with the server sidecar. During the handshake, the [JWT](/external-link/)
+3.  The client sidecar starts an mTLS handshake with the server sidecar. During the handshake, the JWT
 4.  If the request is authenticated and authorized, the client and the server start to establish a connection for communication.
 
 In Istio, authentication and authorization between services can be configured using one of three resource objects:
 
-- [**RequestAuthentication**](/external-link/)
-- [**PeerAuthentication**](/external-link/)
-- [**AuthorizationPolicy**](/external-link/)
 
 ### How to Enable Automatic mTLS in Istio
 
-In [Istio’s PeerAuthentication configuration](/external-link/)
+In Istio’s PeerAuthentication configuration
 
 - PERMISSIVE: The workload’s default setting that allows it to accept either mTLS or plain text traffic.
 - STRICT: The workload accepts only mTLS traffic.
@@ -197,7 +194,7 @@ apiVersion: security.istio.io/v1beta1
     mode: STRICT
 ```
 
-According to the [Istio documentation](/external-link/)
+According to the Istio documentation
 
 ### Use DestinationRule to Set up mTLS for Workloads
 
@@ -226,16 +223,16 @@ While Istio will implement mTLS for you, it uses self-signed certificates by def
 
 ### Best Practice: Root Istio’s Trust in Your Existing PKI
 
-If you’re not supposed to use Istio’s default self-signed certificates, what’s the alternative? The short answer is that you should [root Istio’s trust in your existing public key infrastructure (PKI)](/external-link/)
+If you’re not supposed to use Istio’s default self-signed certificates, what’s the alternative? The short answer is that you should root Istio’s trust in your existing public key infrastructure (PKI)
 
 ### Best Practice: Use an Intermediate Certificate
 
-How, exactly, do you root Istio’s trust in your existing PKI? Tetrate founding engineer and co-author of NIST’s security standards for microservices, Zack Butcher, [has all the details here](/external-link/)
+How, exactly, do you root Istio’s trust in your existing PKI? Tetrate founding engineer and co-author of NIST’s security standards for microservices, Zack Butcher, has all the details here
 
 - Allow for fine-grained cert revocation without forcing new certificates across your entire infrastructure at the same time.
 - Enable easy rotation of signing certificates.
 
-For step-by-step instructions on how to automate [Istio certificate](/blog/how-are-certificates-managed-in-istio) authority (CA) rotation, see our article on [automating Istio CA rotation in production at scale](/blog/automate-istio-ca-rotation-in-production-at-scale).
+For step-by-step instructions on how to automate Istio certificate authority (CA) rotation, see our article on automating Istio CA rotation in production at scale.
 
 ## Is mTLS All I Need for Zero Trust Security?
 
@@ -248,4 +245,4 @@ In short, zero trust security is more than just mTLS, although mTLS is an import
 - unaltered.
 - **Observable**, so the integrity and security posture of all assets may be continuously monitored and policy enforcement continuously assured. Also, insights gained from observing should be fed back to improve policy.
 
-Implementing mTLS between resources like microservices in Kubernetes cluster provides authentication and encryption, but doesn’t address the rest of the full scope of a zero trust architecture. To learn more, [download our zero trust architecture white paper](/resource/zero-trust-architecture-white-paper) written by Zack Butcher, Tetrate founding engineer and co-author of the [NIST security standards for microservices applications](/blog/nist-standards-for-zero-trust-the-sp-800-204-series).
+Implementing mTLS between resources like microservices in Kubernetes cluster provides authentication and encryption, but doesn’t address the rest of the full scope of a zero trust architecture. To learn more, [download our zero trust architecture white paper](/resources/zero-trust-architecture-white-paper) written by Zack Butcher, Tetrate founding engineer and co-author of the NIST security standards for microservices applications.

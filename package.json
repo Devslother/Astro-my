@@ -14,9 +14,9 @@
     "snarf-blog": "node bloggypants/scripts/batch-html-to-mdx-blog.js"
   },
   "dependencies": {
-    "@astrojs/netlify": "^6.5.11",
+    "@astrojs/netlify": "^6.6.4",
     "@sindresorhus/slugify": "^2.2.1",
-    "astro": "^5.9.2",
+    "astro": "^5.17.1",
     "classnames": "^2.5.1",
     "gray-matter": "^4.0.3",
     "jsdom": "^26.1.0",
@@ -24,7 +24,7 @@
     "yup": "^1.7.0"
   },
   "devDependencies": {
-    "@astrojs/vercel": "^8.2.5",
+    "@astrojs/vercel": "^9.0.4",
     "@types/yup": "^0.29.14",
     "typescript": "^5.8.3"
   }

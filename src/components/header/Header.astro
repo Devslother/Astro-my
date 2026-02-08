@@ -21,9 +21,10 @@ import TetrateLogo from '@/assets/tetrate-logo.svg'
         variant="primary"
         size="md"
         class="text__body--16-medium"
-        href="https://tetrate.io/contact/pricing-request/"
+        data-modal-open="demo-request-modal"
+        type="button"
       >
-        Pricing Request
+        Request a Demo
       </Button>
 
       <button class={clsx(styles.menu__button, 'menu__button')}>
@@ -51,7 +52,8 @@ import TetrateLogo from '@/assets/tetrate-logo.svg'
 
       <div class={styles.mobile__buttons}>
         <Button 
-          href="/contact/demo-request/" 
+          data-modal-open="demo-request-modal"
+          type="button"
           variant="secondary" 
           size="sm"
           class={styles.mobile__button}>

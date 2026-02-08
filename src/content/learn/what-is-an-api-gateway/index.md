@@ -6,8 +6,6 @@ description: >-
   Overview Application Programming Interfaces (APIs) are essential building
   blocks of modern software applications. APIs provide a standard way for
   different applications…
-featuredImage: >-
-  https://lh5.googleusercontent.com/WSns3Ifou8w8ifxl3PTBGIvSP6UevjPdQW0PoT0zZdbwyouY1JFvYRB2Pm6Zx0eHygBK8IkkyKr6gtc4c_K56HJfMhACIWOFF4t20WpuJOof8fB7Zr4d9xeYEBQvefKRvTBfFLSOFUC05-maH_fpNTc
 categories:
   - What
 excerpt: >-
@@ -26,7 +24,7 @@ Application Programming Interfaces (APIs) are essential building blocks of moder
 
 In addition, API gateways provide a layer of abstraction between client applications and backend services. This means client applications do not need to know the internal workings of the backend services, or even the API itself. Instead, they can rely on the API gateway to handle requests and responses.
 
-> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the de facto standard connectivity platform for cloud-native applications. [Get access now ›](/demo-request)
+> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the de facto standard connectivity platform for cloud-native applications. 
 
 Simplifying the management of complex microservice-based architectures by providing a single point of entry for clients and allowing for the addition or removal of services without affecting clients is also a key benefit of API gateways . They can also improve security by handling authentication and access control for all services in a consistent and centralized way.
 

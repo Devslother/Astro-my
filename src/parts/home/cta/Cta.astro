@@ -9,7 +9,7 @@ import TopLeftTablet from '../../../assets/home/cta/topleft-tablet.svg';
 import TopLeftDesktop from '../../../assets/home/cta/topleft-desktop.svg';
 import BottomRightMobile from '../../../assets/home/cta/bottomright-mobile.svg';
 import BottomRightTablet from '../../../assets/home/cta/bottomright-tablet.svg';
-import BottomRighttDesktop from '../../../assets/home/cta/bottomright-desktop.svg';
+import BottomRightDesktop from '../../../assets/home/cta/bottomright-desktop.svg';
 import Image from '../../../assets/home/cta/logo.svg';
 import Picture from '../../../components/Picture.astro';
 ---
@@ -27,7 +27,7 @@ import Picture from '../../../components/Picture.astro';
      alt="bottom-right" 
      srcMobile={BottomRightMobile.src}
      srcTablet={BottomRightTablet.src}
-     srcDesktop={BottomRighttDesktop.src}
+     srcDesktop={BottomRightDesktop.src}
      class={styles.BottomRight}
       />
     
@@ -46,22 +46,14 @@ import Picture from '../../../components/Picture.astro';
         with more intelligence?
       </h5>
       <div class={styles.btncontainer}>
-        <Button 
-          variant="secondary" 
-          size="lg" 
-          class="text__body--16-semibold" 
-          href='https://tetrate.io/contact/demo-request/'
-        >
-          Request a demo
-        </Button>
-        
         <GlowButton 
           variant="primary" 
           size="lg" 
           buttonClassName="text__body--16-semibold" 
-          href='https://tetrate.io/contact/pricing-request/'
+          data-modal-open="demo-request-modal"
+          type="button"
         >
-          Pricing Request
+          Request a Demo
         </GlowButton>
       </div>
     </div>

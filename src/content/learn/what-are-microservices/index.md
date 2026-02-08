@@ -26,7 +26,7 @@ Microservices are a software architecture approach where applications are built 
 
 ## Benefits of Microservices
 
-Some of the key advantages of a [microservices architecture include](/learn/what-are-microservices):
+Some of the key advantages of a microservices architecture include:
 
 ### Scalability
 
@@ -156,4 +156,3 @@ A service mesh can provide monitoring and logging capabilities that allow you to
 
 A service mesh can provide features such as circuit breaking and retries that can help ensure that the application remains available and responsive even during periods of high traffic or service failures.
 
-Learn more about Istio, the most widely-deployed service mesh ›

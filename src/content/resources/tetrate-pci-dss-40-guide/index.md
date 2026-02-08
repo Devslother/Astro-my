@@ -23,4 +23,4 @@ Tetrate’s products empower businesses to achieve network segmentation, end-to-
 
 This white paper explores how Tetrate’s solutions align with and support key PCI DSS requirements. It demonstrates how these tools simplify compliance, reduce operational complexity, and provide the flexibility to scale securely across modern, distributed systems. Whether you’re securing a legacy environment, transitioning to the cloud, or managing a hybrid infrastructure, Tetrate enables you to meet the highest security standards while delivering consistent, compliant payment services.
 
-[Contact us](/contact-us/) to learn more about how Tetrate can help you meet commercial and federal compliance standards for applications operating in a regulatory environment.
+Contact us to learn more about how Tetrate can help you meet commercial and federal compliance standards for applications operating in a regulatory environment.

@@ -37,6 +37,13 @@ export default function initRequestForm() {
 
   const siteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || "";
 
+  function load(src: string, attrs: Record<string, string> = {}) {
+    const s = document.createElement("script");
+    s.src = src;
+    Object.entries(attrs).forEach(([k, v]) => s.setAttribute(k, v));
+    document.head.appendChild(s);
+  }
+
   function ready() {
     if (siteKey) {
       load("//www.google.com/recaptcha/api.js?render=" + siteKey);
@@ -87,7 +94,7 @@ export default function initRequestForm() {
         };
 
         try {
-          const res = await fetch("/api/requestForm", {
+          const res = await fetch("/.netlify/functions/requestForm", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
@@ -256,13 +263,6 @@ export default function initRequestForm() {
       const msgBox = field.parentElement?.querySelector("[data-error-message]");
       if (msgBox) msgBox.textContent = e.message;
     });
-  }
-
-  function load(src: string, attrs: Record<string, string> = {}) {
-    const s = document.createElement("script");
-    s.src = src;
-    Object.entries(attrs).forEach(([k, v]) => s.setAttribute(k, v));
-    document.head.appendChild(s);
   }
 
   document.readyState === "loading"

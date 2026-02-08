@@ -17,7 +17,7 @@ excerpt: >-
   architecture, observability, and.
 ---
 
-How our solutions help organizations implement a robust zero trust security model using Istio and Envoy in Kubernetes environments, particularly on platforms like [AWS](/blog/migrating-from-aws-app-mesh-to-istio-a-comprehensive-guide) and Azure. Here’s how Tetrate’s offerings address key aspects of microservices architecture, observability, and security:
+How our solutions help organizations implement a robust zero trust security model using Istio and Envoy in Kubernetes environments, particularly on platforms like AWS and Azure. Here’s how Tetrate’s offerings address key aspects of microservices architecture, observability, and security:
 
 ## Use Cases
 
@@ -34,7 +34,7 @@ How our solutions help organizations implement a robust zero trust security mode
 
 ## Architecture
 
-Tetrate Service Bridge (TSB) provides a comprehensive [service mesh](/blog/service-mesh-architecture) solution that seamlessly integrates with Kubernetes, offering:
+Tetrate Service Bridge (TSB) provides a comprehensive service mesh solution that seamlessly integrates with Kubernetes, offering:
 
 - **Unified Control Plane:** TSB extends Istio’s capabilities, providing a single pane of glass for managing multiple clusters across different cloud providers and on-premises environments.
 - **Enhanced Proxy Model in sidecar or ambient mode:** We optimize Envoy’s sidecar proxy implementation, ensuring efficient and secure service-to-service communication.
@@ -86,7 +86,7 @@ Tetrate Service Bridge goes beyond open-source Istio to provide enterprise-grade
 
 ## Enterprise consulting and support services
 
-Tetrate’s [consulting](/kubernetes-consulting) and enterprise support services provide comprehensive assistance for organizations implementing service mesh solutions across AWS, Azure, and hybrid environments.
+Tetrate’s consulting and enterprise support services provide comprehensive assistance for organizations implementing service mesh solutions across AWS, Azure, and hybrid environments.
 
 Our expert consultants offer tailored guidance on architecting, deploying, and optimizing Istio and Envoy-based service meshes, ensuring seamless integration with cloud-native technologies and existing infrastructure. We specialize in addressing the unique challenges of multi-cloud deployments, helping clients leverage the strengths of both AWS and Azure while maintaining consistent security and observability policies. Our enterprise support goes beyond traditional offerings, providing 24/7 access to service mesh experts, proactive monitoring, and rapid incident response.
 

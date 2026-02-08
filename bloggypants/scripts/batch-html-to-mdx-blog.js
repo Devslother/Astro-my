@@ -125,12 +125,26 @@ function extractTitle(document) {
   return title.textContent.trim();
 }
 
-// извлекаем description из HTML
+// извлекаем description из HTML и обрезаем до одного предложения
 function extractDescription(document) {
   const description = document.querySelector('meta[name="description"]');
   if (!description) return "";
 
-  return description.getAttribute("content")?.trim() || "";
+  const content = description.getAttribute("content")?.trim() || "";
+  if (!content) return "";
+
+  // Обрезаем до первого предложения (до точки, восклицательного или вопросительного знака)
+  const sentenceEnd = content.search(/[.!?]/);
+  if (sentenceEnd !== -1) {
+    return content.substring(0, sentenceEnd + 1);
+  }
+
+  // Если нет знаков препинания, обрезаем до 150 символов
+  if (content.length > 150) {
+    return content.substring(0, 150) + "...";
+  }
+
+  return content;
 }
 
 // извлекаем дату из HTML
@@ -149,6 +163,144 @@ function extractAuthor(document) {
   if (!author) return "";
 
   return author.getAttribute("content")?.trim() || "";
+}
+
+// извлекаем категории из URL, заголовков и метатегов
+function extractCategories(document, url, title) {
+  const categories = new Set();
+
+  // 1. Извлекаем из метатегов
+  const categoryMeta = document.querySelector('meta[name="category"]');
+  if (categoryMeta) {
+    const metaCategories = categoryMeta
+      .getAttribute("content")
+      ?.split(",")
+      .map((c) => c.trim());
+    if (metaCategories) {
+      metaCategories.forEach((cat) => categories.add(cat.toLowerCase()));
+    }
+  }
+
+  // 2. Анализируем URL на ключевые слова
+  const urlKeywords = [
+    "kubernetes",
+    "k8s",
+    "kube",
+    "istio",
+    "service-mesh",
+    "mesh",
+    "envoy",
+    "gateway",
+    "proxy",
+    "security",
+    "zero-trust",
+    "mtls",
+    "observability",
+    "monitoring",
+    "tracing",
+    "wasm",
+    "webassembly",
+    "ambient",
+    "sidecar",
+    "ingress",
+    "egress",
+    "skywalking",
+    "jaeger",
+    "prometheus",
+  ];
+
+  const urlLower = url.toLowerCase();
+  urlKeywords.forEach((keyword) => {
+    if (urlLower.includes(keyword)) {
+      categories.add(keyword);
+    }
+  });
+
+  // 3. Анализируем заголовок на ключевые слова
+  const titleLower = title.toLowerCase();
+  const titleKeywords = [
+    "kubernetes",
+    "k8s",
+    "kube",
+    "istio",
+    "service mesh",
+    "mesh",
+    "envoy",
+    "gateway",
+    "proxy",
+    "security",
+    "zero trust",
+    "mtls",
+    "observability",
+    "monitoring",
+    "tracing",
+    "wasm",
+    "webassembly",
+    "ambient",
+    "sidecar",
+    "ingress",
+    "egress",
+    "skywalking",
+    "jaeger",
+    "prometheus",
+    "tutorial",
+    "guide",
+    "best practices",
+    "deployment",
+    "configuration",
+  ];
+
+  titleKeywords.forEach((keyword) => {
+    if (titleLower.includes(keyword)) {
+      // Нормализуем ключевые слова
+      const normalizedKeyword = keyword.replace(/\s+/g, "-");
+      categories.add(normalizedKeyword);
+    }
+  });
+
+  // 4. Специальные правила для определения категорий
+  if (titleLower.includes("kubernetes") || urlLower.includes("kubernetes")) {
+    categories.add("kubernetes");
+  }
+
+  if (titleLower.includes("istio") || urlLower.includes("istio")) {
+    categories.add("istio");
+  }
+
+  if (titleLower.includes("envoy") || urlLower.includes("envoy")) {
+    categories.add("envoy");
+  }
+
+  if (
+    titleLower.includes("security") ||
+    titleLower.includes("zero trust") ||
+    titleLower.includes("mtls")
+  ) {
+    categories.add("security");
+  }
+
+  if (
+    titleLower.includes("observability") ||
+    titleLower.includes("monitoring") ||
+    titleLower.includes("tracing")
+  ) {
+    categories.add("observability");
+  }
+
+  if (
+    titleLower.includes("tutorial") ||
+    titleLower.includes("guide") ||
+    titleLower.includes("how to")
+  ) {
+    categories.add("tutorial");
+  }
+
+  // 5. Если категории не найдены, используем базовую категорию
+  if (categories.size === 0) {
+    categories.add("blog");
+  }
+
+  return Array.from(categories);
 }
 
 // извлекаем контент из HTML
@@ -197,6 +349,10 @@ async function processFile(filePath) {
   const author = extractAuthor(document);
   const featuredImage = extractOgImage(document);
   const htmlContent = extractContent(document);
+  const categories = extractCategories(document, url, title);
+
+  // Логируем извлеченные категории для отладки
+  console.log(`📂 Categories for "${title}": [${categories.join(", ")}]`);
 
   if (!htmlContent) {
     console.log(`⚠️  No content found in ${filePath}`);
@@ -213,7 +369,7 @@ async function processFile(filePath) {
     date: date || null,
     author: author || "Tetrate Team", // По умолчанию Tetrate Team
     featuredImage: featuredImage || null,
-    categories: config.categories,
+    categories: categories, // Используем извлеченные категории
     excerpt: description || "",
   };
 

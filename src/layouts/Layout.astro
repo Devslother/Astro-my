@@ -2,6 +2,8 @@
 import Footer from '../components/footer/Footer.astro';
 import HeaderTop from '../components/header-top/HeaderTop.astro';
 import Header from '../components/header/Header.astro';
+import Modal from '../components/modal/Modal.astro';
+import RequestForm from '../components/forms/request-form/RequestForm.astro';
 import "../styles/global.css";
 
 
@@ -45,6 +47,16 @@ const {
 		<slot />
 	<script is:inline src="/scripts/dynamicSearch.js"></script>
 		<Footer />
+
+		<!-- Global Demo Request Modal -->
+		<Modal id="demo-request-modal" isForm>
+			<RequestForm
+				title="Request a Demo"
+				formId="demo-request-form-id"
+				portalId="146786678"
+				isModal
+			/>
+		</Modal>
 
 		<!-- Initialize modals and forms -->
 		<script>

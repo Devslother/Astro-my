@@ -16,11 +16,11 @@ useHubspotEmbed: true
 
 ### [](#tetrates-guide-to-service-mesh-for-the-enterprise)Tetrate's Guide to Service Mesh for the Enterprise
 
-[Service mesh](/what-is-istio-service-mesh/) has become a critical infrastructure for modern, cloud-native applications. It emerged in response to the challenges of digital transformation and application modernization, as it offers the consistent observability, connectivity, security, and resilience capabilities that modern microservices applications require.
+Service mesh has become a critical infrastructure for modern, cloud-native applications. It emerged in response to the challenges of digital transformation and application modernization, as it offers the consistent observability, connectivity, security, and resilience capabilities that modern microservices applications require.
 
 In the enterprise, service mesh plays a critical role in the areas of application modernization and cloud migration. It’s a necessary tool for organizations that need a zero trust security posture, are managing multi-platform or multi-cloud environments, or a combination of the above.
 
-The frequently heard term [zero trust architecture](/what-is-istio-service-mesh/) (ZTA), when applied to microservices applications, most often refers to service mesh-based architectures. Applications using a zero-trust architecture are developed and managed in production using the DevSecOps approach, which adds security concerns to the well-known DevOps paradigm.
+The frequently heard term zero trust architecture (ZTA), when applied to microservices applications, most often refers to service mesh-based architectures. Applications using a zero-trust architecture are developed and managed in production using the DevSecOps approach, which adds security concerns to the well-known DevOps paradigm.
 
 An enterprise service mesh extends the benefits of a service mesh to every workload, regardless of the application architecture or underlying compute platform or environment, with added operational and security benefits such as seamless traffic shifting, multitenancy, and support for failovers across multiple clusters and even multiple clouds.
 

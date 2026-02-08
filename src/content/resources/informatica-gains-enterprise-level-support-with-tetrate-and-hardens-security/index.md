@@ -49,4 +49,3 @@ As Informatica upgraded its Istio instances, Tetrate provided weekly calls with 
 
 ---
 
-[Download the full case study (PDF)](https://tetrate.io/wp-content/uploads/2023/06/AWS-Tetrate-Informatica-Case-Study.pdf)

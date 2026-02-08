@@ -15,7 +15,7 @@ useHubspotEmbed: true
 
 ### [](#nist-sp-800-204-series-requirements-guide)NIST SP 800-204 Series Requirements Guide
 
-The National Institute of Standards and Technology (NIST) provides a comprehensive set of security strategies for [microservices](/resource/tetrate-guide-to-federal-security-requirements-for-microservices/) applications that is part of a critical set of documents defining the US government’s standards of zero trust. Co-authored with NIST by Tetrate founding engineer Zack Butcher, the SP 800-204 series focuses on strategies for implementing a zero trust network architecture and secure communications between microservices as well as between microservices and external systems and end users.
+The National Institute of Standards and Technology (NIST) provides a comprehensive set of security strategies for microservices applications that is part of a critical set of documents defining the US government’s standards of zero trust. Co-authored with NIST by Tetrate founding engineer Zack Butcher, the SP 800-204 series focuses on strategies for implementing a zero trust network architecture and secure communications between microservices as well as between microservices and external systems and end users.
 
 This document offers a concise representation of NIST’s specific recommendations paired with notes on how Tetrate’s flagship application connectivity platform, Tetrate Service Bridge, implements the standard.
 

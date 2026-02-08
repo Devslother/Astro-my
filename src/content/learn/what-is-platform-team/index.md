@@ -14,11 +14,11 @@ excerpt: >-
 
 ## Overview
 
-A platform team is responsible for creating and maintaining the underlying platform that supports the development, deployment and operations of software [applications](/external-link/)
+A platform team is responsible for creating and maintaining the underlying platform that supports the development, deployment and operations of software applications
 
-The platform team typically includes software engineers, systems administrators, network engineers, database administrators, security experts and other specialists who work together to ensure the platform is secure, scalable and reliable. The platform team is responsible for the technical aspects of the platform, including [architecture](/learn/kubernetes-security-architecture) design, system configuration, coding, testing, deployment and ongoing maintenance.
+The platform team typically includes software engineers, systems administrators, network engineers, database administrators, security experts and other specialists who work together to ensure the platform is secure, scalable and reliable. The platform team is responsible for the technical aspects of the platform, including architecture design, system configuration, coding, testing, deployment and ongoing maintenance.
 
-> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the de facto standard connectivity platform for cloud-native applications. [Get access now ›](/demo-request)
+> Tetrate offers enterprise-ready, 100% upstream distributions of Istio and Envoy Gateway, the de facto standard connectivity platform for cloud-native applications. 
 
 ### Origins of Platform Engineering
 
@@ -44,7 +44,7 @@ By designing and building a scalable and reliable platform, platform teams can r
 
 ### Improved Security
 
-A well-engineered platform can help prevent [data breaches](/resource/common-vulnerabilities-and-exposures-cve-explained), unauthorized access, or other security issues that can compromise sensitive information or harm the business.
+A well-engineered platform can help prevent data breaches, unauthorized access, or other security issues that can compromise sensitive information or harm the business.
 
 ### Technical Support and Expertise
 
@@ -84,11 +84,11 @@ DevOps, on the other hand, is a broader set of practices and principles that aim
 
 ## What Role Does Service Mesh Play in the Platform?
 
-[A service mesh](/what-is-istio-service-mesh) provides several features and capability that are particularly important for internal developer platforms, including:
+A service mesh provides several features and capability that are particularly important for internal developer platforms, including:
 
 ### Traffic Management
 
-Service mesh can manage traffic between microservices, [providing load balancing](/load-balance-failover-kafka-redhat-amq-streams-k8s-tsb), routing and service discovery capabilities. This can help developers to easily connect their microservices and create complex applications.
+Service mesh can manage traffic between microservices, providing load balancing, routing and service discovery capabilities. This can help developers to easily connect their microservices and create complex applications.
 
 ### Security
 
@@ -106,8 +106,7 @@ Service mesh provides features such as circuit breaking and retry logic, improvi
 
 Platform teams for large organizations with fleets of applications across multiple clusters, clouds, and data centers often need to “connect the dots” across service mesh deployments to provide a unified and consistent operational model for their customers. For platform teams in these larger organizations, Tetrate offers enterprise service mesh solutions to do just that.
 
-Tetrate’s enterprise-grade service mesh platform, Tetrate Service Bridge, unifies and simplifies the connectivity, security, observability, and reliability for your entire application fleet—across [Kubernetes](/learn/kubernetes-security-best-practices) clusters, virtual machines, bare metal servers and across clouds and on-premises deployments
+Tetrate’s enterprise-grade service mesh platform, Tetrate Service Bridge, unifies and simplifies the connectivity, security, observability, and reliability for your entire application fleet—across Kubernetes clusters, virtual machines, bare metal servers and across clouds and on-premises deployments
 
 TSB is also a “bridge” between your organization—its people, teams, and applications—and your compute infrastructure, making it easy to assign consistent policies and access rights so your teams can safely control application resources.
 
-[Learn more ›](/tetrate-service-bridge)

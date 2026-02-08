@@ -15,11 +15,11 @@ excerpt: >-
 
 ## Overview
 
-The [Kubernetes Gateway API](/learn/what-is-the-kubernetes-gateway-api), aka “[Gateway API,](/external-link/)
+The Kubernetes Gateway API, aka Gateway API
 
-Conceived as a successor to the earlier Ingress API, Gateway API aims to enhance the configuration and management of Kubernetes ingress, service discovery, load balancing, and traffic routing by providing a unified and extensible API that integrates with Kubernetes’ native resources such as Services, Endpoints, and Ingresses. While there is no default implementation of the Gateway API out of the box in Kubernetes, there is [a wide range of commercial and open-source implementations available](/external-link/)
+Conceived as a successor to the earlier Ingress API, Gateway API aims to enhance the configuration and management of Kubernetes ingress, service discovery, load balancing, and traffic routing by providing a unified and extensible API that integrates with Kubernetes’ native resources such as Services, Endpoints, and Ingresses. While there is no default implementation of the Gateway API out of the box in Kubernetes, there is a wide range of commercial and open-source implementations available
 
-> Tetrate offers an enterprise-ready, 100% upstream distribution of Envoy Gateway, [Tetrate Enterprise Gateway for Envoy (TEG)](/tetrate-enterprise-gateway-for-envoy). TEG is the easiest way to get started with Envoy for production use cases. [Get access now ›](/demo-request)
+> Tetrate offers an enterprise-ready, 100% upstream distribution of Envoy Gateway, Tetrate Enterprise Gateway for Envoy (TEG). TEG is the easiest way to get started with Envoy for production use cases.
 
 ## Benefits of the Gateway API
 
@@ -68,9 +68,9 @@ While effective for basic use cases, Ingress has significant limitations for adv
 
 Gateway API is more general-purpose than Ingress and can be used to configure a variety of traffic management features such as load balancing, TLS passthrough, traffic routing based on request headers, and integration with external services in a more consistent, portable way.
 
-Like Ingress, Gateway API is an official [Kubernetes API](/learn/what-is-the-kubernetes-gateway-api) and represents a superset of Ingress functionality, enabling more advanced use cases. Similar to Ingress, there is no default implementation of Gateway API built into Kubernetes. Instead, there are [many different implementations available](/external-link/)
+Like Ingress, Gateway API is an official Kubernetes API and represents a superset of Ingress functionality, enabling more advanced use cases. Similar to Ingress, there is no default implementation of Gateway API built into Kubernetes. Instead, there are many different implementations available
 
-For a deep dive on the history of Kubernetes Ingress and Gateway API, read our article, [Why the Gateway API Is the Unified Future of Ingress for Kubernetes and Service Mesh](/blog/why-the-gateway-api-is-the-unified-future-of-ingress-for-kubernetes-and-service-mesh).
+For a deep dive on the history of Kubernetes Ingress and Gateway API, read our article, Why the Gateway API Is the Unified Future of Ingress for Kubernetes and Service Mesh.
 
 ## Gateway API vs API Gateway
 
@@ -173,19 +173,15 @@ kind: HTTPRoute
 
 ## Get Started with Gateway API Using Envoy Gateway
 
-Envoy Gateway is an implementation of the Gateway API that uses [Envoy Proxy](/what-is-envoy-proxy) as an API gateway to deliver a simplified deployment model and an API layer aimed at lighter use cases.
+Envoy Gateway is an implementation of the Gateway API that uses Envoy Proxy as an API gateway to deliver a simplified deployment model and an API layer aimed at lighter use cases.
 
-Getting started with Gateway API and Envoy Gateway is easy. Go to the documentation on [the Envoy Gateway project site](/external-link/)
+Getting started with Gateway API and Envoy Gateway is easy. Go to the documentation on the Envoy Gateway project site
 
-- [Quick start ›](/quick-start)
-- [User guides ›](/user-guides)
 
 ## Get Enterprise Support for Your Envoy Gateway Deployment
 
-[Tetrate Enterprise Gateway for Envoy](/tetrate-enterprise-gateway-for-envoy) provides available 24/7 enterprise support and enablement plus FIPS-verified and CVE-protected builds of Envoy Gateway suitable for mission critical applications and regulated environments like FedRAMP.
+Tetrate Enterprise Gateway for Envoy provides available 24/7 enterprise support and enablement plus FIPS-verified and CVE-protected builds of Envoy Gateway suitable for mission critical applications and regulated environments like FedRAMP.
 
 Tetrate is a leading contributor to open source Envoy and Envoy Gateway. Tetrate Enterprise Gateway for Envoy brings them to the enterprise, with the scale, reliability, performance and security necessary for large and mission-critical apps. Whatever your Kubernetes platforms of choice, rely on Tetrate’s expertise to deliver your services without missing a beat.
 
-- [Get access now ›](/demo-request)
-- [Learn more ›](/tetrate-enterprise-gateway-for-envoy)
-- [Quick start ›](/quick-start)
+

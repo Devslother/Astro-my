@@ -5,10 +5,10 @@ const blogCollection = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      description: z.string().optional(),
       excerpt: z.string().optional(),
       featuredImage: image(),
-      product: z.string().optional(),
-      topic: z.string().optional(),
+      categories: z.union([z.string(), z.array(z.string())]).optional(),
       author: z.string(),
       authorImage: z.string().optional(),
       date: z.date(),

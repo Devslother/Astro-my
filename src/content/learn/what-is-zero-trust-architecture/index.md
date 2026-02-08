@@ -19,9 +19,9 @@ excerpt: >-
 
 ## Overview
 
-Zero Trust Security—sometimes called Zero Trust Architecture (ZTA) and Zero Trust Network Access (ZTNA)—is an information [security model](/learn/kubernetes-security-best-practices) that requires strict identity verification for all users, devices, and applications attempting to access resources within a network, regardless of their location. Popularized by [John Kindervag at Forrester in 2010](/external-link/)
+Zero Trust Security—sometimes called Zero Trust Architecture (ZTA) and Zero Trust Network Access (ZTNA)—is an information [security model](/learn/kubernetes-security-best-practices) that requires strict identity verification for all users, devices, and applications attempting to access resources within a network, regardless of their location. Popularized by John Kindervag at Forrester in 2010
 
-Instead, [Zero Trust](/zero-trust) requires continuous verification and authentication of users and devices before granting access to any network resources. This is typically done through multi-factor authentication, role-based access control and monitoring of user activity to detect and respond to any suspicious behavior.
+Instead, Zero Trust requires continuous verification and authentication of users and devices before granting access to any network resources. This is typically done through multi-factor authentication, role-based access control and monitoring of user activity to detect and respond to any suspicious behavior.
 
 Zero Trust also requires strict segmentation of network resources, so users and devices only have access to the resources they need to perform their tasks, and nothing more. This reduces the risk of lateral movement by attackers who may gain access to one part of the network and then move laterally to gain access to more sensitive resources.
 
@@ -86,11 +86,11 @@ While Zero Trust architecture offers many benefits, there are also several chall
 
 ## U.S. Government Standards for Zero Trust Security
 
-The US government has published several standards and guidelines for Zero Trust Architecture. One of the most notable is the National Institute of Standards and Technology (NIST) [Special Publication 800-207](/blog/nist-sp-207-the-groundwork-for-zero-trust), which provides an overview of Zero Trust Architecture and its key components. NIST has also published the [SP 800-204 series](/blog/nist-standards-for-zero-trust-the-sp-800-204-series) on Zero Trust security recommendations for microservices applications.
+The US government has published several standards and guidelines for Zero Trust Architecture. One of the most notable is the National Institute of Standards and Technology (NIST) Special Publication 800-207, which provides an overview of Zero Trust Architecture and its key components. NIST has also published the SP 800-204 series on Zero Trust security recommendations for microservices applications.
 
-The Cybersecurity and Infrastructure Security Agency (CISA) has also published guidance on implementing Zero Trust, including a [Zero Trust Maturity Model](/external-link/)
+The Cybersecurity and Infrastructure Security Agency (CISA) has also published guidance on implementing Zero Trust, including a Zero Trust Maturity Model
 
-Additionally, the Office of Management and Budget (OMB) [has issued a memorandum on Zero Trust Architecture implementation](/blog/us-government-endorses-zero-trust-architecture-for-security), outlining the government’s commitment to transitioning to a Zero Trust model and providing guidance for agencies to follow.
+Additionally, the Office of Management and Budget (OMB) has issued a memorandum on Zero Trust Architecture implementation, outlining the government’s commitment to transitioning to a Zero Trust model and providing guidance for agencies to follow.
 
 ## Service Mesh as a Critical Component of a Zero Trust Architecture
 
@@ -102,5 +102,3 @@ Kubernetes doesn’t address certain application-level development and operation
 
 Istio’s data plane of Envoy proxies provides authentication and authorization, secure service discovery via a dedicated service registry, secure communications including mTLS and encryption, network resilience and unified observability data. Istio’s ingress controller provides a common, external-facing API for all clients, protocol translation, composition of results, load balancing and public TLS termination. Istio’s egress controller provides a single, centralized set of whitelisted external workloads, credential exchange and protocol translation back to web-friendly protocols.
 
-- Learn more about the Istio service mesh ›
-- [Get started with Istio using Tetrate Istio Distro, Tetrate’s hardened, performant, and fully upstream Istio distribution ›](/external-link/)
