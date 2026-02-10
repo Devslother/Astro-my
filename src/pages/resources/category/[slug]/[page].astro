@@ -18,7 +18,6 @@ const query = (url.searchParams.get("q") ?? "").trim().toLowerCase();
 
 	const resources = await getCollection("resources");
 
-// Проверяем, что коллекция не пустая
 if (!resources || resources.length === 0) {
 	return new Response(null, { status: 404 });
 }
@@ -29,14 +28,12 @@ const normalizeToArray = (field: unknown): string[] => {
 	return value.split(',').map(c => c.trim()).filter(Boolean);
 };
 
-// создаю список всех категорий
 const allCategories = [
 	...new Set(resources.flatMap((resource) => 
 		normalizeToArray(resource.data.categories)
 	)),
 ];
 
-// нахожу текущую категорию по slug
 const category = allCategories.find(c => slugify(c as string) === slug.toLowerCase());
 
 if (!category) {
@@ -45,21 +42,16 @@ if (!category) {
 
 const isSearching = query.length > 0;
 
-// Фильтрую статьи по категории и поиску
 const filtered = resources
 	.filter((resource) => {
-  
-		// проверяю категорию
 		const articleCategories = normalizeToArray(resource.data.categories)
 			.map((c: string) => c.toLowerCase());
   
-		// проверяю, соответствует ли статья выбранной категории
 		const isInCategory = articleCategories.some(cat => 
 			slugify(cat) === slug.toLowerCase()
 		);
 		if (!isInCategory) return false;
 
-		// проверяю поиск
 		if (isSearching) {
 			const title = (resource.data.title ?? "").toLowerCase();
 			const resourceSlug = resource.slug.toLowerCase();
@@ -72,18 +64,13 @@ const filtered = resources
 		return true;
 	});
 
-// Сортирую по дате
 filtered.sort((a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0));
 
-// Featured resource из отфильтрованных
 const featuredResource = filtered.find(resource => resource.slug === "teg-data-sheet") ?? filtered[0];
 
-// Проверяем, что есть отфильтрованные результаты
 if (!filtered || filtered.length === 0) {
 	return new Response(null, { status: 404 });
 }
-
-// пагинация
 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 const paginatedResources = filtered.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);

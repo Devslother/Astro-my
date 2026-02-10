@@ -80,12 +80,10 @@ const { url, title } = Astro.props;
         navigator.clipboard
           .writeText(urlToCopy)
           .then(() => {
-            // Показываю сообщение с !important
             msg.style.setProperty("opacity", "1", "important");
             msg.style.setProperty("visibility", "visible", "important");
             
             setTimeout(() => {
-              // Скрываю сообщение с !important
               msg.style.setProperty("opacity", "0", "important");
               msg.style.setProperty("visibility", "hidden", "important");
             }, 2000);

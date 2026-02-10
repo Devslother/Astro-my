@@ -1,6 +1,5 @@
 import * as yup from "yup";
 
-// Типизация для reCAPTCHA v3
 declare global {
   interface Window {
     grecaptcha: {
@@ -14,7 +13,6 @@ declare global {
 }
 
 export default function initRequestForm() {
-  // Константы для сообщений об ошибках
   const ERROR_MESSAGES = {
     REQUIRED_FIELD: "Please complete this required field.",
     EMAIL_FORMAT: "Email must be formatted correctly.",
@@ -70,7 +68,6 @@ export default function initRequestForm() {
           return;
         }
 
-        // Check if this is an integration test
         const isIntegrationTest = new URLSearchParams(
           window.location.search
         ).has("integration_test");
@@ -127,7 +124,6 @@ export default function initRequestForm() {
         );
         if (msgBox) msgBox.textContent = "";
 
-        // Валидация email
         if (target.type === "email" && target.value) {
           const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
           if (!emailRegex.test(target.value)) {
@@ -138,16 +134,13 @@ export default function initRequestForm() {
       });
     }
 
-    // Handle download buttons and links
     document.addEventListener("click", async (e) => {
       const target = e.target as HTMLElement;
 
-      // Не обрабатываю клики на элементах формы (input, select, textarea, label)
       if (target.closest("input, select, textarea, label")) {
         return;
       }
 
-      // Не обрабатываю клики на ссылках с target="_blank" или rel="nofollow" (они должны работать по умолчанию)
       const linkWithTarget = target.closest(
         "a[target='_blank']"
       ) as HTMLAnchorElement;
@@ -155,21 +148,17 @@ export default function initRequestForm() {
         "a[rel*='nofollow']"
       ) as HTMLAnchorElement;
       if (linkWithTarget || linkWithNofollow) {
-        return; // Позволяю ссылке работать по умолчанию
-      }
-
-      // Не обрабатываю клики на обычных ссылках (кроме специальных случаев)
-      if (target.closest("a[href]") && !target.closest("[data-download]")) {
-        const link = target.closest("a[href]") as HTMLAnchorElement;
-        // Если это "take me to the download" ссылка - позволяю ей работать по умолчанию
-        if (link && link.textContent?.includes("take me to the download")) {
-          return; // Не обрабатываю, позволяю ссылке работать по умолчанию
-        }
-        // Для всех остальных обычных ссылок тоже не обрабатываю
         return;
       }
 
-      // Проверяю, что событие еще не обработано
+      if (target.closest("a[href]") && !target.closest("[data-download]")) {
+        const link = target.closest("a[href]") as HTMLAnchorElement;
+        if (link && link.textContent?.includes("take me to the download")) {
+          return;
+        }
+        return;
+      }
+
       if (e.defaultPrevented) {
         return;
       }
@@ -179,7 +168,6 @@ export default function initRequestForm() {
         'a[href*="privacy"]'
       ) as HTMLAnchorElement;
 
-      // Сначала проверяю privacy ссылки
       if (
         privacyLink &&
         !privacyLink.closest("[data-modal-open], [data-modal-close]") &&
@@ -191,7 +179,6 @@ export default function initRequestForm() {
         return;
       }
 
-      // Затем проверяю download кнопки (но не если это privacy ссылка)
       if (
         downloadBtn &&
         !downloadBtn.closest("[data-modal-open], [data-modal-close]") &&
@@ -200,26 +187,22 @@ export default function initRequestForm() {
         e.preventDefault();
         e.stopPropagation();
 
-        // Проверяю, что форма заполнена перед открытием файла
         const form = document.getElementById("pricing-form") as HTMLFormElement;
         if (form) {
           const formData = Object.fromEntries(new FormData(form).entries());
 
           try {
             await schema.validate(formData, { abortEarly: false });
-            // Форма валидна, можно открыть файл
             const downloadUrl = downloadBtn.getAttribute("data-download");
             if (downloadUrl) {
               window.open(downloadUrl, "_blank");
             }
 
-            // Очищаю форму если это кнопка в модальном окне
             const modal = downloadBtn.closest("dialog");
             if (modal) {
               form.reset();
             }
           } catch (err) {
-            // Форма не валидна, показываю ошибки
             showErrors(err, form);
             return;
           }
@@ -228,8 +211,6 @@ export default function initRequestForm() {
         return;
       }
     });
-
-    // Очищаю форму при закрытии модального окна
     document.addEventListener("click", (e) => {
       const closeBtn = (e.target as HTMLElement).closest("[data-modal-close]");
       if (closeBtn) {

@@ -2,7 +2,7 @@
 .card {
   width: 100%;
   display: flex;
-  flex-direction: column; /* Делаем карточку флекс-контейнером */
+  flex-direction: column; /* Make card a flex container */
   position: relative;
   justify-content: flex-start;
   align-items: flex-start;
@@ -18,7 +18,7 @@
 
 .card_image {
   position: absolute;
-  inset: 0; /* заменяет top/left/right/bottom: 0 */
+  inset: 0; /* replaces top/left/right/bottom: 0 */
   pointer-events: none;
 }
 
@@ -39,7 +39,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Заставляем content занимать всю оставшуюся высоту */
+  flex-grow: 1; /* Make content take all remaining height */
 }
 
 .header {
@@ -59,12 +59,12 @@
 .titleLines {
   display: flex;
   flex-direction: column;
-  align-items: center; /* это центрирует каждую строку */
+  align-items: center; /* centers each line */
   text-align: center;
 }
 
 .titleLines span {
-  display: block; /* или inline-block, чтобы можно было центрировать */
+  display: block; /* or inline-block to allow centering */
   text-align: center;
   white-space: normal;
   word-break: break-word;
@@ -77,15 +77,15 @@
 
 .itemList {
   display: flex;
-  flex-direction: column; /* Располагаем элементы в столбик */
-  gap: 12px; /* Отступ между элементами */
+  flex-direction: column; /* Arrange elements in column */
+  gap: 12px; /* Gap between elements */
 }
 
 .item {
   display: flex;
-  align-items: center; /* Центрируем элементы по вертикали */
-  gap: 12px; /* Расстояние между иконкой и текстом */
-  text-align: left; /* Выравниваем текст по левому краю */
+  align-items: center; /* Center elements vertically */
+  gap: 12px; /* Distance between icon and text */
+  text-align: left; /* Align text to left */
 }
 
 .wrapper {
@@ -109,12 +109,12 @@
   gap: 3px;
 }
 
-/* Адаптация для планшетов */
+/* Tablet adaptation */
 @media (width >= 768px) {
   .card {
-    width: 100%; /* Карточка на всю ширину экрана */
-    height: auto; /* Высота по контенту */
-    flex-direction: row; /* Изменяем направление на горизонтальное */
+    width: 100%; /* Card takes full screen width */
+    height: auto; /* Height by content */
+    flex-direction: row; /* Change direction to horizontal */
     align-items: top;
     text-align: left;
   }
@@ -130,7 +130,7 @@
 
   .container {
     position: relative;
-    width: 50%; /* Контент занимает вторую половину */
+    width: 50%; /* Content takes second half */
     padding: 24px;
     margin-top: 0px;
     margin-left: 390px;
@@ -150,12 +150,12 @@
   }
 }
 
-/* Возвращаем вертикальное расположение */
+/* Return vertical layout */
 @media (width >= 1024px) {
   .card {
     width: 100%;
     min-height: 726px;
-    flex-direction: column; /* Вертикальное расположение */
+    flex-direction: column; /* Vertical layout */
     align-items: flex-start;
     text-align: center;
   }

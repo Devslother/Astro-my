@@ -21,7 +21,6 @@ const { slug } = Astro.params;
 
 const allArticles: CollectionEntry<"learn">[] = await getCollection("learn");
 
-// Проверяем, что коллекция не пустая
 if (!allArticles || allArticles.length === 0) {
 	return new Response(null, { status: 404 });
 }
@@ -63,7 +62,6 @@ const filteredArticles = allArticles
 		return dateB - dateA;
 	});
 
-// Проверяем, что есть отфильтрованные результаты
 if (!filteredArticles || filteredArticles.length === 0) {
 	return new Response(null, { status: 404 });
 }

@@ -6,22 +6,19 @@ interface Props {
 
 const { href, class: className } = Astro.props;
 
-// Обрабатываем относительные ссылки
 const isExternal = href.startsWith('http://') || href.startsWith('https://');
 const isAnchor = href.startsWith('#');
 const isMailto = href.startsWith('mailto:');
 
-// Убираем слеш в конце для внутренних ссылок (кроме якорных)
 let processedHref = href;
 if (!isExternal && !isAnchor && !isMailto && href.endsWith('/') && href !== '/') {
   processedHref = href.slice(0, -1);
 }
 
-// Автоматически исправляем известные неправильные пути
 const linkFixes = {
   '/faq/': '/learn/',
   '/api-gateway/': '/learn/what-is-an-api-gateway',
-  '/demo-request/': '/demo-request', // убираем слеш
+  '/demo-request/': '/demo-request',
 };
 
 Object.entries(linkFixes).forEach(([wrong, correct]) => {

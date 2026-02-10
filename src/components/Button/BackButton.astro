@@ -26,7 +26,6 @@ import clsx from 'clsx';
         const current = window.location.href;
         const origin = window.location.origin;
 
-        // Если пользователь пришел с другой страницы статьи, всегда идем в список
         if (referrer && referrer.startsWith(origin) && referrer.includes('/learn/') && referrer !== current) {
           window.location.href = fallback || '/learn';
         } else if (referrer && referrer.startsWith(origin) && referrer !== current) {

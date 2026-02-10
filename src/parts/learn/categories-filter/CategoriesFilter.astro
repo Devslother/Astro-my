@@ -87,7 +87,6 @@ const selectedLabel = currentCategory ? (slugToLabel[currentCategory] ?? current
 <script>
   import { initCategoryFilter } from '@/utils/categoryFilter.js';
   
-  // Инициализация для learn
   document.addEventListener('DOMContentLoaded', () => {
     initCategoryFilter("/learn", "Select category");
   });

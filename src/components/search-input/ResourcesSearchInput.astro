@@ -18,7 +18,6 @@ const {
 	baseUrl = "/resources/search/1"
 } = Astro.props;
 
-// Для Resources не берем значение из URL - всегда пустое поле
 const initial = "";
 ---
 
@@ -79,17 +78,14 @@ const initial = "";
 
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function() {
-    // Ищем input рядом с кнопкой очистки
     const clearBtn = document.querySelector('[data-clear-btn]');
     const input = clearBtn?.closest('[data-search]')?.querySelector('input[type="search"]');
     
     if (input && clearBtn) {
-      // Показываем кнопку при вводе
       input.addEventListener('input', function() {
         clearBtn.style.display = this.value ? 'block' : 'none';
       });
       
-      // Обработчик очистки
       clearBtn.addEventListener('click', function() {
         input.value = '';
         clearBtn.style.display = 'none';

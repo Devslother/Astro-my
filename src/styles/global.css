@@ -17,7 +17,7 @@ body {
   padding: 0;
   background-color: var(--color-gray-200);
   color: var(--color-black);
-  min-height: 100vh; /* Всегда занимает всю высоту экрана */
+  min-height: 100vh; /* Always takes full screen height */
   font-family: "Poppins";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

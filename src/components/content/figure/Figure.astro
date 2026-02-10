@@ -48,7 +48,6 @@ const intrinsicWidth = isAstroAsset ? imageAsset.width : 800;
 const intrinsicHeight = isAstroAsset ? imageAsset.height : 600;
 ---
 
-{/** Ничего не рендерим, если источника нет */}
 {displaySrc && (
   <figure class={styles.figure} data-figure-index={index}>
     <div
@@ -86,7 +85,6 @@ const intrinsicHeight = isAstroAsset ? imageAsset.height : 600;
       </figcaption>
     )}
 
-    {/** Лайтбокс только если включён и есть src */}
     {lightbox && (
       <div class={styles.lightbox} data-lightbox>
         <div class={styles.backdrop} data-lightbox-close></div>
@@ -121,7 +119,6 @@ const intrinsicHeight = isAstroAsset ? imageAsset.height : 600;
 )}
 
 <script is:inline type="module">
-  // Общий делегированный лайтбокс
   document.addEventListener("click", (e) => {
     const trigger = e.target.closest?.("[data-lightbox-trigger]");
     const close = e.target.closest?.("[data-lightbox-close]");

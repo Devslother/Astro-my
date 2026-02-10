@@ -14,31 +14,23 @@ interface Props {
 const { currentPage, totalPages, baseUrl, query } = Astro.props;
 
 const getPageUrl = (page:number) => {
-	//Формирую базовый путь страницы
-    let pagePath: string;
-    
-    // Проверяю, является ли это страницей категории
+	let pagePath: string;
     const isCategoryPage = baseUrl.includes('/category/');
     
     if (page === 1) {
-        // Для первой страницы использую baseUrl без номера
         pagePath = baseUrl;
     } else {
         if (isCategoryPage) {
-            // Для страниц категорий: /resources/category/slug/номер
             pagePath = `${baseUrl}/${page}`;
         } else {
-            // Для страниц без фильтрации по категориям: /resources/page/номер
             pagePath = `${baseUrl}/page/${page}`;
         }
     }
     
-    // Приоритет query параметра
     if (query) {
         return `${pagePath}?${query}`;
     }
 
-	// Запасной вариант: использую текущие параметры URL
     const currentUrl = new URL(Astro.url);
     const searchParams = currentUrl.searchParams.toString();
     
@@ -46,8 +38,7 @@ const getPageUrl = (page:number) => {
         return `${pagePath}?${searchParams}`;
     }
     
-    // Без параметров: просто путь
-    return pagePath; // /learn/2
+    return pagePath;
 };
 
 const getVisiblePages = (current: number, total: number) => {

@@ -49,7 +49,6 @@ const uniqueCategories = [...new Set(
 </div>
 
 <script>
-  // ставлю active на нужный li
   function setActiveBySlug(slug: string) {
     document.querySelectorAll<HTMLLIElement>('[data-list] li[data-item]').forEach((li) => {
       const liSlug = li.getAttribute('data-slug') || '__all__';
@@ -57,7 +56,6 @@ const uniqueCategories = [...new Set(
     });
   }
 
-  // достаю slug из URL (чтобы знать, какая категория выбрана)
   function extractSlugFromUrl(url: string): string {
     const path = new URL(url, location.origin).pathname;
     const match = path.match(/^\/learn\/categories\/([^/]+)/);
@@ -92,19 +90,11 @@ const uniqueCategories = [...new Set(
             const currentWrapper = document.querySelector('[data-articles-wrapper]') || document.querySelector('.articles-wrapper');
 
             if (newWrapper && currentWrapper) {
-              // обновляю список статей
               currentWrapper.innerHTML = newWrapper.innerHTML;
-
-              // меняю URL в адресной строке
               history.pushState({}, '', url);
-
-              // сразу переключаю активную категорию
               setActiveBySlug(extractSlugFromUrl(url));
-
-              // возвращаю скролл
               window.scrollTo({ top: scrollY, behavior: 'instant' });
 
-              // сброс поисковых полей
               const inputMobile = document.getElementById("search-input-mobile") as HTMLInputElement | null;
               const inputDesktop = document.getElementById("search-input-desktop") as HTMLInputElement | null;
               if (inputMobile) {
@@ -116,16 +106,13 @@ const uniqueCategories = [...new Set(
                 inputDesktop.dispatchEvent(new Event('input'));
               }
 
-              // триггерю обновление Astro
               document.dispatchEvent(new Event('astro:page-load'));
             } else {
-              // Если AJAX не работает, делаем обычную навигацию
               window.location.href = url;
             }
           })
           .catch(error => {
             console.error('AJAX navigation failed:', error);
-            // Если AJAX не работает, делаем обычную навигацию
             window.location.href = url;
           });
       });
@@ -135,15 +122,12 @@ const uniqueCategories = [...new Set(
   document.addEventListener('DOMContentLoaded', initializeDesktopCategories);
   document.addEventListener('astro:page-load', initializeDesktopCategories);
 
-  // при первой загрузке подсвечиваю правильный active
   document.addEventListener('DOMContentLoaded', () => {
     setActiveBySlug(extractSlugFromUrl(location.href));
   });
   document.addEventListener('astro:page-load', () => {
     setActiveBySlug(extractSlugFromUrl(location.href));
   });
-
-  // поддержка кнопок "назад/вперёд" в браузере
   window.addEventListener('popstate', () => {
     const url = location.href;
     fetch(url)
@@ -165,7 +149,6 @@ const uniqueCategories = [...new Set(
       })
       .catch(error => {
         console.error('Popstate navigation failed:', error);
-        // Если AJAX не работает, делаем обычную навигацию
         window.location.reload();
       });
   });

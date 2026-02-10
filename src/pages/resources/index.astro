@@ -9,17 +9,13 @@ import { ClientRouter } from 'astro:transitions';
 const ITEMS_PER_PAGE = 9;
 const currentPage = 1;
 
-// получаю все статьи
 	const resources = await getCollection("resources");
 
-// сортирую их по дате (с проверкой наличия даты)
 const filteredResources = resources.sort((a, b) => {
-	// Если у ресурса нет даты, ставлю его в конец
 	if (!a.data.date && !b.data.date) return 0;
 	if (!a.data.date) return 1;
 	if (!b.data.date) return -1;
 	
-	// Сортирую по дате (новые сверху)
 	return new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf();
 });
 
@@ -29,22 +25,16 @@ const normalizeToArray = (field: unknown): string[] => {
 	return value.split(',').map(c => c.trim()).filter(Boolean);
 };
 
-// создаю массив всех категорий
 const allCategories = [
 	...new Set(resources.flatMap((resource) => normalizeToArray(resource.data.categories))),
 ];
 
-// Сначала ищу статью с slug "teg-data-sheet"
 const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
-
-// Если нашла - использую ее, если нет - беру первую статью из массива
 const featuredResource = foundResource ?? resources[0];
 
 const resourcesWithoutFeatured = filteredResources.filter(
 	(resource) => resource !== featuredResource
 );
-
-// пагинация
 const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 const endIndex = startIndex + ITEMS_PER_PAGE;
 const paginatedResources = resourcesWithoutFeatured.slice(startIndex, endIndex);

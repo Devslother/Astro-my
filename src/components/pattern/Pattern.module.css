@@ -29,7 +29,7 @@
 
 .patternStopAtTop {
   max-height: calc(100% - 40px);
-  margin-top: 40px; /* чтобы не заезжал наверх */
+  margin-top: 40px; /* prevent overlapping at top */
 }
 
 @media (width >= 768px) {

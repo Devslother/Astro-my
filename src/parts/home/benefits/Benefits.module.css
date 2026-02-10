@@ -1,9 +1,9 @@
 .benefits {
   display: flex;
-  flex-direction: column; /* Строим элементы сверху вниз */
-  align-items: center; /* Центрируем контент */
+  flex-direction: column; /* Build elements top to bottom */
+  align-items: center; /* Center content */
   width: 100%;
-  min-height: auto; /* Вместо фиксированной высоты */
+  min-height: auto; /* Instead of fixed height */
   padding-top: 80px;
   background-color: var(--color-gray-200);
   gap: 40px;
@@ -16,7 +16,7 @@
 
 .card__container {
   display: grid;
-  grid-template-columns: 1fr; /* Одна колонка */
+  grid-template-columns: 1fr; /* One column */
   grid-template-areas:
     "card1"
     "card2"
@@ -81,9 +81,9 @@
     height: 280px;
   }
 
-  /* Уникальные размеры и пропорции */
+  /* Unique sizes and proportions */
   .card1 {
-    aspect-ratio: 410 / 280; /* Сохраняем пропорции */
+    aspect-ratio: 410 / 280; /* Preserve proportions */
     flex-basis: 56%;
   }
 

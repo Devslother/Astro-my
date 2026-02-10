@@ -1,6 +1,5 @@
 import * as yup from "yup";
 
-// Типизация для reCAPTCHA v3
 declare global {
   interface Window {
     grecaptcha: {

@@ -25,7 +25,7 @@
   object-fit: contain;
 }
 
-/* Контент карточки */
+/* Card content */
 .workcard__content {
   display: flex;
   flex-direction: column;
@@ -33,21 +33,21 @@
   padding: 0 8px;
 }
 
-/* Заголовок + описание */
+/* Header + description */
 .workcard__description {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Контейнер с текстовыми карточками */
+/* Container with text cards */
 .textcard__container {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-/* Одна карточка: иконка + текст */
+/* One card: icon + text */
 .textcard {
   display: flex;
   gap: 12px;
@@ -56,7 +56,7 @@
   background-color: var(--color-gray-300);
 }
 
-/* Текст внутри одной карточки */
+/* Text inside one card */
 .text {
   display: flex;
   flex-direction: column;
@@ -74,15 +74,15 @@
 @media (width >= 768px) {
   .textcard__container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* две колонки */
+    grid-template-columns: repeat(2, 1fr); /* two columns */
   }
 
-  /* последняя карточка занимает всю ширину второго ряда */
+  /* last card takes full width of second row */
   .textcard__container .textcard:last-child {
     grid-column: 1 / -1;
   }
 
-  /* иконка сверху */
+  /* icon on top */
   .textcard {
     flex-direction: column;
   }
@@ -109,7 +109,7 @@
   }
 
   .workcard__image {
-    flex: 1; /* займет оставшуюся ширину, с учетом gap */
+    flex: 1; /* takes remaining width, accounting for gap */
   }
 
   .workcard__image > picture > img {

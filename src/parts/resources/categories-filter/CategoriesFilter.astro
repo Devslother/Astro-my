@@ -88,12 +88,10 @@ const selectedLabel = currentCategory
 <script>
   import { initCategoryFilter } from '@/utils/categoryFilter.js';
   
-  // Инициализация для resources
   document.addEventListener('DOMContentLoaded', () => {
     initCategoryFilter("/resources", "Select topic");
   });
   
-  // Инициализация при навигации Astro
   document.addEventListener('astro:page-load', () => {
     initCategoryFilter("/resources", "Select topic");
   });

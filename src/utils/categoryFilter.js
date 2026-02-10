@@ -34,7 +34,6 @@ export function initCategoryFilter(
       const categoriesSpan = document.querySelector("#category-button span");
       if (categoriesSpan) {
         categoriesSpan.textContent = defaultText;
-        // Нахожу и удаляю класс selected по частичному совпадению
         const selectedClass = Array.from(categoriesSpan.classList).find((cls) =>
           cls.includes("selected")
         );
@@ -78,7 +77,6 @@ export function toggleClearButtonVisibility(defaultText = "Select category") {
   const currentText = categoriesSpan.textContent?.trim();
   const selected = currentText !== defaultText;
 
-  // Показываем кнопку Clear если выбрана категория
   clearButton.style.display = selected ? "inline-flex" : "none";
 }
 
@@ -88,7 +86,6 @@ export function updateContent(url, basePath, defaultText = "Select category") {
     ? JSON.parse(categoryMapEl.textContent)
     : {};
 
-  // Проверяем, является ли URL страницей поиска
   const isSearchPage = url.includes("/search/");
 
   fetch(url)
@@ -97,7 +94,6 @@ export function updateContent(url, basePath, defaultText = "Select category") {
     })
     .then((html) => {
       const doc = new DOMParser().parseFromString(html, "text/html");
-      // Ищем фильтры по более широким селекторам
       const newFilters = doc.querySelector("[class*='filter']");
       const newResources =
         doc.querySelector("[data-articles-wrapper]") ||
@@ -109,18 +105,14 @@ export function updateContent(url, basePath, defaultText = "Select category") {
         document.querySelector(".articles-wrapper");
 
       if (newFilters && currentFilters) {
-        // Вместо replaceWith, заменяем только содержимое
         currentFilters.innerHTML = newFilters.innerHTML;
       }
       if (newResources && currentResources) {
         currentResources.replaceWith(newResources);
       }
 
-      // Переинициализируем поисковые поля после замены контента - убрано, вызываем в конце
-
       window.history.pushState({}, "", url);
 
-      // Определяем категорию только если это не страница поиска
       let label = defaultText;
       if (!isSearchPage) {
         const urlParts = url.split("/");
@@ -138,25 +130,20 @@ export function updateContent(url, basePath, defaultText = "Select category") {
       if (categoryButtonSpan) {
         categoryButtonSpan.textContent = label;
 
-        // Находим класс selected по частичному совпадению (CSS modules)
         const selectedClass = Array.from(categoryButtonSpan.classList).find(
           (cls) => cls.includes("selected")
         );
 
         if (label === defaultText) {
-          // Убираем класс selected если это defaultText
           if (selectedClass) {
             categoryButtonSpan.classList.remove(selectedClass);
           }
         } else {
-          // Добавляем класс selected если это не defaultText
           if (!selectedClass) {
-            // Находим класс label для добавления selected
             const labelClass = Array.from(categoryButtonSpan.classList).find(
               (cls) => cls.includes("label")
             );
             if (labelClass) {
-              // Добавляем selected к имени класса label (CSS modules)
               const selectedClassName = labelClass.replace("label", "selected");
               categoryButtonSpan.classList.add(selectedClassName);
             }
@@ -164,11 +151,9 @@ export function updateContent(url, basePath, defaultText = "Select category") {
         }
       }
 
-      // Повторно инициализируем фильтры после обновления контента
       initCategoryFilter(basePath, defaultText);
       if (window.initSearchInputs) window.initSearchInputs();
 
-      // Обновляем видимость кнопки Clear после полной инициализации
       setTimeout(() => {
         toggleClearButtonVisibility(defaultText);
       }, 100);

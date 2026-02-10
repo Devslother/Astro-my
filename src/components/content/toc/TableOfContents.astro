@@ -67,11 +67,9 @@ const { className, headings } = Astro.props;
 		const observer = new IntersectionObserver(entries => {
 			if (isManualScroll) return;
 			
-			// Получаем все видимые заголовки
 			const visible = entries.filter(e => e.isIntersecting);
 			
 			if (visible.length > 0) {
-				// Сортируем по позиции сверху вниз и берем первый (самый верхний)
 				const topVisible = visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
 				setActive(topVisible.target.id);
 			}
@@ -97,7 +95,6 @@ const { className, headings } = Astro.props;
 			});
 		});
 
-		// Проверяем начальный хеш
 		const initialId = location.hash?.slice(1);
 		const idToActivate = initialId && document.getElementById(initialId) ? initialId : headings[0]?.id;
 		if (idToActivate) {

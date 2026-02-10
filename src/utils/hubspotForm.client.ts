@@ -2,8 +2,8 @@ function isIntegrationTest(): boolean {
   const urlParams = new URLSearchParams(window.location.search);
   const hasTestParam = urlParams.has("integration_test");
   const isCorrectDomain =
-    window.location.hostname === "localhost" || // локальная разработка
-    window.location.hostname.endsWith(".vercel.app"); // деплой на Vercel
+    window.location.hostname === "localhost" || // local development
+    window.location.hostname.endsWith(".vercel.app"); // Vercel deployment
 
   console.log("Integration test check:", {
     hasTestParam,

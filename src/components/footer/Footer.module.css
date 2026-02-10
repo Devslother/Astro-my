@@ -1,4 +1,3 @@
-/* ========== Footer Block ========== */
 .footer {
   width: 100%;
   padding: 0 10px;
@@ -33,7 +32,6 @@
   }
 }
 
-/* ========== Footer List ========== */
 .list {
   display: flex;
   flex-direction: column;
@@ -88,8 +86,6 @@
     gap: 11px;
   }
 }
-
-/* ========== Footer Info Section ========== */
 
 .info {
   display: flex;
@@ -150,7 +146,6 @@
   }
 }
 
-/* ========== Footer Legal Section ========== */
 .legal {
   display: flex;
   flex-direction: column-reverse;

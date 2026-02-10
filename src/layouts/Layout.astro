@@ -34,7 +34,6 @@ const {
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Tetrate" />
 		
-		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
@@ -54,7 +53,6 @@ const {
 	<script is:inline defer src="/scripts/dynamicSearch.js"></script>
 		<Footer />
 
-		<!-- Global Demo Request Modal -->
 		<Modal id="demo-request-modal" isForm>
 			<RequestForm
 				title="Request a Demo"
@@ -64,14 +62,11 @@ const {
 			/>
 		</Modal>
 
-		<!-- Initialize modals and forms -->
 		<script>
 			import initModals from '../utils/modal.client.ts';
 			
-			// Initialize modals
 			initModals();
 			
-			// Lazy-init request form only when demo modal is opened
 			let requestFormInitialized = false;
 			const initRequestFormLazy = async () => {
 				if (requestFormInitialized) return;
@@ -85,11 +80,9 @@ const {
 				if (form) initRequestFormLazy();
 			};
 
-			// Lazy-init when any modal is opened
 			document.addEventListener('click', (e) => {
 				const trigger = e.target?.closest?.('[data-modal-open]');
 				if (trigger) {
-					// Wait a tick so modal content is in the DOM
 					setTimeout(maybeInitRequestForm, 0);
 				}
 			});

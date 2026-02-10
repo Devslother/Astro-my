@@ -8,12 +8,10 @@ import TetrateLogo from '@/assets/tetrate-logo.svg'
 ---
 <header class={clsx('nav', styles.nav)}>
   <div class={styles.container}>
-   <!-- Логотип -->
    <a href="/" aria-label="Go to homepage">
       <TetrateLogo class={styles.logo} />
   </a>
 
-    <!-- Desktop navigation -->
       <HeaderLinks />
     
     <div class={styles.actions}>
@@ -34,8 +32,6 @@ import TetrateLogo from '@/assets/tetrate-logo.svg'
     </div>
   </div>
 
-
-  <!-- Mobile Navigation -->
     <div class={clsx(styles.nav__mobile, 'nav__mobile')}>
       <div class={styles.mobile__container}>
         <div class={styles.mobile__heading}>
@@ -110,13 +106,11 @@ handleScroll();
 
   document.querySelector(".menu__button")
     ?.addEventListener("click", () => {
-      // nav?.classList.remove("visible");
       nav_mobile?.classList.add("open");
       document.body.classList.add("no-scroll");
     });
 
   document.querySelector(".nav__close")?.addEventListener("click", () => {
-    // nav?.classList.add("visible");
     nav_mobile?.classList.remove("open");
     document.body.classList.remove("no-scroll");
   });

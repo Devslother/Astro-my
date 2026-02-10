@@ -31,18 +31,18 @@
   transition: border 0.2s ease-in-out;
 }
 
-/* Стрелка */
+/* Arrow */
 .arrow {
   transition: transform 0.2s ease;
   transform: rotate(0deg);
 }
 
-/* При раскрытом меню — поворачиваем стрелку */
+/* When menu is expanded - rotate arrow */
 .select__btn[aria-expanded="true"] .arrow {
   transform: rotate(180deg);
 }
 
-/* Текст выбранной категории */
+/* Selected category text */
 .label {
   color: var(--color-gray-500) !important;
   overflow: hidden;
@@ -50,12 +50,12 @@
   white-space: nowrap;
 }
 
-/* Только для выбранных категорий (не Select topic) */
+/* Only for selected categories (not Select topic) */
 .label.selected {
   color: var(--color-black-900) !important;
 }
 
-/* Принудительно серый цвет для Select topic */
+/* Force gray color for Select topic */
 .label:not(.selected) {
   color: var(--color-gray-500) !important;
 }

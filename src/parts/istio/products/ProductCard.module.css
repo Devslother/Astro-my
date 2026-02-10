@@ -1,7 +1,7 @@
 .card {
   width: 100%;
   display: flex;
-  flex-direction: column; /* Делаем карточку флекс-контейнером */
+  flex-direction: column; /* Make card a flex container */
   position: relative;
   justify-content: flex-start;
   align-items: flex-start;
@@ -17,7 +17,7 @@
 .card__image {
   position: relative;
   width: 100%;
-  height: 300px; /* можно адаптировать по медиа-запросу */
+  height: 300px; /* can be adapted via media query */
   display: flex;
   align-items: center;
   justify-content: center;

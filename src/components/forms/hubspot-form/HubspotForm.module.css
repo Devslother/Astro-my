@@ -1,4 +1,4 @@
-/* Заголовки формы (h1-h6) */
+/* Form headings (h1-h6) */
 .hubspot__form__container h1,
 .hubspot__form__container h2,
 .hubspot__form__container h3,
@@ -15,21 +15,21 @@
   margin-bottom: 20px;
 }
 
-/* Основной контейнер формы */
+/* Main form container */
 .hubspot__form__container form {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Контейнер для двух колонок полей */
+/* Container for two column fields */
 .hubspot__form__container form .form-columns-2 {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Контейнер поля формы (label + input) */
+/* Form field container (label + input) */
 .hubspot__form__container form .hs-form-field {
   display: flex;
   flex-direction: column;
@@ -45,26 +45,26 @@
   margin: 0 !important;
 }
 
-/* Контейнер ввода (input, select, textarea) */
+/* Input container (input, select, textarea) */
 .hubspot__form__container form .hs-form-field .input {
   margin: 0 !important;
 }
 
-/* Список опций для radio/checkbox полей */
+/* Options list for radio/checkbox fields */
 .hubspot__form__container form .hs-form-field .input ul {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  list-style: none; /* убирает маркеры (точки, цифры, символы) у списков */
+  list-style: none; /* removes list markers (dots, numbers, symbols) */
   padding: 0;
   margin: 0;
 }
 
-/* Кастомные радио-кнопки */
+/* Custom radio buttons */
 .hubspot__form__container form .hs-form-field input[type="radio"] {
   position: relative;
   border-radius: 50%;
-  appearance: none; /* убирает стандартные браузерные стили у элементов формы */
+  appearance: none; /* removes default browser styles from form elements */
   border: 1px solid #cecfcf;
   width: 12px !important;
   height: 12px !important;
@@ -73,7 +73,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-/* Точка внутри выбранной радио-кнопки */
+/* Dot inside selected radio button */
 .hubspot__form__container
   form
   .hs-form-field
@@ -90,7 +90,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-/* Поля ввода (text, password, email) */
+/* Input fields (text, password, email) */
 .hubspot__form__container form .hs-form-field input[type="text"],
 .hubspot__form__container form .hs-form-field input[type="password"],
 .hubspot__form__container form .hs-form-field input[type="email"] {
@@ -108,7 +108,7 @@
   outline: none;
 }
 
-/* Стили для автозаполнения браузера */
+/* Styles for browser autofill */
 .hubspot__form__container
   form
   .hs-form-field
@@ -127,7 +127,7 @@
   transition: background-color 5000s ease-in-out 0s;
 }
 
-/* Плейсхолдеры полей ввода */
+/* Input field placeholders */
 .hubspot__form__container form .hs-form-field input[type="text"]::placeholder,
 .hubspot__form__container
   form
@@ -144,7 +144,7 @@
   line-height: 24px;
 }
 
-/* Плейсхолдеры при фокусе */
+/* Placeholders on focus */
 .hubspot__form__container
   form
   .hs-form-field
@@ -167,21 +167,21 @@
   line-height: 24px;
 }
 
-/* Состояние hover для полей ввода */
+/* Hover state for input fields */
 .hubspot__form__container form .hs-form-field input[type="text"]:hover,
 .hubspot__form__container form .hs-form-field input[type="password"]:hover,
 .hubspot__form__container form .hs-form-field input[type="email"]:hover {
   border: 1px solid var(--color-black);
 }
 
-/* Состояние focus для полей ввода */
+/* Focus state for input fields */
 .hubspot__form__container form .hs-form-field input[type="text"]:focus,
 .hubspot__form__container form .hs-form-field input[type="password"]:focus,
 .hubspot__form__container form .hs-form-field input[type="email"]:focus {
   border: 1px solid var(--color-black);
 }
 
-/* Состояние ошибки для полей ввода */
+/* Error state for input fields */
 .hubspot__form__container form .hs-form-field input[type="text"].input-error,
 .hubspot__form__container
   form
@@ -191,26 +191,26 @@
   border: 1px solid var(--color-error) !important;
 }
 
-/* Контейнер для согласия с условиями */
+/* Container for terms consent */
 .hubspot__form__container form .legal-consent-container {
   margin-top: 20px;
 }
 
-/* Контейнер для отображения радио-кнопок */
+/* Container for radio button display */
 .hubspot__form__container form .hs-form-radio-display {
   display: flex;
   align-items: center;
   font-weight: 400;
 }
 
-/* Контейнер для группы радио-кнопок */
+/* Container for radio button group */
 .hubspot__form__container form .hs-fieldtype-radio {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* richtext (описания полей) */
+/* richtext (field descriptions) */
 .hubspot__form__container form .hs-richtext {
   color: #3b3d3f;
   font-family: Poppins, sans-serif;
@@ -219,19 +219,19 @@
   font-weight: 400;
 }
 
-/* Ссылки в richtext */
+/* Links in richtext */
 .hubspot__form__container form .hs-richtext a {
   color: var(--color-blue-500) !important;
 }
 
-/* Контейнер кнопки отправки */
+/* Submit button container */
 .hubspot__form__container form .hs_submit {
   position: relative;
   width: fit-content;
   margin-top: 16px;
 }
 
-/* Кнопка отправки формы */
+/* Form submit button */
 .hubspot__form__container form .hs-button {
   position: relative;
   display: flex;
@@ -252,17 +252,17 @@
   cursor: pointer;
 }
 
-/* Состояние hover для кнопки отправки */
+/* Hover state for submit button */
 .hubspot__form__container form .hs-button:hover {
   background: #ff671b;
 }
 
-/* Состояние active для кнопки отправки */
+/* Active state for submit button */
 .hubspot__form__container form .hs-button:active {
   background: #f73;
 }
 
-/* Сообщения об ошибках */
+/* Error messages */
 .hubspot__form__container form .hs-error-msgs {
   list-style: none;
   padding: 0;
@@ -275,14 +275,14 @@
   margin: 4px 0 0;
 }
 
-/* Адаптивность для планшетов и десктопов */
+/* Responsive for tablets and desktops */
 @media (width >= 768px) {
-  /* Двухколоночная раскладка на больших экранах */
+  /* Two-column layout on large screens */
   .hubspot__form__container form .form-columns-2 {
     flex-direction: row;
   }
 
-  /* Убираем ограничение ширины для fieldset */
+  /* Remove width restriction for fieldset */
   .hubspot__form__container form fieldset {
     max-width: unset;
   }

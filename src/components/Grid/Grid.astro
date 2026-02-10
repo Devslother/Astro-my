@@ -5,7 +5,7 @@ import styles from './Grid.module.css';
 import clsx from 'clsx';
 
 interface GridProps {
-  variant?: "default" | "default-offset" | "blue"; // варианты сетки
+  variant?: "default" | "default-offset" | "blue";
 	withPattern?: boolean;
   stopPatternAtTop?: boolean;
 }
@@ -186,7 +186,7 @@ const {
 			variant === 'default-offset' && 'u-grid-bg--secondary'
 		)}>
 		</div> 
-			<slot /> <!-- сюда пойдут карточки -->
+			<slot />
 		</div>
 		<!-- RIGHT PADDING -->
 		<div class={styles.rightPadding}>

@@ -10,35 +10,26 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const { title, featuredImage, excerpt, description } = article.data; // берy description
+const { title, featuredImage, excerpt, description } = article.data;
 const decodedTitle = decodeURIComponent(title);
 
-// Функция для обработки description - только первое предложение с точкой
 function getFirstSentence(text: string): string {
   if (!text) return '';
   
-  // Убираем троеточие если есть (и обычное ... и символ …)
   let cleanText = text.replace(/\.{3,}$/, '').replace(/…$/, '');
-  
-  // Находим первое предложение (до первой точки)
   const firstSentence = cleanText.split('.')[0];
   
-  // Добавляем точку в конце если её нет
   return firstSentence.endsWith('.') ? firstSentence : firstSentence + '.';
 }
 
-// тип картинки
 const isUrl = typeof featuredImage === 'string';
 const isLocal = typeof featuredImage === 'object' && featuredImage && 'src' in featuredImage;
 
-// относительный wp-content → абсолютный
 const resolvedUrl = isUrl && (featuredImage as string).startsWith('/wp-content')
   ? `https://tetrate.io${featuredImage}`
   : featuredImage;
 
   const text = getFirstSentence(description ?? excerpt ?? '');
-
-// показывать ли текст?
 const showText =
   text.length > 0 &&
   text.toLowerCase() !== decodedTitle.trim().toLowerCase(); 

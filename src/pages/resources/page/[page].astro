@@ -8,30 +8,22 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 const POSTS_PER_PAGE = 9;
 
-// функция для генерации статических путей
 export async function getStaticPaths() {
   const POSTS_PER_PAGE = 9;
-  // получаю все статьи для генерации на этапе сборки
 	const resources: CollectionEntry<"resources">[] = await getCollection("resources");
-  // определяю количество страниц
   const totalPages = Math.ceil((resources.length - 1) / POSTS_PER_PAGE);
-// создаю массив страниц
   return Array.from({ length: totalPages }, (_, i) => ({
     params: { page: (i + 1).toString() },
   }));
 }
 
-// получаю текущую страницу из url
 const { page } = Astro.params;
-// преобразую строку в число
 const currentPage = parseInt(page || '1') || 1;
 
-// получаю все статьи для отображения на текущей странице
 const resources = await getCollection("resources", ({ data }) => {
 	return true;
 });
 
-// сортирую статьи по дате
 const sortedResources = resources.sort(
 	(a, b) => (b.data.date?.valueOf() || 0) - (a.data.date?.valueOf() || 0)
 );
@@ -41,28 +33,21 @@ const normalizeToArray = (field: unknown) => {
 	return Array.isArray(field) ? field : [field];
 };
 
-// создаю массив всех категорий
 const allCategories = [
 	...new Set(resources.flatMap((resource) => normalizeToArray(resource.data.categories))),
 ];
 
-// Сначала ищу статью с slug "teg-data-sheet"
 const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
-
-// Если нашла - использую ее, если нет - беру первую статью из массива
 const featuredResource = foundResource ?? resources[0];
 
-// вычисляю индексы статей начала и конца страницы
 const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
 const endIndex = startIndex + POSTS_PER_PAGE;
-
-// вырезаю статьи для отображения на текущей странице
 const paginatedResources = sortedResources.slice(startIndex, endIndex);
-
-// вычисляю количество страниц
 const totalPages = Math.ceil(sortedResources.length / POSTS_PER_PAGE);
 
-// перенаправляю на главную страницу если текущая страница 1
+if (currentPage && currentPage === 1) {
+	return Astro.redirect("/resources");
+}
 if (currentPage && currentPage === 1) {
 	return Astro.redirect("/resources");
 }

@@ -30,7 +30,6 @@ if (!query) {
 
 	const resources = await getCollection("resources");
 
-// Проверяем, что коллекция не пустая
 if (!resources || resources.length === 0) {
 	return new Response(null, { status: 404 });
 }
@@ -65,7 +64,6 @@ const endIndex = startIndex + POSTS_PER_PAGE;
 const paginatedResources = filteredResources.slice(startIndex, endIndex);
 const totalPages = Math.ceil(filteredResources.length / POSTS_PER_PAGE);
 
-// Создаю featured resource (как на главной странице)
 const foundResource = resources.find(resource => resource.slug === "teg-data-sheet");
 const featuredResource = foundResource ?? resources[0];
 ---

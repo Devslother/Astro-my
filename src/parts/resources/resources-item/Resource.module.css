@@ -358,14 +358,14 @@
   max-width: 100%;
 }
 
-/* Скрываем изображения в контенте, так как они показываются в sidebar */
+/* Hide images in content, as they are shown in sidebar */
 .content img,
 .content figure,
 .content picture {
   display: none !important;
 }
 
-/* Стили для кнопок в контенте - только убираем обводку, фон и центрируем стрелку */
+/* Styles for buttons in content - only remove border, background and center arrow */
 .content button,
 div.content button,
 [data-astro-cid] .content button {
@@ -375,7 +375,7 @@ div.content button,
   align-items: center !important;
 }
 
-/* Выравниваем стрелку по центру */
+/* Center arrow */
 .content button svg,
 div.content button svg,
 [data-astro-cid] .content button svg {

@@ -1,5 +1,5 @@
 .headertop {
-  position: relative; /* Позволяет позиционировать closebtn */
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -43,7 +43,7 @@
   position: absolute;
   right: 12px;
   top: 40%;
-  transform: translateY(-50%); /* Центрируем кнопку по вертикали */
+  transform: translateY(-50%);
 }
 
 @media (width >= 768px) {

@@ -25,17 +25,12 @@ const { Content } = await article.render();
 const { title, description, featuredImage, date, author, authorImage } = article.data
 const decodedTitle = decodeURIComponent(title);
 
-// Функция для обработки description - только первое предложение с точкой
 function getFirstSentence(text: string): string {
   if (!text) return '';
   
-  // Убираем троеточие если есть (и обычное ... и символ …)
   let cleanText = text.replace(/\.{3,}$/, '').replace(/…$/, '');
-  
-  // Находим первое предложение (до первой точки)
   const firstSentence = cleanText.split('.')[0];
   
-  // Добавляем точку в конце если её нет
   return firstSentence.endsWith('.') ? firstSentence : firstSentence + '.';
 }
 
@@ -51,10 +46,8 @@ function getRelatedArticles(
   currentSlug: string,
   categories: string[]
 ) {
-  // Убираем текущую статью
   const others = allArticles.filter((a) => a.slug !== currentSlug);
 
-  // Находим статьи с пересекающимися категориями
   const sameCategory = others.filter((a) => {
     const cats = Array.isArray(a.data.categories)
       ? a.data.categories
@@ -62,7 +55,6 @@ function getRelatedArticles(
     return cats.some((c) => categories.includes(c));
   });
 
-  // Добавляем статьи до 3 шт., сначала из той же категории, потом любые другие
   return [...sameCategory, ...others.filter(a => !sameCategory.includes(a))]
     .slice(0, 3);
 }
@@ -72,7 +64,6 @@ const related = getRelatedArticles(allArticles, currentSlug, categories);
 <article class={styles.article}>
 <Grid>
   <div class={styles.container}>
-    <!-- Левая колонка: Back + TOC (Desktop) -->
     <div class={styles.tocDesktop}>
       <div class={styles.btn}>
         <BackButton fallback="/learn" />
@@ -80,9 +71,7 @@ const related = getRelatedArticles(allArticles, currentSlug, categories);
       <TableOfContents headings={headings} />
     </div>
 
-    <!-- Центральная колонка: Контент -->
     <div class={styles.post}>
-      <!-- Back кнопка (Mobile/Tablet) -->
       <div class={styles.btn}>
         <BackButton fallback="/learn" />
       </div>

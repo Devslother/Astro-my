@@ -14,7 +14,7 @@ export async function getStaticPaths() {
     articles = await getCollection("learn");
   } catch (error) {
     console.error('Error getting learn collection:', error);
-    return []; // Возвращаем пустой массив в случае ошибки
+    return [];
   }
   return articles.map((article) => ({
     params: { slug: article.slug }

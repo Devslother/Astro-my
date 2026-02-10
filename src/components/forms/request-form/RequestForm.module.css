@@ -106,7 +106,7 @@
   gap: 16px;
 }
 
-/* Группировка полей по два в ряд на tablet и desktop */
+/* Group fields two per row on tablet and desktop */
 @media (width >= 768px) {
   .fields__wrapper {
     display: grid;
@@ -114,12 +114,12 @@
     gap: 16px;
   }
 
-  /* Поле company (5-е поле) занимает всю ширину */
+  /* Company field (5th field) takes full width */
   .fields__wrapper > :nth-child(5) {
     grid-column: 1 / -1;
   }
 
-  /* Все элементы после 5-го (businessObjectives и др.) занимают всю ширину */
+  /* All elements after 5th (businessObjectives etc.) take full width */
   .fields__wrapper > :nth-child(n + 6) {
     grid-column: 1 / -1;
   }
@@ -145,23 +145,23 @@
 }
 
 .objective__wrapper {
-  position: relative; /* Создает контекст позиционирования */
+  position: relative; /* Creates positioning context */
   display: inline-block;
   cursor: pointer;
 }
 
-/* cкрытый input */
+/* Hidden input */
 .visually__hidden {
-  position: absolute; /* Позиционируется относительно .objective_wrapper */
+  position: absolute; /* Positioned relative to .objective_wrapper */
   opacity: 0;
   width: 0;
   height: 0;
   pointer-events: none;
 }
 
-/* визуальный тег */
+/* Visual tag */
 .objective__tag {
-  display: inline-block; /* Обычное позиционирование */
+  display: inline-block; /* Normal positioning */
   padding: 8px 16px;
   color: var(--color-gray-800);
   background-color: var(--color-gray-200);

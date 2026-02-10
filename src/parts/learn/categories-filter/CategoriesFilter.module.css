@@ -20,18 +20,18 @@
   appearance: none;
 }
 
-/* Стрелка */
+/* Arrow */
 .arrow {
   transition: transform 0.2s ease;
   transform: rotate(0deg);
 }
 
-/* При раскрытом меню — поворачиваем стрелку */
+/* When menu is expanded - rotate arrow */
 .select__btn[aria-expanded="true"] .arrow {
   transform: rotate(180deg);
 }
 
-/* Текст выбранной категории */
+/* Selected category text */
 .label {
   color: var(--color-gray-500);
   overflow: hidden;

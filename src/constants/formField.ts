@@ -1,8 +1,8 @@
 export type Field = {
-  id: string; // Уникальный идентификатор поля
-  label: string; // Текст метки поля
-  placeholder: string; // Подсказка в поле
-  type: string; // Тип поля (text, email, etc.)
+  id: string;
+  label: string;
+  placeholder: string;
+  type: string;
 };
 
 export const LAST_FIELDS: Field[] = [

@@ -7,11 +7,10 @@
 }
 
 .resource__download {
-  width: 170px; /* Фиксированная ширина */
-  gap: 3px; /* Меньший отступ между элементами */
+  width: 170px;
+  gap: 3px;
 }
 
-/* Стили для кнопки в контенте - только убираем обводку, фон и центрируем стрелку */
 .modalTrigger__link {
   border: none !important;
   background-color: transparent !important;

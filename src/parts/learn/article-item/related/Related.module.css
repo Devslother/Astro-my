@@ -15,7 +15,7 @@
 
 .bg {
   position: absolute;
-  inset: 0; /* заменяет top/left/right/bottom: 0 */
+  inset: 0; /* replaces top/left/right/bottom: 0 */
   pointer-events: none;
 }
 
@@ -42,9 +42,9 @@
   width: 100%;
   height: 250px;
   display: flex;
-  flex-direction: column; /* Делаем карточку флекс-контейнером */
+  flex-direction: column; /* Make card a flex container */
   position: relative;
-  justify-content: space-between; /* Распределяем пространство между элементами */
+  justify-content: space-between; /* Distribute space between elements */
   align-items: flex-start;
   text-align: left;
   border-radius: 16px;
@@ -79,7 +79,7 @@
   flex-grow: 1;
   gap: 12px;
   z-index: 1;
-  min-height: 0; /* Важно для правильной работы flex-grow */
+  min-height: 0; /* Important for proper flex-grow work */
 }
 
 .title {
@@ -91,17 +91,17 @@
   color: var(--color-white) !important;
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Ограничиваем тремя строками */
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.5; /* Устанавливаем line-height для точного контроля */
+  line-height: 1.5; /* Set line-height for precise control */
 }
 
 .btn {
-  margin-top: auto; /* Прижимает кнопку к низу */
+  margin-top: auto; /* Push button to bottom */
   z-index: 1;
-  flex-shrink: 0; /* Предотвращает сжатие кнопки */
+  flex-shrink: 0; /* Prevent button shrinking */
 }
 
 @media (width >= 768px) {
@@ -135,7 +135,7 @@
 
   .item {
     width: 90%;
-    /* Сохраняем ограничение в 3 строки */
+    /* Keep 3 line limit */
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

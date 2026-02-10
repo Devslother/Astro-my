@@ -1,10 +1,10 @@
-/* === Обёртка и layout === */
+/* === Wrapper and layout === */
 .article {
   width: 100%;
   position: relative;
 }
 
-/* Стили для ссылок в статье */
+/* Styles for links in article */
 .content a {
   text-decoration: none !important;
 }
@@ -47,7 +47,7 @@
   }
 }
 
-/* === Левая колонка (TOC) === */
+/* === Left column (TOC) === */
 .tocDesktop {
   display: none !important;
 }
@@ -61,7 +61,7 @@
   }
 }
 
-/* === Кнопка Back === */
+/* === Back button === */
 .btn {
   margin-bottom: 36px;
   padding: 0 !important;
@@ -81,7 +81,7 @@
   }
 }
 
-/* Back кнопка в центральной колонке скрыта на desktop */
+/* Back button in center column is hidden on desktop */
 .post .btn {
   display: block;
 }
@@ -92,17 +92,17 @@
   }
 }
 
-/* === Центральная колонка (контент) === */
+/* === Center column (content) === */
 .post {
   width: 100%;
-  min-width: 0; /* Важно для правильной работы grid */
+  min-width: 0; /* Important for proper grid work */
 }
 
 .share {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 18px; /* Расстояние между share и toc в мобильной версии */
+  margin-bottom: 18px; /* Distance between share and toc in mobile version */
   justify-content: flex-start;
   align-items: flex-start;
 }
@@ -121,7 +121,7 @@
   width: 100%;
 }
 
-/* === Заголовок и excerpt === */
+/* === Header and excerpt === */
 .header {
   display: flex;
   flex-direction: column;
@@ -168,7 +168,7 @@
   color: var(--color-gray-800, #6c6e6f);
 }
 
-/* === Table of Contents (мобильная версия) === */
+/* === Table of Contents (mobile version) === */
 .tocMobile {
   display: block !important;
   margin-bottom: 32px;
@@ -180,7 +180,7 @@
   }
 }
 
-/* === Контент статьи (из <Content />) === */
+/* === Article content (from <Content />) === */
 .content {
   width: 100%;
   max-width: 100%;
@@ -272,7 +272,7 @@
   height: auto;
 }
 
-/* === Таблицы === */
+/* === Tables === */
 .table-wrapper {
   width: 100%;
   margin: 16px 0;
