@@ -1,7 +1,10 @@
 # Tetrate Marketing Site (Astro)
 
-Tetrate is a high‑performance, content‑driven marketing website built with Astro.
-The frontend for the portfolio version was implemented independently from Figma design layouts, with a strong focus on responsive sections, performance, and accessibility.
+**TL;DR**  
+Production-style Astro marketing site with content collections, serverless HubSpot forms, strong LCP optimization, accessibility (WCAG), and SEO best practices.
+
+Tetrate is a high-performance, content-driven marketing website built with Astro, featuring content collections, HubSpot forms, and Netlify Functions, with a strong focus on LCP, accessibility, and SEO.
+The frontend for the portfolio version was implemented independently from Figma design layouts, with responsive sections and performance-oriented architecture.
 
 ## Preview
 
