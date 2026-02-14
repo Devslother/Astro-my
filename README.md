@@ -8,7 +8,7 @@ The frontend for the portfolio version was implemented independently from Figma 
 
 ## Preview
 
-Live demo: https://astro-my.netlify.app/
+Live demo: https://tetrate-astro.netlify.app/
 
 - Responsive layout (desktop & mobile)
 - Resources and Learn content collections
